@@ -1,0 +1,72 @@
+{
+  "name": "e-hentai-view",
+  "productName": "EhentaiView",
+  "version": "1.1.0",
+  "main": "main/index.js",
+  "license": "MIT",
+  "author": {
+    "name": "kinoko",
+    "email": "kinoko.main@gmail.com",
+    "url": "https://github.com/IronKinoko"
+  },
+  "scripts": {
+    "clean": "rimraf dist main renderer/out renderer/.next",
+    "start": "electron .",
+    "build-renderer": "next build renderer && next export renderer",
+    "build-electron": "tsc -p electron-src",
+    "build": "yarn build-renderer && yarn build-electron",
+    "pack-app": "yarn build && electron-builder --dir",
+    "dist": "yarn run clean && yarn build && electron-builder",
+    "type-check": "tsc",
+    "analyze": "cross-env ANALYZE=true next build renderer",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -s -r 0"
+  },
+  "build": {
+    "asar": true,
+    "files": [
+      "main",
+      "renderer/out"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "runAfterFinish": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.21",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "electron": "^7.1.7",
+    "electron-builder": "^21.2.0",
+    "next": "9.4.0",
+    "rimraf": "^3.0.0",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.52",
+    "@next/bundle-analyzer": "^9.4.0",
+    "@types/lodash": "^4.14.150",
+    "@types/qs": "^6.9.2",
+    "axios": "^0.19.2",
+    "babel-plugin-import": "^1.13.0",
+    "clsx": "^1.1.0",
+    "conventional-changelog-cli": "^2.0.34",
+    "cross-env": "^7.0.2",
+    "electron-is-dev": "^1.1.0",
+    "electron-next": "^3.1.5",
+    "lodash": "^4.17.15",
+    "mobx": "^5.15.4",
+    "mobx-react-lite": "^2.0.6",
+    "moment": "^2.25.3",
+    "nprogress": "^0.2.0",
+    "qs": "^6.9.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hook-form": "^5.6.3"
+  }
+}

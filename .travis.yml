@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - lts/*
+
+cache:
+  directories:
+    - node_modules
+
+script:
+  - yarn build-renderer
+
+before_deploy:
+  - cd renderer/out/
+  - touch .nojekyll
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: renderer/out/
+  repo: IronKinoko/e-hentai-view
+  target_branch: gh-pages
+  on:
+    branch: master
