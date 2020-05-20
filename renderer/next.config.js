@@ -5,6 +5,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   webpack(config) {
+    if(process.env.NODE_ENV === 'production'){
+      config.output.publicPath = 'e-hentai-view'
+    } 
     config.plugins.push(
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
     )
