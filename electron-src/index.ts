@@ -30,11 +30,12 @@ app.on('ready', async () => {
 
   const url = isDev
     ? 'http://localhost:8000/'
-    : format({
-        pathname: join(__dirname, '../renderer/out/index.html'),
-        protocol: 'file:',
-        slashes: true,
-      })
+    : // : format({
+      //     pathname: join(__dirname, '../renderer/out/index.html'),
+      //     protocol: 'file:',
+      //     slashes: true,
+      //   })
+      'https://e-hentai-view.now.sh/'
   winSizeEvent(mainWindow)
   mainWindow.loadURL(url)
   mainWindow.webContents.session.cookies.remove('https://exhentai.org/', 'yay')

@@ -11,6 +11,7 @@ import {
   Chip,
   CardActionArea,
   Container,
+  Button,
 } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Skeleton, Rating, Pagination } from '@material-ui/lab'
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0, 'auto', 2),
       width: '70%',
       display: 'flex',
+    },
+    button: {
+      color: '#fff',
     },
   }),
 )
@@ -85,6 +89,15 @@ const Detail: NextPage<DetailProps> = () => {
 
   const handleOpen = (k: number) => {
     setStore({ open: true, index: k })
+  }
+
+  const download = () => {
+    if (dataSource.list.length > 0) {
+      Page.DownloadAllImg(
+        { record: record!, tagList: dataSource.tagList },
+        dataSource.list,
+      )
+    }
   }
 
   const renderPagination = useMemo(
@@ -171,7 +184,7 @@ const Detail: NextPage<DetailProps> = () => {
                   </Grid>
                 </CardContent>
                 <Divider variant="fullWidth" orientation="vertical" />
-                <CardContent>
+                <CardContent style={{ flex: 1 }}>
                   <table>
                     <tbody>
                       {dataSource.tagList.map((o) => (
@@ -201,16 +214,23 @@ const Detail: NextPage<DetailProps> = () => {
                     </tbody>
                   </table>
                 </CardContent>
+                <Divider variant="fullWidth" orientation="vertical" />
+                <CardContent>
+                  <Button onClick={download} variant="text" color="primary">
+                    download
+                  </Button>
+                </CardContent>
               </Box>
             </CardContent>
           </Card>
           <Divider variant="fullWidth" className={classes.divider} />
           {renderPagination}
-          <Grid container spacing={2} ref={ref}>
+          <Grid container justify="space-between" spacing={2} ref={ref}>
             {dataSource.list.slice((page - 1) * 20, 20 * page).map((o, k) => (
               <Grid item key={o.url + k}>
                 <Card style={{ width: 240 }}>
-                  <CardActionArea onClick={() => handleOpen(k)}>
+                  <CardActionArea
+                    onClick={() => handleOpen((page - 1) * 20 + k)}>
                     <LoadMedia className={classes.cover} src={o.thumb} />
                   </CardActionArea>
                 </Card>

@@ -2,6 +2,8 @@
 
 A desktop App for ExHentai, build with Next.js and Electron
 
+**Because webSecurity in browser (cors), we can't direct access the website, you need visit the website in electron, which is closed the webSecurity**
+
 ## How to use
 
 ```shell
@@ -27,3 +29,8 @@ yarn run build-electron
 
 yarn start
 ```
+
+## TODO
+
+- [ ] download progress
+- [ ] download error handing

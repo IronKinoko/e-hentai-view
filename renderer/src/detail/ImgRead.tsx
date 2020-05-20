@@ -41,7 +41,7 @@ const ImgRead: React.FC<ImgReadProps> = ({
     }
   }, [])
   const loadMore = async () => {
-    for (let i = index - 3; i < index + 5 && i < dataSource.length; i++) {
+    for (let i = index; i < index + 5 && i < dataSource.length; i++) {
       if (i < 0) continue
       let url = dataSource[i].url
       if (cacheId[i]) continue
