@@ -4,14 +4,7 @@ import Layout from '../components/Layout'
 import { NextPage } from 'next'
 import { Page } from 'apis'
 import { useRouter } from 'next/router'
-import {
-  Card,
-  Typography,
-  Grid,
-  Box,
-  Container,
-  Button,
-} from '@material-ui/core'
+import { Card, Typography, Grid, Box, Container, Button } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Pagination } from '@material-ui/lab'
 import { Skeleton, Rating } from '@material-ui/lab'
@@ -23,7 +16,8 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
     title: { fontSize: '10pt', height: 36, overflow: 'hidden' },
-  }),
+    card: { width: 250, margin: theme.spacing(0, 'auto') },
+  })
 )
 const IndexPage: NextPage = () => {
   const classes = useStyles()
@@ -55,19 +49,13 @@ const IndexPage: NextPage = () => {
       if (list.length === 0) setEmpty(true)
     })
   }, [page, f_search])
-  const handlePageChange = (
-    _event: React.ChangeEvent<unknown>,
-    value: number,
-  ) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     router.push(`/index?page=${value - 1}&f_search=${search}`)
   }
 
   const handleSubmit = useCallback(() => {
     if (search.length < 3 && search.length > 0)
-      return message.error(
-        'The search string is too short, and was ignored.',
-        1500,
-      )
+      return message.error('The search string is too short, and was ignored.', 1500)
     router.push(`/index?page=0&f_search=${search}`)
   }, [search])
 
@@ -75,16 +63,11 @@ const IndexPage: NextPage = () => {
     () => (
       <Box m={2}>
         <Grid container justify="center">
-          <Pagination
-            count={totalPage}
-            page={page + 1}
-            siblingCount={2}
-            onChange={handlePageChange}
-          />
+          <Pagination count={totalPage} page={page + 1} siblingCount={2} onChange={handlePageChange} />
         </Grid>
       </Box>
     ),
-    [page, totalPage],
+    [page, totalPage]
   )
 
   return (
@@ -113,33 +96,14 @@ const IndexPage: NextPage = () => {
                 Showing {total} results
               </Typography>
               {renderPagination}
-              <Grid
-                container
-                wrap="wrap"
-                justify="flex-start"
-                alignItems="stretch"
-                spacing={2}>
+              <Grid container wrap="wrap" justify="flex-start" alignItems="stretch" spacing={2}>
                 {loading
                   ? new Array(25).fill(0).map((_, k) => (
                       <Grid item xs key={k}>
-                        <Card style={{ width: 250 }}>
-                          <Skeleton
-                            variant="rect"
-                            animation="wave"
-                            height={350}
-                          />
-                          <Skeleton
-                            animation="wave"
-                            height={10}
-                            width="80%"
-                            style={{ margin: '16px 8px' }}
-                          />
-                          <Skeleton
-                            animation="wave"
-                            height={10}
-                            width="50%"
-                            style={{ margin: '16px 8px' }}
-                          />
+                        <Card className={classes.card}>
+                          <Skeleton variant="rect" animation="wave" height={350} />
+                          <Skeleton animation="wave" height={10} width="80%" style={{ margin: '16px 8px' }} />
+                          <Skeleton animation="wave" height={10} width="50%" style={{ margin: '16px 8px' }} />
                         </Card>
                       </Grid>
                     ))
