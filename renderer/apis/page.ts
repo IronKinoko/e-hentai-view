@@ -76,11 +76,16 @@ export async function DetailPage(
   return { list, commentList, tagList }
 }
 
-export async function LoadImg(url: string) {
-  let res = await axios.get(url)
-  let html = res.data as string
-  let document = new DOMParser().parseFromString(html, 'text/html')
-  return parseBigImg(document)
+export async function LoadImg(url: string): Promise<string> {
+  try {
+    let res = await axios.get(url)
+    let html = res.data as string
+    let document = new DOMParser().parseFromString(html, 'text/html')
+    return parseBigImg(document)
+  } catch (error) {
+    console.error(error)
+    return await LoadImg(url)
+  }
 }
 
 export async function DownloadAllImg(
@@ -112,7 +117,10 @@ export async function DownloadAllImg(
     )
   })
 
-  zip.file('info.json', JSON.stringify({ ...record, tagList }, null, 2))
+  zip.file(
+    'info.json',
+    JSON.stringify({ ...record, tagList, imgList: res }, null, 2),
+  )
   zip.generateAsync({ type: 'blob' }).then((res) => {
     saveAs(res, record.title_jpn)
     message.success('download without error', 1.5e3)
@@ -125,6 +133,9 @@ async function getUrlBase64(url: string) {
     let ctx = canvas.getContext('2d')
     let img = new Image()
     img.src = url
+    img.onerror = () => {
+      img.src = url + '?ts=' + Math.random()
+    }
     img.onload = () => {
       canvas.width = img.width // 指定画板的高度,自定义
       canvas.height = img.height // 指定画板的宽度，自定义
