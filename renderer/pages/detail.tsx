@@ -20,7 +20,7 @@ import throttle from 'lodash/throttle'
 import LoadMedia from 'components/LoadMedia'
 import ImgRead from '@/detail/ImgRead'
 import { useRouter } from 'next/router'
-import ColorChip from 'src/index/ColorChip'
+import ColorChip from 'components/ColorChip'
 import CommentList from 'src/detail/CommentList'
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -60,7 +60,7 @@ export interface tagListItemProps {
 export async function DetailPage(
   gid: string,
   token: string,
-  filecount: string,
+  filecount: string
 ) {
   let list: DetailPageListItemProps[] = []
   let commentList: commentListItemProps[] = []
@@ -93,7 +93,7 @@ export async function DownloadAllImg(
     record,
     tagList,
   }: { record: IndexListItemPorps; tagList: tagListItemProps[] },
-  list: DetailPageListItemProps[],
+  list: DetailPageListItemProps[]
 ) {
   message.info('loading...', 1e6)
   let arr: Promise<string>[] = []
@@ -113,13 +113,13 @@ export async function DownloadAllImg(
     zip.file(
       `${String(k).padStart(3, '0')}.${ext}`,
       base64.substring(base64.indexOf(',') + 1),
-      { base64: true },
+      { base64: true }
     )
   })
 
   zip.file(
     'info.json',
-    JSON.stringify({ ...record, tagList, imgList: res }, null, 2),
+    JSON.stringify({ ...record, tagList, imgList: res }, null, 2)
   )
   zip.generateAsync({ type: 'blob' }).then((res) => {
     saveAs(res, record.title_jpn)
@@ -146,9 +146,16 @@ async function getUrlBase64(url: string) {
   })
 }
 export enum Category {
-  Doujinshi = 'Doujinshi',
-  Manga = 'Manga',
+  'Doujinshi' = 'Doujinshi',
+  'Manga' = 'Manga',
+  'Artist_CG' = 'Artist_CG',
+  'Game_CG' = 'Game_CG',
+  'Western' = 'Western',
   'Non-H' = 'Non-H',
+  'Image_Set' = 'Image_Set',
+  'Cosplay' = 'Cosplay',
+  'Asian_Porn' = 'Asian_Porn',
+  'Misc' = 'Misc',
 }
 export interface IndexListItemPorps {
   gid: string
@@ -208,7 +215,7 @@ function parseBigImg(document: Document) {
 }
 
 function parseDetailPageCommentList(
-  document: Document,
+  document: Document
 ): commentListItemProps[] {
   let divs = document.querySelectorAll<HTMLDivElement>('#cdiv .c1')
 
@@ -239,7 +246,7 @@ function parseDetailPageTagList(document: Document): tagListItemProps[] {
     // parse tag Category
     res.name = (tr.childNodes[0] as HTMLTableDataCellElement).innerHTML
     res.tags = (Array.from(
-      (tr.childNodes[1] as HTMLTableDataCellElement).children,
+      (tr.childNodes[1] as HTMLTableDataCellElement).children
     ) as HTMLDivElement[]).map((div) => {
       let name = div.innerText,
         keyword = res.name + name,

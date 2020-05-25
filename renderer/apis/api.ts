@@ -18,6 +18,7 @@ export async function gdata(gidlist: GidList) {
   res.data.gmetadata.forEach((o) => {
     o.time = moment(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
     o.title_jpn = o.title_jpn || o.title
+    o.category = o.category.replace(/\s/, '_') as Page.Category
   })
   return res
 }
