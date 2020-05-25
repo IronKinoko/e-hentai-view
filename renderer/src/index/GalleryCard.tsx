@@ -3,7 +3,7 @@ import { Card, CardActionArea, CardContent, Grid, Typography } from '@material-u
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Link from 'components/Link'
 import LoadMedia from 'components/LoadMedia'
-import ColorChip from './ColorChip'
+import ColorChip from 'components/ColorChip'
 import { IndexListItemPorps } from 'apis/page'
 import { Rating } from '@material-ui/lab'
 
