@@ -29,7 +29,7 @@ const ColorChip: React.FC<ChipProps> = ({ label, className, ...rest }) => {
   return (
     <Chip
       className={clsx(classes.root, classes[label as Category], className)}
-      label={(label as string).replace('_', ' ')}
+      label={((label as string) || '').replace('_', ' ')}
       {...rest}
     />
   )
