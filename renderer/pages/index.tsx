@@ -4,7 +4,14 @@ import Layout from '../components/Layout'
 import { NextPage } from 'next'
 import { Page } from 'apis'
 import { useRouter } from 'next/router'
-import { Card, Typography, Grid, Box, Container, Button } from '@material-ui/core'
+import {
+  Card,
+  Typography,
+  Grid,
+  Box,
+  Container,
+  Button,
+} from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Pagination } from '@material-ui/lab'
 import { Skeleton, Rating } from '@material-ui/lab'
@@ -48,27 +55,37 @@ const IndexPage: NextPage = () => {
       console.log(res.data)
       if (list.length === 0) setEmpty(true)
     })
-  }, [page, f_search])
-  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    router.push(`/index?page=${value - 1}&f_search=${search}`)
-  }
+  }, [page, f_search, router])
 
   const handleSubmit = useCallback(() => {
     if (search.length < 3 && search.length > 0)
-      return message.error('The search string is too short, and was ignored.', 1500)
+      return message.error(
+        'The search string is too short, and was ignored.',
+        1500
+      )
     router.push(`/index?page=0&f_search=${search}`)
-  }, [search])
+  }, [router, search])
 
-  const renderPagination = useMemo(
-    () => (
+  const renderPagination = useMemo(() => {
+    const handlePageChange = (
+      _event: React.ChangeEvent<unknown>,
+      value: number
+    ) => {
+      router.push(`/index?page=${value - 1}&f_search=${search}`)
+    }
+    return (
       <Box m={2}>
         <Grid container justify="center">
-          <Pagination count={totalPage} page={page + 1} siblingCount={2} onChange={handlePageChange} />
+          <Pagination
+            count={totalPage}
+            page={page + 1}
+            siblingCount={2}
+            onChange={handlePageChange}
+          />
         </Grid>
       </Box>
-    ),
-    [page, totalPage]
-  )
+    )
+  }, [page, router, search, totalPage])
 
   return (
     <Layout title="home">
@@ -96,14 +113,34 @@ const IndexPage: NextPage = () => {
                 Showing {total} results
               </Typography>
               {renderPagination}
-              <Grid container wrap="wrap" justify="flex-start" alignItems="stretch" spacing={2}>
+              <Grid
+                container
+                wrap="wrap"
+                justify="flex-start"
+                alignItems="stretch"
+                spacing={2}
+              >
                 {loading
                   ? new Array(25).fill(0).map((_, k) => (
                       <Grid item xs key={k}>
                         <Card className={classes.card}>
-                          <Skeleton variant="rect" animation="wave" height={350} />
-                          <Skeleton animation="wave" height={10} width="80%" style={{ margin: '16px 8px' }} />
-                          <Skeleton animation="wave" height={10} width="50%" style={{ margin: '16px 8px' }} />
+                          <Skeleton
+                            variant="rect"
+                            animation="wave"
+                            height={350}
+                          />
+                          <Skeleton
+                            animation="wave"
+                            height={10}
+                            width="80%"
+                            style={{ margin: '16px 8px' }}
+                          />
+                          <Skeleton
+                            animation="wave"
+                            height={10}
+                            width="50%"
+                            style={{ margin: '16px 8px' }}
+                          />
                         </Card>
                       </Grid>
                     ))

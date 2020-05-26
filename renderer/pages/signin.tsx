@@ -69,7 +69,8 @@ const SignIn: NextPage = () => {
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={classes.form}
-            noValidate>
+            noValidate
+          >
             <TextField
               variant="outlined"
               margin="normal"
@@ -99,7 +100,8 @@ const SignIn: NextPage = () => {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}>
+              className={classes.submit}
+            >
               Sign In
             </Button>
           </form>

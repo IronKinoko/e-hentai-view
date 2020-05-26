@@ -75,7 +75,8 @@ function MySnackbarContentWrapper(props: Props) {
           key="close"
           aria-label="close"
           color="inherit"
-          onClick={onClose}>
+          onClick={onClose}
+        >
           <CloseIcon className={classes.icon} />
         </IconButton>,
       ]}
@@ -108,7 +109,8 @@ const MessageSnackbar: React.FC<SnackbarWrapProps> = (props) => {
         }}
         open={open}
         autoHideDuration={duration}
-        onClose={handleClose}>
+        onClose={handleClose}
+      >
         <MySnackbarContentWrapper
           onClose={handleClose}
           variant={variant}

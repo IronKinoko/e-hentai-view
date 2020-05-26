@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
     },
-  }),
+  })
 )
 
 interface SearchBarPorps {
@@ -79,7 +79,8 @@ const SearchBar: React.FC<SearchBarPorps> = ({ value, onChange }) => {
           <IconButton
             className={classes.iconButton}
             size="small"
-            onClick={() => onChange('')}>
+            onClick={() => onChange('')}
+          >
             <CancelIcon />
           </IconButton>
         </Zoom>

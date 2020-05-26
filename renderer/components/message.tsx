@@ -24,7 +24,7 @@ class Message {
       <ThemeProvider>
         <MessageSnackbar {...props} />
       </ThemeProvider>,
-      div,
+      div
     )
     setTimeout(() => {
       this._removeTarget(uid)

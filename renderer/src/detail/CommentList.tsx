@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       padding: theme.spacing(0.5, 1),
     },
-  }),
+  })
 )
 
 export interface CommentListProps {
@@ -37,7 +37,8 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
           gutterBottom
           align="center"
           variant="subtitle1"
-          component="p">
+          component="p"
+        >
           no comments
         </Typography>
       ) : (

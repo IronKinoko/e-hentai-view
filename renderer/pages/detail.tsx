@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       color: '#fff',
     },
-  }),
+  })
 )
 
 export type DetailProps = { gid: string; token: string; filecount: string }
@@ -95,7 +95,7 @@ const Detail: NextPage<DetailProps> = () => {
     if (dataSource.list.length > 0) {
       Page.DownloadAllImg(
         { record: record!, tagList: dataSource.tagList },
-        dataSource.list,
+        dataSource.list
       )
     }
   }
@@ -113,7 +113,7 @@ const Detail: NextPage<DetailProps> = () => {
         </Grid>
       </Box>
     ),
-    [page, totalPage],
+    [page, totalPage]
   )
 
   return (
@@ -136,14 +136,16 @@ const Detail: NextPage<DetailProps> = () => {
                 variant="h5"
                 component="h5"
                 gutterBottom
-                align="center">
+                align="center"
+              >
                 {record?.title}
               </Typography>
               <Typography
                 variant="subtitle2"
                 component="h5"
                 gutterBottom
-                align="center">
+                align="center"
+              >
                 {record?.title_jpn}
               </Typography>
               <Divider variant="fullWidth" className={classes.divider} />
@@ -158,7 +160,8 @@ const Detail: NextPage<DetailProps> = () => {
                     component="p"
                     variant="body2"
                     align="center"
-                    gutterBottom>
+                    gutterBottom
+                  >
                     {record?.uploader}
                   </Typography>
                   <Typography component="p" variant="body2">
@@ -203,7 +206,7 @@ const Detail: NextPage<DetailProps> = () => {
                                 clickable
                                 onClick={() => {
                                   router.push(
-                                    `/index?page=0&f_search=${v.keyword}`,
+                                    `/index?page=0&f_search=${v.keyword}`
                                   )
                                 }}
                               />
@@ -230,7 +233,8 @@ const Detail: NextPage<DetailProps> = () => {
               <Grid item key={o.url + k}>
                 <Card style={{ width: 240 }}>
                   <CardActionArea
-                    onClick={() => handleOpen((page - 1) * 20 + k)}>
+                    onClick={() => handleOpen((page - 1) * 20 + k)}
+                  >
                     <LoadMedia className={classes.cover} src={o.thumb} />
                   </CardActionArea>
                 </Card>

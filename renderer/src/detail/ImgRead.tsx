@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme: Theme) =>
       display: 'block',
       userSelect: 'none',
     },
-  }),
+  })
 )
 
 interface ImgReadProps {
@@ -40,19 +40,6 @@ const ImgRead: React.FC<ImgReadProps> = ({
       document.body.style.overflow = ''
     }
   }, [])
-  const loadMore = async () => {
-    for (let i = index; i < index + 5 && i < dataSource.length; i++) {
-      if (i < 0) continue
-      let url = dataSource[i].url
-      if (cacheId[i]) continue
-      cacheId[i] = true
-      let res = await Page.LoadImg(url)
-      setCacheImg((t) => {
-        t[i] = res
-        return [...t]
-      })
-    }
-  }
 
   useEffect(() => {
     let intersectionObserver = new IntersectionObserver(
@@ -63,13 +50,13 @@ const ImgRead: React.FC<ImgReadProps> = ({
           setIndex(+idx)
         }
       },
-      { rootMargin: '0px 0px 200% 0px' },
+      { rootMargin: '0px 0px 200% 0px' }
     )
     if (ref.current) {
       Array.from(ref.current.querySelectorAll('[id^="img"]')!).forEach(
         (entry) => {
           intersectionObserver.observe(entry)
-        },
+        }
       )
     }
   }, [cacheImg])
@@ -83,11 +70,24 @@ const ImgRead: React.FC<ImgReadProps> = ({
     } else {
       document.body.style.overflow = ''
     }
-  }, [open])
+  }, [defaultValue, open])
 
   useEffect(() => {
+    const loadMore = async () => {
+      for (let i = index; i < index + 5 && i < dataSource.length; i++) {
+        if (i < 0) continue
+        let url = dataSource[i].url
+        if (cacheId[i]) continue
+        cacheId[i] = true
+        let res = await Page.LoadImg(url)
+        setCacheImg((t) => {
+          t[i] = res
+          return [...t]
+        })
+      }
+    }
     loadMore()
-  }, [index])
+  }, [dataSource, index])
 
   return (
     <Backdrop open={open} className={classes.root} onClick={onClose} ref={ref}>

@@ -30,7 +30,7 @@ const LoadMedia: React.FC<CardMediaProps<'img'>> = ({ src, ...rest }) => {
         />
       </div>
       {loading && (
-        <Skeleton variant="rect" animation="wave" height={250}></Skeleton>
+        <Skeleton variant="rect" animation="wave" height={320}></Skeleton>
       )}
     </React.Fragment>
   )

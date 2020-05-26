@@ -1,5 +1,11 @@
 import React from 'react'
-import { Card, CardActionArea, CardContent, Grid, Typography } from '@material-ui/core'
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Link from 'components/Link'
 import LoadMedia from 'components/LoadMedia'
@@ -38,21 +44,38 @@ const GalleryCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
             style={{ objectFit: 'contain' }}
           />
           <CardContent>
-            <Typography gutterBottom align="center" className={classes.title} component="h2">
+            <Typography
+              gutterBottom
+              align="center"
+              className={classes.title}
+              component="h2"
+            >
               {record.title_jpn}
             </Typography>
             <Grid container alignItems="center" justify="space-between">
-              <ColorChip variant="outlined" label={record.category} size="small" />
+              <ColorChip
+                variant="outlined"
+                label={record.category}
+                size="small"
+              />
               <Rating max={5} value={+record.rating} readOnly />
             </Grid>
             <Grid container>
               <Grid item xs>
-                <Typography variant="body2" color="textPrimary" component="span">
+                <Typography
+                  variant="body2"
+                  color="textPrimary"
+                  component="span"
+                >
                   {record.time}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body2" color="textPrimary" component="span">
+                <Typography
+                  variant="body2"
+                  color="textPrimary"
+                  component="span"
+                >
                   {record.filecount} pages
                 </Typography>
               </Grid>

@@ -8,7 +8,8 @@ export default function test() {
       <button
         onClick={() => {
           Page.LoadImg('https://exhentai.org/s/e30bfafcd4/1634639-2')
-        }}>
+        }}
+      >
         loadimg
       </button>
     </Layout>

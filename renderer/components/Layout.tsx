@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       height: 40,
     },
-  }),
+  })
 )
 
 const MENU = [{ title: 'Front Page', link: '/index?page=0' }]
@@ -54,6 +54,7 @@ const Layout: React.FunctionComponent<Props> = ({
   const theme = useTheme()
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
+  const dispatch = React.useContext(DispatchContext)
   const aciton = React.useMemo(() => {
     const aciton = [
       {
@@ -113,8 +114,7 @@ const Layout: React.FunctionComponent<Props> = ({
     }
 
     return aciton
-  }, [theme.palette.type])
-  const dispatch = React.useContext(DispatchContext)
+  }, [theme.palette.type, dispatch])
   return (
     <div>
       <Head>
@@ -127,7 +127,8 @@ const Layout: React.FunctionComponent<Props> = ({
           container
           justify="center"
           alignItems="center"
-          className={classes.header}>
+          className={classes.header}
+        >
           {MENU.map((o) => (
             <Grid item key={o.link}>
               <Link href="/index" naked className={classes.link}>
@@ -144,7 +145,8 @@ const Layout: React.FunctionComponent<Props> = ({
         open={open}
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
-        icon={<SpeedDialIcon />}>
+        icon={<SpeedDialIcon />}
+      >
         {aciton.map((o) => (
           <SpeedDialAction
             key={o.label}
