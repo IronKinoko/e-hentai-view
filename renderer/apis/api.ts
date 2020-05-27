@@ -20,7 +20,7 @@ export async function gdata(gidlist: GidList) {
     o.time = moment(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
     o.title_jpn = o.title_jpn || o.title
     o.category = o.category.replace(/\s/, '_') as Page.Category
-    o.filesize = filesize(o.filesize)
+    o.filesize = filesize(+o.filesize)
   })
   return res
 }

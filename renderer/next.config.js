@@ -9,7 +9,9 @@ const nextConfig = {
   target: 'serverless',
   assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
   webpack(config) {
-    config.plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/))
+    config.plugins.push(
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
+    )
     return config
   },
 }
