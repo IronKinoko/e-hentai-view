@@ -3,7 +3,14 @@ import {
   ThemeProvider as MuiThemeProvider,
   darken,
 } from '@material-ui/core/styles'
-import React, { createContext, useMemo, useReducer, Reducer, FC } from 'react'
+import React, {
+  createContext,
+  useMemo,
+  useReducer,
+  Reducer,
+  FC,
+  useContext,
+} from 'react'
 import { pink, blue } from '@material-ui/core/colors'
 
 export const DispatchContext = createContext<React.Dispatch<Action>>(() => {})
@@ -58,3 +65,8 @@ const ThemeProvider: FC<{}> = ({ children }) => {
 }
 
 export default ThemeProvider
+
+export function useThemeState() {
+  const dispatch = useContext(DispatchContext)
+  return dispatch
+}

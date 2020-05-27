@@ -12,6 +12,7 @@ import {
   CardActionArea,
   Container,
   Button,
+  Hidden,
 } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Skeleton, Rating, Pagination } from '@material-ui/lab'
@@ -22,7 +23,7 @@ import ImgRead from '@/detail/ImgRead'
 import { useRouter } from 'next/router'
 import ColorChip from 'components/ColorChip'
 import CommentList from 'src/detail/CommentList'
-
+import clsx from 'clsx'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -41,8 +42,13 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: 240,
       maxHeight: 320,
       objectFit: 'contain',
+      margin: theme.spacing(0, 'auto'),
     },
-    divider: { margin: theme.spacing(2, 0) },
+    center: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    divider: { margin: theme.spacing(1, 0) },
     chip: {
       margin: theme.spacing(0, 'auto', 2),
       width: '70%',
@@ -50,6 +56,31 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       color: '#fff',
+    },
+    border: {
+      borderStyle: 'solid',
+      borderColor: theme.palette.divider,
+      borderWidth: '0 1px',
+      flex: 1,
+      padding: theme.spacing(0, 1),
+      margin: theme.spacing(0, 1),
+      [theme.breakpoints.down('sm')]: {
+        borderWidth: '1px 0',
+        padding: theme.spacing(1, 0),
+        margin: theme.spacing(1, 0),
+      },
+    },
+    container: {
+      justifyContent: 'space-between',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'space-around',
+      },
+    },
+    infoContainer: {
+      [theme.breakpoints.down('sm')]: {
+        display: 'flex',
+        flexDirection: 'column',
+      },
     },
   })
 )
@@ -121,27 +152,34 @@ const Detail: NextPage<DetailProps> = () => {
       <Container style={{ maxWidth: 1600 }}>
         <Box p={2}>
           <Card className={classes.root}>
-            {record?.thumb ? (
-              <LoadMedia className={classes.cover} src={record.thumb} />
-            ) : (
-              <Skeleton
-                variant="rect"
-                animation="wave"
-                width={240}
-                height={320}
-              />
-            )}
+            <Hidden smDown>
+              {record?.thumb ? (
+                <div className={classes.center}>
+                  <LoadMedia
+                    className={clsx(classes.cover)}
+                    src={record.thumb}
+                  />
+                </div>
+              ) : (
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  width={240}
+                  height={320}
+                />
+              )}
+            </Hidden>
             <CardContent className={classes.details}>
               <Typography
-                variant="h5"
-                component="h5"
+                variant="h6"
+                component="h6"
                 gutterBottom
                 align="center"
               >
                 {record?.title}
               </Typography>
               <Typography
-                variant="subtitle2"
+                variant="subtitle1"
                 component="h5"
                 gutterBottom
                 align="center"
@@ -149,8 +187,8 @@ const Detail: NextPage<DetailProps> = () => {
                 {record?.title_jpn}
               </Typography>
               <Divider variant="fullWidth" className={classes.divider} />
-              <Box display="flex">
-                <CardContent className={classes.cover}>
+              <Box display="flex" className={classes.infoContainer}>
+                <div className={clsx(classes.cover)}>
                   <ColorChip
                     className={classes.chip}
                     label={record?.category}
@@ -164,35 +202,47 @@ const Detail: NextPage<DetailProps> = () => {
                   >
                     {record?.uploader}
                   </Typography>
-                  <Typography component="p" variant="body2">
-                    Posted: {record?.time}
-                  </Typography>
-                  <Typography component="p" variant="body2">
-                    File Size: {record?.filesize}
-                  </Typography>
-                  <Typography component="p" variant="body2">
-                    Length: {record?.filecount}
-                  </Typography>
-                  <Grid container alignItems="center">
-                    <Typography component="p" variant="body2">
-                      Rating:&nbsp;
-                    </Typography>
-                    <Rating
-                      name="rating"
-                      size="small"
-                      readOnly
-                      max={5}
-                      value={record?.rating ? +record.rating : 0}
-                    />
-                  </Grid>
-                </CardContent>
-                <Divider variant="fullWidth" orientation="vertical" />
-                <CardContent style={{ flex: 1 }}>
+                  <table>
+                    <tr>
+                      <td>Posted:</td>
+                      <td>{record?.time}</td>
+                    </tr>
+                    <tr>
+                      <td>File Size:</td>
+                      <td>{record?.filesize}</td>
+                    </tr>
+                    <tr>
+                      <td>Length:</td>
+                      <td>{record?.filecount}</td>
+                    </tr>
+                    <tr>
+                      <td>Rating:</td>
+                      <td>
+                        <Grid container alignItems="center">
+                          <Rating
+                            name="rating"
+                            size="small"
+                            readOnly
+                            max={5}
+                            value={record?.rating ? +record.rating : 0}
+                          />
+                        </Grid>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div className={classes.border}>
                   <table>
                     <tbody>
                       {dataSource.tagList.map((o) => (
                         <tr key={o.name}>
-                          <td align="right">{o.name}</td>
+                          <td
+                            align="right"
+                            valign="top"
+                            style={{ lineHeight: '24px' }}
+                          >
+                            {o.name}
+                          </td>
                           <td>
                             {o.tags.map((v) => (
                               <Chip
@@ -202,6 +252,7 @@ const Detail: NextPage<DetailProps> = () => {
                                 variant="outlined"
                                 style={{
                                   borderStyle: v.dash ? 'dashed' : 'solid',
+                                  margin: 2,
                                 }}
                                 clickable
                                 onClick={() => {
@@ -216,19 +267,18 @@ const Detail: NextPage<DetailProps> = () => {
                       ))}
                     </tbody>
                   </table>
-                </CardContent>
-                <Divider variant="fullWidth" orientation="vertical" />
-                <CardContent>
+                </div>
+                <div>
                   <Button onClick={download} variant="text" color="primary">
                     download
                   </Button>
-                </CardContent>
+                </div>
               </Box>
             </CardContent>
           </Card>
           <Divider variant="fullWidth" className={classes.divider} />
           {renderPagination}
-          <Grid container justify="space-between" spacing={2} ref={ref}>
+          <Grid container className={classes.container} spacing={2} ref={ref}>
             {dataSource.list.slice((page - 1) * 20, 20 * page).map((o, k) => (
               <Grid item key={o.url + k}>
                 <Card style={{ width: 240 }}>

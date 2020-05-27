@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { CardMedia, CardMediaProps, Hidden as div } from '@material-ui/core'
+import { CardMedia, CardMediaProps } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
-const LoadMedia: React.FC<CardMediaProps<'img'>> = ({ src, ...rest }) => {
+interface LoadMediaProps extends CardMediaProps<'img'> {
+  fullWidth?: boolean
+}
+const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
   const [count, setCount] = useState(0)
   const [href, setHref] = useState(src)
   const [loading, setLoading] = useState(true)
@@ -15,20 +18,21 @@ const LoadMedia: React.FC<CardMediaProps<'img'>> = ({ src, ...rest }) => {
   useEffect(() => setHref(src), [src])
   return (
     <React.Fragment>
-      <div hidden={loading}>
-        <CardMedia
-          component="img"
-          onError={() => {
-            setTimeout(() => reload(), 500)
-          }}
-          onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
-            rest.onLoad?.(e)
-            setLoading(false)
-          }}
-          {...rest}
-          src={href}
-        />
-      </div>
+      <CardMedia
+        component="img"
+        hidden={loading}
+        onError={() => {
+          setTimeout(() => reload(), 500)
+        }}
+        style={{ width: fullWidth ? '100%' : '' }}
+        onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
+          rest.onLoad?.(e)
+          setLoading(false)
+        }}
+        {...rest}
+        src={href}
+      />
+
       {loading && (
         <Skeleton variant="rect" animation="wave" height={320}></Skeleton>
       )}

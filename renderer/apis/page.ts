@@ -168,7 +168,7 @@ export interface IndexListItemPorps {
   uploader: string
   posted: string
   filecount: string
-  filesize: number
+  filesize: string
   expunged: boolean
   rating: string
   torrentcount: string

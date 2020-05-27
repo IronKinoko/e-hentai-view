@@ -3,7 +3,8 @@ import { Backdrop, Container, Grid } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import LoadMedia from 'components/LoadMedia'
 import { Page } from 'apis'
-
+import { range } from 'lodash'
+import { useUpdateEffect } from '@umijs/hooks'
 let cacheId: boolean[] = []
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +63,14 @@ const ImgRead: React.FC<ImgReadProps> = ({
   }, [cacheImg])
 
   useEffect(() => {
+    setCacheImg((t) => {
+      return dataSource.map((o, k) => {
+        return t[k] || o.thumb
+      })
+    })
+  }, [dataSource])
+
+  useEffect(() => {
     console.log(open)
     if (open) {
       document.body.style.overflow = 'hidden'
@@ -72,13 +81,19 @@ const ImgRead: React.FC<ImgReadProps> = ({
     }
   }, [defaultValue, open])
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const loadMore = async () => {
-      for (let i = index; i < index + 5 && i < dataSource.length; i++) {
-        if (i < 0) continue
+      let indexArr = range(
+        Math.max(0, index - 1),
+        Math.min(index + 3, dataSource.length)
+      )
+      indexArr.push(indexArr.shift()!)
+      for (let i of indexArr) {
+        if (!dataSource[i]) break
         let url = dataSource[i].url
         if (cacheId[i]) continue
         cacheId[i] = true
+
         let res = await Page.LoadImg(url)
         setCacheImg((t) => {
           t[i] = res
@@ -92,10 +107,10 @@ const ImgRead: React.FC<ImgReadProps> = ({
   return (
     <Backdrop open={open} className={classes.root} onClick={onClose} ref={ref}>
       <Container maxWidth="lg">
-        <Grid container spacing={1} alignItems="center" direction="column">
+        <Grid container spacing={1} direction="column" wrap="nowrap">
           {cacheImg.map((i, k) => (
             <Grid item key={k} id={`img${k}`}>
-              <LoadMedia src={i} />
+              <LoadMedia src={i} fullWidth />
             </Grid>
           ))}
         </Grid>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import InputBase from '@material-ui/core/InputBase'
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
@@ -6,6 +6,7 @@ import CancelIcon from '@material-ui/icons/Cancel'
 import { IconButton } from '@material-ui/core'
 import Zoom from '@material-ui/core/Zoom'
 import clsx from 'clsx'
+import { useKeyPress, useBoolean } from '@umijs/hooks'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     search: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      paddingRight: `calc(1em + ${theme.spacing(4)}px)`,
+
       transition: theme.transitions.create('width'),
     },
   })
@@ -56,11 +57,19 @@ const useStyles = makeStyles((theme: Theme) =>
 interface SearchBarPorps {
   value: string
   onChange: (v: string) => void
+  onSearch?: () => void
 }
-const SearchBar: React.FC<SearchBarPorps> = ({ value, onChange }) => {
+const SearchBar: React.FC<SearchBarPorps> = ({ value, onChange, onSearch }) => {
   const classes = useStyles()
+
   return (
-    <div className={classes.search}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        onSearch?.()
+      }}
+      className={classes.search}
+    >
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
@@ -68,24 +77,14 @@ const SearchBar: React.FC<SearchBarPorps> = ({ value, onChange }) => {
         placeholder="Search…"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        type="search"
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}
       />
-      <div className={clsx(classes.searchIcon, classes.cancelIcon)}>
-        <Zoom in={value !== ''} timeout={150}>
-          <IconButton
-            className={classes.iconButton}
-            size="small"
-            onClick={() => onChange('')}
-          >
-            <CancelIcon />
-          </IconButton>
-        </Zoom>
-      </div>
-    </div>
+    </form>
   )
 }
 

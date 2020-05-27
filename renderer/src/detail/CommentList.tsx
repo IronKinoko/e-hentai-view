@@ -44,7 +44,6 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
       ) : (
         commentList.map((o, k) => (
           <React.Fragment key={k}>
-            <Divider variant="fullWidth" component="li" />
             <ListItem>
               <ListItemText
                 primary={

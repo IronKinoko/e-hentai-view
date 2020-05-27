@@ -9,7 +9,7 @@ import {
   useTheme,
 } from '@material-ui/core/styles'
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
-import { DispatchContext } from 'src/theme'
+import { useThemeState } from 'src/theme'
 import HomeIcon from '@material-ui/icons/Home'
 import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop'
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon'
@@ -54,7 +54,7 @@ const Layout: React.FunctionComponent<Props> = ({
   const theme = useTheme()
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
-  const dispatch = React.useContext(DispatchContext)
+  const dispatch = useThemeState()
   const aciton = React.useMemo(() => {
     const aciton = [
       {

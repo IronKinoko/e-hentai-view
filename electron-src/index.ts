@@ -11,8 +11,8 @@ import prepareNext from 'electron-next'
 app.on('ready', async () => {
   await prepareNext('./renderer')
   const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
+    width: 1280,
+    height: 720,
     useContentSize: true,
     autoHideMenuBar: true,
     webPreferences: {
@@ -24,7 +24,7 @@ app.on('ready', async () => {
   mainWindow.webContents.session.cookies.on('changed', () => {
     mainWindow.webContents.session.cookies.remove(
       'https://exhentai.org/',
-      'yay',
+      'yay'
     )
   })
 
@@ -50,7 +50,7 @@ ipcMain.on('message', (event: IpcMainEvent, message: any) => {
 })
 
 function winSizeEvent(win: BrowserWindow) {
-  win.webContents.on('new-window', function(event, url) {
+  win.webContents.on('new-window', function (event, url) {
     event.preventDefault()
 
     const newWindow = new BrowserWindow({

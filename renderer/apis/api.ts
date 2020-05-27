@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import * as Page from './page'
 import moment from 'moment'
+import filesize from 'filesize'
 const baseURL = 'https://exhentai.org/api.php'
 const axios = Axios.create({
   baseURL,
@@ -19,6 +20,7 @@ export async function gdata(gidlist: GidList) {
     o.time = moment(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
     o.title_jpn = o.title_jpn || o.title
     o.category = o.category.replace(/\s/, '_') as Page.Category
+    o.filesize = filesize(o.filesize)
   })
   return res
 }

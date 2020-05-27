@@ -57,14 +57,14 @@ const IndexPage: NextPage = () => {
     })
   }, [page, f_search, router])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     if (search.length < 3 && search.length > 0)
       return message.error(
         'The search string is too short, and was ignored.',
         1500
       )
     router.push(`/index?page=0&f_search=${search}`)
-  }, [router, search])
+  }
 
   const renderPagination = useMemo(() => {
     const handlePageChange = (
@@ -94,7 +94,11 @@ const IndexPage: NextPage = () => {
           <Container maxWidth="sm">
             <Grid container alignItems="center">
               <Grid item xs>
-                <SearchBar value={search} onChange={(v) => setSearch(v)} />
+                <SearchBar
+                  value={search}
+                  onChange={(v) => setSearch(v)}
+                  onSearch={handleSubmit}
+                />
               </Grid>
               <Button className={classes.searchButton} onClick={handleSubmit}>
                 Search
