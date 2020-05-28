@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import Axios, { AxiosResponse } from 'axios'
 import * as Page from './page'
 import moment from 'moment'
 import filesize from 'filesize'
@@ -11,7 +11,13 @@ export type GidList = string[][]
 export interface GdataRes {
   gmetadata: Page.IndexListItemPorps[]
 }
-export async function gdata(gidlist: GidList) {
+export async function gdata(
+  gidlist: GidList
+): Promise<AxiosResponse<GdataRes>> {
+  if (gidlist.length === 1) {
+    let res = sessionStorage.getItem(gidlist[0][0])
+    if (res !== null) return JSON.parse(res) as AxiosResponse<GdataRes>
+  }
   let res = await axios.post<GdataRes>('', {
     method: 'gdata',
     gidlist,
@@ -21,7 +27,10 @@ export async function gdata(gidlist: GidList) {
     o.title_jpn = o.title_jpn || o.title
     o.category = o.category.replace(/\s/, '_') as Page.Category
     o.filesize = filesize(+o.filesize)
+    let store = { ...res, data: { gmetadata: [o] } }
+    sessionStorage.setItem(o.gid, JSON.stringify(store))
   })
+
   return res
 }
 

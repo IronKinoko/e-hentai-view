@@ -72,10 +72,10 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
         <Grid item>{record?.filesize}</Grid>
       </Grid>
       <Grid container justify="space-between" alignItems="center">
-        <Grid item>
+        <Grid item xs>
           <ColorChip label={record?.category} />
         </Grid>
-        <Grid item>
+        <Grid item xs container justify="center">
           <Rating
             value={+(record?.rating || 0)}
             readOnly
@@ -83,7 +83,9 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
             max={5}
           />
         </Grid>
-        <Grid item>{record?.time}</Grid>
+        <Grid item xs container justify="flex-end">
+          {record?.time}
+        </Grid>
       </Grid>
       <CardActions>
         <Button fullWidth onClick={() => setOpen(true)}>

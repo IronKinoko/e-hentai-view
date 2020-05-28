@@ -25,6 +25,7 @@ import ColorChip from 'components/ColorChip'
 import CommentList from 'src/detail/CommentList'
 import clsx from 'clsx'
 import InfoCard from '@/detail/InfoCard'
+import { useScroll, useThrottleFn } from '@umijs/hooks'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -39,11 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: '1 0 auto',
     },
     cover: {
-      maxWidth: 240,
-      minWidth: 240,
+      width: 240,
       maxHeight: 320,
-      objectFit: 'contain',
       margin: theme.spacing(0, 'auto'),
+      [theme.breakpoints.down('sm')]: {
+        width: 150,
+        minHeight: 200,
+      },
     },
     center: {
       display: 'flex',
@@ -71,12 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1, 0),
       },
     },
-    container: {
-      justifyContent: 'space-between',
-      [theme.breakpoints.down('xs')]: {
-        justifyContent: 'space-around',
-      },
-    },
+    container: {},
     infoContainer: {
       [theme.breakpoints.down('sm')]: {
         display: 'flex',
@@ -133,22 +131,21 @@ const Detail: NextPage<DetailProps> = () => {
     }
   }
 
-  const renderPagination = useMemo(
-    () => (
-      <Box m={2}>
-        <Grid container justify="center">
-          <Pagination
-            count={totalPage}
-            page={page}
-            siblingCount={2}
-            onChange={(_, v) => setPage(v)}
-          />
-        </Grid>
-      </Box>
-    ),
-    [page, totalPage]
+  const [position] = useScroll(() => window.document)
+  useThrottleFn(
+    () => {
+      if (document.scrollingElement) {
+        if (
+          position.top + document.scrollingElement.clientHeight >
+          document.scrollingElement.scrollHeight - 300
+        ) {
+          setPage((t) => t + 1)
+        }
+      }
+    },
+    [position],
+    300
   )
-
   return (
     <Layout title={record?.title}>
       <Container style={{ maxWidth: 1600 }}>
@@ -236,15 +233,14 @@ const Detail: NextPage<DetailProps> = () => {
               </Box>
             </CardContent>
           </Card>
+          <CommentList commentList={dataSource.commentList} />
           <Divider variant="fullWidth" className={classes.divider} />
-          {renderPagination}
+
           <Grid container className={classes.container} spacing={2} ref={ref}>
-            {dataSource.list.slice((page - 1) * 20, 20 * page).map((o, k) => (
+            {dataSource.list.slice(0, 20 * page).map((o, k) => (
               <Grid item key={o.url + k}>
-                <Card style={{ width: 240 }}>
-                  <CardActionArea
-                    onClick={() => handleOpen((page - 1) * 20 + k)}
-                  >
+                <Card>
+                  <CardActionArea onClick={() => handleOpen(k)}>
                     <LoadMedia className={classes.cover} src={o.thumb} />
                   </CardActionArea>
                 </Card>
@@ -257,16 +253,12 @@ const Detail: NextPage<DetailProps> = () => {
                     <Skeleton
                       variant="rect"
                       animation="wave"
-                      width={240}
-                      height={320}
+                      className={classes.cover}
                     />
                   </Card>
                 </Grid>
               ))}
           </Grid>
-          {renderPagination}
-
-          <CommentList commentList={dataSource.commentList} />
         </Box>
         <ImgRead
           dataSource={dataSource.list}

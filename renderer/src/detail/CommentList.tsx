@@ -68,16 +68,14 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
 
   return (
     <>
-      <Card>
-        <CommentListContent commentList={commentList.slice(0, 2)} />
-        {commentList.length > 0 && (
-          <CardActions>
-            <Button fullWidth onClick={() => setOpen(true)}>
-              MORE
-            </Button>
-          </CardActions>
-        )}
-      </Card>
+      <CommentListContent commentList={commentList.slice(0, 2)} />
+      {commentList.length > 0 && (
+        <CardActions>
+          <Button fullWidth onClick={() => setOpen(true)}>
+            MORE
+          </Button>
+        </CardActions>
+      )}
       <SlideUpDialog open={open} onClose={() => setOpen(false)} scroll="paper">
         <CommentListContent commentList={commentList} />
       </SlideUpDialog>
