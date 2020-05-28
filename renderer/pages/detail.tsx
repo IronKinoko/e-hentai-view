@@ -24,6 +24,7 @@ import { useRouter } from 'next/router'
 import ColorChip from 'components/ColorChip'
 import CommentList from 'src/detail/CommentList'
 import clsx from 'clsx'
+import InfoCard from '@/detail/InfoCard'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -107,6 +108,7 @@ const Detail: NextPage<DetailProps> = () => {
   const [totalPage, setTotalPage] = useState(1)
   const classes = useStyles()
   useEffect(() => {
+    if (!gid) return
     api.gdata([[gid, token]]).then((res) => {
       console.log(res)
       setRecord(res.data.gmetadata[0])
@@ -171,66 +173,24 @@ const Detail: NextPage<DetailProps> = () => {
             </Hidden>
             <CardContent className={classes.details}>
               <Typography
-                variant="h6"
-                component="h6"
-                gutterBottom
-                align="center"
-              >
-                {record?.title}
-              </Typography>
-              <Typography
                 variant="subtitle1"
-                component="h5"
+                component="h6"
                 gutterBottom
                 align="center"
               >
                 {record?.title_jpn}
               </Typography>
+              <Typography
+                variant="subtitle2"
+                component="h5"
+                gutterBottom
+                align="center"
+              >
+                {record?.title}
+              </Typography>
               <Divider variant="fullWidth" className={classes.divider} />
               <Box display="flex" className={classes.infoContainer}>
-                <div className={clsx(classes.cover)}>
-                  <ColorChip
-                    className={classes.chip}
-                    label={record?.category}
-                    size="small"
-                  />
-                  <Typography
-                    component="p"
-                    variant="body2"
-                    align="center"
-                    gutterBottom
-                  >
-                    {record?.uploader}
-                  </Typography>
-                  <table>
-                    <tr>
-                      <td>Posted:</td>
-                      <td>{record?.time}</td>
-                    </tr>
-                    <tr>
-                      <td>File Size:</td>
-                      <td>{record?.filesize}</td>
-                    </tr>
-                    <tr>
-                      <td>Length:</td>
-                      <td>{record?.filecount}</td>
-                    </tr>
-                    <tr>
-                      <td>Rating:</td>
-                      <td>
-                        <Grid container alignItems="center">
-                          <Rating
-                            name="rating"
-                            size="small"
-                            readOnly
-                            max={5}
-                            value={record?.rating ? +record.rating : 0}
-                          />
-                        </Grid>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
+                <InfoCard record={record} />
                 <div className={classes.border}>
                   <table>
                     <tbody>

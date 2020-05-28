@@ -11,8 +11,8 @@ import prepareNext from 'electron-next'
 app.on('ready', async () => {
   await prepareNext('./renderer')
   const mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 720,
+    width: 552,
+    height: 980,
     useContentSize: true,
     autoHideMenuBar: true,
     webPreferences: {

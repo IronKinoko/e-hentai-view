@@ -21,7 +21,7 @@ dist
 
 # misc
 .DS_Store
-
+/.idea
 # debug
 npm-debug.log*
 yarn-debug.log*

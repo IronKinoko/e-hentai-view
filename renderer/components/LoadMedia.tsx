@@ -8,6 +8,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
   const [count, setCount] = useState(0)
   const [href, setHref] = useState(src)
   const [loading, setLoading] = useState(true)
+  const [long, setLong] = useState(true)
   const reload = () => {
     if (count > 5) {
       return
@@ -24,10 +25,18 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
         onError={() => {
           setTimeout(() => reload(), 500)
         }}
-        style={{ width: fullWidth ? '100%' : '' }}
+        style={{
+          width: fullWidth ? '100%' : '',
+          objectFit: long ? 'cover' : 'contain',
+        }}
         onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
           rest.onLoad?.(e)
+
           setLoading(false)
+
+          if (e.currentTarget.naturalWidth > e.currentTarget.naturalHeight) {
+            setLong(false)
+          }
         }}
         {...rest}
         src={href}

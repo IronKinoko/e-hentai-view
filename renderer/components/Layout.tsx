@@ -45,7 +45,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const MENU = [{ title: 'Front Page', link: '/index?page=0' }]
+const MENU = [
+  { title: 'Front Page', link: '/index?page=0' },
+  { title: 'Settings', link: '/setting' },
+]
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
@@ -128,10 +131,11 @@ const Layout: React.FunctionComponent<Props> = ({
           justify="center"
           alignItems="center"
           className={classes.header}
+          spacing={1}
         >
           {MENU.map((o) => (
             <Grid item key={o.link}>
-              <Link href="/index" naked className={classes.link}>
+              <Link href={o.link} naked className={classes.link}>
                 {o.title}
               </Link>
             </Grid>

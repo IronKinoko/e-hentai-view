@@ -14,6 +14,9 @@ const nextConfig = {
     )
     return config
   },
+  devIndicators: {
+    autoPrerender: false,
+  },
 }
 
 module.exports = withBundleAnalyzer(nextConfig)

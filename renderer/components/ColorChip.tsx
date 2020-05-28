@@ -6,7 +6,6 @@ import { Category } from 'apis/page'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: theme.spacing(1, 0),
       borderRadius: 2,
       border: 0,
       color: '#fff',

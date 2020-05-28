@@ -18,13 +18,12 @@
     "start": "electron .",
     "build-renderer": "next build renderer && next export renderer",
     "build-electron": "tsc -p electron-src",
-    "build": "yarn build-renderer && yarn build-electron",
-    "pack-app": "yarn build && electron-builder --dir",
-    "dist": "yarn run clean && yarn build && electron-builder",
-    "type-check": "tsc",
+    "build": "npm run build-renderer && npm run build-electron",
+    "pack-app": "npm build && electron-builder --dir",
+    "dist": "npm run clean && npm run build && npm run electron-builder",
     "analyze": "cross-env ANALYZE=true next build renderer",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -s -r 0",
-    "lint": "eslint renderer --fix --ext .ts,.tsx,.js"
+    "lint": "eslint renderer --fix --ext .ts,.tsx"
   },
   "husky": {
     "hooks": {

@@ -15,7 +15,7 @@ import {
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Pagination } from '@material-ui/lab'
 import { Skeleton, Rating } from '@material-ui/lab'
-import GalleryCard from 'src/index/GalleryCard'
+import GalleryCard, { LoadingCard } from 'src/index/GalleryCard'
 import SearchBar from '@/index/SearchBar'
 import { ErrCode } from 'apis/err'
 import message from 'components/message'
@@ -38,11 +38,11 @@ const IndexPage: NextPage = () => {
   const [totalPage, setTotalPage] = useState(1)
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    let list: Page.IndexListItemPorps[] = []
-    console.log(page, f_search)
-    setLoading(true)
-    setEmpty(false)
-    Page.IndexList({ page, f_search }).then((res) => {
+    const fn = async () => {
+      let list: Page.IndexListItemPorps[] = []
+      setLoading(true)
+      setEmpty(false)
+      let res = await Page.IndexList({ page, f_search })
       if (res.code === ErrCode.ERROR) {
         message.error(res.message)
         return router.push('/signin')
@@ -54,7 +54,8 @@ const IndexPage: NextPage = () => {
       setTotal(res.data.total)
       console.log(res.data)
       if (list.length === 0) setEmpty(true)
-    })
+    }
+    fn()
   }, [page, f_search, router])
 
   const handleSubmit = () => {
@@ -79,7 +80,6 @@ const IndexPage: NextPage = () => {
           <Pagination
             count={totalPage}
             page={page + 1}
-            siblingCount={2}
             onChange={handlePageChange}
           />
         </Grid>
@@ -125,29 +125,7 @@ const IndexPage: NextPage = () => {
                 spacing={2}
               >
                 {loading
-                  ? new Array(25).fill(0).map((_, k) => (
-                      <Grid item xs key={k}>
-                        <Card className={classes.card}>
-                          <Skeleton
-                            variant="rect"
-                            animation="wave"
-                            height={350}
-                          />
-                          <Skeleton
-                            animation="wave"
-                            height={10}
-                            width="80%"
-                            style={{ margin: '16px 8px' }}
-                          />
-                          <Skeleton
-                            animation="wave"
-                            height={10}
-                            width="50%"
-                            style={{ margin: '16px 8px' }}
-                          />
-                        </Card>
-                      </Grid>
-                    ))
+                  ? new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
                   : list.map((o) => (
                       <Grid item xs={12} sm={6} md={4} lg key={o.gid}>
                         <GalleryCard record={o} />

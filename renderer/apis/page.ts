@@ -230,7 +230,7 @@ function parseDetailPageCommentList(
       .map((v) => v.trim())
     res.time = moment(new Date(time)).format('YYYY-MM-DD HH:mm')
     res.userName = name
-    res.score = c5 ? c5.innerText : 'Uploader Comment'
+    res.score = c5 ? c5.innerText : ''
     res.comment = c6.innerHTML
     return res
   })
