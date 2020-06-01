@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
 import { NextPage } from 'next'
-import { api, Page } from 'apis'
+import { api, Page, galleryDetial } from 'apis'
 import {
   Grid,
   Box,
@@ -42,10 +42,12 @@ const useStyles = makeStyles((theme: Theme) =>
     cover: {
       width: 240,
       maxHeight: 320,
+      minHeight: 320,
       margin: theme.spacing(0, 'auto'),
       [theme.breakpoints.down('sm')]: {
         width: 150,
         minHeight: 200,
+        maxHeight: 250,
       },
     },
     center: {
@@ -106,16 +108,16 @@ const Detail: NextPage<DetailProps> = () => {
   const [totalPage, setTotalPage] = useState(1)
   const classes = useStyles()
   useEffect(() => {
-    if (!gid) return
-    api.gdata([[gid, token]]).then((res) => {
-      console.log(res)
-      setRecord(res.data.gmetadata[0])
-    })
-    Page.DetailPage(gid, token, filecount).then((res) => {
-      console.log(res)
-      setDataSource(res)
+    const fn = async () => {
+      if (!gid) return
+      const { info, list, commentList, tagList } = await galleryDetial(
+        `/${gid}/${token}`
+      )
+      setRecord(info)
+      setDataSource({ list, commentList, tagList })
       setTotalPage(Math.ceil(+filecount / 20))
-    })
+    }
+    fn()
   }, [gid, token, filecount])
 
   const handleOpen = (k: number) => {

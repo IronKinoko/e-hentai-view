@@ -173,7 +173,10 @@ const Layout: React.FunctionComponent<Props> = ({
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      Copyright ©kinoko {new Date().getFullYear()}
+      Copyright @{new Date().getFullYear()}{' '}
+      <a href="https://github.com/IronKinoko" target="_blank">
+        Kinoko
+      </a>
     </Typography>
   )
 }

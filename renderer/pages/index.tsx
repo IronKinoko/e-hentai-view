@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react'
 // import Link from 'next/link'
 import Layout from '../components/Layout'
 import { NextPage } from 'next'
-import { Page } from 'apis'
+import { Page, galleryList } from 'apis'
 import { useRouter } from 'next/router'
 import {
   Card,
@@ -42,17 +42,17 @@ const IndexPage: NextPage = () => {
       let list: Page.IndexListItemPorps[] = []
       setLoading(true)
       setEmpty(false)
-      let res = await Page.IndexList({ page, f_search })
-      if (res.code === ErrCode.ERROR) {
+      let res = await galleryList({ page, f_search })
+      if (res.error) {
         message.error(res.message)
         return router.push('/signin')
       }
-      list = res.data.list
+      list = res.list
       setLoading(false)
       setList(list)
-      setTotalPage(res.data.totalPage)
-      setTotal(res.data.total)
-      console.log(res.data)
+      setTotalPage(Math.ceil(res.total / 25))
+      setTotal(res.total)
+      console.log(res)
       if (list.length === 0) setEmpty(true)
     }
     fn()

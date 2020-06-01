@@ -2,11 +2,55 @@ import Axios, { AxiosResponse } from 'axios'
 import * as Page from './page'
 import moment from 'moment'
 import filesize from 'filesize'
-const baseURL = 'https://exhentai.org/api.php'
+const baseURL = 'https://e-hentai-node.du.r.appspot.com'
 const axios = Axios.create({
   baseURL,
+  withCredentials: true,
 })
+interface IndexListSearchPorps {
+  page?: number
+  f_search?: string
+}
+export async function galleryList({ page, f_search }: IndexListSearchPorps) {
+  return (
+    await axios.get<{
+      list: Page.IndexListItemPorps[]
+      total: number
+      error: boolean
+      message: string
+    }>('/api/gallery', { params: { page, f_search } })
+  ).data
+}
+type UserPayload = {
+  UserName: string
+  PassWord: string
+}
+export async function login(payload: UserPayload) {
+  return (
+    await axios.post<{ error: boolean; message: string }>(
+      '/api/user/login',
+      payload
+    )
+  ).data
+}
 
+interface Detailpage {
+  info: Page.IndexListItemPorps
+  list: Page.DetailPageListItemProps[]
+  commentList: Page.commentListItemProps[]
+  tagList: Page.tagListItemProps[]
+}
+export async function galleryDetial(path: string) {
+  return (await axios.get<Detailpage>('/api/gallery' + path)).data
+}
+
+export async function loadImg(url: string) {
+  return (
+    await axios.get<{ url: string }>('/api/gallery/loadImg', {
+      params: { url },
+    })
+  ).data.url
+}
 export type GidList = string[][]
 export interface GdataRes {
   gmetadata: Page.IndexListItemPorps[]
@@ -32,20 +76,4 @@ export async function gdata(
   })
 
   return res
-}
-
-export async function gtoken() {
-  return await axios.post('', {
-    method: 'gtoken',
-    pagelist: [[1633855, 'c18a8de667', 3]],
-  })
-}
-export async function glist() {
-  return await axios.post('', {
-    method: 'showpage',
-    gid: 618395,
-    page: 1,
-    imgkey: '1463dfbc16',
-    showkey: '387132-43f9269494',
-  })
 }

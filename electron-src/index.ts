@@ -18,14 +18,8 @@ app.on('ready', async () => {
     webPreferences: {
       nodeIntegration: false,
       preload: join(__dirname, 'preload.js'),
-      webSecurity: false,
+      webSecurity: true,
     },
-  })
-  mainWindow.webContents.session.cookies.on('changed', () => {
-    mainWindow.webContents.session.cookies.remove(
-      'https://exhentai.org/',
-      'yay'
-    )
   })
 
   const url = isDev
@@ -38,7 +32,6 @@ app.on('ready', async () => {
       'https://e-hentai-view.now.sh/'
   winSizeEvent(mainWindow)
   mainWindow.loadURL(url)
-  mainWindow.webContents.session.cookies.remove('https://exhentai.org/', 'yay')
 })
 
 // Quit the app once all windows are closed

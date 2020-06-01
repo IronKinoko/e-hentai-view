@@ -12,7 +12,7 @@ const Transition = React.forwardRef(function Transition(
 const SlideUpDialog: React.FC<Omit<DialogProps, 'TransitionComponent'>> = (
   props
 ) => {
-  return <Dialog TransitionComponent={Transition} {...props}></Dialog>
+  return <Dialog TransitionComponent={Transition} fullWidth {...props}></Dialog>
 }
 
 export default SlideUpDialog

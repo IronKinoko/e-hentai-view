@@ -21,13 +21,13 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
     <React.Fragment>
       <CardMedia
         component="img"
-        hidden={loading}
         onError={() => {
           setTimeout(() => reload(), 500)
         }}
         style={{
           width: fullWidth ? '100%' : '',
           objectFit: long ? 'cover' : 'contain',
+          visibility: loading ? 'hidden' : 'unset',
         }}
         onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
           rest.onLoad?.(e)
@@ -42,9 +42,9 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
         src={href}
       />
 
-      {loading && (
+      {/* {loading && (
         <Skeleton variant="rect" animation="wave" height={320}></Skeleton>
-      )}
+      )} */}
     </React.Fragment>
   )
 }

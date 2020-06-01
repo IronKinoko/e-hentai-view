@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Backdrop, Container, Grid } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import LoadMedia from 'components/LoadMedia'
-import { Page } from 'apis'
+import { Page, loadImg } from 'apis'
 import { range } from 'lodash'
 import { useUpdateEffect } from '@umijs/hooks'
 let cacheId: boolean[] = []
@@ -94,7 +94,7 @@ const ImgRead: React.FC<ImgReadProps> = ({
         if (cacheId[i]) continue
         cacheId[i] = true
 
-        let res = await Page.LoadImg(url)
+        let res = await loadImg(url)
         setCacheImg((t) => {
           t[i] = res
           return [...t]

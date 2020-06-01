@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import { useForm } from 'react-hook-form'
-import { User, Err } from 'apis'
+import { login, User } from 'apis'
 import message from 'components/message'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
@@ -48,9 +48,9 @@ const SignIn: NextPage = () => {
     setTimeout(() => {
       setLoading(false)
     }, 5000)
-    let res = await User.login(payload)
+    let res = await login(payload)
     setLoading(false)
-    if (res.code === Err.ErrCode.SUCCESS) {
+    if (!res.error) {
       message.success(res.message)
       router.replace('/index?page=0')
     } else {
