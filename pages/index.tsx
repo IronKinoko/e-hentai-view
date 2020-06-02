@@ -67,7 +67,7 @@ const IndexPage: NextPage = () => {
   )
 
   return (
-    <Layout title="home">
+    <Layout title="EhentaiView">
       <Container style={{ maxWidth: 1600 }}>
         <Container maxWidth="sm" disableGutters>
           <Grid container alignItems="center">
