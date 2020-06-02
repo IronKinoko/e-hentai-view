@@ -7,6 +7,8 @@ import ThemeProvider from 'src/theme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from 'next/router'
 import moment from 'moment'
+import { SWRConfig } from 'swr'
+import { axios } from 'apis'
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
@@ -38,6 +40,7 @@ export default function MyApp(props: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
+
       <ThemeProvider>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

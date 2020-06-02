@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import { useForm } from 'react-hook-form'
-import { login, User } from 'apis'
+import { login, UserPayload } from 'apis'
 import message from 'components/message'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
@@ -42,8 +42,8 @@ const SignIn: NextPage = () => {
   const classes = useStyles()
   const router = useRouter()
   const [loading, setLoading] = React.useState(false)
-  const { register, handleSubmit } = useForm<User.UserPayload>()
-  const onSubmit = async (payload: User.UserPayload) => {
+  const { register, handleSubmit } = useForm<UserPayload>()
+  const onSubmit = async (payload: UserPayload) => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)

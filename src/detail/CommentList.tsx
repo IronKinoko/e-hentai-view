@@ -15,7 +15,11 @@ import {
 import SlideUpDialog from 'components/SlideUpDialog'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    comment: { wordBreak: 'break-word', breakWord: 'word-break' },
+  })
+)
 
 export interface CommentListProps {
   commentList: commentListItemProps[]
@@ -46,11 +50,13 @@ const CommentListContent: React.FC<CommentListProps> = ({ commentList }) => {
                 }
                 secondary={
                   <div
+                    className={classes.comment}
                     dangerouslySetInnerHTML={{
                       __html: `${o.comment}<span> ${o.score}</span>`,
                     }}
                   />
                 }
+                secondaryTypographyProps={{ component: 'div' }}
               />
             </ListItem>
             {k !== commentList.length - 1 && (

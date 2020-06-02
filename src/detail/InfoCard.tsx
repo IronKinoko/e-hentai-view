@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0, 'auto'),
     },
     root: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(1, 0),
     },
     tableCell: {
       wordBreak: 'break-word',
@@ -83,7 +83,13 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
             max={5}
           />
         </Grid>
-        <Grid item xs container justify="flex-end">
+        <Grid
+          item
+          xs
+          container
+          justify="flex-end"
+          style={{ textAlign: 'right' }}
+        >
           {record?.time}
         </Grid>
       </Grid>
@@ -138,33 +144,35 @@ const DesktopInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
         {record?.uploader}
       </Typography>
       <table>
-        <tr>
-          <td>Posted:</td>
-          <td>{record?.time}</td>
-        </tr>
-        <tr>
-          <td>File Size:</td>
-          <td>{record?.filesize}</td>
-        </tr>
-        <tr>
-          <td>Length:</td>
-          <td>{record?.filecount}</td>
-        </tr>
-        <tr>
-          <td>Rating:</td>
-          <td>
-            <Grid container alignItems="center">
-              <Rating
-                name="rating"
-                size="small"
-                readOnly
-                max={5}
-                precision={0.1}
-                value={record?.rating ? +record.rating : 0}
-              />
-            </Grid>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Posted:</td>
+            <td>{record?.time}</td>
+          </tr>
+          <tr>
+            <td>File Size:</td>
+            <td>{record?.filesize}</td>
+          </tr>
+          <tr>
+            <td>Length:</td>
+            <td>{record?.filecount}</td>
+          </tr>
+          <tr>
+            <td>Rating:</td>
+            <td>
+              <Grid container alignItems="center">
+                <Rating
+                  name="rating"
+                  size="small"
+                  readOnly
+                  max={5}
+                  precision={0.1}
+                  value={record?.rating ? +record.rating : 0}
+                />
+              </Grid>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   )

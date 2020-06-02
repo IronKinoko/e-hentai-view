@@ -1,5 +1,4 @@
 import Axios from 'axios'
-import Err from './err'
 import * as api from './api'
 import { uniq } from 'lodash'
 import moment from 'moment'
