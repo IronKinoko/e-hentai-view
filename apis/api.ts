@@ -1,13 +1,20 @@
 import Axios, { AxiosResponse } from 'axios'
-const baseURL = 'https://e-hentai-node.du.r.appspot.com'
+const baseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:8080'
+    : 'https://e-hentai-node.du.r.appspot.com'
 export const axios = Axios.create({
   baseURL,
   withCredentials: true,
 })
 
 export type UserPayload = {
-  UserName: string
-  PassWord: string
+  UserName?: string
+  PassWord?: string
+  method?: 'cookie'
+  ipb_member_id?: string
+  ipb_pass_hash?: string
+  igneous?: string
 }
 export async function login(payload: UserPayload) {
   return (

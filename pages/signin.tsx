@@ -1,19 +1,25 @@
-import React from 'react'
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container'
-import { useForm } from 'react-hook-form'
+import React, { useState } from 'react'
 import { login, UserPayload } from 'apis'
 import message from 'components/message'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
 import Layout from 'components/Layout'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Backdrop from '@material-ui/core/Backdrop'
+import Link from 'components/Link'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import {
+  Tabs,
+  Tab,
+  Container,
+  Typography,
+  Avatar,
+  CircularProgress,
+  Backdrop,
+  AppBar,
+  Button,
+} from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
+import Login from '@/signin/login'
+import CookieLogin from '@/signin/cookieLogin'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -23,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.grey[700],
+    padding: theme.spacing(0.25),
+    backgroundColor: theme.palette.common.white,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -36,18 +43,29 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#fff',
   },
+  appBar: {
+    margin: theme.spacing(1, 0),
+  },
 }))
 
+const TabPanel: React.FC<{ value: any; index: any }> = ({
+  value,
+  index,
+  children,
+}) => {
+  return <div hidden={value !== index}>{children}</div>
+}
 const SignIn: NextPage = () => {
   const classes = useStyles()
   const router = useRouter()
-  const [loading, setLoading] = React.useState(false)
-  const { register, handleSubmit } = useForm<UserPayload>()
+  const [loading, setLoading] = useState(false)
+  const [index, setIndex] = useState(0)
   const onSubmit = async (payload: UserPayload) => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
     }, 5000)
+    payload.method = index === 1 ? 'cookie' : undefined
     let res = await login(payload)
     setLoading(false)
     if (!res.error) {
@@ -60,51 +78,45 @@ const SignIn: NextPage = () => {
   return (
     <Layout title="sign in">
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>E</Avatar>
+          <Avatar className={classes.avatar} src="/static/favicon.ico">
+            E
+          </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className={classes.form}
-            noValidate
-          >
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="UserName"
-              label="Email Address"
-              name="UserName"
-              autoComplete="UserName"
-              autoFocus
-              inputRef={register}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="PassWord"
-              label="Password"
-              type="Password"
-              id="PassWord"
-              autoComplete="current-password"
-              inputRef={register}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
+          <Alert severity="warning">
+            由于浏览器安全限制，您必须在当前浏览器里登录过
+            <Link
+              prefetch={false}
+              href="https://forums.e-hentai.org/index.php"
+              target="_blank"
             >
-              Sign In
-            </Button>
-          </form>
+              exhentai
+            </Link>
+            站点，才能正常查看图片
+          </Alert>
+          <AppBar
+            position="static"
+            color="transparent"
+            className={classes.appBar}
+          >
+            <Tabs
+              variant="fullWidth"
+              value={index}
+              onChange={(_e, v) => setIndex(v)}
+            >
+              <Tab label="email" />
+              <Tab label="cookie" />
+            </Tabs>
+          </AppBar>
+          <TabPanel index={0} value={index}>
+            <Login onSubmit={onSubmit} />
+          </TabPanel>
+          <TabPanel index={1} value={index}>
+            <CookieLogin onSubmit={onSubmit} />
+          </TabPanel>
+
           <Backdrop open={loading} className={classes.backdrop}>
             <CircularProgress color="inherit" />
           </Backdrop>
@@ -112,10 +124,6 @@ const SignIn: NextPage = () => {
       </Container>
     </Layout>
   )
-}
-
-SignIn.getInitialProps = (_ctx) => {
-  return {}
 }
 
 export default SignIn

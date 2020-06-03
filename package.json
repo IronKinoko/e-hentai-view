@@ -19,7 +19,7 @@
     "type": "git"
   },
   "scripts": {
-    "dev": "next dev --port=8000",
+    "dev": "next dev",
     "build": "next build && next export",
     "analyze": "cross-env ANALYZE=true next build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -s -r 0",

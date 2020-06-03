@@ -1,9 +1,6 @@
 import useSWR, { ConfigInterface, responseInterface } from 'swr'
-import Axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-const axios = Axios.create({
-  baseURL: 'https://e-hentai-node.du.r.appspot.com',
-  withCredentials: true,
-})
+import { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import { axios } from 'apis/api'
 export type GetRequest = AxiosRequestConfig | null
 
 interface Return<Data, Error>
