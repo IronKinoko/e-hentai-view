@@ -18,8 +18,8 @@ import {
   Button,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import Login from '@/signin/login'
-import CookieLogin from '@/signin/cookieLogin'
+import Login from '@/signin/Login'
+import CookieLogin from '@/signin/CookieLogin'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
