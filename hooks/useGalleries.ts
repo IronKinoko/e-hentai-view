@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import message from 'components/message'
 import { cache } from 'swr'
 import { GalleriesPage } from 'interface/gallery'
+
 export default function useGalleries(
   {
     page,
@@ -25,13 +26,8 @@ export default function useGalleries(
   useEffect(() => {
     if (res.data && res.data.error) {
       message.error(res.data.message!)
-      router.push('/signin')
-      cache.delete(
-        JSON.stringify({
-          url: '/api/gallery',
-          params: { page, f_search },
-        })
-      )
+      router.replace('/signin')
+      cache.clear()
     }
   }, [router, res, page, f_search])
   return res

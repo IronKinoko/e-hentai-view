@@ -19,7 +19,7 @@
     "type": "git"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build && next export",
     "analyze": "cross-env ANALYZE=true next build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -s -r 0",
@@ -67,8 +67,10 @@
     "clsx": "^1.1.1",
     "conventional-changelog-cli": "^2.0.34",
     "cross-env": "^7.0.2",
+    "express": "^4.17.1",
     "file-saver": "^2.0.2",
     "filesize": "^6.1.0",
+    "http-proxy-middleware": "^1.0.4",
     "jszip": "^3.4.0",
     "lodash": "^4.17.15",
     "mobx": "^5.15.4",

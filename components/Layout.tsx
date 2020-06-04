@@ -91,7 +91,7 @@ const Layout: React.FunctionComponent<Props> = ({
         },
       },
       {
-        label: 'Toggle dark/light theme',
+        label: 'dark/light',
         icon:
           theme.palette.type === 'dark' ? (
             <Brightness7Icon />

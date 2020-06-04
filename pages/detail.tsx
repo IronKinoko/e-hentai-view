@@ -24,6 +24,7 @@ import clsx from 'clsx'
 import InfoCard from '@/detail/InfoCard'
 import { useScroll, useThrottleFn } from '@umijs/hooks'
 import useGallery from 'hooks/useGallery'
+import useSelection from 'hooks/useSelection'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -89,15 +90,20 @@ const Detail: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null)
   const gid = router.query.gid as string
   const token = router.query.token as string
+  const filecount = router.query.filecount as string
   const [store, setStore] = useState({
     open: false,
     index: -1,
   })
 
-  const { data } = useGallery(`/${gid}/${token}`)
+  const { data } = useGallery({
+    url: `/${gid}/${token}`,
+    filecount,
+  })
   const [page, setPage] = useState(1)
   const classes = useStyles()
-
+  const selectionRef = useSelection<HTMLHeadingElement>()
+  const selectionRef2 = useSelection<HTMLHeadingElement>()
   const handleOpen = (k: number) => {
     setStore({ open: true, index: k })
   }
@@ -153,6 +159,7 @@ const Detail: React.FC = () => {
               component="h6"
               gutterBottom
               align="center"
+              ref={selectionRef}
             >
               {data?.info.title_jpn}
             </Typography>
@@ -161,6 +168,7 @@ const Detail: React.FC = () => {
               component="h5"
               gutterBottom
               align="center"
+              ref={selectionRef2}
             >
               {data?.info.title}
             </Typography>

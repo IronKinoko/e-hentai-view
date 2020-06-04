@@ -1,7 +1,7 @@
 import Axios, { AxiosResponse } from 'axios'
 const baseURL =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:8080'
+    ? ''
     : 'https://e-hentai-node.du.r.appspot.com'
 export const axios = Axios.create({
   baseURL,
@@ -34,4 +34,9 @@ export async function loadImg(url: string) {
   })
   sessionStorage.setItem(url, res.data.url)
   return res.data.url
+}
+
+export async function setting() {
+  const res = await axios.post('/api/user/setting')
+  return res.data
 }

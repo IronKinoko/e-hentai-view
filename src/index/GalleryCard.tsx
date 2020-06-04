@@ -20,7 +20,7 @@ import ColorChip from 'components/ColorChip'
 import { IndexListItemPorps } from 'apis/page'
 import { Rating } from '@material-ui/lab'
 import clsx from 'clsx'
-
+import { useIsmobile } from '@/theme'
 const useMobileStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { height: 136 },
@@ -273,8 +273,7 @@ const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
 }
 
 export const LoadingCard = () => {
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('xs'))
+  const matches = useIsmobile()
   return matches ? (
     <Grid item xs={12}>
       <MobileLoadingCard />
@@ -286,8 +285,7 @@ export const LoadingCard = () => {
   )
 }
 const GalleryCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('xs'))
+  const matches = useIsmobile()
   return matches ? (
     <MobileCard record={record} />
   ) : (

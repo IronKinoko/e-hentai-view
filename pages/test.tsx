@@ -1,16 +1,45 @@
 import React from 'react'
 import Layout from 'components/Layout'
 
-import { Page } from 'apis'
+import { setting } from 'apis'
+import message from 'components/message'
 export default function test() {
   return (
     <Layout title="test">
       <button
         onClick={() => {
-          Page.LoadImg('https://exhentai.org/s/e30bfafcd4/1634639-2')
+          setting()
         }}
       >
-        loadimg
+        setting
+      </button>
+      <button
+        onClick={() => {
+          message.info('12')
+        }}
+      >
+        info
+      </button>
+      <button
+        onClick={() => {
+          message.success('12')
+        }}
+      >
+        setting
+      </button>
+      <button
+        onClick={() => {
+          message.error('2')
+        }}
+      >
+        setting
+      </button>
+      <button
+        onClick={() => {
+          message.warning('s')
+        }}
+      >
+        setting
       </button>
     </Layout>
   )

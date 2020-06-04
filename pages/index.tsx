@@ -18,11 +18,16 @@ import GalleryCard, { LoadingCard } from 'src/index/GalleryCard'
 import SearchBar from '@/index/SearchBar'
 import message from 'components/message'
 import useGalleries from 'hooks/useGalleries'
+import { useInViewport } from '@umijs/hooks'
+import useSWR, { useSWRPages, cache } from 'swr'
+import { axios } from 'apis'
+import { GalleriesPage } from 'interface/gallery'
 const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
     title: { fontSize: '10pt', height: 36, overflow: 'hidden' },
     card: { width: 250, margin: theme.spacing(0, 'auto') },
+    btn: { margin: theme.spacing(1, 0) },
   })
 )
 const IndexPage: NextPage = () => {
@@ -32,7 +37,7 @@ const IndexPage: NextPage = () => {
   const f_search = decodeURIComponent((router.query.f_search as string) || '')
   const [search, setSearch] = useState(f_search)
   const [pageTotal, setPageTotal] = useState(1)
-  const { data } = useGalleries({ page, f_search })
+  const [inview, inviewRef] = useInViewport()
   const handleSubmit = () => {
     if (search.length < 3 && search.length > 0)
       return message.error(
@@ -41,30 +46,50 @@ const IndexPage: NextPage = () => {
       )
     router.push(`/index?page=0&f_search=${search}`)
   }
-
   useEffect(() => {
-    if (data && data.total) {
-      setPageTotal(Math.ceil(data.total / 25))
-    }
-  }, [data])
-  const handlePageChange = (
-    _event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    router.push(`/index?page=${value - 1}&f_search=${search}`)
-  }
-  const renderPagination = (
-    <Box m={2}>
-      <Grid container justify="center">
-        <Pagination
-          size="small"
-          count={pageTotal}
-          page={page + 1}
-          onChange={handlePageChange}
-        />
-      </Grid>
-    </Box>
+    setSearch(f_search)
+  }, [f_search])
+
+  const {
+    pages,
+    isLoadingMore,
+    isReachingEnd,
+    loadMore,
+    isEmpty,
+  } = useSWRPages<number | null, GalleriesPage>(
+    'gallery' + f_search,
+    ({ offset, withSWR }) => {
+      const url = `/api/gallery?page=${offset || 0}&f_search=${f_search}`
+      const { data } = withSWR(
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useSWR<GalleriesPage>(url, async (url) => {
+          const res = await axios.get<GalleriesPage>(url)
+          if (res.data && res.data.error) {
+            message.error(res.data.message!)
+            router.replace('/signin')
+            cache.clear()
+          }
+          return res.data
+        })
+      )
+      if (!data)
+        return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
+      if (data.total === 0) return []
+      return data.list!.map((o) => (
+        <Grid item xs={12} sm={6} md={4} lg key={o.gid}>
+          <GalleryCard record={o} />
+        </Grid>
+      ))
+    },
+    ({ data }, index) => {
+      if (data!.total! <= (index + 1) * 25) return null
+      return index + 1
+    },
+    [router, f_search]
   )
+  useEffect(() => {
+    if (inview && !isLoadingMore && !isReachingEnd) loadMore()
+  }, [inview, isLoadingMore, isReachingEnd, loadMore])
 
   return (
     <Layout title="EhentaiView">
@@ -84,33 +109,34 @@ const IndexPage: NextPage = () => {
           </Grid>
         </Container>
         <Box mt={2}>
-          {data && data.list?.length === 0 ? (
-            <Typography variant="subtitle2" align="center">
+          {isEmpty && (
+            <Typography variant="subtitle2" align="center" gutterBottom>
               no this found
             </Typography>
-          ) : (
-            <>
-              <Typography variant="subtitle2" align="center">
-                Showing {data?.total || 0} results
-              </Typography>
-              {renderPagination}
-              <Grid
-                container
-                wrap="wrap"
-                justify="flex-start"
-                alignItems="stretch"
-                spacing={2}
-              >
-                {!data || !data.list
-                  ? new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
-                  : data.list?.map((o) => (
-                      <Grid item xs={12} sm={6} md={4} lg key={o.gid}>
-                        <GalleryCard record={o} />
-                      </Grid>
-                    ))}
-              </Grid>
-              {renderPagination}
-            </>
+          )}
+
+          <Grid
+            container
+            wrap="wrap"
+            justify="flex-start"
+            alignItems="stretch"
+            spacing={2}
+          >
+            {pages}
+          </Grid>
+          {!isEmpty && (
+            <Button
+              buttonRef={inviewRef}
+              fullWidth
+              disabled={isLoadingMore || isReachingEnd}
+              className={classes.btn}
+            >
+              {isReachingEnd
+                ? 'Reach End'
+                : isLoadingMore
+                ? 'Loading...'
+                : 'Load More'}
+            </Button>
           )}
         </Box>
       </Container>

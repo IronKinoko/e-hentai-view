@@ -12,9 +12,10 @@ import React, {
   useContext,
 } from 'react'
 import { pink, blue } from '@material-ui/core/colors'
+import { useMediaQuery } from '@material-ui/core'
 
 export const DispatchContext = createContext<React.Dispatch<Action>>(() => {})
-
+export const IsMobile = createContext(false)
 export type Action = { type: 'CHANGE'; payload: any }
 export interface InitialThemeOptionsProps {
   paletteType: 'dark' | 'light'
@@ -55,10 +56,12 @@ const ThemeProvider: FC<{}> = ({ children }) => {
     })
   }, [paletteType])
 
+  const matches = useMediaQuery(theme.breakpoints.down('xs'))
+
   return (
     <MuiThemeProvider theme={theme}>
       <DispatchContext.Provider value={dispatch}>
-        {children}
+        <IsMobile.Provider value={matches}>{children}</IsMobile.Provider>
       </DispatchContext.Provider>
     </MuiThemeProvider>
   )
@@ -69,4 +72,8 @@ export default ThemeProvider
 export function useThemeState() {
   const dispatch = useContext(DispatchContext)
   return dispatch
+}
+export function useIsmobile() {
+  const matches = useContext(IsMobile)
+  return matches
 }
