@@ -24,11 +24,8 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      height: 380,
-      transform: 'translateZ(0px)',
-      flexGrow: 1,
-    },
+    root: {},
+
     speedDial: {
       position: 'fixed',
       bottom: theme.spacing(2),
@@ -50,10 +47,7 @@ const MENU = [
   { title: 'Settings', link: '/setting' },
 ]
 
-const Layout: React.FunctionComponent<Props> = ({
-  children,
-  title = 'EhentaiView',
-}) => {
+const Layout: React.FunctionComponent<Props> = ({ children, title }) => {
   const theme = useTheme()
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
@@ -119,9 +113,9 @@ const Layout: React.FunctionComponent<Props> = ({
     return aciton
   }, [theme.palette.type, dispatch])
   return (
-    <div>
+    <div className={classes.root}>
       <Head>
-        <title>{title}</title>
+        <title>{title ? title + ' - EhentaiView' : 'EhentaiView'}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>

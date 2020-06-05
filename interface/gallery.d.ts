@@ -42,8 +42,16 @@ export interface commentListItemProps {
   score: string
 }
 export interface tagListItemProps {
-  name: string
-  tags: { name: string; keyword: string; dash: boolean }[]
+  namespace: string
+  namespace_CHS: string
+  description: string
+  tags: {
+    name: string
+    name_CHS: string
+    intro: string
+    keyword: string
+    dash: boolean
+  }[]
 }
 
 export interface Detailpage {

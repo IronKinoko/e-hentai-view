@@ -64,16 +64,17 @@ const IndexPage: NextPage = () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useSWR<GalleriesPage>(url, async (url) => {
           const res = await axios.get<GalleriesPage>(url)
-          if (res.data && res.data.error) {
-            message.error(res.data.message!)
-            router.replace('/signin')
-            cache.clear()
-          }
           return res.data
         })
       )
+
       if (!data)
         return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
+      if (data && data.error) {
+        message.error(data.message!)
+        router.replace('/signin')
+        return []
+      }
       if (data.total === 0) return []
       return data.list!.map((o) => (
         <Grid item xs={12} sm={6} md={4} lg key={o.gid}>
@@ -82,6 +83,7 @@ const IndexPage: NextPage = () => {
       ))
     },
     ({ data }, index) => {
+      if (data?.error) return null
       if (data!.total! <= (index + 1) * 25) return null
       return index + 1
     },
@@ -92,7 +94,7 @@ const IndexPage: NextPage = () => {
   }, [inview, isLoadingMore, isReachingEnd, loadMore])
 
   return (
-    <Layout title="EhentaiView">
+    <Layout>
       <Container style={{ maxWidth: 1600 }}>
         <Container maxWidth="sm" disableGutters>
           <Grid container alignItems="center">

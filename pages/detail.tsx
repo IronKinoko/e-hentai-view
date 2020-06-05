@@ -12,6 +12,9 @@ import {
   Container,
   Button,
   Hidden,
+  CircularProgress,
+  Backdrop,
+  Tooltip,
 } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { Skeleton, Rating, Pagination } from '@material-ui/lab'
@@ -40,13 +43,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cover: {
       width: 240,
-      maxHeight: 320,
-      minHeight: 320,
+      height: 320,
       margin: theme.spacing(0, 'auto'),
       [theme.breakpoints.down('sm')]: {
         width: 150,
-        minHeight: 200,
-        maxHeight: 250,
+        height: 200,
       },
     },
     center: {
@@ -82,6 +83,16 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection: 'column',
       },
     },
+    loadingContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 'calc(100vh - 93px)',
+      '& > * + *': {
+        marginTop: theme.spacing(1),
+      },
+    },
   })
 )
 
@@ -96,10 +107,7 @@ const Detail: React.FC = () => {
     index: -1,
   })
 
-  const { data } = useGallery({
-    url: `/${gid}/${token}`,
-    filecount,
-  })
+  const { data } = useGallery({ url: `/${gid}/${token}`, filecount })
   const [page, setPage] = useState(1)
   const classes = useStyles()
   const selectionRef = useSelection<HTMLHeadingElement>()
@@ -132,6 +140,18 @@ const Detail: React.FC = () => {
     [position],
     300
   )
+
+  if (!data) {
+    return (
+      <Layout title="Loading...">
+        <div className={classes.loadingContainer}>
+          <CircularProgress />
+          <div>Loading...</div>
+        </div>
+      </Layout>
+    )
+  }
+
   return (
     <Layout title={data?.info.title}>
       <Container style={{ maxWidth: 1600 }}>
@@ -176,35 +196,44 @@ const Detail: React.FC = () => {
             <Box display="flex" className={classes.infoContainer}>
               <InfoCard record={data?.info} />
               <div className={classes.border}>
+                {data && data.tagList.length === 0 && (
+                  <Typography align="center">
+                    No tags have been added for this gallery yet.
+                  </Typography>
+                )}
                 <table>
                   <tbody>
                     {data?.tagList.map((o) => (
-                      <tr key={o.name}>
+                      <tr key={o.namespace_CHS}>
                         <td
                           align="right"
                           valign="top"
                           style={{ lineHeight: '24px' }}
                         >
-                          {o.name}
+                          <Tooltip title={o.description} arrow>
+                            <span>{o.namespace_CHS}</span>
+                          </Tooltip>
+                          :
                         </td>
                         <td>
                           {o.tags.map((v) => (
-                            <Chip
-                              key={v.name}
-                              label={v.name}
-                              size="small"
-                              variant="outlined"
-                              style={{
-                                borderStyle: v.dash ? 'dashed' : 'solid',
-                                margin: 2,
-                              }}
-                              clickable
-                              onClick={() => {
-                                router.push(
-                                  `/index?page=0&f_search=${v.keyword}`
-                                )
-                              }}
-                            />
+                            <Tooltip key={v.name} title={v.intro} arrow>
+                              <Chip
+                                label={v.name_CHS}
+                                size="small"
+                                variant="outlined"
+                                style={{
+                                  borderStyle: v.dash ? 'dashed' : 'solid',
+                                  margin: 2,
+                                }}
+                                clickable
+                                onClick={() => {
+                                  router.push(
+                                    `/index?page=0&f_search=${v.keyword}`
+                                  )
+                                }}
+                              />
+                            </Tooltip>
                           ))}
                         </td>
                       </tr>
@@ -236,6 +265,7 @@ const Detail: React.FC = () => {
                   <LoadMedia className={classes.cover} src={o.thumb} />
                 </CardActionArea>
               </Card>
+              <Typography align="center">{k + 1}</Typography>
             </Grid>
           ))}
           {(!data || data.list.length === 0) &&

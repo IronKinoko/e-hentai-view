@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Backdrop, Container, Grid } from '@material-ui/core'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles'
 import LoadMedia from 'components/LoadMedia'
 import { Page, loadImg } from 'apis'
 import { range } from 'lodash'
@@ -14,6 +14,20 @@ const useStyle = makeStyles((theme: Theme) =>
       overflow: 'auto',
       display: 'block',
       userSelect: 'none',
+    },
+    container: {
+      position: 'relative',
+    },
+    info: {
+      position: 'fixed',
+      bottom: 10,
+      background: fade(theme.palette.grey['800'], 0.5),
+      padding: theme.spacing(0.5, 1),
+      borderRadius: '16px 0 0 16px',
+      right: 0,
+      [theme.breakpoints.up('lg')]: {
+        right: 'calc((100vw - 1280px) / 2)',
+      },
     },
   })
 )
@@ -45,13 +59,14 @@ const ImgRead: React.FC<ImgReadProps> = ({
   useEffect(() => {
     let intersectionObserver = new IntersectionObserver(
       (entries) => {
-        let entry = entries.pop()
-        if (entry?.intersectionRatio) {
-          let idx = entry.target.id.slice(3)
-          setIndex(+idx)
-        }
+        entries.forEach((entry) => {
+          if (entry?.intersectionRatio) {
+            let idx = parseInt(entry.target.id.slice(3))
+            setIndex(idx)
+          }
+        })
       },
-      { rootMargin: '0px 0px 200% 0px' }
+      { rootMargin: '-50% 0px -49% 0px' }
     )
     if (ref.current) {
       Array.from(ref.current.querySelectorAll('[id^="img"]')!).forEach(
@@ -71,7 +86,6 @@ const ImgRead: React.FC<ImgReadProps> = ({
   }, [dataSource])
 
   useEffect(() => {
-    console.log(open)
     if (open) {
       document.body.style.overflow = 'hidden'
       setIndex(defaultValue)
@@ -85,16 +99,20 @@ const ImgRead: React.FC<ImgReadProps> = ({
     const loadMore = async () => {
       let indexArr = range(
         Math.max(0, index - 1),
-        Math.min(index + 3, dataSource.length)
+        Math.min(index + 6, dataSource.length)
       )
       indexArr.push(indexArr.shift()!)
       for (let i of indexArr) {
-        if (!dataSource[i]) break
+        if (!dataSource[i]) continue
         let url = dataSource[i].url
         if (cacheId[i]) continue
         cacheId[i] = true
 
         let res = await loadImg(url)
+        if (res === '') {
+          cacheId[i] = false
+          continue
+        }
         setCacheImg((t) => {
           t[i] = res
           return [...t]
@@ -106,7 +124,7 @@ const ImgRead: React.FC<ImgReadProps> = ({
 
   return (
     <Backdrop open={open} className={classes.root} onClick={onClose} ref={ref}>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" disableGutters className={classes.container}>
         <Grid container spacing={1} direction="column" wrap="nowrap">
           {cacheImg.map((i, k) => (
             <Grid item key={k} id={`img${k}`}>
@@ -114,6 +132,9 @@ const ImgRead: React.FC<ImgReadProps> = ({
             </Grid>
           ))}
         </Grid>
+        <div className={classes.info}>
+          {index + 1}/{dataSource.length}
+        </div>
       </Container>
     </Backdrop>
   )

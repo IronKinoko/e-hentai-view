@@ -32,7 +32,7 @@ export async function loadImg(url: string) {
   const res = await axios.get<{ url: string }>('/api/gallery/loadImg', {
     params: { url },
   })
-  sessionStorage.setItem(url, res.data.url)
+  if (res.data.url !== '') sessionStorage.setItem(url, res.data.url)
   return res.data.url
 }
 

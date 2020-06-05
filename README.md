@@ -1,33 +1,21 @@
 # e-hentai-view
 
-A desktop App for ExHentai, build with Next.js and Electron
+A mobile website for exhentai, build with Next.js
 
-**Because webSecurity in browser (cors), we can't direct access the website, you need visit the website in electron, which is closed the webSecurity**
+**Because webSecurity in browser (cors), we can't direct access the exhentai image, you should sign in e-hentai before use this website**
 
 ## How to use
 
-```shell
-# clone this repo
-git clone https://github.com/IronKinoko/e-hentai-view.git
-
-# yarn install
-yarn
-
-# run build
-yarn run dist
-
-cd dist
-
-#open EhentaiView Setup.exe
-```
+[here](https://e-hentai-view.now.sh/)
 
 ## development
 
 ```shell
 # The first time
-yarn run build-electron
-
-yarn start
+# npm
+npm i && npm run dev
+#yarn
+yarn && yarn run dev
 ```
 
 ## TODO

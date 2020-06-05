@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { login, UserPayload } from 'apis'
 import message from 'components/message'
 import { useRouter } from 'next/router'
@@ -20,6 +20,7 @@ import {
 import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
 import CookieLogin from '@/signin/CookieLogin'
+import { cache } from 'swr'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -60,6 +61,12 @@ const SignIn: NextPage = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [index, setIndex] = useState(0)
+  useEffect(() => {
+    cache.clear()
+    return () => {
+      cache.clear()
+    }
+  }, [])
   const onSubmit = async (payload: UserPayload) => {
     setLoading(true)
     setTimeout(() => {

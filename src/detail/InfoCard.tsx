@@ -51,12 +51,49 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
+const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
+  const [open, setOpen] = useState(false)
+  const classes = useStyles()
+  return (
+    <>
+      <CardActions>
+        <Button fullWidth onClick={() => setOpen(true)}>
+          MORE
+        </Button>
+      </CardActions>
+      <SlideUpDialog open={open} onClose={() => setOpen(false)}>
+        <TableContainer component="div">
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>键</TableCell>
+                <TableCell>值</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {!!record &&
+                Object.entries(
+                  omit(record, ['torrents', 'torrentcount', 'expunged'])
+                ).map(([key, value]) => (
+                  <TableRow key={key}>
+                    <TableCell>{key}</TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {Array.isArray(value) ? value.join(', ') : value}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </SlideUpDialog>
+    </>
+  )
+}
 
 const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
   return (
     <>
       <Grid
@@ -93,38 +130,7 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
           {record?.time}
         </Grid>
       </Grid>
-      <CardActions>
-        <Button fullWidth onClick={() => setOpen(true)}>
-          MORE
-        </Button>
-      </CardActions>
-      <TableContainer
-        component={SlideUpDialog}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell>键</TableCell>
-              <TableCell>值</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {!!record &&
-              Object.entries(
-                omit(record, ['torrents', 'torrentcount', 'expunged'])
-              ).map(([key, value]) => (
-                <TableRow key={key}>
-                  <TableCell>{key}</TableCell>
-                  <TableCell className={classes.tableCell}>
-                    {Array.isArray(value) ? value.join(', ') : value}
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <MoreInfo record={record} />
     </>
   )
 }
@@ -174,6 +180,7 @@ const DesktopInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
           </tr>
         </tbody>
       </table>
+      <MoreInfo record={record} />
     </div>
   )
 }

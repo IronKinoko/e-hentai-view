@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CardMedia, CardMediaProps } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import { useIsmobile } from '@/theme'
 interface LoadMediaProps extends CardMediaProps<'img'> {
   fullWidth?: boolean
 }
@@ -9,6 +9,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
   const [href, setHref] = useState(src)
   const [loading, setLoading] = useState(true)
   const [long, setLong] = useState(true)
+  const matches = useIsmobile()
   const reload = () => {
     if (count > 5) {
       return
@@ -17,6 +18,15 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
     setHref(src + '?ts=' + Math.random())
   }
   useEffect(() => setHref(src), [src])
+  useEffect(() => {
+    const fn = (e: any) => {
+      if (matches) e.preventDefault()
+    }
+    document.addEventListener('contextmenu', fn)
+    return () => {
+      document.removeEventListener('contextmenu', fn)
+    }
+  }, [matches])
   return (
     <React.Fragment>
       <CardMedia
@@ -28,6 +38,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
           width: fullWidth ? '100%' : '',
           objectFit: long ? 'cover' : 'contain',
           visibility: loading ? 'hidden' : 'unset',
+          userSelect: 'none',
         }}
         onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
           rest.onLoad?.(e)
