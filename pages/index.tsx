@@ -36,23 +36,21 @@ const IndexPage: NextPage = () => {
 
   return (
     <Layout>
-      <Container style={{ maxWidth: 1600 }}>
-        <Container maxWidth="sm" disableGutters>
-          <Grid container alignItems="center">
-            <Grid item xs>
-              <SearchBar
-                value={search}
-                onChange={(v) => setSearch(v)}
-                onSearch={handleSubmit}
-              />
-            </Grid>
-            <Button className={classes.searchButton} onClick={handleSubmit}>
-              Search
-            </Button>
+      <Container maxWidth="sm" disableGutters>
+        <Grid container alignItems="center">
+          <Grid item xs>
+            <SearchBar
+              value={search}
+              onChange={(v) => setSearch(v)}
+              onSearch={handleSubmit}
+            />
           </Grid>
-        </Container>
-        <GalleryList key={f_search} f_search={f_search} />
+          <Button className={classes.searchButton} onClick={handleSubmit}>
+            Search
+          </Button>
+        </Grid>
       </Container>
+      <GalleryList key={f_search} f_search={f_search} />
     </Layout>
   )
 }

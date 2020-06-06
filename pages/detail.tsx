@@ -15,9 +15,10 @@ import {
   CircularProgress,
   Backdrop,
   Tooltip,
+  IconButton,
 } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { Skeleton, Rating, Pagination } from '@material-ui/lab'
+import { Skeleton, Rating, Pagination, SpeedDial } from '@material-ui/lab'
 import Layout from 'components/Layout'
 import LoadMedia from 'components/LoadMedia'
 import ImgRead from '@/detail/ImgRead'
@@ -28,6 +29,7 @@ import InfoCard from '@/detail/InfoCard'
 import { useScroll, useThrottleFn } from '@umijs/hooks'
 import useGallery from 'hooks/useGallery'
 import useSelection from 'hooks/useSelection'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -42,13 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: '1 0 auto',
     },
     cover: {
-      width: 240,
-      height: 320,
       margin: theme.spacing(0, 'auto'),
-      [theme.breakpoints.down('sm')]: {
-        width: 150,
-        height: 200,
-      },
+      maxHeight: 320,
     },
     center: {
       display: 'flex',
@@ -76,7 +73,16 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1, 0),
       },
     },
-    container: {},
+    container: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(5, 1fr)',
+      [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: 'repeat(4, 1fr)',
+      },
+      [theme.breakpoints.down('xs')]: {
+        gridTemplateColumns: 'repeat(3, 1fr)',
+      },
+    },
     infoContainer: {
       [theme.breakpoints.down('sm')]: {
         display: 'flex',
@@ -92,6 +98,12 @@ const useStyles = makeStyles((theme: Theme) =>
       '& > * + *': {
         marginTop: theme.spacing(1),
       },
+    },
+    speedDial: {
+      position: 'fixed',
+      right: 16,
+      bottom: 88,
+      zIndex: theme.zIndex.speedDial - 2,
     },
   })
 )
@@ -154,140 +166,147 @@ const Detail: React.FC = () => {
 
   return (
     <Layout title={data?.info.title}>
-      <Container style={{ maxWidth: 1600 }}>
-        <Card className={classes.root}>
-          <Hidden smDown>
-            {data?.info.thumb ? (
-              <div className={classes.center}>
-                <LoadMedia
-                  className={clsx(classes.cover)}
-                  src={data.info.thumb}
-                />
-              </div>
-            ) : (
-              <Skeleton
-                variant="rect"
-                animation="wave"
-                width={240}
-                height={320}
+      <Card className={classes.root}>
+        <Hidden smDown>
+          {data?.info.thumb ? (
+            <div className={classes.center}>
+              <LoadMedia
+                className={clsx(classes.cover)}
+                src={data.info.thumb}
               />
-            )}
-          </Hidden>
-          <CardContent className={classes.details}>
-            <Typography
-              variant="subtitle1"
-              component="h6"
-              gutterBottom
-              align="center"
-              ref={selectionRef}
-            >
-              {data?.info.title_jpn}
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              component="h5"
-              gutterBottom
-              align="center"
-              ref={selectionRef2}
-            >
-              {data?.info.title}
-            </Typography>
-            <Divider variant="fullWidth" className={classes.divider} />
-            <Box display="flex" className={classes.infoContainer}>
-              <InfoCard record={data?.info} />
-              <div className={classes.border}>
-                {data && data.tagList.length === 0 && (
-                  <Typography align="center">
-                    No tags have been added for this gallery yet.
-                  </Typography>
-                )}
-                <table>
-                  <tbody>
-                    {data?.tagList.map((o) => (
-                      <tr key={o.namespace_CHS}>
-                        <td
-                          align="right"
-                          valign="top"
-                          style={{ lineHeight: '24px' }}
-                        >
-                          <Tooltip title={o.description} arrow>
-                            <span>{o.namespace_CHS}</span>
+            </div>
+          ) : (
+            <Skeleton
+              variant="rect"
+              animation="wave"
+              width={240}
+              height={320}
+            />
+          )}
+        </Hidden>
+        <CardContent className={classes.details}>
+          <Typography
+            variant="subtitle1"
+            component="h6"
+            gutterBottom
+            align="center"
+            ref={selectionRef}
+          >
+            {data?.info.title_jpn}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            component="h5"
+            gutterBottom
+            align="center"
+            ref={selectionRef2}
+          >
+            {data?.info.title}
+          </Typography>
+          <Divider variant="fullWidth" className={classes.divider} />
+          <Box display="flex" className={classes.infoContainer}>
+            <InfoCard record={data?.info} />
+            <div className={classes.border}>
+              {data && data.tagList.length === 0 && (
+                <Typography align="center">
+                  No tags have been added for this gallery yet.
+                </Typography>
+              )}
+              <table>
+                <tbody>
+                  {data?.tagList.map((o) => (
+                    <tr key={o.namespace_CHS}>
+                      <td
+                        align="right"
+                        valign="top"
+                        style={{ lineHeight: '24px', whiteSpace: 'nowrap' }}
+                      >
+                        <Tooltip title={o.description} arrow>
+                          <span>{o.namespace_CHS}</span>
+                        </Tooltip>
+                        :
+                      </td>
+                      <td>
+                        {o.tags.map((v) => (
+                          <Tooltip key={v.name} title={v.intro} arrow>
+                            <Chip
+                              label={v.name_CHS}
+                              size="small"
+                              variant="outlined"
+                              style={{
+                                borderStyle: v.dash ? 'dashed' : 'solid',
+                                margin: 2,
+                              }}
+                              clickable
+                              onClick={() => {
+                                router.push(
+                                  `/index?page=0&f_search=${v.keyword}`
+                                )
+                              }}
+                            />
                           </Tooltip>
-                          :
-                        </td>
-                        <td>
-                          {o.tags.map((v) => (
-                            <Tooltip key={v.name} title={v.intro} arrow>
-                              <Chip
-                                label={v.name_CHS}
-                                size="small"
-                                variant="outlined"
-                                style={{
-                                  borderStyle: v.dash ? 'dashed' : 'solid',
-                                  margin: 2,
-                                }}
-                                clickable
-                                onClick={() => {
-                                  router.push(
-                                    `/index?page=0&f_search=${v.keyword}`
-                                  )
-                                }}
-                              />
-                            </Tooltip>
-                          ))}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div>
-                <Button
-                  onClick={download}
-                  disabled
-                  variant="text"
-                  color="primary"
-                >
-                  download
-                </Button>
-              </div>
-            </Box>
-          </CardContent>
-        </Card>
-        <CommentList commentList={data?.commentList || []} />
-        <Divider variant="fullWidth" className={classes.divider} />
+                        ))}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <Button
+                onClick={download}
+                disabled
+                variant="text"
+                color="primary"
+              >
+                download
+              </Button>
+            </div>
+          </Box>
+        </CardContent>
+      </Card>
+      <CommentList commentList={data?.commentList || []} />
+      <Divider variant="fullWidth" className={classes.divider} />
 
-        <Grid container className={classes.container} spacing={2} ref={ref}>
-          {data?.list.slice(0, 20 * page).map((o, k) => (
-            <Grid item key={o.url + k}>
+      <Grid container className={classes.container} spacing={2} ref={ref}>
+        {data?.list.slice(0, 20 * page).map((o, k) => (
+          <Grid item key={o.url + k} container wrap="nowrap" direction="column">
+            <Grid item xs>
               <Card>
                 <CardActionArea onClick={() => handleOpen(k)}>
                   <LoadMedia className={classes.cover} src={o.thumb} />
                 </CardActionArea>
               </Card>
-              <Typography align="center">{k + 1}</Typography>
+            </Grid>
+            <Typography align="center">{k + 1}</Typography>
+          </Grid>
+        ))}
+        {(!data || data.list.length === 0) &&
+          new Array(20).fill(0).map((_, k) => (
+            <Grid item key={k}>
+              <Card>
+                <Skeleton
+                  variant="rect"
+                  animation="wave"
+                  className={classes.cover}
+                />
+              </Card>
             </Grid>
           ))}
-          {(!data || data.list.length === 0) &&
-            new Array(20).fill(0).map((_, k) => (
-              <Grid item key={k}>
-                <Card>
-                  <Skeleton
-                    variant="rect"
-                    animation="wave"
-                    className={classes.cover}
-                  />
-                </Card>
-              </Grid>
-            ))}
-        </Grid>
-        <ImgRead
-          dataSource={data?.list || []}
-          open={store.open}
-          defaultValue={store.index}
-          onClose={() => setStore({ open: false, index: -1 })}
-        />
-      </Container>
+      </Grid>
+      <ImgRead
+        dataSource={data?.list || []}
+        open={store.open}
+        defaultValue={store.index}
+        onClose={(index) => setStore({ open: false, index })}
+      />
+      <SpeedDial
+        ariaLabel="continue"
+        open
+        className={classes.speedDial}
+        onClick={() => setStore((t) => ({ ...t, open: true }))}
+        icon={<PlayArrowIcon />}
+      ></SpeedDial>
     </Layout>
   )
 }

@@ -12,8 +12,24 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
     title: { fontSize: '10pt', height: 36, overflow: 'hidden' },
-    card: { width: 250, margin: theme.spacing(0, 'auto') },
+    card: { margin: theme.spacing(0, 'auto') },
     btn: { margin: theme.spacing(1, 0) },
+    container: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(5, 1fr)',
+      [theme.breakpoints.between(1000, 1250)]: {
+        gridTemplateColumns: 'repeat(4, 1fr)',
+      },
+      [theme.breakpoints.between(750, 1000)]: {
+        gridTemplateColumns: 'repeat(3, 1fr)',
+      },
+      [theme.breakpoints.between('xs', 750)]: {
+        gridTemplateColumns: 'repeat(2, 1fr)',
+      },
+      [theme.breakpoints.down('xs')]: {
+        gridTemplateColumns: 'repeat(1, 1fr)',
+      },
+    },
   })
 )
 const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
@@ -50,7 +66,7 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
       }
       if (data.total === 0) return null
       return data.list!.map((o) => (
-        <Grid item xs={12} sm={6} md={4} lg key={o.gid}>
+        <Grid item xs key={o.gid}>
           <GalleryCard record={o} />
         </Grid>
       ))
@@ -78,7 +94,7 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
         container
         wrap="wrap"
         justify="flex-start"
-        alignItems="stretch"
+        className={classes.container}
         spacing={2}
       >
         {pages}

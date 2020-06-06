@@ -12,6 +12,7 @@ const useStyle = makeStyles((theme: Theme) =>
       zIndex: theme.zIndex.drawer + 1,
       backgroundColor: 'rgba(0,0,0)',
       overflow: 'auto',
+      overflowX: 'hidden',
       display: 'block',
       userSelect: 'none',
     },
@@ -25,6 +26,7 @@ const useStyle = makeStyles((theme: Theme) =>
       padding: theme.spacing(0.5, 1),
       borderRadius: '16px 0 0 16px',
       right: 0,
+      color: theme.palette.common.white,
       [theme.breakpoints.up('lg')]: {
         right: 'calc((100vw - 1280px) / 2)',
       },
@@ -36,7 +38,7 @@ interface ImgReadProps {
   open: boolean
   defaultValue: number
   dataSource: Page.DetailPageListItemProps[]
-  onClose: () => void
+  onClose: (index: number) => void
 }
 const ImgRead: React.FC<ImgReadProps> = ({
   open,
@@ -123,7 +125,12 @@ const ImgRead: React.FC<ImgReadProps> = ({
   }, [dataSource, index])
 
   return (
-    <Backdrop open={open} className={classes.root} onClick={onClose} ref={ref}>
+    <Backdrop
+      open={open}
+      className={classes.root}
+      onClick={() => onClose(index)}
+      ref={ref}
+    >
       <Container maxWidth="lg" disableGutters className={classes.container}>
         <Grid container spacing={1} direction="column" wrap="nowrap">
           {cacheImg.map((i, k) => (

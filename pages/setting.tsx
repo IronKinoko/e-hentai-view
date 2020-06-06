@@ -21,7 +21,7 @@ const Setting: NextPage = () => {
     }
   }, [])
   return (
-    <Layout>
+    <Layout noContainer>
       <iframe
         src="https://exhentai.org/uconfig.php"
         frameBorder="0"

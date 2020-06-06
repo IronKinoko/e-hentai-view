@@ -181,7 +181,7 @@ const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: { fontSize: '10pt', height: 36, overflow: 'hidden' },
-    card: { width: 250, margin: theme.spacing(0, 'auto') },
+    card: { margin: theme.spacing(0, 'auto') },
   })
 )
 

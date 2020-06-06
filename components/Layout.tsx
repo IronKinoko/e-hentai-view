@@ -1,7 +1,14 @@
 import * as React from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
-import { Divider, Box, Typography, Container, Grid } from '@material-ui/core'
+import {
+  Divider,
+  Box,
+  Typography,
+  Container,
+  Grid,
+  Backdrop,
+} from '@material-ui/core'
 import {
   makeStyles,
   Theme,
@@ -20,6 +27,7 @@ import Brightness4Icon from '@material-ui/icons/Brightness4'
 import Link from 'components/Link'
 type Props = {
   title?: string
+  noContainer?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       height: 40,
     },
+    bakcdrop: {
+      zIndex: theme.zIndex.speedDial - 1,
+    },
   })
 )
 
@@ -47,7 +58,11 @@ const MENU = [
   { title: 'Settings', link: '/setting' },
 ]
 
-const Layout: React.FunctionComponent<Props> = ({ children, title }) => {
+const Layout: React.FunctionComponent<Props> = ({
+  children,
+  title,
+  noContainer,
+}) => {
   const theme = useTheme()
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
@@ -136,7 +151,8 @@ const Layout: React.FunctionComponent<Props> = ({ children, title }) => {
           ))}
         </Grid>
       </Container>
-      {children}
+      {noContainer ? children : <Container maxWidth="lg">{children}</Container>}
+      <Backdrop open={open} className={classes.bakcdrop} />
       <SpeedDial
         className={classes.speedDial}
         ariaLabel="SpeedDial tooltip example"

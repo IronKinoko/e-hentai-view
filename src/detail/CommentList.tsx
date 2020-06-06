@@ -14,17 +14,26 @@ import {
 } from '@material-ui/core'
 import SlideUpDialog from 'components/SlideUpDialog'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    comment: { wordBreak: 'break-word', breakWord: 'word-break' },
+    comment: {
+      wordBreak: 'break-word',
+      breakWord: 'word-break',
+    },
+    hidden: { maxHeight: 80, overflow: 'hidden' },
   })
 )
 
 export interface CommentListProps {
   commentList: commentListItemProps[]
+  hidden?: boolean
 }
-const CommentListContent: React.FC<CommentListProps> = ({ commentList }) => {
+const CommentListContent: React.FC<CommentListProps> = ({
+  commentList,
+  hidden,
+}) => {
   const classes = useStyles()
   return (
     <List>
@@ -50,7 +59,9 @@ const CommentListContent: React.FC<CommentListProps> = ({ commentList }) => {
                 }
                 secondary={
                   <div
-                    className={classes.comment}
+                    className={clsx(classes.comment, {
+                      [classes.hidden]: hidden,
+                    })}
                     dangerouslySetInnerHTML={{
                       __html: `${o.comment}<span> ${o.score}</span>`,
                     }}
@@ -74,7 +85,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
 
   return (
     <>
-      <CommentListContent commentList={commentList.slice(0, 2)} />
+      <CommentListContent hidden commentList={commentList.slice(0, 2)} />
       {commentList.length > 0 && (
         <CardActions>
           <Button fullWidth onClick={() => setOpen(true)}>
