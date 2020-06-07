@@ -1,4 +1,5 @@
-import Axios, { AxiosResponse } from 'axios'
+import Axios from 'axios'
+import Router from 'next/router'
 const baseURL =
   process.env.NODE_ENV === 'development'
     ? ''
@@ -6,6 +7,12 @@ const baseURL =
 export const axios = Axios.create({
   baseURL,
   withCredentials: true,
+})
+axios.interceptors.response.use((res) => {
+  if (res.data.error && res.data.message.includes('[404]')) {
+    Router.replace('/404')
+  }
+  return res
 })
 
 export type UserPayload = {

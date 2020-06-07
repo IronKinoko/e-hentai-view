@@ -81,17 +81,7 @@ const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
   const classes = useMobileStyles()
   return (
     <Card className={classes.root}>
-      <Link
-        naked
-        href={{
-          pathname: '/detail',
-          query: {
-            filecount: record.filecount,
-            gid: record.gid,
-            token: record.token,
-          },
-        }}
-      >
+      <Link naked href={`/${record.gid}/${record.token}`}>
         <CardActionArea>
           <Grid container wrap={'nowrap'}>
             <Grid item>
@@ -210,17 +200,7 @@ const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
   const classes = useStyles()
   return (
     <Card className={classes.card}>
-      <Link
-        naked
-        href={{
-          pathname: '/detail',
-          query: {
-            filecount: record.filecount,
-            gid: record.gid,
-            token: record.token,
-          },
-        }}
-      >
+      <Link naked href={`/${record.gid}/${record.token}`}>
         <CardActionArea>
           <LoadMedia
             alt={record.title_jpn}

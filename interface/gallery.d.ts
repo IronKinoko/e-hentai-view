@@ -59,6 +59,7 @@ export interface Detailpage {
   list: DetailPageListItemProps[]
   commentList: commentListItemProps[]
   tagList: tagListItemProps[]
+  error?: boolean
 }
 
 export interface GalleriesPage {
@@ -66,4 +67,9 @@ export interface GalleriesPage {
   total?: number
   error?: boolean
   message?: string
+}
+export interface PageListProps {
+  initialData: DetailPageListItemProps[]
+  url: string
+  filecount: number
 }

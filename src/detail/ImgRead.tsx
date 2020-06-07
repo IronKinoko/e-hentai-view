@@ -39,12 +39,16 @@ interface ImgReadProps {
   defaultValue: number
   dataSource: Page.DetailPageListItemProps[]
   onClose: (index: number) => void
+  total: number
+  loadMore: () => void
 }
 const ImgRead: React.FC<ImgReadProps> = ({
   open,
   defaultValue,
   dataSource,
   onClose,
+  total,
+  loadMore: loadNextPage,
 }) => {
   const ref = useRef<HTMLDivElement>()
   const classes = useStyle()
@@ -103,6 +107,7 @@ const ImgRead: React.FC<ImgReadProps> = ({
         Math.max(0, index - 1),
         Math.min(index + 6, dataSource.length)
       )
+      if (dataSource.length - 8 < index) loadNextPage()
       indexArr.push(indexArr.shift()!)
       for (let i of indexArr) {
         if (!dataSource[i]) continue
@@ -140,7 +145,7 @@ const ImgRead: React.FC<ImgReadProps> = ({
           ))}
         </Grid>
         <div className={classes.info}>
-          {index + 1}/{dataSource.length}
+          {index + 1}/{total}
         </div>
       </Container>
     </Backdrop>
