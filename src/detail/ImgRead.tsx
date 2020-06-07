@@ -63,6 +63,16 @@ const ImgRead: React.FC<ImgReadProps> = ({
   }, [])
 
   useEffect(() => {
+    const fn = () => {
+      document.getElementById(`img${index}`)?.scrollIntoView()
+    }
+    window.addEventListener('resize', fn)
+    return () => {
+      window.removeEventListener('resize', fn)
+    }
+  }, [index])
+
+  useEffect(() => {
     let intersectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
