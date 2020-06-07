@@ -16,7 +16,6 @@ Router.events.on('routeChangeStart', (url) => {
 })
 Router.events.on('routeChangeComplete', () => {
   NProgress.done()
-  document.scrollingElement?.scroll({ left: 0, top: 0, behavior: 'smooth' })
 })
 Router.events.on('routeChangeError', () => NProgress.done())
 

@@ -3,11 +3,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-const isProd = process.env.NODE_ENV === 'production'
-const isVercel = process.env.VERCEL_GITHUB_DEPLOYMENT === '1'
+// const isProd = process.env.NODE_ENV === 'production'
+// const isVercel = process.env.VERCEL_GITHUB_DEPLOYMENT === '1'
 const nextConfig = {
-  target: 'serverless',
-  assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
+  // target: 'serverless',
+  // assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
   webpack(config) {
     config.plugins.push(
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)

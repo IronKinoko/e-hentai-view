@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
-import { NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import {
   Grid,
   Box,
@@ -127,6 +127,7 @@ const Detail: React.FC = () => {
   const handleOpen = (k: number) => {
     setStore({ open: true, index: k })
   }
+  console.log(data)
 
   const download = () => {
     // if (data && data.list.length > 0) {
@@ -312,3 +313,7 @@ const Detail: React.FC = () => {
 }
 
 export default Detail
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  return { props: {} }
+}

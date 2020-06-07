@@ -20,7 +20,8 @@
   },
   "scripts": {
     "dev": "node server.js",
-    "build": "next build && next export",
+    "build": "next build",
+    "export": "next build && next export",
     "analyze": "cross-env ANALYZE=true next build",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -s -r 0",
     "lint": "eslint --fix --ext .ts,.tsx"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import Link from 'next/link'
 import Layout from '../components/Layout'
-import { NextPage } from 'next'
+import { NextPage, GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { Typography, Grid, Container, Button } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
@@ -56,3 +56,6 @@ const IndexPage: NextPage = () => {
 }
 
 export default IndexPage
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  return { props: {} }
+}

@@ -5,20 +5,18 @@ node_js:
 cache:
   directories:
     - node_modules
-
 script:
-  - yarn build
+  - npm run build
+# before_deploy:
+#   - cd out/
+#   - touch .nojekyll
 
-before_deploy:
-  - cd out/
-  - touch .nojekyll
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: out
-  repo: IronKinoko/e-hentai-view
-  target_branch: gh-pages
-  on:
-    branch: master
+# deploy:
+#   provider: pages
+#   skip_cleanup: true
+#   github_token: $GITHUB_TOKEN
+#   local_dir: out
+#   repo: IronKinoko/e-hentai-view
+#   target_branch: gh-pages
+#   on:
+#     branch: master
