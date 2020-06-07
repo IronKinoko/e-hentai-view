@@ -88,7 +88,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
                 variant="rect"
                 animation="wave"
                 className={classes.cover}
-                height={240}
+                height={150}
               />
             </Card>
           </Grid>
