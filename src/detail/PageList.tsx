@@ -98,7 +98,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         <Grid item key={o.url + k} container wrap="nowrap" direction="column">
           <Grid item xs>
             <Card>
-              <CardActionArea onClick={() => handleOpen(k)}>
+              <CardActionArea onClick={() => handleOpen(k + 1 + page * 20)}>
                 <LoadMedia className={classes.cover} src={o.thumb} />
               </CardActionArea>
             </Card>
