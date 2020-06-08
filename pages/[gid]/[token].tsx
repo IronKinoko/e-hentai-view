@@ -1,5 +1,4 @@
-import { useEffect, useState, useCallback, useRef, useMemo } from 'react'
-import { GetServerSideProps } from 'next'
+import { NextPage } from 'next'
 import {
   Grid,
   Box,
@@ -78,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const Detail: React.FC = () => {
+const Detail: NextPage = () => {
   const router = useRouter()
   const gid = router.query.gid as string
   const token = router.query.token as string
@@ -178,7 +177,4 @@ const Detail: React.FC = () => {
 }
 
 export default Detail
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return { props: {} }
-}
+Detail.getInitialProps = () => ({})

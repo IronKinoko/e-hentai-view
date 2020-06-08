@@ -7,8 +7,6 @@ import ThemeProvider from 'src/theme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from 'next/router'
 import moment from 'moment'
-import { SWRConfig } from 'swr'
-import { axios } from 'apis'
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()

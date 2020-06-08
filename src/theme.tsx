@@ -15,7 +15,7 @@ import { pink, blue } from '@material-ui/core/colors'
 import { useMediaQuery } from '@material-ui/core'
 
 export const DispatchContext = createContext<React.Dispatch<Action>>(() => {})
-export const IsMobile = createContext(false)
+export const IsMobile = createContext<boolean | null>(null)
 export type Action = { type: 'CHANGE'; payload: any }
 export interface InitialThemeOptionsProps {
   paletteType: 'dark' | 'light'

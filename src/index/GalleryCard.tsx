@@ -77,11 +77,13 @@ export const MobileLoadingCard = () => {
     </Card>
   )
 }
-const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
+export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
+  record,
+}) => {
   const classes = useMobileStyles()
   return (
     <Card className={classes.root}>
-      <Link naked href={`/${record.gid}/${record.token}`}>
+      <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
         <CardActionArea>
           <Grid container wrap={'nowrap'}>
             <Grid item>
@@ -196,11 +198,13 @@ export const DesktopLoadingCard = () => {
   )
 }
 
-const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
+export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
+  record,
+}) => {
   const classes = useStyles()
   return (
     <Card className={classes.card}>
-      <Link naked href={`/${record.gid}/${record.token}`}>
+      <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
         <CardActionArea>
           <LoadMedia
             alt={record.title_jpn}
@@ -254,6 +258,7 @@ const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
 
 export const LoadingCard = () => {
   const matches = useIsmobile()
+  if (matches === null) return null
   return matches ? (
     <Grid item xs={12}>
       <MobileLoadingCard />
@@ -266,6 +271,8 @@ export const LoadingCard = () => {
 }
 const GalleryCard: React.FC<{ record: IndexListItemPorps }> = ({ record }) => {
   const matches = useIsmobile()
+  if (matches === null) return null
+
   return matches ? (
     <MobileCard record={record} />
   ) : (

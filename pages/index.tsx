@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import Link from 'next/link'
 import Layout from '../components/Layout'
-import { NextPage, GetServerSideProps } from 'next'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Typography, Grid, Container, Button } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
@@ -28,7 +28,9 @@ const IndexPage: NextPage = () => {
         'The search string is too short, and was ignored.',
         1500
       )
-    router.push(`/index?page=0&f_search=${search}`)
+    router.push(`/?f_search=${search}`, undefined, {
+      shallow: true,
+    })
   }
   useEffect(() => {
     setSearch(f_search)
@@ -56,6 +58,5 @@ const IndexPage: NextPage = () => {
 }
 
 export default IndexPage
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return { props: {} }
-}
+
+IndexPage.getInitialProps = () => ({})

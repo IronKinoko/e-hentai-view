@@ -56,15 +56,14 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
         })
       )
       console.log(data)
-
       if (!data)
         return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
       if (data && data.error) {
         message.error(data.message!)
         router.replace('/signin')
-        return null
+        return []
       }
-      if (data.total === 0) return null
+      if (data.total === 0) return []
       return data.list!.map((o) => (
         <Grid item xs key={o.gid}>
           <GalleryCard record={o} />
@@ -76,20 +75,22 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
       if (data!.total! <= (index + 1) * 25) return null
       return index + 1
     },
-    []
+    [f_search]
   )
   useEffect(() => {
     if (inview && !isLoadingMore && !isReachingEnd) loadMore()
   }, [inview, isLoadingMore, isReachingEnd, loadMore])
 
-  return (
-    <Box mt={2}>
-      {isEmpty && (
+  if (isEmpty)
+    return (
+      <Box mt={2}>
         <Typography variant="subtitle2" align="center" gutterBottom>
           no this found
         </Typography>
-      )}
-
+      </Box>
+    )
+  return (
+    <Box mt={2}>
       <Grid
         container
         wrap="wrap"
