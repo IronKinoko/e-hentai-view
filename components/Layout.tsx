@@ -108,9 +108,9 @@ const Layout: React.FunctionComponent<Props> = ({
             <Brightness4Icon />
           ),
         onClick: () => {
-          theme.palette.type === 'dark'
-            ? dispatch({ type: 'CHANGE', payload: { paletteType: 'light' } })
-            : dispatch({ type: 'CHANGE', payload: { paletteType: 'dark' } })
+          let paletteType = theme.palette.type === 'dark' ? 'light' : 'dark'
+          localStorage.setItem('paletteType', paletteType)
+          dispatch({ type: 'CHANGE', payload: { paletteType } })
         },
       },
     ]

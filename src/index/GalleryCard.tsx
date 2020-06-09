@@ -21,6 +21,9 @@ import { IndexListItemPorps } from 'apis/page'
 import { Rating } from '@material-ui/lab'
 import clsx from 'clsx'
 import { useIsmobile } from '@/theme'
+import RatingInview from './RatingInview'
+import { useInViewport } from '@umijs/hooks'
+import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 const useMobileStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { height: 136 },
@@ -81,91 +84,92 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useMobileStyles()
+
+  const [inview, ref] = useInViewportWithDistance(600)
+
   return (
-    <Card className={classes.root}>
-      <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
-        <CardActionArea>
-          <Grid container wrap={'nowrap'}>
-            <Grid item>
-              <LoadMedia
-                alt={record.title_jpn}
-                image={record.thumb}
-                title={record.title_jpn}
-                className={classes.img}
-              />
-            </Grid>
-            <Grid item xs>
-              <div className={clsx(classes.content, classes.full)}>
-                <Grid container direction="column" className={classes.full}>
-                  <Grid item xs>
-                    <Typography
-                      gutterBottom
-                      className={classes.title}
-                      title={record.title_jpn}
+    <Card className={classes.root} ref={ref}>
+      {inview && (
+        <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
+          <CardActionArea>
+            <Grid container wrap={'nowrap'}>
+              <Grid item>
+                <LoadMedia
+                  alt={record.title_jpn}
+                  src={record.thumb}
+                  title={record.title_jpn}
+                  className={classes.img}
+                  lazy
+                />
+              </Grid>
+              <Grid item xs>
+                <div className={clsx(classes.content, classes.full)}>
+                  <Grid container direction="column" className={classes.full}>
+                    <Grid item xs>
+                      <Typography
+                        gutterBottom
+                        className={classes.title}
+                        title={record.title_jpn}
+                      >
+                        {record.title_jpn}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      item
+                      container
+                      wrap="nowrap"
+                      className={classes.gutterBottom}
+                      spacing={1}
                     >
-                      {record.title_jpn}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    wrap="nowrap"
-                    className={classes.gutterBottom}
-                    spacing={1}
-                  >
-                    <Grid item xs>
-                      <Rating
-                        name="rating"
-                        size="small"
-                        readOnly
-                        max={5}
-                        precision={0.1}
-                        value={record?.rating ? +record.rating : 0}
-                      />
+                      <Grid item xs>
+                        <RatingInview
+                          value={record?.rating ? +record.rating : 0}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          variant="body2"
+                          color="textPrimary"
+                          component="span"
+                        >
+                          {record.tags?.includes('chinese') && 'ZH'}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          variant="body2"
+                          color="textPrimary"
+                          component="span"
+                        >
+                          {record.filecount + ' pages'}
+                        </Typography>
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      <Typography
-                        variant="body2"
-                        color="textPrimary"
-                        component="span"
-                      >
-                        {record.tags?.includes('chinese') && 'ZH'}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography
-                        variant="body2"
-                        color="textPrimary"
-                        component="span"
-                      >
-                        {record.filecount + ' pages'}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid item container wrap="nowrap">
-                    <Grid item xs>
-                      <ColorChip
-                        variant="outlined"
-                        label={record.category}
-                        size="small"
-                      />
-                    </Grid>
-                    <Grid item>
-                      <Typography
-                        variant="body2"
-                        color="textPrimary"
-                        component="span"
-                      >
-                        {record.time}
-                      </Typography>
+                    <Grid item container wrap="nowrap">
+                      <Grid item xs>
+                        <ColorChip
+                          variant="outlined"
+                          label={record.category}
+                          size="small"
+                        />
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          variant="body2"
+                          color="textPrimary"
+                          component="span"
+                        >
+                          {record.time}
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </div>
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </CardActionArea>
-      </Link>
+          </CardActionArea>
+        </Link>
+      )}
     </Card>
   )
 }
@@ -202,15 +206,17 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useStyles()
+
   return (
     <Card className={classes.card}>
       <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
         <CardActionArea>
           <LoadMedia
             alt={record.title_jpn}
-            image={record.thumb}
+            src={record.thumb}
             title={record.title_jpn}
             height={350}
+            lazy
           />
           <CardContent>
             <Typography
@@ -227,7 +233,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
                 label={record.category}
                 size="small"
               />
-              <Rating max={5} value={+record.rating} precision={0.1} readOnly />
+              <RatingInview value={+record.rating} />
             </Grid>
             <Grid container>
               <Grid item xs>

@@ -47,7 +47,6 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
     'gallery' + f_search,
     ({ offset, withSWR }) => {
       const url = `/api/gallery?page=${offset || 0}&f_search=${f_search}`
-      console.log(url)
       const { data } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useSWR<GalleriesPage>(url, async (url) => {
@@ -55,7 +54,6 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
           return res.data
         })
       )
-      console.log(data)
       if (!data)
         return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
       if (data && data.error) {

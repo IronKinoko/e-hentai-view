@@ -10,6 +10,8 @@ import React, {
   Reducer,
   FC,
   useContext,
+  useEffect,
+  useLayoutEffect,
 } from 'react'
 import { pink, blue } from '@material-ui/core/colors'
 import { useMediaQuery } from '@material-ui/core'
@@ -57,7 +59,21 @@ const ThemeProvider: FC<{}> = ({ children }) => {
   }, [paletteType])
 
   const matches = useMediaQuery(theme.breakpoints.down('xs'))
+  const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)', {
+    noSsr: true,
+  })
 
+  useEffect(() => {
+    let newPaletteType = localStorage.getItem('paletteType') as
+      | InitialThemeOptionsProps['paletteType']
+      | null
+    newPaletteType = newPaletteType
+      ? newPaletteType
+      : isDarkMode
+      ? 'dark'
+      : 'light'
+    dispatch({ type: 'CHANGE', payload: { paletteType: newPaletteType } })
+  }, [isDarkMode])
   return (
     <MuiThemeProvider theme={theme}>
       <DispatchContext.Provider value={dispatch}>

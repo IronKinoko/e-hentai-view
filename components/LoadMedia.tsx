@@ -1,62 +1,60 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { CardMedia, CardMediaProps } from '@material-ui/core'
-import { useIsmobile } from '@/theme'
+import { useInViewport } from '@umijs/hooks'
+import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 interface LoadMediaProps extends CardMediaProps<'img'> {
   fullWidth?: boolean
+  lazy?: boolean
 }
-const LoadMedia: React.FC<LoadMediaProps> = ({ src, fullWidth, ...rest }) => {
+const LoadMedia: React.FC<LoadMediaProps> = ({
+  src,
+  fullWidth,
+  lazy,
+  ...rest
+}) => {
   const [count, setCount] = useState(0)
-  const [href, setHref] = useState(src)
-  const [loading, setLoading] = useState(true)
+  const [href, setHref] = useState<string | undefined>(
+    '/static/transparent.png'
+  )
   const [long, setLong] = useState(true)
-  const matches = useIsmobile()
-  const reload = () => {
+  const [inview, ref] = useInViewportWithDistance<HTMLImageElement>(600)
+  const reload = useCallback(() => {
     if (count > 5) {
       return
     }
     setCount(count + 1)
     setHref(src + '?ts=' + Math.random())
-  }
-  useEffect(() => setHref(src), [src])
+  }, [count, src])
+
   useEffect(() => {
-    const fn = (e: any) => {
-      if (matches) e.preventDefault()
+    if (lazy) {
+      inview && setHref(src)
+    } else {
+      setHref(src)
     }
-    document.addEventListener('contextmenu', fn)
-    return () => {
-      document.removeEventListener('contextmenu', fn)
-    }
-  }, [matches])
+  }, [inview, lazy, src])
   return (
-    <React.Fragment>
-      <CardMedia
-        component="img"
-        onError={() => {
-          setTimeout(() => reload(), 500)
-        }}
-        style={{
-          width: fullWidth ? '100%' : '',
-          objectFit: long ? 'cover' : 'contain',
-          visibility: loading ? 'hidden' : 'unset',
-          userSelect: 'none',
-        }}
-        onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
-          rest.onLoad?.(e)
+    <CardMedia
+      ref={ref}
+      component="img"
+      onError={() => {
+        setTimeout(() => reload(), 500)
+      }}
+      style={{
+        width: fullWidth ? '100%' : '',
+        objectFit: long ? 'cover' : 'contain',
+        userSelect: 'none',
+      }}
+      onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
+        rest.onLoad?.(e)
 
-          setLoading(false)
-
-          if (e.currentTarget.naturalWidth > e.currentTarget.naturalHeight) {
-            setLong(false)
-          }
-        }}
-        {...rest}
-        src={href}
-      />
-
-      {/* {loading && (
-        <Skeleton variant="rect" animation="wave" height={320}></Skeleton>
-      )} */}
-    </React.Fragment>
+        if (e.currentTarget.naturalWidth > e.currentTarget.naturalHeight) {
+          setLong(false)
+        }
+      }}
+      {...rest}
+      src={href}
+    />
   )
 }
 export default LoadMedia
