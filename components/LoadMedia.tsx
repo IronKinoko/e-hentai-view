@@ -16,7 +16,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({
   const [href, setHref] = useState<string | undefined>(
     '/static/transparent.png'
   )
-  const [long, setLong] = useState(true)
+  const [wide, setWide] = useState(false)
   const [inview, ref] = useInViewportWithDistance<HTMLImageElement>(600)
   const reload = useCallback(() => {
     if (count > 5) {
@@ -42,14 +42,14 @@ const LoadMedia: React.FC<LoadMediaProps> = ({
       }}
       style={{
         width: fullWidth ? '100%' : '',
-        objectFit: long ? 'cover' : 'contain',
+        objectFit: wide ? 'contain' : undefined,
         userSelect: 'none',
       }}
       onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
         rest.onLoad?.(e)
-
+        console.log(e.currentTarget.naturalWidth, e.currentTarget.naturalHeight)
         if (e.currentTarget.naturalWidth > e.currentTarget.naturalHeight) {
-          setLong(false)
+          setWide(true)
         }
       }}
       {...rest}
