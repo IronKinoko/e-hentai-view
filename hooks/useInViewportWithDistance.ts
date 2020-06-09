@@ -15,7 +15,8 @@ function isInViewPort(el: HTMLElement, distance = 0): boolean {
   const viewPortHeight =
     (window.innerHeight ||
       document.documentElement.clientHeight ||
-      document.body.clientHeight) + distance
+      document.body.clientHeight) +
+    distance * 2
   const rect = el.getBoundingClientRect()
 
   if (rect) {

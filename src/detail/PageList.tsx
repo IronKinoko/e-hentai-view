@@ -16,6 +16,7 @@ import { Skeleton, SpeedDial } from '@material-ui/lab'
 import ImgRead from './ImgRead'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import { flatten } from 'lodash'
+import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cover: {
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
-  const [inView, ref] = useInViewport()
+  const [inView, ref] = useInViewportWithDistance(600)
   const classes = useStyles()
   const [store, setStore] = useState({
     open: false,

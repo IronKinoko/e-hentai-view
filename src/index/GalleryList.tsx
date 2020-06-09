@@ -8,6 +8,7 @@ import { useInViewport } from '@umijs/hooks'
 import useSWR, { useSWRPages, cache } from 'swr'
 import { axios } from 'apis'
 import { GalleriesPage } from 'interface/gallery'
+import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) =>
 const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
   const classes = useStyles()
   const router = useRouter()
-  const [inview, inviewRef] = useInViewport()
+  const [inview, inviewRef] = useInViewportWithDistance(600)
 
   const {
     pages,
