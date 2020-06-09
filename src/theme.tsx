@@ -23,7 +23,7 @@ export interface InitialThemeOptionsProps {
   paletteType: 'dark' | 'light'
 }
 const InitialThemeOptions: InitialThemeOptionsProps = {
-  paletteType: 'dark',
+  paletteType: 'light',
 }
 const ThemeProvider: FC<{}> = ({ children }) => {
   const [themeOptions, dispatch] = useReducer<

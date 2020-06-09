@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useState, MutableRefObject } from 'react'
+import { useRef, useState, MutableRefObject, useEffect } from 'react'
 import 'intersection-observer'
 type Arg = HTMLElement | (() => HTMLElement) | null
 type InViewport = boolean | undefined
@@ -55,7 +55,7 @@ function useInViewportWithDistance<T extends HTMLElement = HTMLElement>(
     return isInViewPort(initDOM as HTMLElement)
   })
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const passedInElement =
       typeof arg.current === 'function' ? arg.current() : arg.current
 

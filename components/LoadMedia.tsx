@@ -47,10 +47,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({
       }}
       onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
         rest.onLoad?.(e)
-        console.log(e.currentTarget.naturalWidth, e.currentTarget.naturalHeight)
-        if (e.currentTarget.naturalWidth > e.currentTarget.naturalHeight) {
-          setWide(true)
-        }
+        setWide(e.currentTarget.naturalWidth > e.currentTarget.naturalHeight)
       }}
       {...rest}
       src={href}
