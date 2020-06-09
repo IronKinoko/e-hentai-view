@@ -63,8 +63,8 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
         return []
       }
       if (data.total === 0) return []
-      return data.list!.map((o) => (
-        <Grid item xs key={o.gid}>
+      return data.list!.map((o, k) => (
+        <Grid item xs key={o.gid} data-index={(offset || 0) * 25 + k}>
           <GalleryCard record={o} />
         </Grid>
       ))
