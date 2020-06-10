@@ -23,6 +23,7 @@ import useGallery from 'hooks/useGallery'
 import useSelection from 'hooks/useSelection'
 import TagList from '@/detail/TagList'
 import PageList from '@/detail/PageList'
+import Info from '@/detail/Info'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -84,17 +85,6 @@ const Detail: NextPage = () => {
 
   const { data } = useGallery({ url: `/${gid}/${token}` })
   const classes = useStyles()
-  const selectionRef = useSelection<HTMLHeadingElement>()
-  const selectionRef2 = useSelection<HTMLHeadingElement>()
-
-  const download = () => {
-    // if (data && data.list.length > 0) {
-    //   Page.DownloadAllImg(
-    //     { record: data.info, tagList: data.tagList },
-    //     data.list
-    //   )
-    // }
-  }
 
   if (!data || data.error) {
     return (
@@ -109,62 +99,7 @@ const Detail: NextPage = () => {
 
   return (
     <Layout title={data.info.title}>
-      <Card className={classes.root}>
-        <Hidden smDown>
-          {data.info.thumb ? (
-            <div className={classes.center}>
-              <LoadMedia
-                className={clsx(classes.cover)}
-                src={data.info.thumb}
-              />
-            </div>
-          ) : (
-            <Skeleton
-              variant="rect"
-              animation="wave"
-              width={240}
-              height={320}
-            />
-          )}
-        </Hidden>
-        <CardContent className={classes.details}>
-          <Typography
-            variant="subtitle1"
-            component="h6"
-            gutterBottom
-            align="center"
-            ref={selectionRef}
-          >
-            {data.info.title_jpn}
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            component="h5"
-            gutterBottom
-            align="center"
-            ref={selectionRef2}
-          >
-            {data.info.title}
-          </Typography>
-          <Divider variant="fullWidth" className={classes.divider} />
-          <Box display="flex" className={classes.infoContainer}>
-            <InfoCard record={data.info} />
-            <div className={classes.border}>
-              <TagList tagList={data.tagList} />
-            </div>
-            <div>
-              <Button
-                onClick={download}
-                disabled
-                variant="text"
-                color="primary"
-              >
-                download
-              </Button>
-            </div>
-          </Box>
-        </CardContent>
-      </Card>
+      <Info info={data.info} tagList={data.tagList} />
       <CommentList commentList={data.commentList || []} />
       <Divider variant="fullWidth" className={classes.divider} />
       <PageList

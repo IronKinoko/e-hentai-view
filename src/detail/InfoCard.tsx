@@ -22,11 +22,12 @@ import {
   useTheme,
 } from '@material-ui/core/styles'
 import SlideUpDialog from 'components/SlideUpDialog'
-import { IndexListItemPorps } from 'apis/page'
+import { IndexListItemPorps } from 'interface/gallery'
 import clsx from 'clsx'
 import ColorChip from 'components/ColorChip'
 import { Rating } from '@material-ui/lab'
 import { omit } from 'lodash'
+import { useIsmobile } from '@/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -186,8 +187,7 @@ const DesktopInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
 }
 
 const InfoCard: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('sm'))
+  const matches = useIsmobile()
   return matches ? (
     <MobileInfoCard record={record} />
   ) : (

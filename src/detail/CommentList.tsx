@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { commentListItemProps } from 'apis/page'
+import { commentListItemProps } from 'interface/gallery'
 import {
   Button,
   Card,

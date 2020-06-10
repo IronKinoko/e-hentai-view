@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Backdrop, Container, Grid } from '@material-ui/core'
 import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles'
 import LoadMedia from 'components/LoadMedia'
-import { Page, loadImg } from 'apis'
+import { loadImg } from 'apis'
+import { DetailPageListItemProps } from 'interface/gallery'
 import { range } from 'lodash'
 import { useUpdateEffect } from '@umijs/hooks'
 let cacheId: boolean[] = []
@@ -37,7 +38,7 @@ const useStyle = makeStyles((theme: Theme) =>
 interface ImgReadProps {
   open: boolean
   defaultValue: number
-  dataSource: Page.DetailPageListItemProps[]
+  dataSource: DetailPageListItemProps[]
   onClose: (index: number) => void
   total: number
   loadMore: () => void

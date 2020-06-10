@@ -2,9 +2,16 @@
 
 [english](./README.md) | 中文说明
 
-> 这是一个 exhentai 的前端项目，访问后端项目清点[这里](https://github.com/IronKinoko/e-hentai-node)
+## 声明
 
-> 这是一个关于 exhentai 的 H5 项目，用于优化 exhentai 在手机浏览器中的体验， 不过也适配了 PC 端
+这是一个 exhentai 的前端项目，访问后端项目清点[这里](https://github.com/IronKinoko/e-hentai-node)
+
+这是一个关于 exhentai 的 H5 项目，用于优化 exhentai 在手机浏览器中的体验， 不过也适配了 PC 端
+
+## 特色
+
+1. 该项目适配了手机/PC 端，让手机看 exhentai 更方便
+2. 所有页面 gallery 都支持打包下载功能
 
 ## 使用
 

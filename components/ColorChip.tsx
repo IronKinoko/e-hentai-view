@@ -2,7 +2,7 @@ import React from 'react'
 import { Chip, ChipProps } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { Category } from 'apis/page'
+import { Category } from 'interface/gallery'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

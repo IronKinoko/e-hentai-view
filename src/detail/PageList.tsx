@@ -10,7 +10,7 @@ import {
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import useSWR, { useSWRPages } from 'swr'
 import { PageListProps, DetailPageListItemProps } from 'interface/gallery'
-import { axios } from 'apis'
+import { axios, loadMorePage } from 'apis'
 import LoadMedia from 'components/LoadMedia'
 import { Skeleton, SpeedDial } from '@material-ui/lab'
 import ImgRead from './ImgRead'
@@ -72,12 +72,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useSWR(`/api/gallery${url}/${page}`, async (url) => {
           if (page === 0) return initialData
-          const res = await axios.get<{
-            error: boolean
-            list: DetailPageListItemProps[]
-          }>(url)
-
-          return res.data.list
+          return await loadMorePage(url)
         })
       )
 
