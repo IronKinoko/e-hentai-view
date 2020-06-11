@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { login, UserPayload } from 'apis'
+import { login, UserPayload, axios } from 'apis'
 import message from 'components/message'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
@@ -16,6 +16,7 @@ import {
   Backdrop,
   AppBar,
   Button,
+  Box,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
@@ -82,6 +83,15 @@ const SignIn: NextPage = () => {
       message.error(res.message)
     }
   }
+
+  const handleTest = async () => {
+    const uri = '/api/user/test/cookie'
+    await axios.post(uri)
+    const res = await axios.get<{ error: boolean }>(uri)
+    if (res.data.error) message.error('无法使用cookie')
+    if (!res.data.error) message.success('正常使用cookie')
+  }
+
   return (
     <Layout title="sign in">
       <Container component="main" maxWidth="xs">
@@ -92,16 +102,29 @@ const SignIn: NextPage = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Alert severity="warning">
-            由于浏览器安全限制，您必须在当前浏览器里登录过
-            <Link
-              prefetch={false}
-              href="https://forums.e-hentai.org/index.php"
-              target="_blank"
-            >
-              exhentai
-            </Link>
-            站点，才能正常查看图片
+          <Box m="16px 0">
+            <Alert severity="warning">
+              由于浏览器安全限制，您必须在当前浏览器里登录过
+              <Link
+                prefetch={false}
+                href="https://forums.e-hentai.org/index.php"
+                target="_blank"
+              >
+                exhentai
+              </Link>
+              站点，才能正常查看图片
+            </Alert>
+          </Box>
+          <Alert
+            style={{ width: '100%' }}
+            severity="info"
+            action={
+              <Button color="inherit" onClick={handleTest}>
+                test
+              </Button>
+            }
+          >
+            测试cookie能否正常使用
           </Alert>
           <AppBar
             position="static"
