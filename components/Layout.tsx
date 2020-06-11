@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MENU = [
   { title: 'Front Page', link: '/' },
+  { title: 'Popular', link: '/popular' },
   { title: 'Settings', link: '/setting' },
 ]
 

@@ -9,7 +9,7 @@ import useSWR, { useSWRPages, cache } from 'swr'
 import { axios } from 'apis'
 import { GalleriesPage } from 'interface/gallery'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
-const useStyles = makeStyles((theme) =>
+export const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
     title: { fontSize: '10pt', height: 36, overflow: 'hidden' },

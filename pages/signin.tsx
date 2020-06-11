@@ -77,7 +77,7 @@ const SignIn: NextPage = () => {
     setLoading(false)
     if (!res.error) {
       message.success(res.message)
-      router.replace('/index?page=0')
+      router.replace('/')
     } else {
       message.error(res.message)
     }
