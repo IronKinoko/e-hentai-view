@@ -115,7 +115,7 @@ const ImgRead: React.FC<ImgReadProps> = ({
   useUpdateEffect(() => {
     const loadMore = async () => {
       let indexArr = range(
-        Math.max(0, index - 1),
+        Math.max(-1, index - 1),
         Math.min(index + 6, dataSource.length)
       )
       if (dataSource.length - 8 < index) loadNextPage()

@@ -106,7 +106,7 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
         <Grid item>
           {record?.tags.includes('chinese') ? 'Chinese' : 'Japanese'}
         </Grid>
-        <Grid item>{record?.filecount ? `${record.filecount} pages` : ''}</Grid>
+        <Grid item>{record?.filecount ? `${record.filecount}P` : ''}</Grid>
         <Grid item>{record?.filesize}</Grid>
       </Grid>
       <Grid container justify="space-between" alignItems="center">

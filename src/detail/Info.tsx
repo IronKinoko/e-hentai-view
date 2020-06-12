@@ -9,6 +9,7 @@ import {
   Divider,
   Box,
   Button,
+  Grid,
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import LoadMedia from 'components/LoadMedia'
@@ -17,6 +18,7 @@ import TagList from './TagList'
 import clsx from 'clsx'
 import useSelection from 'hooks/useSelection'
 import Link from 'components/Link'
+import SelectTypography from 'components/SelectTypography'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       flex: '1',
+      minWidth: 0,
     },
 
     cover: {
@@ -39,23 +42,18 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: { margin: theme.spacing(1, 0) },
 
     border: {
+      overflow: 'auto',
       borderStyle: 'solid',
       borderColor: theme.palette.divider,
       borderWidth: '0 1px',
-      flex: 1,
-      padding: theme.spacing(0, 1),
-      margin: theme.spacing(0, 1),
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         borderWidth: '1px 0',
-        padding: theme.spacing(1, 0),
-        margin: theme.spacing(1, 0),
       },
     },
 
     infoContainer: {
-      [theme.breakpoints.down('sm')]: {
-        display: 'flex',
-        flexDirection: 'column',
+      [theme.breakpoints.down('xs')]: {
+        display: 'block',
       },
     },
     loadingContainer: {
@@ -77,8 +75,6 @@ const Info: React.FC<{
 }> = ({ info, tagList }) => {
   const classes = useStyles()
 
-  const selectionRef = useSelection<HTMLHeadingElement>()
-  const selectionRef2 = useSelection<HTMLHeadingElement>()
   return (
     <Card className={classes.root}>
       <Hidden smDown>
@@ -91,38 +87,30 @@ const Info: React.FC<{
         )}
       </Hidden>
       <CardContent className={classes.details}>
-        <Typography
-          variant="subtitle1"
-          component="h6"
-          gutterBottom
-          align="center"
-          ref={selectionRef}
-        >
+        <SelectTypography variant="subtitle1" gutterBottom align="center">
           {info.title_jpn}
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          component="h5"
-          gutterBottom
-          align="center"
-          ref={selectionRef2}
-        >
-          {info.title}
-        </Typography>
+        </SelectTypography>
+        <Hidden xsDown>
+          <SelectTypography variant="subtitle2" gutterBottom align="center">
+            {info.title}
+          </SelectTypography>
+        </Hidden>
         <Divider variant="fullWidth" className={classes.divider} />
-        <Box display="flex" className={classes.infoContainer}>
-          <InfoCard record={info} />
-          <div className={classes.border}>
+        <Grid container spacing={2} className={classes.infoContainer}>
+          <Grid item>
+            <InfoCard record={info} />
+          </Grid>
+          <Grid item xs className={classes.border} zeroMinWidth>
             <TagList tagList={tagList} />
-          </div>
-          <div>
+          </Grid>
+          <Grid item>
             <Button variant="text" color="primary">
               <Link naked href="/d/[gid]/[token]" as={`/d${info.path}`}>
                 download
               </Link>
             </Button>
-          </div>
-        </Box>
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   )

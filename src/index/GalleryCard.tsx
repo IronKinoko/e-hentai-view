@@ -141,7 +141,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                           color="textPrimary"
                           component="span"
                         >
-                          {record.filecount + ' pages'}
+                          {record.filecount + 'P'}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -235,7 +235,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
               />
               <RatingInview value={+record.rating} />
             </Grid>
-            <Grid container>
+            <Grid container spacing={1}>
               <Grid item xs>
                 <Typography
                   variant="body2"
@@ -251,7 +251,16 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
                   color="textPrimary"
                   component="span"
                 >
-                  {record.filecount} pages
+                  {record.tags?.includes('chinese') && 'ZH'}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant="body2"
+                  color="textPrimary"
+                  component="span"
+                >
+                  {record.filecount}P
                 </Typography>
               </Grid>
             </Grid>
