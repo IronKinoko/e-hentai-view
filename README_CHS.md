@@ -4,8 +4,6 @@
 
 ## 声明
 
-这是一个 exhentai 的前端项目，访问后端项目清点[这里](https://github.com/IronKinoko/e-hentai-node)
-
 这是一个关于 exhentai 的 H5 项目，用于优化 exhentai 在手机浏览器中的体验， 不过也适配了 PC 端
 
 ## 特色
@@ -24,13 +22,17 @@
 ```shell
 # 首次运行请先安装依赖
 # npm
-npm i && npm run dev
+npm install
+npm run dev:server
+npm run dev:app
 #yarn
-yarn && yarn run dev
+yarn
+yarn run dev:server
+yarn run dev:app
 ```
 
 ## TODO
 
 - [ ] 优化手机端体验
-- [ ] 下载进度条
+- [-] 下载进度条
 - [ ] 下载错误处理
