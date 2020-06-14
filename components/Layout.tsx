@@ -152,7 +152,13 @@ const Layout: React.FunctionComponent<Props> = ({
           ))}
         </Grid>
       </Container>
-      {noContainer ? children : <Container maxWidth="lg">{children}</Container>}
+      {noContainer ? (
+        children
+      ) : (
+        <Container maxWidth="lg">
+          <>{children}</>
+        </Container>
+      )}
       <Backdrop open={open} className={classes.bakcdrop} />
       <SpeedDial
         className={classes.speedDial}
