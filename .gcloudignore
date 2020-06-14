@@ -15,10 +15,5 @@
 
 # Node.js dependencies:
 node_modules/
-apis/
-components/
-hooks/
-interface/
-pages/
-public/static
-src/
+app/
+!.next/
