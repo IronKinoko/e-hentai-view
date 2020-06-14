@@ -13,13 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
+        with:
+          persist-credentials: false
       # Setup and configure gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
           project_id: ${{ secrets.PROJECT_ID }}
           service_account_key: ${{ secrets.GAE_SA }}
+
+      - name: install
+        run: |
+          npm install && npm run build
 
       # Deploy App to App Engine
       - name: Deploy
