@@ -1,14 +1,7 @@
 import Axios from 'axios'
 import Router from 'next/router'
 import { DetailPageListItemProps } from 'interface/gallery'
-const baseURL =
-  process.env.NODE_ENV === 'development'
-    ? ''
-    : 'https://e-hentai-node.du.r.appspot.com'
-export const axios = Axios.create({
-  baseURL,
-  withCredentials: true,
-})
+export const axios = Axios.create({})
 const maxQueueLength = 6
 let count = 0
 axios.interceptors.request.use((req) => {

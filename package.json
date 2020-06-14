@@ -2,8 +2,9 @@
   "name": "e-hentai-view",
   "productName": "EhentaiView",
   "version": "2.0.0",
-  "main": "pages/index.tsx",
+  "main": "server/src/app.js",
   "license": "MIT",
+  "homepage": "https://exhentai.appspot.com",
   "author": {
     "name": "kinoko",
     "email": "kinoko.main@gmail.com",
@@ -19,21 +20,23 @@
     "type": "git"
   },
   "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "export": "next build && next export",
-    "analyze": "cross-env ANALYZE=true next build",
+    "dev:server": "cross-env NODE_ENV=development nodemon server/src/app.js -w server",
+    "dev:app": "node server/src/server.js",
+    "build": "next build app",
+    "analyze": "cross-env ANALYZE=true next build app",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -s -r 0",
-    "lint": "eslint --fix --ext .ts,.tsx",
-    "type:check": "tsc --noEmit",
-    "start": "cross-env PORT=8080 NODE_ENV=production node server.js"
+    "type:check": "tsc --project app/tsconfig.json --noEmit",
+    "start": "cross-env PORT=8080 NODE_ENV=production node server/src/server.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run type:check"
+      "pre-commit": "npm run type:check"
     }
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.1",
+    "@types/lodash": "^4.14.155",
+    "@types/qs": "^6.9.3",
     "@types/node": "^12.12.47",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.36",
@@ -60,9 +63,6 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@next/bundle-analyzer": "^9.4.4",
-    "@types/file-saver": "^2.0.1",
-    "@types/lodash": "^4.14.155",
-    "@types/qs": "^6.9.3",
     "@umijs/hooks": "^1.9.3",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.0",
@@ -75,15 +75,21 @@
     "http-proxy-middleware": "^1.0.4",
     "jszip": "^3.4.0",
     "lodash": "^4.17.15",
-    "mobx": "^5.15.4",
-    "mobx-react-lite": "^2.0.7",
-    "moment": "^2.26.0",
     "next": "9.4.0",
     "nprogress": "^0.2.0",
     "qs": "^6.9.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-hook-form": "^5.7.2",
-    "swr": "^0.2.3"
+    "swr": "^0.2.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express-async-errors": "^3.1.1",
+    "express-list-endpoints": "^4.0.1",
+    "jsdom": "^16.2.2",
+    "moment": "^2.26.0",
+    "node-cache": "^5.1.0",
+    "nodemon": "^2.0.4"
   }
 }
