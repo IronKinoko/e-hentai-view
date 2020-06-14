@@ -58,8 +58,6 @@
     "rimraf": "^3.0.0",
     "typescript": "^3.9.5",
     "nodemon": "^2.0.4",
-    "@next/bundle-analyzer": "^9.4.4",
-    "babel-plugin-import": "^1.13.0",
     "conventional-changelog-cli": "^2.0.34"
   },
   "dependencies": {
@@ -90,6 +88,8 @@
     "express-list-endpoints": "^4.0.1",
     "jsdom": "^16.2.2",
     "moment": "^2.26.0",
-    "node-cache": "^5.1.0"
+    "node-cache": "^5.1.0",
+    "@next/bundle-analyzer": "^9.4.4",
+    "babel-plugin-import": "^1.13.0"
   }
 }
