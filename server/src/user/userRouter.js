@@ -5,7 +5,6 @@ const cache = require('../cache')
 const router = express.Router()
 
 const cookieOption = (req) => ({
-  domain: req.hostname.includes('appspot') ? '.appspot.com' : '',
   maxAge: 6 * 31 * 24 * 60 * 60 * 1000,
   path: '/',
 })
