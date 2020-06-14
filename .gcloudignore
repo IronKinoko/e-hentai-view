@@ -15,13 +15,3 @@
 
 # Node.js dependencies:
 node_modules/
-
-.github/
-.vscode/
-apis/
-components/
-hooks/
-interface/
-pages/
-public/
-src/
