@@ -31,5 +31,5 @@ yarn run dev:app
 ## TODO
 
 - [ ] Optimize mobile experience
-- [-] download progress
+- [x] download progress
 - [ ] download error handing
