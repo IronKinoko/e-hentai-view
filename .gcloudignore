@@ -15,6 +15,11 @@
 
 # Node.js dependencies:
 node_modules/
-app/
-#!.next/
-#!app/.next/
+app/.vscode
+app/apis
+app/components
+app/hooks
+app/interface
+app/pages
+app/public
+app/src
