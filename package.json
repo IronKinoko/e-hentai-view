@@ -56,18 +56,19 @@
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "nodemon": "^2.0.4",
+    "@next/bundle-analyzer": "^9.4.4",
+    "babel-plugin-import": "^1.13.0",
+    "conventional-changelog-cli": "^2.0.34"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "@next/bundle-analyzer": "^9.4.4",
     "@umijs/hooks": "^1.9.3",
     "axios": "^0.19.2",
-    "babel-plugin-import": "^1.13.0",
     "clsx": "^1.1.1",
-    "conventional-changelog-cli": "^2.0.34",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "file-saver": "^2.0.2",
@@ -89,7 +90,6 @@
     "express-list-endpoints": "^4.0.1",
     "jsdom": "^16.2.2",
     "moment": "^2.26.0",
-    "node-cache": "^5.1.0",
-    "nodemon": "^2.0.4"
+    "node-cache": "^5.1.0"
   }
 }

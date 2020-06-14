@@ -16,4 +16,5 @@
 # Node.js dependencies:
 node_modules/
 app/
-!.next/
+#!.next/
+#!app/.next/
