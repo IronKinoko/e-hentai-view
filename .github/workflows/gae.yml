@@ -1,0 +1,27 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  setup-build-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup and configure gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          project_id: ${{ secrets.PROJECT_ID }}
+          service_account_key: ${{ secrets.GAE_SA }}
+
+      # Deploy App to App Engine
+      - name: Deploy
+        run: |
+          gcloud app deploy --quiet
