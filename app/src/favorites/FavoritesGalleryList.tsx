@@ -33,7 +33,9 @@ export const useStyles = makeStyles((theme) =>
     },
   })
 )
-const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
+const FavoritesGalleryList: React.FC<{ favcat?: string }> = ({
+  favcat = 'all',
+}) => {
   const classes = useStyles()
   const router = useRouter()
   const [inview, inviewRef] = useInViewportWithDistance(600)
@@ -45,9 +47,9 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
     loadMore,
     isEmpty,
   } = useSWRPages<number | null, GalleriesPage>(
-    'gallery' + f_search,
+    'favoritesGallery' + favcat,
     ({ offset, withSWR }) => {
-      const url = `/api/gallery?page=${offset || 0}&f_search=${f_search}`
+      const url = `/api/favorites?page=${offset || 0}&favcat=${favcat}`
       const { data } = withSWR(
         // eslint-disable-next-line react-hooks/rules-of-hooks
         useSWR<GalleriesPage>(url, async (url) => {
@@ -57,11 +59,6 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
       )
       if (!data)
         return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
-      if (data && data.error) {
-        message.error(data.message!)
-        router.replace('/signin')
-        return []
-      }
       if (data.total === 0) return []
       return data.list!.map((o, k) => (
         <Grid item xs key={o.gid} data-index={(offset || 0) * 25 + k}>
@@ -74,7 +71,7 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
       if (data!.total! <= (index + 1) * 25) return null
       return index + 1
     },
-    [f_search]
+    [favcat]
   )
   useEffect(() => {
     if (inview && !isLoadingMore && !isReachingEnd) loadMore()
@@ -117,4 +114,4 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
   )
 }
 
-export default GalleryList
+export default FavoritesGalleryList

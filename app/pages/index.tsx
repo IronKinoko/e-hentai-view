@@ -10,9 +10,7 @@ import message from 'components/message'
 import GalleryList from '@/index/GalleryList'
 const useStyles = makeStyles((theme) =>
   createStyles({
-    title: { fontSize: '10pt', height: 36, overflow: 'hidden' },
-    card: { width: 250, margin: theme.spacing(0, 'auto') },
-    btn: { margin: theme.spacing(1, 0) },
+    search: { margin: theme.spacing(2, 'auto') },
   })
 )
 const IndexPage: NextPage = () => {
@@ -23,7 +21,7 @@ const IndexPage: NextPage = () => {
 
   return (
     <Layout>
-      <SearchBar />
+      <SearchBar className={classes.search} />
       <GalleryList key={f_search} f_search={f_search} />
     </Layout>
   )

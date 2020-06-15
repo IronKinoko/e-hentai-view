@@ -24,6 +24,7 @@ import useSelection from 'hooks/useSelection'
 import TagList from '@/detail/TagList'
 import PageList from '@/detail/PageList'
 import Info from '@/detail/Info'
+import Loading from 'components/Loading'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -88,17 +89,14 @@ const Detail: NextPage = () => {
 
   if (!data || data.error) {
     return (
-      <Layout title="Loading...">
-        <div className={classes.loadingContainer}>
-          <CircularProgress />
-          <div>Loading...</div>
-        </div>
+      <Layout title="Loading..." fullScreen>
+        <Loading />
       </Layout>
     )
   }
 
   return (
-    <Layout title={data.info.title}>
+    <Layout title={data.info.title} gutterBottom>
       <Info info={data.info} tagList={data.tagList} />
       <CommentList commentList={data.commentList || []} />
       <Divider variant="fullWidth" className={classes.divider} />

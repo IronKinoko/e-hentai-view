@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     speedDial: {
       position: 'fixed',
       right: 16,
-      bottom: 88,
+      bottom: 16,
       zIndex: theme.zIndex.speedDial - 2,
     },
     btn: { margin: theme.spacing(1, 0) },

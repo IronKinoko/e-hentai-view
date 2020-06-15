@@ -24,6 +24,21 @@ import { useIsmobile } from '@/theme'
 import RatingInview from './RatingInview'
 import { useInViewport } from '@umijs/hooks'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
+import { LOCAL_HISTORY } from 'constant'
+import { uniqBy } from 'lodash'
+function storageHistory(record: IndexListItemPorps) {
+  const his = JSON.parse(
+    localStorage.getItem(LOCAL_HISTORY) || '[]'
+  ) as IndexListItemPorps[]
+
+  his.unshift(record)
+
+  localStorage.setItem(
+    LOCAL_HISTORY,
+    JSON.stringify(uniqBy(his, 'gid').slice(0, 50))
+  )
+}
+
 const useMobileStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { height: 136 },
@@ -91,7 +106,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
     <Card className={classes.root} ref={ref}>
       {inview && (
         <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
-          <CardActionArea>
+          <CardActionArea onClick={() => storageHistory(record)}>
             <Grid container wrap={'nowrap'}>
               <Grid item>
                 <LoadMedia
@@ -210,7 +225,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
   return (
     <Card className={classes.card}>
       <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
-        <CardActionArea>
+        <CardActionArea onClick={() => storageHistory(record)}>
           <LoadMedia
             alt={record.title_jpn}
             src={record.thumb}

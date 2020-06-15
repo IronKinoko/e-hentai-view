@@ -16,7 +16,6 @@ import LoadMedia from 'components/LoadMedia'
 import InfoCard from './InfoCard'
 import TagList from './TagList'
 import clsx from 'clsx'
-import useSelection from 'hooks/useSelection'
 import Link from 'components/Link'
 import SelectTypography from 'components/SelectTypography'
 const useStyles = makeStyles((theme: Theme) =>
@@ -66,6 +65,19 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: theme.spacing(1),
       },
     },
+    smTitle: {
+      [theme.breakpoints.down('sm')]: {
+        display: 'flex',
+        '& > *': {
+          textAlign: 'left !important',
+        },
+      },
+    },
+    smallCover: {
+      width: 103,
+      height: 150,
+      marginRight: theme.spacing(2),
+    },
   })
 )
 
@@ -87,14 +99,19 @@ const Info: React.FC<{
         )}
       </Hidden>
       <CardContent className={classes.details}>
-        <SelectTypography variant="subtitle1" gutterBottom align="center">
-          {info.title_jpn}
-        </SelectTypography>
-        <Hidden xsDown>
-          <SelectTypography variant="subtitle2" gutterBottom align="center">
-            {info.title}
+        <div className={classes.smTitle}>
+          <Hidden smUp>
+            <LoadMedia className={clsx(classes.smallCover)} src={info.thumb} />
+          </Hidden>
+          <SelectTypography variant="subtitle1" gutterBottom align="center">
+            {info.title_jpn}
           </SelectTypography>
-        </Hidden>
+          <Hidden xsDown>
+            <SelectTypography variant="subtitle2" gutterBottom align="center">
+              {info.title}
+            </SelectTypography>
+          </Hidden>
+        </div>
         <Divider variant="fullWidth" className={classes.divider} />
         <Grid container spacing={2} className={classes.infoContainer}>
           <Grid item>
@@ -105,7 +122,11 @@ const Info: React.FC<{
           </Grid>
           <Grid item>
             <Button variant="text" color="primary">
-              <Link naked href="/d/[gid]/[token]" as={`/d${info.path}`}>
+              <Link
+                naked
+                href="/[gid]/[token]/download"
+                as={`${info.path}/download`}
+              >
                 download
               </Link>
             </Button>

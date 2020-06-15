@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
 import {
@@ -8,6 +8,16 @@ import {
   Container,
   Grid,
   Backdrop,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  SwipeableDrawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  CircularProgress,
 } from '@material-ui/core'
 import {
   makeStyles,
@@ -24,11 +34,14 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import HttpIcon from '@material-ui/icons/Http'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import Brightness4Icon from '@material-ui/icons/Brightness4'
+import MenuIcon from '@material-ui/icons/Menu'
 import Link from 'components/Link'
-type Props = {
-  title?: string
-  noContainer?: boolean
-}
+import WhatshotIcon from '@material-ui/icons/Whatshot'
+import SettingsIcon from '@material-ui/icons/Settings'
+import SubscriptionsIcon from '@material-ui/icons/Subscriptions'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import HistoryIcon from '@material-ui/icons/History'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,84 +63,53 @@ const useStyles = makeStyles((theme: Theme) =>
     bakcdrop: {
       zIndex: theme.zIndex.speedDial - 1,
     },
+    title: {
+      flexGrow: 1,
+      marginLeft: theme.spacing(2),
+    },
+
+    list: { minWidth: 250, flexGrow: 1 },
+    fullScreen: {
+      position: 'fixed',
+      top: 56,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
+    gutterBottom: { paddingTop: theme.spacing(2) },
   })
 )
 
 const MENU = [
-  { title: 'Front Page', link: '/' },
-  { title: 'Popular', link: '/popular' },
-  { title: 'Settings', link: '/setting' },
+  { title: 'Front Page', icon: <HomeIcon />, link: '/' },
+  { title: 'Watched', icon: <SubscriptionsIcon />, link: '/watched' },
+  { title: 'Popular', icon: <WhatshotIcon />, link: '/popular' },
+  { title: 'Favorites', icon: <FavoriteIcon />, link: '/favorites' },
+  { title: 'Histories', icon: <HistoryIcon />, link: '/histories' },
+  { title: 'Settings', icon: <SettingsIcon />, link: '/setting' },
 ]
+
+type Props = {
+  title?: string
+  noContainer?: boolean
+  fullScreen?: boolean
+  gutterBottom?: boolean
+  tool?: React.ReactNode
+}
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
   title,
   noContainer,
+  fullScreen,
+  gutterBottom,
+  tool,
 }) => {
   const theme = useTheme()
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
   const dispatch = useThemeState()
-  const aciton = React.useMemo(() => {
-    const aciton = [
-      {
-        label: 'home',
-        icon: <HomeIcon />,
-        onClick: () => {
-          Router.push('/index?page=0')
-          document.scrollingElement?.scroll({
-            left: 0,
-            top: 0,
-            behavior: 'smooth',
-          })
-        },
-      },
-      {
-        label: 'Top',
-        icon: <VerticalAlignTopIcon />,
-        onClick: () => {
-          document.scrollingElement?.scroll({
-            left: 0,
-            top: 0,
-            behavior: 'smooth',
-          })
-        },
-      },
-      {
-        label: 'goBack',
-        icon: <ArrowBackIcon />,
-        onClick: () => {
-          Router.back()
-        },
-      },
-      {
-        label: 'dark/light',
-        icon:
-          theme.palette.type === 'dark' ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          ),
-        onClick: () => {
-          let paletteType = theme.palette.type === 'dark' ? 'light' : 'dark'
-          localStorage.setItem('paletteType', paletteType)
-          dispatch({ type: 'CHANGE', payload: { paletteType } })
-        },
-      },
-    ]
-
-    if (process.env.NODE_ENV === 'development') {
-      aciton.push({
-        label: 'test',
-        icon: <HttpIcon />,
-        onClick: () => {
-          Router.push('/test')
-        },
-      })
-    }
-
-    return aciton
-  }, [theme.palette.type, dispatch])
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   return (
     <div className={classes.root}>
       <Head>
@@ -135,66 +117,97 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Container style={{ maxWidth: 1600 }}>
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-          className={classes.header}
-          spacing={1}
-        >
-          {MENU.map((o) => (
-            <Grid item key={o.link}>
-              <Link href={o.link} naked className={classes.link}>
-                {o.title}
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-      {noContainer ? (
-        children
-      ) : (
-        <Container maxWidth="lg">
-          <>{children}</>
-        </Container>
-      )}
-      <Backdrop open={open} className={classes.bakcdrop} />
-      <SpeedDial
-        className={classes.speedDial}
-        ariaLabel="SpeedDial tooltip example"
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={() => setOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title} noWrap>
+            {title || 'EhentaiView'}
+          </Typography>
+          <IconButton
+            color="inherit"
+            onClick={() => {
+              let paletteType = theme.palette.type === 'dark' ? 'light' : 'dark'
+              localStorage.setItem('paletteType', paletteType)
+              dispatch({ type: 'CHANGE', payload: { paletteType } })
+            }}
+          >
+            {theme.palette.type === 'dark' ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
+          {tool}
+        </Toolbar>
+      </AppBar>
+      <SwipeableDrawer
+        disableDiscovery={iOS}
+        anchor="left"
         open={open}
-        onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
-        icon={<SpeedDialIcon />}
+        onOpen={() => setOpen(true)}
       >
-        {aciton.map((o) => (
-          <SpeedDialAction
-            key={o.label}
-            tooltipOpen
-            tooltipTitle={o.label}
-            icon={o.icon}
-            onClick={o.onClick}
-          />
-        ))}
-      </SpeedDial>
-      <footer>
-        <Divider variant="middle" />
-        <Box m={2}>
-          <Copyright />
-        </Box>
-      </footer>
+        <div className={classes.list}>
+          <List onClick={() => setOpen(false)}>
+            <Link naked href="/">
+              <ListItem>
+                <ListItemText
+                  primary="EhentaiView"
+                  primaryTypographyProps={{ variant: 'h6' }}
+                />
+              </ListItem>
+            </Link>
+            <Divider variant="fullWidth" />
+            {MENU.map((o, k) => (
+              <Link href={o.link} naked key={k}>
+                <ListItem button>
+                  <ListItemIcon>{o.icon}</ListItemIcon>
+                  <ListItemText primary={o.title} />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </div>
+        <Copyright />
+      </SwipeableDrawer>
+      <div
+        className={clsx({
+          [classes.fullScreen]: fullScreen,
+          [classes.gutterBottom]: gutterBottom,
+        })}
+      >
+        {noContainer ? (
+          children
+        ) : (
+          <Container maxWidth="lg" style={{ minHeight: '100%' }}>
+            <>{children}</>
+          </Container>
+        )}
+      </div>
     </div>
   )
 }
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      Copyright @{new Date().getFullYear()}{' '}
+    <List dense>
       <a href="https://github.com/IronKinoko" target="_blank">
-        Kinoko
+        <ListItem button>
+          <ListItemText
+            primaryTypographyProps={{
+              variant: 'subtitle2',
+              color: 'textSecondary',
+            }}
+            primary={`Copyright @${new Date().getFullYear()} Kinoko`}
+          />
+        </ListItem>
       </a>
-    </Typography>
+    </List>
   )
 }
 export default Layout

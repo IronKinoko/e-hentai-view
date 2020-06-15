@@ -48,10 +48,14 @@ app.get('/api', async (req, res) => {
 
 app.use('/api/gallery', require('./gallery/galleryRouter'))
 app.use('/api/popular', require('./popular/popularRouter'))
+app.use('/api/watched', require('./watched/watchedRouter'))
+app.use('/api/favorites', require('./favorites/favoritesRouter'))
 app.use('/api/user', require('./user/userRouter'))
 
 app.use((err, req, res, next) => {
   console.error(err)
+  if (err.message === 'Request failed with status code 302')
+    err.message = 'no login'
   res.status(200).send({ error: true, message: err.message })
 })
 

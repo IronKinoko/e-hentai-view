@@ -14,6 +14,7 @@ import {
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import LinearProgressWithLabel from 'components/LinearProgressWithLabel'
 import Info from '@/detail/Info'
+import Loading from 'components/Loading'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     loadingContainer: {
@@ -45,16 +46,13 @@ const Download: NextPage = () => {
   }
   if (!data || data.error) {
     return (
-      <Layout title="Loading...">
-        <div className={classes.loadingContainer}>
-          <CircularProgress />
-          <div>Loading...</div>
-        </div>
+      <Layout title="Loading..." fullScreen>
+        <Loading />
       </Layout>
     )
   }
   return (
-    <Layout title="Download">
+    <Layout title="Download" gutterBottom>
       <Info info={data.info} tagList={data.tagList} />
       <Divider variant="fullWidth" className={classes.divider} />
       <Collapse in={progess.done === progess.total && progess.total !== 0}>

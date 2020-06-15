@@ -11,31 +11,44 @@ const JSDOM = require('jsdom').JSDOM
 const moment = require('moment')
 const filesize = require('filesize')
 const translated = require('../utils/translated')
+const { chunk } = require('lodash')
 async function gdata(gidlist, cookies) {
   if (gidlist.length === 0) return []
-  const res = await axios.post(
-    baseApiURL,
-    {
-      method: 'gdata',
-      gidlist,
-    },
-    {
-      headers: {
-        Cookie: cookies,
-      },
-    }
+  const taskList = []
+  chunk(gidlist, 25).forEach((gidlist) =>
+    taskList.push(
+      axios.post(
+        baseApiURL,
+        {
+          method: 'gdata',
+          gidlist,
+        },
+        {
+          headers: {
+            Cookie: cookies,
+          },
+        }
+      )
+    )
   )
 
-  res.data.gmetadata.forEach((o) => {
-    if (o.error) throw new Error('[404]Key missing, or incorrect key provided.')
-    o.time = moment(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
-    o.title_jpn = o.title_jpn || o.title
-    o.category = o.category.replace(/\s/, '_')
-    o.filesize = filesize(+o.filesize)
-    o.url = `${baseURL}/g/${o.gid}/${o.token}`
-    o.path = `/${o.gid}/${o.token}`
-  })
-  return res.data.gmetadata
+  const res = (await Promise.all(taskList))
+    .map((res) => {
+      res.data.gmetadata.forEach((o) => {
+        if (o.error)
+          throw new Error('[404]Key missing, or incorrect key provided.')
+        o.time = moment(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
+        o.title_jpn = o.title_jpn || o.title
+        o.category = o.category.replace(/\s/, '_')
+        o.filesize = filesize(+o.filesize)
+        o.url = `${baseURL}/g/${o.gid}/${o.token}`
+        o.path = `/${o.gid}/${o.token}`
+      })
+      return res.data.gmetadata
+    })
+    .reduce((prev, next) => [...prev, ...next], [])
+
+  return res
 }
 
 async function galleryList({ page, f_search }, cookies) {

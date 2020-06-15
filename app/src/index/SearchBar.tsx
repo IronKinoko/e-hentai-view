@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, HtmlHTMLAttributes } from 'react'
 import InputBase from '@material-ui/core/InputBase'
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
   const classes = useStyles()
   const router = useRouter()
   const f_search = decodeURIComponent((router.query.f_search as string) || '')
@@ -94,7 +94,7 @@ const SearchBar: React.FC = () => {
   }
 
   return (
-    <Container maxWidth="sm" disableGutters>
+    <Container maxWidth="sm" disableGutters {...props}>
       <Grid container alignItems="center" className={classes.root}>
         <Grid item xs>
           <form
