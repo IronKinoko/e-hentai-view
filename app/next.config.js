@@ -17,6 +17,9 @@ const nextConfig = {
   devIndicators: {
     autoPrerender: false,
   },
+  env: {
+    VERSION: '2.0.1',
+  },
 }
 
 module.exports = withBundleAnalyzer(nextConfig)

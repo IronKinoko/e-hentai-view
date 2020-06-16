@@ -27,7 +27,7 @@ const UserCookie = () => {
         <DialogTitle>User Cookie</DialogTitle>
         <DialogContent>
           <DialogContentText color="primary" variant="h6">
-            Pay attention to data security
+            KEEP IT SAFE
           </DialogContentText>
           {typeof window !== 'undefined' &&
             document.cookie.split(';').map((t) => (
@@ -39,7 +39,9 @@ const UserCookie = () => {
             ))}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)}>COPY</Button>
+          <Button color="primary" onClick={() => setOpen(false)}>
+            COPY
+          </Button>
         </DialogActions>
       </Dialog>
     </>

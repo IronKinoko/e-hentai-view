@@ -2,6 +2,12 @@
 
 english | [中文说明](./README_CHS.md)
 
+## Screenshot
+
+![](https://raw.githubusercontent.com/IronKinoko/assert/master/e-hentai-view/home.png)
+
+![](https://raw.githubusercontent.com/IronKinoko/assert/master/e-hentai-view/menu.png)
+
 > **My english is poor, this article is provided by Google translation**
 
 A mobile website for exhentai, build with Next.js, also can in PC
