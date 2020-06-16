@@ -63,6 +63,21 @@ function parseDetailPageTagList(document) {
   })
 }
 
+/**
+ * @param { Document } document
+ */
+function parseDetailPageOtherInfo(document) {
+  const rating_count = document.getElementById('rating_count').textContent
+
+  let favoritelink = document.getElementById('favoritelink').textContent
+  if (favoritelink.includes('Add to Favorites')) favoritelink = ''
+
+  const favcount = document
+    .getElementById('favcount')
+    .textContent.replace(/[^0-9]/g, '')
+
+  return { rating_count, favcount, favoritelink }
+}
 function parseBigImg(document) {
   return document.getElementById('img').src
 }
@@ -71,5 +86,6 @@ module.exports = {
   parseDetailPageList,
   parseDetailPageCommentList,
   parseDetailPageTagList,
+  parseDetailPageOtherInfo,
   parseBigImg,
 }

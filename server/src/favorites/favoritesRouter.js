@@ -1,6 +1,10 @@
 const express = require('express')
 const { getCookieString } = require('../utils/cookies')
-const { getFavorites, getFavoritesInfo } = require('./favoritesApi')
+const {
+  getFavorites,
+  getFavoritesInfo,
+  updateFavorite,
+} = require('./favoritesApi')
 const cache = require('../cache')
 const router = express.Router()
 
@@ -19,6 +23,13 @@ router.get('/', async (req, res) => {
 router.get('/info', async (req, res) => {
   const list = await getFavoritesInfo(getCookieString(req.cookies))
   res.json({ error: false, list })
+})
+
+router.put('/add/:gid/:token', async (req, res) => {
+  const { gid, token } = req.params
+  const { favcat } = req.query
+  await updateFavorite({ gid, token, favcat }, getCookieString(req.cookies))
+  res.json({ error: false, message: 'success' })
 })
 
 module.exports = router

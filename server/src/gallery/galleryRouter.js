@@ -39,20 +39,14 @@ router.get('/', async (req, res) => {
 router.get('/:gid/:token', async (req, res) => {
   const { gid, token } = req.params
 
-  const cacheKey = JSON.stringify({ gid, token })
+  const content = await Promise.all([
+    gdata([[gid, token]], getCookieString(req.cookies)),
+    galleryDetail({ gid, token }, getCookieString(req.cookies)),
+  ])
 
-  let content = cache.get(cacheKey)
-  if (!content) {
-    content = await Promise.all([
-      gdata([[gid, token]], getCookieString(req.cookies)),
-      galleryDetail({ gid, token }, getCookieString(req.cookies)),
-    ])
-    cache.set(cacheKey, content)
-  }
+  const [[info], { list, commentList, tagList, otherInfo }] = content
 
-  const [[info], { list, commentList, tagList }] = content
-
-  res.json({ info, list, commentList, tagList })
+  res.json({ info: { ...info, ...otherInfo }, list, commentList, tagList })
 })
 
 router.get('/:gid/:token/:p', async (req, res) => {

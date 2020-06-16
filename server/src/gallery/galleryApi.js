@@ -6,6 +6,7 @@ const {
   parseDetailPageList,
   parseDetailPageTagList,
   parseBigImg,
+  parseDetailPageOtherInfo,
 } = require('./galleryParser')
 const JSDOM = require('jsdom').JSDOM
 const moment = require('moment')
@@ -43,6 +44,10 @@ async function gdata(gidlist, cookies) {
         o.filesize = filesize(+o.filesize)
         o.url = `${baseURL}/g/${o.gid}/${o.token}`
         o.path = `/${o.gid}/${o.token}`
+        o.torrents.forEach((v) => {
+          // https://exhentai.org/torrent/1662332/e0c3075c07ab19bd1f4074b71de971f7464e0004.torrent
+          v.url = `${baseURL}/torrent/${o.gid}/${v.hash}.torrent`
+        })
       })
       return res.data.gmetadata
     })
@@ -74,10 +79,7 @@ async function galleryList({ page, f_search }, cookies) {
   try {
     const gidlist = await parseHTMLAnchorElement(document)
     list = await gdata(gidlist, cookies)
-    total = +document
-      .querySelector('p.ip')
-      .innerHTML.match(/[0-9,]+/)[0]
-      .replace(',', '')
+    total = +document.querySelector('p.ip').innerHTML.replace(/[^0-9]/g, '')
     if (list.length === 0) throw new Error('parse faild')
   } catch (error) {
     console.error(error)
@@ -90,6 +92,7 @@ async function galleryDetail({ gid, token }, cookies) {
   let list = []
   let commentList = []
   let tagList = []
+  let otherInfo = {}
 
   const res = await axios.get(`${baseURL}/g/${gid}/${token}?p=0`, {
     headers: { Cookie: cookies },
@@ -100,10 +103,10 @@ async function galleryDetail({ gid, token }, cookies) {
   list = parseDetailPageList(document)
   commentList = parseDetailPageCommentList(document)
   tagList = parseDetailPageTagList(document)
-
+  otherInfo = parseDetailPageOtherInfo(document)
   tagList = translated(tagList)
 
-  return { list, commentList, tagList }
+  return { list, commentList, tagList, otherInfo }
 }
 async function galleryDetailPage({ gid, token, p }, cookies) {
   const res = await axios.get(`${baseURL}/g/${gid}/${token}?p=${p}`, {

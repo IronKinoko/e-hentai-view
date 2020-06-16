@@ -14,6 +14,10 @@ import {
   TableRow,
   TableBody,
   TableContainer,
+  Chip,
+  AppBar,
+  Toolbar,
+  IconButton,
 } from '@material-ui/core'
 import {
   makeStyles,
@@ -28,7 +32,9 @@ import ColorChip from 'components/ColorChip'
 import { Rating } from '@material-ui/lab'
 import { omit } from 'lodash'
 import { useIsmobile } from '@/theme'
-
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Link from 'components/Link'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chip: {
@@ -36,11 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '70%',
       display: 'flex',
     },
-    cover: {
+    infoContainer: {
       maxWidth: 240,
-      minWidth: 240,
       maxHeight: 320,
-      objectFit: 'contain',
       margin: theme.spacing(0, 'auto'),
     },
     root: {
@@ -55,6 +59,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
+  const theme = useTheme()
+  const matches = useIsmobile()
   return (
     <>
       <CardActions>
@@ -62,7 +68,23 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
           MORE
         </Button>
       </CardActions>
-      <SlideUpDialog open={open} onClose={() => setOpen(false)}>
+      <SlideUpDialog
+        fullScreen={Boolean(matches)}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {matches && (
+          <AppBar position="static" style={{ marginBottom: theme.spacing(1) }}>
+            <Toolbar>
+              <IconButton edge="start" onClick={() => setOpen(false)}>
+                <ArrowBackIcon />
+              </IconButton>
+              <Typography style={{ marginLeft: theme.spacing(2) }} variant="h6">
+                Gallery Info
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        )}
         <TableContainer component="div">
           <Table size="small">
             <TableHead>
@@ -91,7 +113,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   )
 }
 
-const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
+const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useStyles()
@@ -104,18 +126,19 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
         justify="space-between"
       >
         <Grid item>
-          {record?.tags.includes('chinese') ? 'Chinese' : 'Japanese'}
+          {record.tags.includes('chinese') ? 'Chinese' : 'Japanese'}
         </Grid>
-        <Grid item>{record?.filecount ? `${record.filecount}P` : ''}</Grid>
-        <Grid item>{record?.filesize}</Grid>
+        <Grid item>{record.filecount ? `${record.filecount}P` : ''}</Grid>
+        <Grid item>{record.filesize}</Grid>
       </Grid>
       <Grid container justify="space-between" alignItems="center">
-        <Grid item xs>
-          <ColorChip label={record?.category} />
+        <Grid item xs container alignItems="center">
+          <FavoriteIcon color="secondary" fontSize="inherit" />
+          {record.favcount}
         </Grid>
         <Grid item xs container justify="center">
           <Rating
-            value={+(record?.rating || 0)}
+            value={+(record.rating || 0)}
             readOnly
             precision={0.1}
             max={5}
@@ -128,7 +151,7 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
           justify="flex-end"
           style={{ textAlign: 'right' }}
         >
-          {record?.time}
+          {record.time}
         </Grid>
       </Grid>
       <MoreInfo record={record} />
@@ -136,33 +159,35 @@ const MobileInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
   )
 }
 
-const DesktopInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
+const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useStyles()
   return (
-    <div className={clsx(classes.cover)}>
+    <div className={clsx(classes.infoContainer)}>
       <ColorChip
         className={classes.chip}
-        label={record?.category}
+        label={record.category}
         size="small"
       />
-      <Typography component="p" variant="body2" align="center" gutterBottom>
-        {record?.uploader}
-      </Typography>
+      <Link color="inherit" href={`/?f_search=uploader:${record.uploader}`}>
+        <Typography component="p" variant="body2" align="center" gutterBottom>
+          {record.uploader}
+        </Typography>
+      </Link>
       <table>
         <tbody>
           <tr>
             <td>Posted:</td>
-            <td>{record?.time}</td>
+            <td>{record.time}</td>
           </tr>
           <tr>
             <td>File Size:</td>
-            <td>{record?.filesize}</td>
+            <td>{record.filesize}</td>
           </tr>
           <tr>
             <td>Length:</td>
-            <td>{record?.filecount}</td>
+            <td>{record.filecount}P</td>
           </tr>
           <tr>
             <td>Rating:</td>
@@ -174,10 +199,19 @@ const DesktopInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
                   readOnly
                   max={5}
                   precision={0.1}
-                  value={record?.rating ? +record.rating : 0}
+                  value={record.rating ? +record.rating : 0}
                 />
+                {record.rating_count}
               </Grid>
             </td>
+          </tr>
+          <tr>
+            <td>Average:</td>
+            <td>{record.rating}</td>
+          </tr>
+          <tr>
+            <td>Favorited:</td>
+            <td>{record.favcount} times</td>
           </tr>
         </tbody>
       </table>
@@ -188,6 +222,7 @@ const DesktopInfoCard: React.FC<{ record?: IndexListItemPorps }> = ({
 
 const InfoCard: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   const matches = useIsmobile()
+  if (!record) return null
   return matches ? (
     <MobileInfoCard record={record} />
   ) : (

@@ -5,10 +5,10 @@ english | [中文说明](./README_CHS.md)
 ## Screenshot
 
 <div style="display: flex; justify-content: space-between;">
-<img src="https://raw.githubusercontent.com/IronKinoko/assert/master/e-hentai-view/home.png" width="24.5%" title="home"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/assert/master/e-hentai-view/menu.png" width="24.5%" title="menu" />
-<img src="https://raw.githubusercontent.com/IronKinoko/assert/master/e-hentai-view/home_dark.png" width="24.5%" title="home"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/assert/master/e-hentai-view/menu_dark.png" width="24.5%" title="menu" />
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/home.png" width="24.5%" title="home"/>
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/menu.png" width="24.5%" title="menu" />
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/home_dark.png" width="24.5%" title="home"/>
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/menu_dark.png" width="24.5%" title="menu" />
 </div>
 
 > **My english is poor, this article is provided by Google translation**

@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, CircularProgressProps } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-const Loading = () => {
+const Loading: React.FC<CircularProgressProps> = (props) => {
   const classes = useStyles()
 
   return (
     <div className={classes.loadingBox}>
-      <CircularProgress color="primary" />
+      <CircularProgress color="primary" {...props} />
     </div>
   )
 }

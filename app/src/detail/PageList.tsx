@@ -145,7 +145,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         open
         className={classes.speedDial}
         onClick={() => setStore((t) => ({ ...t, open: true }))}
-        icon={<PlayArrowIcon />}
+        icon={<PlayArrowIcon style={{ color: '#fff' }} />}
       />
     </>
   )

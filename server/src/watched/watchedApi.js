@@ -19,8 +19,7 @@ async function getWatched(page, cookies) {
   const list = await gdata(gidlist, cookies)
   const total = +document
     .querySelectorAll('p.ip')[1]
-    .innerHTML.match(/[0-9,]+/)[0]
-    .replace(',', '')
+    .innerHTML.replace(/[^0-9]/g, '')
   return { list, total }
 }
 
