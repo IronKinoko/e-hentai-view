@@ -31,7 +31,14 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
       <SlideUpDialog fullWidth open={open} onClose={() => setOpen(false)}>
         <List dense={Boolean(matches)}>
           {info.torrents.map((o, k) => (
-            <ListItem button key={k} divider={k !== info.torrents.length - 1}>
+            <ListItem
+              onClick={() => {
+                window.open(o.url)
+              }}
+              button
+              key={k}
+              divider={k !== info.torrents.length - 1}
+            >
               <ListItemIcon>
                 <TorrentIcon />
               </ListItemIcon>
