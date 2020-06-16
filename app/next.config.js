@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const package = require('../package.json')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
@@ -18,7 +19,7 @@ const nextConfig = {
     autoPrerender: false,
   },
   env: {
-    VERSION: '2.1.0',
+    VERSION: package.version,
   },
 }
 
