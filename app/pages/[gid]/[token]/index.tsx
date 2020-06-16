@@ -1,3 +1,4 @@
+import React from 'react'
 import { NextPage } from 'next'
 import {
   Grid,
@@ -25,6 +26,7 @@ import TagList from '@/detail/TagList'
 import PageList from '@/detail/PageList'
 import Info from '@/detail/Info'
 import Loading from 'components/Loading'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

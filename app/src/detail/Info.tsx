@@ -10,6 +10,8 @@ import {
   Box,
   Button,
   Grid,
+  IconButton,
+  Tooltip,
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import LoadMedia from 'components/LoadMedia'
@@ -18,6 +20,13 @@ import TagList from './TagList'
 import clsx from 'clsx'
 import Link from 'components/Link'
 import SelectTypography from 'components/SelectTypography'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import TorrentIcon from 'components/TorrentIcon'
+import { useRouter } from 'next/router'
+import { axios } from 'apis'
+import FavIconButton from './FavIconButton'
+import TorrentIconButton from './TorrentIconButton'
+import ColorChip from 'components/ColorChip'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -66,9 +75,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     smTitle: {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         display: 'flex',
-        '& > *': {
+        '& *': {
           textAlign: 'left !important',
         },
       },
@@ -78,6 +87,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 150,
       marginRight: theme.spacing(2),
     },
+    actions: {
+      [theme.breakpoints.up('sm')]: {
+        display: 'flex',
+        flexDirection: 'column',
+      },
+    },
   })
 )
 
@@ -86,6 +101,7 @@ const Info: React.FC<{
   tagList: tagListItemProps[]
 }> = ({ info, tagList }) => {
   const classes = useStyles()
+  const router = useRouter()
 
   return (
     <Card className={classes.root}>
@@ -103,9 +119,21 @@ const Info: React.FC<{
           <Hidden smUp>
             <LoadMedia className={clsx(classes.smallCover)} src={info.thumb} />
           </Hidden>
-          <SelectTypography variant="subtitle1" gutterBottom align="center">
-            {info.title_jpn}
-          </SelectTypography>
+          <div>
+            <SelectTypography variant="subtitle1" gutterBottom align="center">
+              {info.title_jpn}
+            </SelectTypography>
+            <Hidden smUp>
+              <Link
+                color="inherit"
+                href={`/?f_search=uploader:${info.uploader}`}
+              >
+                <Typography gutterBottom>{info.uploader}</Typography>
+              </Link>
+              <ColorChip label={info.category} />
+            </Hidden>
+          </div>
+
           <Hidden xsDown>
             <SelectTypography variant="subtitle2" gutterBottom align="center">
               {info.title}
@@ -120,16 +148,22 @@ const Info: React.FC<{
           <Grid item xs className={classes.border} zeroMinWidth>
             <TagList tagList={tagList} />
           </Grid>
-          <Grid item>
-            <Button variant="text" color="primary">
-              <Link
-                naked
-                href="/[gid]/[token]/download"
-                as={`${info.path}/download`}
+          <Grid item className={classes.actions}>
+            <Tooltip title="Download">
+              <IconButton
+                color="primary"
+                onClick={() =>
+                  router.push(
+                    '/[gid]/[token]/download',
+                    `${info.path}/download`
+                  )
+                }
               >
-                download
-              </Link>
-            </Button>
+                <CloudDownloadIcon />
+              </IconButton>
+            </Tooltip>
+            <TorrentIconButton info={info} />
+            <FavIconButton info={info} />
           </Grid>
         </Grid>
       </CardContent>

@@ -25,10 +25,21 @@ export interface IndexListItemPorps {
   expunged: boolean
   rating: string
   torrentcount: string
+  torrents: {
+    added: string
+    fsize: string
+    hash: string
+    name: string
+    tsize: string
+    url: string
+  }[]
   tags: string[]
   url: string
   time: string
   path: string
+  rating_count: string
+  favcount: string
+  favoritelink: string
 }
 
 export interface DetailPageListItemProps {

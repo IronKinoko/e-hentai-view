@@ -6,7 +6,7 @@ const configURL = baseURL + '/uconfig.php'
 const popularURL = baseURL + '/popular'
 const watchedURL = baseURL + '/watched'
 const favoritesURL = baseURL + '/favorites.php'
-
+const favoritesApiURL = baseURL + '/gallerypopups.php'
 module.exports = {
   baseApiURL,
   baseURL,
@@ -15,4 +15,5 @@ module.exports = {
   popularURL,
   watchedURL,
   favoritesURL,
+  favoritesApiURL,
 }

@@ -1,11 +1,16 @@
 import React from 'react'
-import useRequest, { Config } from './useRequest'
 import { Detailpage } from 'interface/gallery'
-
-export default function useGallery(
-  { url }: { [k: string]: string },
-  config?: Config<Detailpage>
-) {
-  const res = useRequest<Detailpage>({ url: '/api/gallery' + url }, config)
+import useSWR from 'swr'
+import { axios } from 'apis'
+export default function useGallery({ url }: { [k: string]: string }) {
+  const res = useSWR(
+    '/api/gallery' + url,
+    async (url) => {
+      const res = await axios.get<Detailpage>(url)
+      if (res.data.error) throw new Error('error')
+      return res.data
+    },
+    { errorRetryInterval: 100 }
+  )
   return res
 }

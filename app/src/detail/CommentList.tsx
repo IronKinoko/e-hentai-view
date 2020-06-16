@@ -11,10 +11,20 @@ import {
   ListItemText,
   Typography,
   Divider,
+  AppBar,
+  Toolbar,
+  IconButton,
 } from '@material-ui/core'
 import SlideUpDialog from 'components/SlideUpDialog'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { useIsmobile } from '@/theme'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,32 +58,27 @@ const CommentListContent: React.FC<CommentListProps> = ({
         </Typography>
       ) : (
         commentList.map((o, k) => (
-          <React.Fragment key={k}>
-            <ListItem>
-              <ListItemText
-                primary={
-                  <Grid container justify="space-between">
-                    <Typography component="span">{o.userName}</Typography>
-                    <Typography component="span">{o.time}</Typography>
-                  </Grid>
-                }
-                secondary={
-                  <div
-                    className={clsx(classes.comment, {
-                      [classes.hidden]: hidden,
-                    })}
-                    dangerouslySetInnerHTML={{
-                      __html: `${o.comment}<span> ${o.score}</span>`,
-                    }}
-                  />
-                }
-                secondaryTypographyProps={{ component: 'div' }}
-              />
-            </ListItem>
-            {k !== commentList.length - 1 && (
-              <Divider variant="fullWidth" orientation="horizontal" />
-            )}
-          </React.Fragment>
+          <ListItem key={k} divider={k !== commentList.length - 1}>
+            <ListItemText
+              primary={
+                <Grid container justify="space-between">
+                  <Typography component="span">{o.userName}</Typography>
+                  <Typography component="span">{o.time}</Typography>
+                </Grid>
+              }
+              secondary={
+                <div
+                  className={clsx(classes.comment, {
+                    [classes.hidden]: hidden,
+                  })}
+                  dangerouslySetInnerHTML={{
+                    __html: `${o.comment}<span> ${o.score}</span>`,
+                  }}
+                />
+              }
+              secondaryTypographyProps={{ component: 'div' }}
+            />
+          </ListItem>
         ))
       )}
     </List>
@@ -82,7 +87,8 @@ const CommentListContent: React.FC<CommentListProps> = ({
 
 const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
   const [open, setOpen] = useState(false)
-
+  const theme = useTheme()
+  const matches = useIsmobile()
   return (
     <>
       <CommentListContent hidden commentList={commentList.slice(0, 2)} />
@@ -93,7 +99,24 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
           </Button>
         </CardActions>
       )}
-      <SlideUpDialog open={open} onClose={() => setOpen(false)} scroll="paper">
+      <SlideUpDialog
+        fullScreen={Boolean(matches)}
+        open={open}
+        onClose={() => setOpen(false)}
+        scroll="paper"
+      >
+        {matches && (
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton edge="start" onClick={() => setOpen(false)}>
+                <ArrowBackIcon />
+              </IconButton>
+              <Typography style={{ marginLeft: theme.spacing(2) }} variant="h6">
+                Comments
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        )}
         <CommentListContent commentList={commentList} />
       </SlideUpDialog>
     </>
