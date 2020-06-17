@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   List,
   ListItemText,
+  Grid,
 } from '@material-ui/core'
 import TorrentIcon from 'components/TorrentIcon'
 import { IndexListItemPorps } from 'interface/gallery'
@@ -42,7 +43,21 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
               <ListItemIcon>
                 <TorrentIcon />
               </ListItemIcon>
-              <ListItemText primary={o.name} />
+              <ListItemText
+                primary={o.name}
+                secondary={
+                  <Grid
+                    container
+                    spacing={1}
+                    direction={matches ? 'column' : 'row'}
+                  >
+                    <Grid item>Added: {o.added}</Grid>
+                    <Grid item>Size: {o.fsize}</Grid>
+                    <Grid item>Torrent size: {o.tsize}</Grid>
+                  </Grid>
+                }
+                secondaryTypographyProps={{ component: 'div' }}
+              />
             </ListItem>
           ))}
         </List>

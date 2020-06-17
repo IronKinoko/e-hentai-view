@@ -47,6 +47,9 @@ async function gdata(gidlist, cookies) {
         o.torrents.forEach((v) => {
           // https://exhentai.org/torrent/1662332/e0c3075c07ab19bd1f4074b71de971f7464e0004.torrent
           v.url = `${baseURL}/torrent/${o.gid}/${v.hash}.torrent`
+          v.fsize = filesize(v.fsize)
+          v.tsize = filesize(v.tsize)
+          v.added = moment(+v.added * 1000).format('YYYY-MM-DD HH:mm')
         })
       })
       return res.data.gmetadata

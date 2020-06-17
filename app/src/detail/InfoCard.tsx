@@ -74,9 +74,13 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
         onClose={() => setOpen(false)}
       >
         {matches && (
-          <AppBar position="static" style={{ marginBottom: theme.spacing(1) }}>
+          <AppBar position="sticky" style={{ marginBottom: theme.spacing(1) }}>
             <Toolbar>
-              <IconButton edge="start" onClick={() => setOpen(false)}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => setOpen(false)}
+              >
                 <ArrowBackIcon />
               </IconButton>
               <Typography style={{ marginLeft: theme.spacing(2) }} variant="h6">

@@ -42,6 +42,7 @@ import SubscriptionsIcon from '@material-ui/icons/Subscriptions'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import HistoryIcon from '@material-ui/icons/History'
 import clsx from 'clsx'
+import HideOnScroll from 'components/HideOnScroll'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -117,35 +118,39 @@ const Layout: React.FunctionComponent<Props> = ({
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            edge="start"
-            onClick={() => setOpen(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title} noWrap>
-            {title || 'EhentaiView'}
-          </Typography>
-          <IconButton
-            color="inherit"
-            onClick={() => {
-              let paletteType = theme.palette.type === 'dark' ? 'light' : 'dark'
-              localStorage.setItem('paletteType', paletteType)
-              dispatch({ type: 'CHANGE', payload: { paletteType } })
-            }}
-          >
-            {theme.palette.type === 'dark' ? (
-              <Brightness7Icon />
-            ) : (
-              <Brightness4Icon />
-            )}
-          </IconButton>
-          {tool}
-        </Toolbar>
-      </AppBar>
+      <HideOnScroll>
+        <AppBar position="sticky">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={() => setOpen(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title} noWrap>
+              {title || 'EhentaiView'}
+            </Typography>
+            <IconButton
+              color="inherit"
+              onClick={() => {
+                let paletteType =
+                  theme.palette.type === 'dark' ? 'light' : 'dark'
+                localStorage.setItem('paletteType', paletteType)
+                dispatch({ type: 'CHANGE', payload: { paletteType } })
+              }}
+            >
+              {theme.palette.type === 'dark' ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
+            {tool}
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
+
       <SwipeableDrawer
         disableDiscovery={iOS}
         anchor="left"
