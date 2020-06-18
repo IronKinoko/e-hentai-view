@@ -14,6 +14,7 @@ import {
   AppBar,
   Toolbar,
   IconButton,
+  DialogTitle,
 } from '@material-ui/core'
 import SlideUpDialog from 'components/SlideUpDialog'
 import {
@@ -27,6 +28,7 @@ import { useIsmobile } from '@/theme'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import HideOnScroll from 'components/HideOnScroll'
 import { useTranslation } from 'i18n'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +48,7 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
   ({ commentList, hidden }, ref) => {
     const classes = useStyles()
     const [t] = useTranslation()
+
     return (
       <List ref={ref}>
         {commentList.length === 0 ? (
@@ -87,24 +90,34 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
   }
 )
 const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
-  const [open, setOpen] = useState(false)
   const theme = useTheme()
   const matches = useIsmobile()
+  const router = useRouter()
+  const showPage = router.query.showPage as string
   const [t] = useTranslation()
   return (
     <>
       <CommentListContent hidden commentList={commentList.slice(0, 2)} />
       {commentList.length > 0 && (
         <CardActions>
-          <Button fullWidth onClick={() => setOpen(true)}>
+          <Button
+            fullWidth
+            onClick={() =>
+              router.push(
+                router.pathname + '?showPage=comments',
+                router.asPath + '?showPage=comments'
+              )
+            }
+          >
             {t('More')}
           </Button>
         </CardActions>
       )}
       <SlideUpDialog
         fullScreen={Boolean(matches)}
-        open={open}
-        onClose={() => setOpen(false)}
+        fullWidth={!Boolean(matches)}
+        open={showPage === 'comments'}
+        onClose={() => router.back()}
         scroll="paper"
       >
         {matches && (
@@ -113,7 +126,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
               <IconButton
                 edge="start"
                 color="inherit"
-                onClick={() => setOpen(false)}
+                onClick={() => router.back()}
               >
                 <ArrowBackIcon />
               </IconButton>
@@ -123,6 +136,12 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
             </Toolbar>
           </AppBar>
         )}
+        {!matches && (
+          <DialogTitle style={{ padding: theme.spacing(2, 2, 0) }}>
+            {t('G.Comments')}
+          </DialogTitle>
+        )}
+
         <CommentListContent commentList={commentList} />
       </SlideUpDialog>
     </>

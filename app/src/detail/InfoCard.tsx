@@ -18,6 +18,7 @@ import {
   AppBar,
   Toolbar,
   IconButton,
+  DialogTitle,
 } from '@material-ui/core'
 import {
   makeStyles,
@@ -36,6 +37,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Link from 'components/Link'
 import { useTranslation } from 'i18n'
+import { useRouter } from 'next/router'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chip: {
@@ -58,22 +60,33 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
-  const [open, setOpen] = useState(false)
   const classes = useStyles()
   const theme = useTheme()
   const matches = useIsmobile()
   const [t] = useTranslation()
+  const router = useRouter()
+  const showPage = router.query.showPage as string
   return (
     <>
       <CardActions>
-        <Button fullWidth onClick={() => setOpen(true)}>
+        <Button
+          fullWidth
+          onClick={() =>
+            router.push(
+              router.pathname + '?showPage=info',
+              router.asPath + '?showPage=info'
+            )
+          }
+        >
           {t('More')}
         </Button>
       </CardActions>
       <SlideUpDialog
         fullScreen={Boolean(matches)}
-        open={open}
-        onClose={() => setOpen(false)}
+        fullWidth={!Boolean(matches)}
+        open={showPage === 'info'}
+        onClose={() => router.back()}
+        scroll="paper"
       >
         {matches && (
           <AppBar position="sticky" style={{ marginBottom: theme.spacing(1) }}>
@@ -81,7 +94,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
               <IconButton
                 edge="start"
                 color="inherit"
-                onClick={() => setOpen(false)}
+                onClick={() => router.back()}
               >
                 <ArrowBackIcon />
               </IconButton>
@@ -90,6 +103,11 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
               </Typography>
             </Toolbar>
           </AppBar>
+        )}
+        {!matches && (
+          <DialogTitle style={{ padding: theme.spacing(2, 2) }}>
+            {t('G.Gallery Info')}
+          </DialogTitle>
         )}
         <TableContainer component="div">
           <Table size="small">
