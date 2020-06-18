@@ -7,6 +7,7 @@ import ThemeProvider from 'src/theme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from 'next/router'
 import moment from 'moment'
+import { appWithTranslation } from 'i18n'
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
@@ -17,7 +18,7 @@ Router.events.on('routeChangeComplete', () => {
 })
 Router.events.on('routeChangeError', () => NProgress.done())
 
-export default function MyApp(props: AppProps) {
+function MyApp(props: AppProps) {
   const { Component, pageProps } = props
 
   React.useEffect(() => {
@@ -54,3 +55,5 @@ export default function MyApp(props: AppProps) {
     </React.Fragment>
   )
 }
+
+export default appWithTranslation(MyApp)

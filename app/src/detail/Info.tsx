@@ -27,6 +27,7 @@ import { axios } from 'apis'
 import FavIconButton from './FavIconButton'
 import TorrentIconButton from './TorrentIconButton'
 import ColorChip from 'components/ColorChip'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -102,7 +103,7 @@ const Info: React.FC<{
 }> = ({ info, tagList }) => {
   const classes = useStyles()
   const router = useRouter()
-
+  const [t] = useTranslation()
   return (
     <Card className={classes.root}>
       <Hidden smDown>
@@ -149,7 +150,7 @@ const Info: React.FC<{
             <TagList tagList={tagList} />
           </Grid>
           <Grid item className={classes.actions}>
-            <Tooltip title="Download">
+            <Tooltip title={t('Download') as string}>
               <IconButton
                 color="primary"
                 onClick={() =>

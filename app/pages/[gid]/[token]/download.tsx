@@ -15,6 +15,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import LinearProgressWithLabel from 'components/LinearProgressWithLabel'
 import Info from '@/detail/Info'
 import Loading from 'components/Loading'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     loadingContainer: {
@@ -37,7 +38,7 @@ const Download: NextPage = () => {
   const token = router.query.token as string
   const classes = useStyles()
   const [data, progess, download] = useDownload(gid, token)
-
+  const [t] = useTranslation()
   const [saveLoading, setSaveLoading] = useState(false)
   const save = async () => {
     setSaveLoading(true)
@@ -52,7 +53,7 @@ const Download: NextPage = () => {
     )
   }
   return (
-    <Layout title="Download" gutterBottom>
+    <Layout title={t('Download')} gutterBottom>
       <Info info={data.info} tagList={data.tagList} />
       <Divider variant="fullWidth" className={classes.divider} />
       <Collapse in={progess.done === progess.total && progess.total !== 0}>
@@ -60,14 +61,18 @@ const Download: NextPage = () => {
           {saveLoading ? (
             <CircularProgress color="inherit" size={24} />
           ) : (
-            'save local'
+            t('Download.Save Local')
           )}
         </Button>
       </Collapse>
       <Typography component="h6" variant="h6">
-        Download Progess
+        {t('Download.Progress')}
         <Typography component="span" variant="caption" noWrap>
-          {` (Done: ${progess.done} / Buffer: ${progess.buffer} / Total: ${progess.total})`}
+          {` (${t('Download.Done')}: ${progess.done} / ${t(
+            'Download.Buffer'
+          )}: ${progess.buffer - progess.done} / ${t('Download.Total')}: ${
+            progess.total
+          })`}
         </Typography>
       </Typography>
       <LinearProgressWithLabel
@@ -76,7 +81,7 @@ const Download: NextPage = () => {
         valueBuffer={Math.round((progess.buffer / progess.total) * 100)}
       />
       <Typography component="h6" variant="h6">
-        Error Info
+        {t('Download.Error Info')}
       </Typography>
       <Typography component="pre">
         {JSON.stringify(progess.error, null, 2)}

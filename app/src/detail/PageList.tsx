@@ -17,6 +17,7 @@ import ImgRead from './ImgRead'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import { flatten } from 'lodash'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cover: {
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
   const [inView, ref] = useInViewportWithDistance(600)
+  const [t] = useTranslation()
   const classes = useStyles()
   const [store, setStore] = useState({
     open: false,
@@ -127,10 +129,10 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         className={classes.btn}
       >
         {isReachingEnd
-          ? 'Reach End'
+          ? t('Reach End')
           : isLoadingMore
-          ? 'Loading...'
-          : 'Load More'}
+          ? t('Loading') + '...'
+          : t('More')}
       </Button>
       <ImgRead
         dataSource={dataSource || []}

@@ -3,6 +3,7 @@ import { Detailpage } from 'interface/gallery'
 import { Typography, Tooltip, Chip } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     label: {},
@@ -11,24 +12,25 @@ const useStyles = makeStyles((theme: Theme) =>
 const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
   const router = useRouter()
   const classes = useStyles()
+  const [t, i18n] = useTranslation()
+  const isChinese = i18n.language === 'zh'
+  const trans = (obj: any, key: string) => obj[isChinese ? key + '_CHS' : key]
   return (
     <>
       {tagList.length === 0 && (
-        <Typography align="center">
-          No tags have been added for this gallery yet.
-        </Typography>
+        <Typography align="center">{t('G.no tags')}</Typography>
       )}
       <table>
         <tbody>
           {tagList.map((o) => (
-            <tr key={o.namespace_CHS}>
+            <tr key={o.namespace}>
               <td
                 align="right"
                 valign="top"
                 style={{ lineHeight: '26px', whiteSpace: 'nowrap' }}
               >
                 <Tooltip title={o.description} arrow>
-                  <span>{o.namespace_CHS}</span>
+                  <span>{trans(o, 'namespace')}</span>
                 </Tooltip>
                 :
               </td>
@@ -37,7 +39,7 @@ const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
                   {o.tags.map((v) => (
                     <Tooltip key={v.name} title={v.intro} arrow>
                       <Chip
-                        label={v.name_CHS}
+                        label={trans(v, 'name')}
                         size="small"
                         variant="outlined"
                         style={{

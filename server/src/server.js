@@ -3,7 +3,8 @@ const path = require('path')
 const next = require('next')
 const createProxyMiddleware = require('http-proxy-middleware')
   .createProxyMiddleware
-
+const nextI18next = require('../../app/i18n')
+const nextI18NextMiddleware = require('next-i18next/middleware').default
 const devProxy = {
   '/api': {
     target: 'http://localhost:8080/', // 端口自己配置合适的
@@ -15,28 +16,27 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: path.resolve(__dirname, '../../app') })
 const handle = app.getRequestHandler()
 
-app
-  .prepare()
-  .then(() => {
-    const server = dev ? require('express')() : require('./app')
+;(async () => {
+  await app.prepare()
 
-    if (dev && devProxy) {
-      Object.keys(devProxy).forEach(function (context) {
-        server.use(createProxyMiddleware(context, devProxy[context]))
-      })
-    }
+  const server = dev ? require('express')() : require('./app')
 
-    server.all('*', (req, res) => {
-      handle(req, res)
+  if (dev && devProxy) {
+    Object.keys(devProxy).forEach(function (context) {
+      server.use(createProxyMiddleware(context, devProxy[context]))
     })
+  }
 
-    if (dev) {
-      server.listen(3000, () => {
-        console.log(`app listening on http://localhost:3000`)
-      })
-    }
+  await nextI18next.initPromise
+  server.use(nextI18NextMiddleware(nextI18next))
+
+  server.all('*', (req, res) => {
+    handle(req, res)
   })
-  .catch((err) => {
-    console.log('An error occurred, unable to start the server')
-    console.log(err)
-  })
+
+  if (dev) {
+    server.listen(3000, () => {
+      console.log(`app listening on http://localhost:3000`)
+    })
+  }
+})()

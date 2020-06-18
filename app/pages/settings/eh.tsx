@@ -20,26 +20,27 @@ import { axios } from 'apis'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import Logout from '@/setting/Logout'
 import UserCookie from '@/setting/UserCookie'
+import { useIsmobile } from '@/theme'
+import { useTranslation } from 'i18n'
 
 const EHSetting = () => {
   const router = useRouter()
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('xs'))
-
-  const goEhConfig = () => router.push('/setting/ehconfig')
-  const goEhTags = () => router.push('/setting/ehtags')
+  const matches = useIsmobile()
+  const [t] = useTranslation()
+  const goEhConfig = () => router.push('/settings/ehconfig')
+  const goEhTags = () => router.push('/settings/ehtags')
   return (
-    <Layout title="EH" noContainer={matches}>
+    <Layout title="EH" showBack noContainer={Boolean(matches)}>
       <List>
-        <ListSubheader>User</ListSubheader>
+        <ListSubheader>{t('EH.User')}</ListSubheader>
         <Logout />
         <UserCookie />
-        <ListSubheader>Setting</ListSubheader>
+        <ListSubheader>{t('EH.Setting')}</ListSubheader>
         <ListItem button onClick={goEhConfig}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary="Ehentai Setting" />
+          <ListItemText primary={t('EH.Ehentai Setting')} />
           <ListItemSecondaryAction>
             <IconButton onClick={goEhConfig}>
               <ArrowRightIcon />
@@ -50,7 +51,7 @@ const EHSetting = () => {
           <ListItemIcon>
             <LabelIcon />
           </ListItemIcon>
-          <ListItemText primary="Ehentai Tags" />
+          <ListItemText primary={t('EH.Ehentai Tags')} />
           <ListItemSecondaryAction>
             <IconButton onClick={goEhTags}>
               <ArrowRightIcon />

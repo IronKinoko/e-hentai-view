@@ -22,10 +22,12 @@ import { mutate } from 'swr'
 import { Detailpage } from 'interface/gallery'
 import { cloneDeep } from 'lodash'
 import LoadingIconButton from 'components/LoadingButton'
+import { useTranslation } from 'i18n'
 const FavIconButton: React.FC<{ info: IndexListItemPorps }> = ({ info }) => {
   const { data } = useFavoritesInfo()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [t] = useTranslation()
   const handleFavorite = async () => {
     if (info.favoritelink !== '') {
       update('favdel', '')
@@ -46,7 +48,7 @@ const FavIconButton: React.FC<{ info: IndexListItemPorps }> = ({ info }) => {
   }
   return (
     <>
-      <Tooltip title={info.favoritelink || 'Add'}>
+      <Tooltip title={info.favoritelink || (t('G.Favorite.Add') as string)}>
         <LoadingIconButton
           loading={loading}
           color="primary"
@@ -65,7 +67,7 @@ const FavIconButton: React.FC<{ info: IndexListItemPorps }> = ({ info }) => {
         >
           <AppBar position="static">
             <Toolbar>
-              <Typography variant="h6">Favorites</Typography>
+              <Typography variant="h6">{t('Favorites')}</Typography>
             </Toolbar>
           </AppBar>
           <List onClick={() => setOpen(false)} style={{ width: 250 }}>

@@ -1,31 +1,15 @@
 import React from 'react'
-import { NextPage } from 'next'
-import {
-  Grid,
-  Box,
-  Card,
-  Divider,
-  CardContent,
-  Typography,
-  CardActionArea,
-  Button,
-  Hidden,
-  CircularProgress,
-} from '@material-ui/core'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { Skeleton, SpeedDial } from '@material-ui/lab'
+import Info from '@/detail/Info'
+import PageList from '@/detail/PageList'
+import { Divider } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Layout from 'components/Layout'
-import LoadMedia from 'components/LoadMedia'
+import Loading from 'components/Loading'
+import useGallery from 'hooks/useGallery'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import CommentList from 'src/detail/CommentList'
-import clsx from 'clsx'
-import InfoCard from '@/detail/InfoCard'
-import useGallery from 'hooks/useGallery'
-import useSelection from 'hooks/useSelection'
-import TagList from '@/detail/TagList'
-import PageList from '@/detail/PageList'
-import Info from '@/detail/Info'
-import Loading from 'components/Loading'
+import { useTranslation } from 'i18n'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,12 +70,14 @@ const Detail: NextPage = () => {
   const gid = router.query.gid as string
   const token = router.query.token as string
 
+  const [t] = useTranslation()
+
   const { data } = useGallery({ url: `/${gid}/${token}` })
   const classes = useStyles()
 
   if (!data || data.error) {
     return (
-      <Layout title="Loading..." fullScreen>
+      <Layout title={t('Loading') + '...'} fullScreen>
         <Loading />
       </Layout>
     )

@@ -22,6 +22,7 @@ import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
 import CookieLogin from '@/signin/CookieLogin'
 import { cache } from 'swr'
+import { useTranslation, Trans } from 'i18n'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -61,6 +62,7 @@ const SignIn: NextPage = () => {
   const classes = useStyles()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [t] = useTranslation()
   const [index, setIndex] = useState(0)
   useEffect(() => {
     cache.clear()
@@ -84,48 +86,32 @@ const SignIn: NextPage = () => {
     }
   }
 
-  const handleTest = async () => {
-    const uri = '/api/user/test/cookie'
-    await axios.post(uri)
-    const res = await axios.get<{ error: boolean }>(uri)
-    if (res.data.error) message.error('无法使用cookie')
-    if (!res.data.error) message.success('正常使用cookie')
-  }
-
   return (
-    <Layout title="sign in">
+    <Layout title={t('Sign In')}>
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Avatar className={classes.avatar} src="/static/favicon.ico">
             E
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {t('Sign In')}
           </Typography>
           <Box m="16px 0">
             <Alert severity="warning">
-              由于浏览器安全限制，您必须在当前浏览器里登录过
-              <Link
-                prefetch={false}
-                href="https://forums.e-hentai.org/index.php"
-                target="_blank"
-              >
-                exhentai
-              </Link>
-              站点，才能正常查看图片
+              <Trans i18nKey="Sign In.info">
+                Due to browser security restrictions, you must log in to the
+                <Link
+                  prefetch={false}
+                  href="https://forums.e-hentai.org/index.php"
+                  target="_blank"
+                >
+                  {' exhentai '}
+                </Link>
+                site in the current browser to view pictures normally
+              </Trans>
             </Alert>
           </Box>
-          <Alert
-            style={{ width: '100%' }}
-            severity="info"
-            action={
-              <Button color="inherit" onClick={handleTest}>
-                test
-              </Button>
-            }
-          >
-            测试cookie能否正常使用
-          </Alert>
+
           <AppBar
             position="static"
             color="transparent"
@@ -136,8 +122,8 @@ const SignIn: NextPage = () => {
               value={index}
               onChange={(_e, v) => setIndex(v)}
             >
-              <Tab label="email" />
-              <Tab label="cookie" />
+              <Tab label={t('Sign In.Email')} />
+              <Tab label={t('Sign In.Cookie')} />
             </Tabs>
           </AppBar>
           <TabPanel index={0} value={index}>

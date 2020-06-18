@@ -28,12 +28,6 @@ import {
 import { SpeedDial, SpeedDialAction } from '@material-ui/lab'
 import { useThemeState } from 'src/theme'
 import HomeIcon from '@material-ui/icons/Home'
-import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop'
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import HttpIcon from '@material-ui/icons/Http'
-import Brightness7Icon from '@material-ui/icons/Brightness7'
-import Brightness4Icon from '@material-ui/icons/Brightness4'
 import MenuIcon from '@material-ui/icons/Menu'
 import Link from 'components/Link'
 import WhatshotIcon from '@material-ui/icons/Whatshot'
@@ -43,6 +37,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import HistoryIcon from '@material-ui/icons/History'
 import clsx from 'clsx'
 import HideOnScroll from 'components/HideOnScroll'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { useTranslation } from 'i18n'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,15 +83,16 @@ const MENU = [
   { title: 'Popular', icon: <WhatshotIcon />, link: '/popular' },
   { title: 'Favorites', icon: <FavoriteIcon />, link: '/favorites' },
   { title: 'Histories', icon: <HistoryIcon />, link: '/histories' },
-  { title: 'Settings', icon: <SettingsIcon />, link: '/setting' },
+  { title: 'Settings', icon: <SettingsIcon />, link: '/settings' },
 ]
 
 type Props = {
   title?: string
-  noContainer?: boolean
+  noContainer?: boolean | null
   fullScreen?: boolean
   gutterBottom?: boolean
   tool?: React.ReactNode
+  showBack?: boolean
 }
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -104,12 +101,14 @@ const Layout: React.FunctionComponent<Props> = ({
   noContainer,
   fullScreen,
   gutterBottom,
+  showBack,
   tool,
 }) => {
   const theme = useTheme()
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
   const dispatch = useThemeState()
+  const [t] = useTranslation()
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   return (
     <div className={classes.root}>
@@ -121,31 +120,27 @@ const Layout: React.FunctionComponent<Props> = ({
       <HideOnScroll>
         <AppBar position="sticky">
           <Toolbar>
-            <IconButton
-              color="inherit"
-              edge="start"
-              onClick={() => setOpen(true)}
-            >
-              <MenuIcon />
-            </IconButton>
+            {showBack ? (
+              <IconButton
+                color="inherit"
+                edge="start"
+                onClick={() => Router.back()}
+              >
+                <ArrowBackIcon />
+              </IconButton>
+            ) : (
+              <IconButton
+                color="inherit"
+                edge="start"
+                onClick={() => setOpen(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Typography variant="h6" className={classes.title} noWrap>
               {title || 'EhentaiView'}
             </Typography>
-            <IconButton
-              color="inherit"
-              onClick={() => {
-                let paletteType =
-                  theme.palette.type === 'dark' ? 'light' : 'dark'
-                localStorage.setItem('paletteType', paletteType)
-                dispatch({ type: 'CHANGE', payload: { paletteType } })
-              }}
-            >
-              {theme.palette.type === 'dark' ? (
-                <Brightness7Icon />
-              ) : (
-                <Brightness4Icon />
-              )}
-            </IconButton>
+
             {tool}
           </Toolbar>
         </AppBar>
@@ -173,7 +168,7 @@ const Layout: React.FunctionComponent<Props> = ({
               <Link href={o.link} naked key={k}>
                 <ListItem button>
                   <ListItemIcon>{o.icon}</ListItemIcon>
-                  <ListItemText primary={o.title} />
+                  <ListItemText primary={t(o.title)} />
                 </ListItem>
               </Link>
             ))}

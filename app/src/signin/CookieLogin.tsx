@@ -4,6 +4,7 @@ import { TextField, Button } from '@material-ui/core'
 import { useForm, OnSubmit } from 'react-hook-form'
 import { UserPayload } from 'apis'
 import { useLocalStorageState } from '@umijs/hooks'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     form: {
@@ -20,6 +21,7 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
 }) => {
   const classes = useStyles()
   const { register, handleSubmit, setValue } = useForm<UserPayload>({})
+  const [t] = useTranslation()
 
   useEffect(() => {
     const v = localStorage.getItem('cookie')
@@ -75,7 +77,7 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
         color="primary"
         className={classes.submit}
       >
-        Sign In
+        {t('Sign In')}
       </Button>
     </form>
   )

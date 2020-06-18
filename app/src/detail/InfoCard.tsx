@@ -35,6 +35,7 @@ import { useIsmobile } from '@/theme'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Link from 'components/Link'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chip: {
@@ -61,11 +62,12 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   const classes = useStyles()
   const theme = useTheme()
   const matches = useIsmobile()
+  const [t] = useTranslation()
   return (
     <>
       <CardActions>
         <Button fullWidth onClick={() => setOpen(true)}>
-          MORE
+          {t('More')}
         </Button>
       </CardActions>
       <SlideUpDialog
@@ -84,7 +86,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
                 <ArrowBackIcon />
               </IconButton>
               <Typography style={{ marginLeft: theme.spacing(2) }} variant="h6">
-                Gallery Info
+                {t('G.Gallery Info')}
               </Typography>
             </Toolbar>
           </AppBar>
@@ -93,19 +95,33 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>键</TableCell>
-                <TableCell>值</TableCell>
+                <TableCell>{t('G.Gallery Info.Key')}</TableCell>
+                <TableCell>{t('G.Gallery Info.Value')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {!!record &&
                 Object.entries(
-                  omit(record, ['torrents', 'torrentcount', 'expunged'])
+                  omit(record, [
+                    'archiver_key',
+                    'torrents',
+                    'torrentcount',
+                    'expunged',
+                    'tags',
+                    'path',
+                    'posted',
+                  ])
                 ).map(([key, value]) => (
                   <TableRow key={key}>
-                    <TableCell>{key}</TableCell>
+                    <TableCell>
+                      <Typography variant="inherit" noWrap>
+                        {t('G.Gallery Info.' + key)}
+                      </Typography>
+                    </TableCell>
                     <TableCell className={classes.tableCell}>
-                      {Array.isArray(value) ? value.join(', ') : value}
+                      <Typography variant="inherit">
+                        {Array.isArray(value) ? value.join(', ') : value}
+                      </Typography>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -167,6 +183,7 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useStyles()
+  const [t] = useTranslation()
   return (
     <div className={clsx(classes.infoContainer)}>
       <ColorChip
@@ -182,19 +199,19 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
       <table>
         <tbody>
           <tr>
-            <td>Posted:</td>
+            <td>{t('G.Gallery Info.posted')}:</td>
             <td>{record.time}</td>
           </tr>
           <tr>
-            <td>File Size:</td>
+            <td>{t('G.Gallery Info.filesize')}:</td>
             <td>{record.filesize}</td>
           </tr>
           <tr>
-            <td>Length:</td>
+            <td>{t('G.Gallery Info.filecount')}:</td>
             <td>{record.filecount}P</td>
           </tr>
           <tr>
-            <td>Rating:</td>
+            <td>{t('G.Gallery Info.rating')}:</td>
             <td>
               <Grid container alignItems="center">
                 <Rating
@@ -205,17 +222,17 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
                   precision={0.1}
                   value={record.rating ? +record.rating : 0}
                 />
-                {record.rating_count}
+                <Typography variant="inherit">{record.rating}</Typography>
               </Grid>
             </td>
           </tr>
           <tr>
-            <td>Average:</td>
-            <td>{record.rating}</td>
+            <td>{t('G.Gallery Info.rating_count')}:</td>
+            <td>{record.rating_count}</td>
           </tr>
           <tr>
-            <td>Favorited:</td>
-            <td>{record.favcount} times</td>
+            <td>{t('G.Gallery Info.favcount')}:</td>
+            <td>{record.favcount}</td>
           </tr>
         </tbody>
       </table>

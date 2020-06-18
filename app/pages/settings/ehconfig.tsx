@@ -5,9 +5,11 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Layout from 'components/Layout'
 import { CircularProgress } from '@material-ui/core'
 import Loading from 'components/Loading'
+import { useTranslation } from 'i18n'
 
 const EHConfig: NextPage = () => {
   const [loading, setLoading] = useState(true)
+  const [t] = useTranslation()
   useEffect(() => {
     setting()
     return () => {
@@ -15,7 +17,7 @@ const EHConfig: NextPage = () => {
     }
   }, [])
   return (
-    <Layout title="EHentai Setting" noContainer fullScreen>
+    <Layout title={t('EH.Ehentai Setting')} showBack noContainer fullScreen>
       <iframe
         src="https://exhentai.org/uconfig.php"
         frameBorder="0"

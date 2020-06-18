@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import message from 'components/message'
 import useFocus from 'hooks/useFocus'
 import clsx from 'clsx'
+import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { position: 'relative', overflow: 'hidden' },
@@ -78,16 +79,14 @@ const SearchBar: React.FC<HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
   const f_search = decodeURIComponent((router.query.f_search as string) || '')
   const [search, setSearch] = useState(f_search)
   const [isFocus, ref] = useFocus<HTMLInputElement>()
+  const [t] = useTranslation()
   useEffect(() => {
     setSearch(f_search)
   }, [f_search])
 
   const onSearch = () => {
     if (search.length < 3 && search.length > 0)
-      return message.error(
-        'The search string is too short, and was ignored.',
-        1500
-      )
+      return message.error(t('Search.Short'), 1500)
     router.push(`/?f_search=${search}`, undefined, {
       shallow: true,
     })
@@ -110,7 +109,7 @@ const SearchBar: React.FC<HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder={t('Search') + '...'}
               value={search}
               inputRef={ref}
               onChange={(e) => setSearch(e.target.value)}
@@ -119,7 +118,7 @@ const SearchBar: React.FC<HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ 'aria-label': t('Search') }}
             />
           </form>
         </Grid>
@@ -127,7 +126,7 @@ const SearchBar: React.FC<HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
           className={clsx(classes.searchButton, { [classes.btnShow]: isFocus })}
           onClick={onSearch}
         >
-          Search
+          {t('Search')}
         </Button>
       </Grid>
     </Container>

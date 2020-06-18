@@ -26,6 +26,7 @@ import clsx from 'clsx'
 import { useIsmobile } from '@/theme'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import HideOnScroll from 'components/HideOnScroll'
+import { useTranslation } from 'i18n'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +45,7 @@ export interface CommentListProps {
 const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
   ({ commentList, hidden }, ref) => {
     const classes = useStyles()
+    const [t] = useTranslation()
     return (
       <List ref={ref}>
         {commentList.length === 0 ? (
@@ -53,7 +55,7 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
             variant="subtitle1"
             component="p"
           >
-            no comments
+            {t('G.no comments')}
           </Typography>
         ) : (
           commentList.map((o, k) => (
@@ -88,13 +90,14 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
   const [open, setOpen] = useState(false)
   const theme = useTheme()
   const matches = useIsmobile()
+  const [t] = useTranslation()
   return (
     <>
       <CommentListContent hidden commentList={commentList.slice(0, 2)} />
       {commentList.length > 0 && (
         <CardActions>
           <Button fullWidth onClick={() => setOpen(true)}>
-            MORE
+            {t('More')}
           </Button>
         </CardActions>
       )}
@@ -115,7 +118,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
                 <ArrowBackIcon />
               </IconButton>
               <Typography style={{ marginLeft: theme.spacing(2) }} variant="h6">
-                Comments
+                {t('G.Comments')}
               </Typography>
             </Toolbar>
           </AppBar>

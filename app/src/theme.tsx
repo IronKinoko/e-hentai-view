@@ -58,10 +58,9 @@ const ThemeProvider: FC<{}> = ({ children }) => {
       overrides: {
         MuiAppBar:
           paletteType === 'dark'
-            ? {
-                colorPrimary: { color: '#fff', backgroundColor: '#333' },
-              }
+            ? { colorPrimary: { color: '#fff', backgroundColor: '#333' } }
             : {},
+        MuiButton: paletteType === 'light' ? { root: { color: '#555' } } : {},
       },
     })
   }, [paletteType])
