@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core'
 import { useForm, OnSubmit } from 'react-hook-form'
 import { UserPayload } from 'apis'
+import { useTranslation } from 'i18n'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,6 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
   const classes = useStyles()
   const { register, handleSubmit } = useForm<UserPayload>()
+  const [t] = useTranslation()
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <TextField
@@ -26,7 +29,7 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         required
         fullWidth
         id="UserName"
-        label="Email Address"
+        label={t('Sign In.Email Address')}
         name="UserName"
         autoComplete="UserName"
         autoFocus
@@ -38,7 +41,7 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         required
         fullWidth
         name="PassWord"
-        label="Password"
+        label={t('Sign In.Password')}
         type="Password"
         id="PassWord"
         autoComplete="current-password"
@@ -51,7 +54,7 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         color="primary"
         className={classes.submit}
       >
-        Sign In
+        {t('Sign In')}
       </Button>
     </form>
   )

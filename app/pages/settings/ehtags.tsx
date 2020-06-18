@@ -3,9 +3,11 @@ import { setting } from 'apis'
 import { NextPage } from 'next'
 import Layout from 'components/Layout'
 import Loading from 'components/Loading'
+import { useTranslation } from 'i18n'
 
 const EHTag: NextPage = () => {
   const [loading, setLoading] = useState(true)
+  const [t] = useTranslation()
   useEffect(() => {
     setting()
     return () => {
@@ -13,7 +15,7 @@ const EHTag: NextPage = () => {
     }
   }, [])
   return (
-    <Layout title="EHentai Tags" noContainer fullScreen>
+    <Layout title={t('EH.Ehentai Tags')} showBack noContainer fullScreen>
       <iframe
         src="https://exhentai.org/mytags"
         frameBorder="0"

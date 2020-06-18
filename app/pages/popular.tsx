@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import { NextPage } from 'next'
 import PopularGalleryList from '@/popular/PopularGalleryList'
+import { useTranslation } from 'i18n'
 
 const Popular: NextPage = () => {
+  const [t] = useTranslation()
   return (
-    <Layout title="Popular">
+    <Layout title={t('Popular')}>
       <PopularGalleryList />
     </Layout>
   )

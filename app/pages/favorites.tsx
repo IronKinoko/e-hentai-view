@@ -19,18 +19,20 @@ import ListIcon from '@material-ui/icons/List'
 import { useRouter } from 'next/router'
 import FolderIcon from '@material-ui/icons/Folder'
 import { divide } from 'lodash'
+import { useTranslation } from 'i18n'
 const Favorites: NextPage = () => {
   const { data } = useFavoritesInfo()
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const favcat = router.query.favcat as string
+  const [t] = useTranslation()
   return (
     <Layout
-      title="Favorites"
+      title={t('Favorites')}
       gutterBottom
       tool={
         <>
-          <IconButton onClick={() => setOpen(true)}>
+          <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>
             <ListIcon />
           </IconButton>
         </>
@@ -46,7 +48,7 @@ const Favorites: NextPage = () => {
         >
           <AppBar position="static">
             <Toolbar>
-              <Typography variant="h6">Favorites</Typography>
+              <Typography variant="h6">{t('Favorites')}</Typography>
             </Toolbar>
           </AppBar>
           <List onClick={() => setOpen(false)} style={{ width: 250 }}>

@@ -12,8 +12,10 @@ import {
   Typography,
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { useTranslation } from 'i18n'
 
 const UserCookie = () => {
+  const [t] = useTranslation()
   const [open, setOpen] = useState(false)
   return (
     <>
@@ -21,13 +23,13 @@ const UserCookie = () => {
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
-        <ListItemText primary="User Cookie" />
+        <ListItemText primary={t('EH.User Cookie')} />
       </ListItem>
       <Dialog fullWidth open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>User Cookie</DialogTitle>
+        <DialogTitle>{t('EH.User Cookie')}</DialogTitle>
         <DialogContent>
-          <DialogContentText color="primary" variant="h6">
-            KEEP IT SAFE
+          <DialogContentText color="secondary" variant="h6">
+            {t('EH.KEEP IT SAFE')}
           </DialogContentText>
           {typeof window !== 'undefined' &&
             document.cookie.split(';').map((t) => (
@@ -40,7 +42,7 @@ const UserCookie = () => {
         </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={() => setOpen(false)}>
-            COPY
+            {t('Copy')}
           </Button>
         </DialogActions>
       </Dialog>

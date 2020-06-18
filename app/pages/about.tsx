@@ -8,24 +8,25 @@ import {
   Paper,
 } from '@material-ui/core'
 
-import { useTheme } from '@material-ui/core/styles'
 import Layout from 'components/Layout'
+import { useIsmobile } from '@/theme'
+import { useTranslation } from 'i18n'
 
 const About = () => {
-  const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.down('xs'))
+  const matches = useIsmobile()
+  const [t] = useTranslation()
   return (
-    <Layout title="About" noContainer={matches}>
+    <Layout title={t('About')} showBack noContainer={Boolean(matches)}>
       <List>
         <ListItem divider>
           <ListItemText
             primary="EhentaiView"
-            secondary="EhentaiView is not affiliated with E-hentai.org in any way"
+            secondary={t('About.EhentaiViewDesc')}
           />
         </ListItem>
         <ListItem divider>
           <ListItemText
-            primary="Author"
+            primary={t('About.Author')}
             secondary="IronKinoko <kinoko.main@gmail.com>"
             secondaryTypographyProps={{
               component: Link,
@@ -36,7 +37,7 @@ const About = () => {
         </ListItem>
         <ListItem divider>
           <ListItemText
-            primary="Source"
+            primary={t('About.Source')}
             secondary="https://github.com/IronKinoko/e-hentai-view"
             secondaryTypographyProps={{
               component: Link,
@@ -46,10 +47,13 @@ const About = () => {
           />
         </ListItem>
         <ListItem divider>
-          <ListItemText primary="License" secondary="MIT" />
+          <ListItemText primary={t('About.License')} secondary="MIT" />
         </ListItem>
         <ListItem>
-          <ListItemText primary="Version" secondary={process.env.VERSION} />
+          <ListItemText
+            primary={t('About.Version')}
+            secondary={process.env.VERSION}
+          />
         </ListItem>
       </List>
     </Layout>

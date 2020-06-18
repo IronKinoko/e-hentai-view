@@ -9,6 +9,7 @@ import useSWR, { useSWRPages, cache } from 'swr'
 import { axios } from 'apis'
 import { GalleriesPage } from 'interface/gallery'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
+import { useTranslation } from 'i18n'
 export const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
@@ -39,7 +40,7 @@ const FavoritesGalleryList: React.FC<{ favcat?: string }> = ({
   const classes = useStyles()
   const router = useRouter()
   const [inview, inviewRef] = useInViewportWithDistance(600)
-
+  const [t] = useTranslation()
   const {
     pages,
     isLoadingMore,
@@ -81,7 +82,7 @@ const FavoritesGalleryList: React.FC<{ favcat?: string }> = ({
     return (
       <Box>
         <Typography variant="subtitle2" align="center" gutterBottom>
-          no this found
+          {t('Search.No this found')}
         </Typography>
       </Box>
     )
@@ -104,10 +105,10 @@ const FavoritesGalleryList: React.FC<{ favcat?: string }> = ({
           className={classes.btn}
         >
           {isReachingEnd
-            ? 'Reach End'
+            ? t('Reach End')
             : isLoadingMore
-            ? 'Loading...'
-            : 'Load More'}
+            ? t('Loading') + '...'
+            : t('More')}
         </Button>
       )}
     </Box>
