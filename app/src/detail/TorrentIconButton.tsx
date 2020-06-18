@@ -7,6 +7,7 @@ import {
   List,
   ListItemText,
   Grid,
+  Link,
 } from '@material-ui/core'
 import TorrentIcon from 'components/TorrentIcon'
 import { IndexListItemPorps } from 'interface/gallery'
@@ -36,39 +37,43 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
       <SlideUpDialog fullWidth open={open} onClose={() => setOpen(false)}>
         <List dense={Boolean(matches)}>
           {info.torrents.map((o, k) => (
-            <ListItem
-              onClick={() => {
-                window.open(o.url)
-              }}
-              button
-              key={k}
-              divider={k !== info.torrents.length - 1}
-            >
-              <ListItemIcon>
-                <TorrentIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={o.name}
-                secondary={
-                  <Grid
-                    container
-                    spacing={1}
-                    direction={matches ? 'column' : 'row'}
-                  >
-                    <Grid item>
-                      {t('G.Torrent.Added')}: {o.added}
+            <Link href={o.url} target="_blank" key={k} underline="none">
+              <ListItem
+                onClick={() => {
+                  setOpen(false)
+                }}
+                button
+                divider={k !== info.torrents.length - 1}
+              >
+                <ListItemIcon>
+                  <TorrentIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={o.name}
+                  secondary={
+                    <Grid
+                      container
+                      spacing={1}
+                      direction={matches ? 'column' : 'row'}
+                    >
+                      <Grid item>
+                        {t('G.Torrent.Added')}: {o.added}
+                      </Grid>
+                      <Grid item>
+                        {t('G.Torrent.Size')}: {o.fsize}
+                      </Grid>
+                      <Grid item>
+                        {t('G.Torrent.Tsize')}: {o.tsize}
+                      </Grid>
+                      <Grid item>
+                        {t('Download')}: {o.Downloads}
+                      </Grid>
                     </Grid>
-                    <Grid item>
-                      {t('G.Torrent.Size')}: {o.fsize}
-                    </Grid>
-                    <Grid item>
-                      {t('G.Torrent.Tsize')}: {o.tsize}
-                    </Grid>
-                  </Grid>
-                }
-                secondaryTypographyProps={{ component: 'div' }}
-              />
-            </ListItem>
+                  }
+                  secondaryTypographyProps={{ component: 'div' }}
+                />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </SlideUpDialog>

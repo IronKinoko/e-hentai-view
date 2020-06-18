@@ -32,6 +32,7 @@ export interface IndexListItemPorps {
     name: string
     tsize: string
     url: string
+    Downloads: string
   }[]
   tags: string[]
   url: string

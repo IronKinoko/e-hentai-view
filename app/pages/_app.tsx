@@ -7,6 +7,7 @@ import ThemeProvider from 'src/theme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from 'next/router'
 import moment from 'moment'
+import { SWRConfig } from 'swr'
 import { appWithTranslation } from 'i18n'
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
@@ -39,19 +40,20 @@ function MyApp(props: AppProps) {
         />
       </Head>
 
-      <ThemeProvider>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-        <style jsx global>
-          {`
-            a {
-              text-decoration: none;
-              color: unset;
-            }
-          `}
-        </style>
-      </ThemeProvider>
+      <SWRConfig value={{ errorRetryInterval: 100 }}>
+        <ThemeProvider>
+          <CssBaseline />
+          <Component {...pageProps} />
+          <style jsx global>
+            {`
+              a {
+                text-decoration: none;
+                color: unset;
+              }
+            `}
+          </style>
+        </ThemeProvider>
+      </SWRConfig>
     </React.Fragment>
   )
 }

@@ -1,5 +1,5 @@
 const axios = require('../axios')
-const { baseApiURL, baseURL } = require('../config/api')
+const { baseApiURL, baseURL, gallerytorrentsURL } = require('../config/api')
 const {
   parseHTMLAnchorElement,
   parseDetailPageCommentList,
@@ -7,6 +7,7 @@ const {
   parseDetailPageTagList,
   parseBigImg,
   parseDetailPageOtherInfo,
+  parseTorrentList,
 } = require('./galleryParser')
 const JSDOM = require('jsdom').JSDOM
 const moment = require('moment')
@@ -45,8 +46,6 @@ async function gdata(gidlist, cookies) {
         o.url = `${baseURL}/g/${o.gid}/${o.token}`
         o.path = `/${o.gid}/${o.token}`
         o.torrents.forEach((v) => {
-          // https://exhentai.org/torrent/1662332/e0c3075c07ab19bd1f4074b71de971f7464e0004.torrent
-          v.url = `${baseURL}/torrent/${o.gid}/${v.hash}.torrent`
           v.fsize = filesize(v.fsize)
           v.tsize = filesize(v.tsize)
           v.added = moment(+v.added * 1000).format('YYYY-MM-DD HH:mm')
@@ -133,10 +132,20 @@ async function loadImg(url, cookies) {
   return await load()
 }
 
+async function gallerytorrentsList({ gid, token }, cookies) {
+  const res = await axios.get(`${gallerytorrentsURL}?gid=${gid}&t=${token}`, {
+    headers: { Cookie: cookies },
+  })
+  const document = new JSDOM(res.data).window.document
+
+  return parseTorrentList(document)
+}
+
 module.exports = {
   gdata,
   galleryList,
   galleryDetail,
   loadImg,
   galleryDetailPage,
+  gallerytorrentsList,
 }

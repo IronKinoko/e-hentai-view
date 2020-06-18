@@ -1,9 +1,9 @@
-import React from 'react'
-import { SvgIcon } from '@material-ui/core'
+import React, { forwardRef } from 'react'
+import { SvgIcon, SvgIconProps } from '@material-ui/core'
 
-const TorrentIcon = (props: any) => {
+const TorrentIcon: React.FC<SvgIconProps> = (props) => {
   return (
-    <SvgIcon viewBox="-10 -10 228 228">
+    <SvgIcon viewBox="-10 -10 228 228" {...props}>
       <g>
         <path
           d="M166,128c0,0-6,18-22,26s-44,6-44,6s11.7967,26.7384,20.5935,46.6836   c37.5236-6.0196,68.344-32.1092,81.09-66.91C195.4099,139.828,188.9531,139.414,184,138C170,134,166,128,166,128z"

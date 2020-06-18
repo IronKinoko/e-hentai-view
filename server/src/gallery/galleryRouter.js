@@ -6,7 +6,9 @@ const {
   galleryDetail,
   loadImg,
   galleryDetailPage,
+  gallerytorrentsList,
 } = require('./galleryApi')
+const { mergerTorrents } = require('./galleryUtils')
 const { getCookieString } = require('../utils/cookies')
 const cache = require('../cache')
 const router = express.Router()
@@ -42,9 +44,12 @@ router.get('/:gid/:token', async (req, res) => {
   const content = await Promise.all([
     gdata([[gid, token]], getCookieString(req.cookies)),
     galleryDetail({ gid, token }, getCookieString(req.cookies)),
+    gallerytorrentsList({ gid, token }, getCookieString(req.cookies)),
   ])
 
-  const [[info], { list, commentList, tagList, otherInfo }] = content
+  const [[info], { list, commentList, tagList, otherInfo }, torrents] = content
+
+  mergerTorrents(info, torrents)
 
   res.json({ info: { ...info, ...otherInfo }, list, commentList, tagList })
 })

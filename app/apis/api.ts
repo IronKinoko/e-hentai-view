@@ -55,10 +55,10 @@ export async function setting() {
 }
 
 export async function loadMorePage(url: string) {
-  return (
-    await axios.get<{
-      error: boolean
-      list: DetailPageListItemProps[]
-    }>(url)
-  ).data.list
+  const res = await axios.get<{
+    error: boolean
+    list: DetailPageListItemProps[]
+  }>(url)
+  if (res.data.error) throw new Error('')
+  return res.data.list
 }

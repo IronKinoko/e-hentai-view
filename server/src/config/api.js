@@ -7,6 +7,7 @@ const popularURL = baseURL + '/popular'
 const watchedURL = baseURL + '/watched'
 const favoritesURL = baseURL + '/favorites.php'
 const favoritesApiURL = baseURL + '/gallerypopups.php'
+const gallerytorrentsURL = baseURL + '/gallerytorrents.php'
 module.exports = {
   baseApiURL,
   baseURL,
@@ -16,4 +17,5 @@ module.exports = {
   watchedURL,
   favoritesURL,
   favoritesApiURL,
+  gallerytorrentsURL,
 }

@@ -28,6 +28,7 @@ import FavIconButton from './FavIconButton'
 import TorrentIconButton from './TorrentIconButton'
 import ColorChip from 'components/ColorChip'
 import { useTranslation } from 'i18n'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -165,6 +166,18 @@ const Info: React.FC<{
             </Tooltip>
             <TorrentIconButton info={info} />
             <FavIconButton info={info} />
+            <Tooltip title={t('OpenEH') as string}>
+              <Link
+                underline="none"
+                href={info.url}
+                prefetch={false}
+                target="_blank"
+              >
+                <IconButton color="primary">
+                  <OpenInNewIcon />
+                </IconButton>
+              </Link>
+            </Tooltip>
           </Grid>
         </Grid>
       </CardContent>

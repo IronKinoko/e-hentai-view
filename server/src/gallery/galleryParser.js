@@ -81,6 +81,46 @@ function parseDetailPageOtherInfo(document) {
 function parseBigImg(document) {
   return document.getElementById('img').src
 }
+
+/**
+ * @param { Document } document
+ */
+function parseTorrentList(document) {
+  const tables = document.querySelectorAll('table')
+  if (tables.length === 0) return []
+  const list = Array.from(tables).map((table) => {
+    const trs = table.querySelectorAll('tr')
+    const tr0tds = trs[0].querySelectorAll('td')
+    const info = {}
+    Array.from(tr0tds).forEach((td) => {
+      const str = td.textContent
+      if (str !== '') {
+        const [key, value] = getKV(str)
+        if (key.toLowerCase() === 'downloads') info[key] = value
+      }
+    })
+    const tr1td0 = trs[1].querySelector('td')
+    const [key, value] = getKV(tr1td0.textContent)
+    info[key] = value
+    const a = trs[2].querySelector('a')
+    info.url = a.href
+    info.name = a.textContent
+    info.hash = a.href.split('/').pop().split('.').shift()
+    return info
+  })
+  return list
+}
+
+/**
+ * @param { string } str
+ */
+function getKV(str) {
+  return str
+    .replace(/:/, '=')
+    .split('=')
+    .map((v) => v.trim())
+}
+
 module.exports = {
   parseHTMLAnchorElement,
   parseDetailPageList,
@@ -88,4 +128,5 @@ module.exports = {
   parseDetailPageTagList,
   parseDetailPageOtherInfo,
   parseBigImg,
+  parseTorrentList,
 }
