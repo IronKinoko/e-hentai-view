@@ -10,6 +10,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({
   src,
   fullWidth,
   lazy,
+  onLoad,
   ...rest
 }) => {
   const [count, setCount] = useState(0)
@@ -46,7 +47,7 @@ const LoadMedia: React.FC<LoadMediaProps> = ({
         userSelect: 'none',
       }}
       onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
-        rest.onLoad?.(e)
+        onLoad?.(e)
         setWide(e.currentTarget.naturalWidth > e.currentTarget.naturalHeight)
       }}
       {...rest}

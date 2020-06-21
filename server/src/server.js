@@ -8,6 +8,7 @@ const nextI18NextMiddleware = require('next-i18next/middleware').default
 const devProxy = {
   '/api': {
     target: 'http://localhost:8080/', // 端口自己配置合适的
+    // target: 'https://exhentai.appspot.com/', // 端口自己配置合适的
     changeOrigin: true,
   },
 }

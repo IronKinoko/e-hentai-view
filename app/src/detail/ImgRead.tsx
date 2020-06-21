@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Backdrop, Container, Grid } from '@material-ui/core'
+import { Backdrop, Container, Grid, Fab, Zoom } from '@material-ui/core'
 import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles'
 import LoadMedia from 'components/LoadMedia'
 import { loadImg } from 'apis'
 import { DetailPageListItemProps } from 'interface/gallery'
 import { range } from 'lodash'
 import { useUpdateEffect } from '@umijs/hooks'
+import RefreshIcon from '@material-ui/icons/Refresh'
 let cacheId: boolean[] = []
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,17 @@ const useStyle = makeStyles((theme: Theme) =>
     },
     container: {
       position: 'relative',
+    },
+    fabContainer: {
+      position: 'absolute',
+      right: 10,
+      top: 0,
+      bottom: 10,
+    },
+    fab: {
+      marginTop: 10,
+      position: 'sticky',
+      top: 10,
     },
     info: {
       position: 'fixed',
@@ -55,6 +67,8 @@ const ImgRead: React.FC<ImgReadProps> = ({
   const classes = useStyle()
   const [cacheImg, setCacheImg] = useState<string[]>([])
   const [index, setIndex] = useState(defaultValue)
+  const [errorMap, setErrorMap] = useState<{ [n: number]: boolean }>({})
+  const [freshKey, setFreshKey] = useState(0)
   useEffect(() => {
     cacheId = []
     return () => {
@@ -129,16 +143,17 @@ const ImgRead: React.FC<ImgReadProps> = ({
         let res = await loadImg(url)
         if (res === '') {
           cacheId[i] = false
+          setFreshKey(Math.random())
           continue
         }
         setCacheImg((t) => {
-          t[i] = res
+          t[i] = res + '?t=' + freshKey
           return [...t]
         })
       }
     }
     loadMore()
-  }, [dataSource, index])
+  }, [dataSource, index, freshKey])
 
   return (
     <Backdrop
@@ -151,7 +166,37 @@ const ImgRead: React.FC<ImgReadProps> = ({
         <Grid container spacing={1} direction="column" wrap="nowrap">
           {cacheImg.map((i, k) => (
             <Grid item key={k} id={`img${k}`}>
-              <LoadMedia src={i} fullWidth />
+              <div className={classes.container}>
+                <LoadMedia
+                  src={i}
+                  fullWidth
+                  onError={(e) => {
+                    setErrorMap((t) => ({ ...t, [k]: true }))
+                  }}
+                  onLoad={(e) => {
+                    setErrorMap((t) => ({ ...t, [k]: false }))
+                  }}
+                />
+                <div className={classes.fabContainer}>
+                  <Zoom
+                    in={k >= index - 1 && k <= index + 1 && errorMap[k]}
+                    unmountOnExit
+                  >
+                    <Fab
+                      className={classes.fab}
+                      color="primary"
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        cacheId[k] = false
+                        setFreshKey(Math.random())
+                      }}
+                    >
+                      <RefreshIcon />
+                    </Fab>
+                  </Zoom>
+                </div>
+              </div>
             </Grid>
           ))}
         </Grid>
