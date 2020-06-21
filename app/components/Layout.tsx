@@ -204,6 +204,7 @@ function Copyright() {
               color: 'textSecondary',
             }}
             primary={`Copyright @${new Date().getFullYear()} Kinoko`}
+            secondary={'Ver.' + process.env.VERSION}
           />
         </ListItem>
       </a>
