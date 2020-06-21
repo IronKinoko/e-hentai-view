@@ -7,4 +7,9 @@ module.exports = new NextI18Next({
       ? 'app/public/static/locales'
       : 'public/static/locales',
   keySeparator: false,
+  detection: {
+    lookupCookie: 'next-i18next',
+    order: ['cookie', 'localStorage', 'header'],
+    caches: ['cookie', 'localStorage'],
+  },
 })
