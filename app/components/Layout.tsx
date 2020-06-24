@@ -18,6 +18,9 @@ import {
   ListItemIcon,
   ListItemText,
   CircularProgress,
+  Menu,
+  Hidden,
+  Tooltip,
 } from '@material-ui/core'
 import {
   makeStyles,
@@ -140,7 +143,15 @@ const Layout: React.FunctionComponent<Props> = ({
             <Typography variant="h6" className={classes.title} noWrap>
               {title || 'EhentaiView'}
             </Typography>
-
+            <Hidden xsDown>
+              {MENU.map((o) => (
+                <Tooltip key={o.title} title={t(o.title) as string}>
+                  <Link href={o.link} naked>
+                    <IconButton color="inherit">{o.icon}</IconButton>
+                  </Link>
+                </Tooltip>
+              ))}
+            </Hidden>
             {tool}
           </Toolbar>
         </AppBar>
