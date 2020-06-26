@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useTranslation } from 'i18n'
+import message from 'components/message'
 
 const UserCookie = () => {
   const [t] = useTranslation()
@@ -41,7 +42,13 @@ const UserCookie = () => {
             ))}
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={() => setOpen(false)}>
+          <Button
+            color="primary"
+            onClick={() => {
+              setOpen(false)
+              copy(document.cookie.replace(/=/g, ': ').replace(/;\s?/g, '\n'))
+            }}
+          >
             {t('Copy')}
           </Button>
         </DialogActions>
@@ -51,3 +58,28 @@ const UserCookie = () => {
 }
 
 export default UserCookie
+
+function copy(s: string): void {
+  const textarea = document.createElement('textarea')
+  textarea.readOnly = true
+  textarea.value = s
+  textarea.style.width = '0'
+  textarea.style.height = '0'
+  textarea.style.position = 'fixed'
+  textarea.style.top = '0'
+  textarea.style.left = '0'
+  textarea.style.overflow = 'hidden'
+  textarea.style.resize = 'none'
+  textarea.style.opacity = '0'
+  document.body.appendChild(textarea)
+  setTimeout(() => {
+    textarea.setSelectionRange(0, s.length)
+    textarea.select()
+    if (document.execCommand('copy')) {
+      message.success('Copied')
+    } else {
+      message.error('复制失败')
+    }
+    document.body.removeChild(textarea)
+  })
+}
