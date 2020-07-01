@@ -77,14 +77,14 @@ const Detail: NextPage = () => {
 
   if (!data || data.error) {
     return (
-      <Layout title={t('Loading') + '...'} fullScreen>
+      <Layout title={t('Loading') + '...'} fullScreen showBack>
         <Loading />
       </Layout>
     )
   }
 
   return (
-    <Layout title={data.info.title} gutterBottom>
+    <Layout title={data.info.title} gutterBottom showBack>
       <Info info={data.info} tagList={data.tagList} />
       <CommentList commentList={data.commentList || []} />
       <Divider variant="fullWidth" className={classes.divider} />
