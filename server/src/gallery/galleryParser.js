@@ -88,26 +88,32 @@ function parseBigImg(document) {
 function parseTorrentList(document) {
   const tables = document.querySelectorAll('table')
   if (tables.length === 0) return []
-  const list = Array.from(tables).map((table) => {
-    const trs = table.querySelectorAll('tr')
-    const tr0tds = trs[0].querySelectorAll('td')
-    const info = {}
-    Array.from(tr0tds).forEach((td) => {
-      const str = td.textContent
-      if (str !== '') {
-        const [key, value] = getKV(str)
-        if (key.toLowerCase() === 'downloads') info[key] = value
+  const list = Array.from(tables)
+    .map((table) => {
+      try {
+        const trs = table.querySelectorAll('tr')
+        const tr0tds = trs[0].querySelectorAll('td')
+        const info = {}
+        Array.from(tr0tds).forEach((td) => {
+          const str = td.textContent
+          if (str !== '') {
+            const [key, value] = getKV(str)
+            if (key.toLowerCase() === 'downloads') info[key] = value
+          }
+        })
+        const tr1td0 = trs[1].querySelector('td')
+        const [key, value] = getKV(tr1td0.textContent)
+        info[key] = value
+        const a = trs[2].querySelector('a')
+        info.url = a.href
+        info.name = a.textContent
+        info.hash = a.href.split('/').pop().split('.').shift()
+        return info
+      } catch (e) {
+        return null
       }
     })
-    const tr1td0 = trs[1].querySelector('td')
-    const [key, value] = getKV(tr1td0.textContent)
-    info[key] = value
-    const a = trs[2].querySelector('a')
-    info.url = a.href
-    info.name = a.textContent
-    info.hash = a.href.split('/').pop().split('.').shift()
-    return info
-  })
+    .filter((v) => v)
   return list
 }
 
