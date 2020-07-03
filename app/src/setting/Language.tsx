@@ -36,6 +36,7 @@ const Language = () => {
               key={code}
               onClick={() => {
                 i18n.changeLanguage(code)
+                localStorage.setItem('i18n', code)
                 setOpen(false)
               }}
             >

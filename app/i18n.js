@@ -8,8 +8,8 @@ module.exports = new NextI18Next({
       : 'public/static/locales',
   keySeparator: false,
   detection: {
-    lookupCookie: 'next-i18next',
-    order: ['cookie', 'localStorage', 'header'],
-    caches: ['cookie', 'localStorage'],
+    lookupCookie: 'i18n',
+    order: [''],
+    caches: [''],
   },
 })

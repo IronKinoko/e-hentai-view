@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Router from 'next/router'
 import moment from 'moment'
 import { SWRConfig } from 'swr'
-import { appWithTranslation } from 'i18n'
+import { i18n, appWithTranslation } from 'i18n'
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
@@ -18,6 +18,21 @@ Router.events.on('routeChangeComplete', () => {
   NProgress.done()
 })
 Router.events.on('routeChangeError', () => NProgress.done())
+
+init()
+function init() {
+  if (typeof window !== 'undefined') {
+    if (localStorage.getItem('i18n') !== null) {
+      i18n.changeLanguage(localStorage.getItem('i18n')!)
+    } else {
+      if (navigator.language.startsWith('zh')) {
+        i18n.changeLanguage('zh')
+      } else {
+        i18n.changeLanguage('en')
+      }
+    }
+  }
+}
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props
