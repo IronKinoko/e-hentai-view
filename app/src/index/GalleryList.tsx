@@ -18,6 +18,7 @@ export const useStyles = makeStyles((theme) =>
     btn: { margin: theme.spacing(1, 0) },
     container: {
       display: 'grid',
+      marginTop: theme.spacing(1),
       gridTemplateColumns: 'repeat(5, 1fr)',
       [theme.breakpoints.between(1000, 1250)]: {
         gridTemplateColumns: 'repeat(4, 1fr)',

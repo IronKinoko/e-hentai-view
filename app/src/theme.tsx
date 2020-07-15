@@ -63,7 +63,12 @@ const ThemeProvider: FC<{}> = ({ children }) => {
           MuiAppBar:
             paletteType === 'dark'
               ? { colorPrimary: { color: '#fff', backgroundColor: '#333' } }
-              : {},
+              : {
+                  colorPrimary: {
+                    backgroundColor: '#fff',
+                    color: 'rgba(0,0,0,0.54)',
+                  },
+                },
           MuiButton: paletteType === 'light' ? { root: { color: '#555' } } : {},
         },
       },

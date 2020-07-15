@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Typography } from '@material-ui/core'
+import Link from 'components/Link'
 import { useForm, OnSubmit } from 'react-hook-form'
 import { UserPayload } from 'apis'
 import { useTranslation } from 'i18n'
@@ -13,6 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
+      fontSize: 'large',
+      boxShadow: theme.shadows[16],
     },
   })
 )
@@ -24,7 +27,6 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <TextField
-        variant="outlined"
         margin="normal"
         required
         fullWidth
@@ -36,7 +38,6 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         inputRef={register}
       />
       <TextField
-        variant="outlined"
         margin="normal"
         required
         fullWidth
@@ -47,6 +48,10 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         autoComplete="current-password"
         inputRef={register}
       />
+      <Typography align="right">
+        <Link href="/signin?mode=cookie">{t('Sign In.Cookie')}</Link>
+      </Typography>
+
       <Button
         type="submit"
         fullWidth

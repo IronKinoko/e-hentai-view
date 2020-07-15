@@ -8,7 +8,7 @@ const PopularGalleryList = () => {
   const classes = useStyles()
 
   return (
-    <Box mt={2}>
+    <Box>
       <Grid
         container
         wrap="wrap"

@@ -8,7 +8,7 @@ import { useTranslation } from 'i18n'
 const Popular: NextPage = () => {
   const [t] = useTranslation()
   return (
-    <Layout title={t('Popular')}>
+    <Layout title={t('Popular')} showAvatar showSearch>
       <PopularGalleryList />
     </Layout>
   )

@@ -29,7 +29,7 @@ const Setting = () => {
 
   const { t } = useTranslation()
   return (
-    <Layout title={t('Settings')} noContainer={Boolean(matches)}>
+    <Layout title={t('Settings')} showBack noContainer={Boolean(matches)}>
       <List>
         {menu.map((o) => (
           <ListItem button key={o.path} onClick={() => router.push(o.path)}>

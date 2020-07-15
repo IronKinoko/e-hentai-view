@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Typography } from '@material-ui/core'
 import { useForm, OnSubmit } from 'react-hook-form'
 import { UserPayload } from 'apis'
 import { useLocalStorageState } from '@umijs/hooks'
 import { useTranslation } from 'i18n'
+import Link from 'components/Link'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     form: {
@@ -13,6 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
+      fontSize: 'large',
+      boxShadow: theme.shadows[16],
     },
   })
 )
@@ -40,7 +43,6 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
       className={classes.form}
     >
       <TextField
-        variant="outlined"
         margin="normal"
         required
         fullWidth
@@ -52,7 +54,6 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
         inputRef={register}
       />
       <TextField
-        variant="outlined"
         margin="normal"
         required
         fullWidth
@@ -62,7 +63,6 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
         inputRef={register}
       />
       <TextField
-        variant="outlined"
         margin="normal"
         fullWidth
         name="igneous"
@@ -70,6 +70,10 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
         id="igneous"
         inputRef={register}
       />
+      <Typography align="right">
+        <Link href="/signin">{t('Sign In.Email')}</Link>
+      </Typography>
+
       <Button
         type="submit"
         fullWidth

@@ -16,12 +16,10 @@ const useStyles = makeStyles((theme) =>
 const IndexPage: NextPage = () => {
   const classes = useStyles()
   const router = useRouter()
-  const page = parseInt(router.query.page! as string) || 0
   const f_search = decodeURIComponent((router.query.f_search as string) || '')
 
   return (
-    <Layout>
-      <SearchBar className={classes.search} />
+    <Layout showAvatar showSearch>
       <GalleryList key={f_search} f_search={f_search} />
     </Layout>
   )

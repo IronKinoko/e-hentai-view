@@ -16,28 +16,6 @@ app.use(bodyParser.json())
 // parse cookies
 app.use(cookieParser())
 
-// // cors
-// const whitelist = [
-//   'http://localhost',
-//   'https://e-hentai-view.now.sh',
-//   'https://ironkinoko.github.io',
-//   'https://exhentai.appspot.com',
-//   'https://e-hentai-node.appspot.com',
-//   'https://e-hentai-node.du.r.appspot.com',
-// ]
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (process.env.NODE_ENV === 'development') {
-//       callback(null, true)
-//     } else if (isNil(origin) || whitelist.some((v) => origin.includes(v))) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   },
-//   credentials: true,
-// }
-// app.use(cors(corsOptions))
 app.use((req, res, next) => {
   if (req.url.startsWith('/api')) console.log('%s -> %s', req.method, req.url)
   next()

@@ -15,6 +15,7 @@ class MyDocument extends Document {
             type="image/x-icon"
             href="/static/favicon.ico"
           />
+          <meta name="theme-color" content="#fff" />
         </Head>
         <body>
           <Main />

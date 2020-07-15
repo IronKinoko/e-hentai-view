@@ -21,6 +21,7 @@ import {
   Menu,
   Hidden,
   Tooltip,
+  Avatar,
 } from '@material-ui/core'
 import {
   makeStyles,
@@ -38,15 +39,15 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import SubscriptionsIcon from '@material-ui/icons/Subscriptions'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import HistoryIcon from '@material-ui/icons/History'
+import SearchIcon from '@material-ui/icons/Search'
 import clsx from 'clsx'
 import HideOnScroll from 'components/HideOnScroll'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useTranslation } from 'i18n'
+import EHBottomNavigartor from './EHBottomNavigartor'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
-
     speedDial: {
       position: 'fixed',
       bottom: theme.spacing(2),
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
-      marginLeft: theme.spacing(2),
+      // marginLeft: theme.spacing(2),
     },
 
     list: { minWidth: 250, flexGrow: 1 },
@@ -77,6 +78,10 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 0,
     },
     gutterBottom: { paddingTop: theme.spacing(2) },
+    avatarSize: {
+      width: 24,
+      height: 24,
+    },
   })
 )
 
@@ -86,9 +91,13 @@ const MENU = [
   { title: 'Popular', icon: <WhatshotIcon />, link: '/popular' },
   { title: 'Favorites', icon: <FavoriteIcon />, link: '/favorites' },
   { title: 'Histories', icon: <HistoryIcon />, link: '/histories' },
-  { title: 'Settings', icon: <SettingsIcon />, link: '/settings' },
 ]
 
+const SettingsMenuInfo = {
+  title: 'Settings',
+  icon: <SettingsIcon />,
+  link: '/settings',
+}
 type Props = {
   title?: string
   noContainer?: boolean | null
@@ -96,6 +105,8 @@ type Props = {
   gutterBottom?: boolean
   tool?: React.ReactNode
   showBack?: boolean
+  showSearch?: boolean
+  showAvatar?: boolean
 }
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -106,6 +117,8 @@ const Layout: React.FunctionComponent<Props> = ({
   gutterBottom,
   showBack,
   tool,
+  showAvatar,
+  showSearch,
 }) => {
   const theme = useTheme()
   const classes = useStyles()
@@ -114,30 +127,22 @@ const Layout: React.FunctionComponent<Props> = ({
   const [t] = useTranslation()
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent)
   return (
-    <div className={classes.root}>
+    <>
       <Head>
         <title>{title ? title + ' - EhentaiView' : 'EhentaiView'}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <HideOnScroll>
-        <AppBar position="sticky">
+        <AppBar position="sticky" elevation={1}>
           <Toolbar>
-            {showBack ? (
+            {showBack && (
               <IconButton
                 color="inherit"
                 edge="start"
                 onClick={() => Router.back()}
               >
                 <ArrowBackIcon />
-              </IconButton>
-            ) : (
-              <IconButton
-                color="inherit"
-                edge="start"
-                onClick={() => setOpen(true)}
-              >
-                <MenuIcon />
               </IconButton>
             )}
             <Typography variant="h6" className={classes.title} noWrap>
@@ -152,41 +157,33 @@ const Layout: React.FunctionComponent<Props> = ({
                 </Tooltip>
               ))}
             </Hidden>
+
+            {showSearch && (
+              <Tooltip title={t('Search') as string}>
+                <Link href={'/search'} naked>
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+            )}
+            {showAvatar && (
+              <Tooltip title={t(SettingsMenuInfo.title) as string}>
+                <Link href={SettingsMenuInfo.link} naked>
+                  <IconButton edge={tool ? undefined : 'end'}>
+                    <Avatar
+                      src="/static/panda.png"
+                      classes={{ root: classes.avatarSize }}
+                    />
+                  </IconButton>
+                </Link>
+              </Tooltip>
+            )}
             {tool}
           </Toolbar>
         </AppBar>
       </HideOnScroll>
 
-      <SwipeableDrawer
-        disableDiscovery={iOS}
-        anchor="left"
-        open={open}
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-      >
-        <div className={classes.list}>
-          <List onClick={() => setOpen(false)}>
-            <Link naked href="/">
-              <ListItem>
-                <ListItemText
-                  primary="EhentaiView"
-                  primaryTypographyProps={{ variant: 'h6' }}
-                />
-              </ListItem>
-            </Link>
-            <Divider variant="fullWidth" />
-            {MENU.map((o, k) => (
-              <Link href={o.link} naked key={k}>
-                <ListItem button>
-                  <ListItemIcon>{o.icon}</ListItemIcon>
-                  <ListItemText primary={t(o.title)} />
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-        </div>
-        <Copyright />
-      </SwipeableDrawer>
       <div
         className={clsx({
           [classes.fullScreen]: fullScreen,
@@ -201,7 +198,8 @@ const Layout: React.FunctionComponent<Props> = ({
           </Container>
         )}
       </div>
-    </div>
+      <EHBottomNavigartor />
+    </>
   )
 }
 function Copyright() {

@@ -15,7 +15,7 @@ const Histories = () => {
     []
   )
   return (
-    <Layout title={t('Histories')}>
+    <Layout title={t('Histories')} showAvatar showSearch>
       <Box mt={2}>
         {data.length === 0 && (
           <Typography variant="subtitle2" align="center" gutterBottom>

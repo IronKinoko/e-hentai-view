@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const package = require('../package.json')
+const nextOffline = require('next-offline')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
@@ -23,4 +24,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = nextOffline(withBundleAnalyzer(nextConfig))

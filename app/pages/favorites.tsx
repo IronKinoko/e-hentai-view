@@ -30,6 +30,8 @@ const Favorites: NextPage = () => {
     <Layout
       title={t('Favorites')}
       gutterBottom
+      showAvatar
+      showSearch
       tool={
         <>
           <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>

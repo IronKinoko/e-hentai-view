@@ -28,13 +28,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(0.25),
-    backgroundColor: theme.palette.common.white,
-  },
+
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -63,7 +59,7 @@ const SignIn: NextPage = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [t] = useTranslation()
-  const [index, setIndex] = useState(0)
+  let index = router.query.mode === 'cookie' ? 1 : 0
   useEffect(() => {
     cache.clear()
     return () => {
@@ -71,75 +67,63 @@ const SignIn: NextPage = () => {
     }
   }, [])
   const onSubmit = async (payload: UserPayload) => {
-    setLoading(true)
-    setTimeout(() => {
+    try {
+      setLoading(true)
+      payload.method = index === 1 ? 'cookie' : undefined
+      let res = await login(payload)
       setLoading(false)
-    }, 5000)
-    payload.method = index === 1 ? 'cookie' : undefined
-    let res = await login(payload)
-    setLoading(false)
-    if (!res.error) {
-      message.success(res.message)
-      router.replace('/')
-    } else {
-      message.error(res.message)
+      if (!res.error) {
+        message.success(res.message)
+        router.replace('/')
+      } else {
+        message.error(res.message)
+      }
+    } catch (error) {
+      setLoading(false)
     }
   }
 
   return (
-    <Layout title={t('Sign In')}>
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar} src="/static/favicon.ico">
-            E
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            {t('Sign In')}
-          </Typography>
-          <Box m="16px 0">
-            <Alert severity="warning">
-              <Trans i18nKey="Sign In.info">
-                Due to browser security restrictions, you must log in to the
-                <Link
-                  prefetch={false}
-                  href="https://forums.e-hentai.org/index.php"
-                  target="_blank"
-                >
-                  {' exhentai '}
-                </Link>
-                site in the current browser to view pictures normally
-              </Trans>
-            </Alert>
-          </Box>
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
+        <Typography variant="h5" component="h6" gutterBottom>
+          EHentaiView
+        </Typography>
+        <Typography component="h1" variant="h5" gutterBottom>
+          {t('Sign In')}
+        </Typography>
+        <Box m="16px 0">
+          <Alert severity="warning">
+            <Trans i18nKey="Sign In.info">
+              Due to browser security restrictions, you must log in to the
+              <Link
+                prefetch={false}
+                href="https://forums.e-hentai.org/index.php"
+                target="_blank"
+              >
+                {' exhentai '}
+              </Link>
+              site in the current browser to view pictures normally
+            </Trans>
+          </Alert>
+        </Box>
 
-          <AppBar
-            position="static"
-            color="transparent"
-            className={classes.appBar}
-          >
-            <Tabs
-              variant="fullWidth"
-              value={index}
-              onChange={(_e, v) => setIndex(v)}
-            >
-              <Tab label={t('Sign In.Email')} />
-              <Tab label={t('Sign In.Cookie')} />
-            </Tabs>
-          </AppBar>
-          <TabPanel index={0} value={index}>
-            <Login onSubmit={onSubmit} />
-          </TabPanel>
-          <TabPanel index={1} value={index}>
-            <CookieLogin onSubmit={onSubmit} />
-          </TabPanel>
-
-          <Backdrop open={loading} className={classes.backdrop}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        </div>
-      </Container>
-    </Layout>
+        <TabPanel index={0} value={index}>
+          <Login onSubmit={onSubmit} />
+        </TabPanel>
+        <TabPanel index={1} value={index}>
+          <CookieLogin onSubmit={onSubmit} />
+        </TabPanel>
+        <Backdrop open={loading} className={classes.backdrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </div>
+    </Container>
   )
 }
 
 export default SignIn
+
+SignIn.getInitialProps = () => {
+  return {}
+}
