@@ -16,8 +16,12 @@ const nextConfig = {
     )
     return config
   },
+  generateInDevMode: true,
   devIndicators: {
     autoPrerender: false,
+  },
+  workboxOpts: {
+    swDest: 'static/service-worker.js',
   },
   env: {
     VERSION: package.version,

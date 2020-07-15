@@ -31,6 +31,13 @@ const handle = app.getRequestHandler()
   await nextI18next.initPromise
   server.use(nextI18NextMiddleware(nextI18next))
 
+  server.get('/service-worker.js', (req, res) => {
+    const filePath = path.resolve(
+      __dirname,
+      '../../app/.next/static/service-worker.js'
+    )
+    app.serveStatic(req, res, filePath)
+  })
   server.all('*', (req, res) => {
     handle(req, res)
   })
