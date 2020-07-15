@@ -96,8 +96,9 @@ async function galleryDetail({ gid, token }, cookies) {
   let tagList = []
   let otherInfo = {}
 
-  const res = await axios.get(`${baseURL}/g/${gid}/${token}?p=0`, {
+  const res = await axios.get(`${baseURL}/g/${gid}/${token}?inline_set=ts_l`, {
     headers: { Cookie: cookies },
+    maxRedirects: 2,
   })
   const document = new JSDOM(res.data).window.document
   if (document.body.textContent === 'Key missing, or incorrect key provided.')
