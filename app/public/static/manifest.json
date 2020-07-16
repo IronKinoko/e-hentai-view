@@ -3,12 +3,12 @@
   "name": "EhentaiView",
   "icons": [
     {
-      "src": "static/favicon.ico",
+      "src": "./favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "static/icon.png",
+      "src": "./icon.png",
       "sizes": "144x144",
       "type": "image/png"
     }
