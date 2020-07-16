@@ -64,6 +64,12 @@ function MyApp(props: AppProps) {
               body {
                 padding-bottom: env(safe-area-inset-bottom);
               }
+              @media all and (display-mode: standalone) {
+                /* Here goes the CSS rules that will only apply if app is running standalone */
+                body {
+                  padding-bottom: 34px;
+                }
+              }
             `}
           </style>
         </ThemeProvider>

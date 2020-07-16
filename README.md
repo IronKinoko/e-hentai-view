@@ -13,7 +13,7 @@ english | [中文说明](./README_CHS.md)
 
 > **My english is poor, this article is provided by Google translation**
 
-A mobile website for exhentai, build with Next.js, also can in PC
+A mobile website for exhentai, build with Next.js(PWA), also can in PC
 
 **Because webSecurity in browser (cors), we can't direct access the exhentai image, you should sign in e-hentai before use this website**
 

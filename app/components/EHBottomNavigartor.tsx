@@ -34,10 +34,14 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 0,
       right: 0,
       boxShadow: theme.shadows[2],
-      zIndex: 9999,
+      zIndex: theme.zIndex.snackbar - 1,
       height: 'calc(56px + env(safe-area-inset-bottom))',
       paddingBottom: 'env(safe-area-inset-bottom)',
       transition: theme.transitions.create('all'),
+      '@media all and (display-mode: standalone)': {
+        height: 90,
+        paddingBottom: 34,
+      },
     },
   })
 )

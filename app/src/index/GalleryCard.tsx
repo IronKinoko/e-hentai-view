@@ -288,7 +288,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
 
 export const LoadingCard = () => {
   const matches = useIsmobile()
-  if (matches === null) return null
+
   return matches ? (
     <Grid item xs={12}>
       <MobileLoadingCard />
