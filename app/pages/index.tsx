@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 // import Link from 'next/link'
 import Layout from '../components/Layout'
-import { NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { Typography, Grid, Container, Button } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
     search: { margin: theme.spacing(2, 'auto') },
   })
 )
-const IndexPage: NextPage = () => {
+const IndexPage = () => {
   const classes = useStyles()
   const router = useRouter()
   const f_search = decodeURIComponent((router.query.f_search as string) || '')
@@ -27,4 +27,11 @@ const IndexPage: NextPage = () => {
 
 export default IndexPage
 
-IndexPage.getInitialProps = async () => ({})
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  if (!req.headers.cookie?.includes('ipb_member_id')) {
+    res.statusCode = 302
+    res.setHeader('Location', '/signin')
+    res.end()
+  }
+  return { props: {} }
+}

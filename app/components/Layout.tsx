@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const MENU = [
-  { title: 'Front Page', icon: <HomeIcon />, link: '/' },
+  { title: 'FrontPage', icon: <HomeIcon />, link: '/' },
   { title: 'Watched', icon: <SubscriptionsIcon />, link: '/watched' },
   { title: 'Popular', icon: <WhatshotIcon />, link: '/popular' },
   { title: 'Favorites', icon: <FavoriteIcon />, link: '/favorites' },

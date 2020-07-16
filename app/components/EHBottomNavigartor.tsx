@@ -14,9 +14,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import HistoryIcon from '@material-ui/icons/History'
 import HomeIcon from '@material-ui/icons/Home'
 import { useRouter } from 'next/router'
+import clsx from 'clsx'
+import { callbackify } from 'util'
 
 const MENU = [
-  { title: 'Front Page', icon: <HomeIcon />, link: '/' },
+  { title: 'FrontPage', icon: <HomeIcon />, link: '/' },
   { title: 'Watched', icon: <SubscriptionsIcon />, link: '/watched' },
   { title: 'Popular', icon: <WhatshotIcon />, link: '/popular' },
   { title: 'Favorites', icon: <FavoriteIcon />, link: '/favorites' },
@@ -33,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 0,
       boxShadow: theme.shadows[2],
       zIndex: 9999,
+      height: 'calc(56px + env(safe-area-inset-bottom))',
+      paddingBottom: 'env(safe-area-inset-bottom)',
+      transition: theme.transitions.create('all'),
     },
   })
 )
@@ -64,7 +69,7 @@ const EHBottomNavigartor: React.FC = () => {
   return (
     <>
       <BottomNavigation
-        className={classes.root}
+        className={clsx(classes.root, 'fix-iphone-bottom')}
         showLabels
         value={index}
         onChange={(_, index) => {

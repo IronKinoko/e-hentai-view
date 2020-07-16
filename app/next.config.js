@@ -16,7 +16,7 @@ const nextConfig = {
     )
     return config
   },
-  generateInDevMode: true,
+  // generateInDevMode: true,
   devIndicators: {
     autoPrerender: false,
   },

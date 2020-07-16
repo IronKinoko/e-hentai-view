@@ -20,6 +20,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import CloseIcon from '@material-ui/icons/Close'
 import HistoryIcon from '@material-ui/icons/History'
 import { useLocalStorageState } from '@umijs/hooks'
+import { LOCAL_SEARCH_HISTORY } from 'constant'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -49,7 +50,7 @@ const Search = () => {
   const ref = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
   const [searchHistories, setSearchHistories] = useLocalStorageState<string[]>(
-    'search_histories',
+    LOCAL_SEARCH_HISTORY,
     []
   )
 
