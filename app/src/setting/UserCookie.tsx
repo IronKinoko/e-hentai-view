@@ -24,13 +24,13 @@ const UserCookie = () => {
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
-        <ListItemText primary={t('EH.User Cookie')} />
+        <ListItemText primary={t('EH.UserCookie')} />
       </ListItem>
       <Dialog fullWidth open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{t('EH.User Cookie')}</DialogTitle>
+        <DialogTitle>{t('EH.UserCookie')}</DialogTitle>
         <DialogContent>
           <DialogContentText color="secondary" variant="h6">
-            {t('EH.KEEP IT SAFE')}
+            {t('EH.KeepItSafe')}
           </DialogContentText>
           {typeof window !== 'undefined' &&
             document.cookie.split(';').map((t) => (

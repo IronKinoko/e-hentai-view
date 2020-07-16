@@ -17,7 +17,7 @@ const EHConfig: NextPage = () => {
     }
   }, [])
   return (
-    <Layout title={t('EH.Ehentai Setting')} showBack noContainer fullScreen>
+    <Layout title={t('EH.EhentaiSetting')} showBack noContainer fullScreen>
       <iframe
         src="https://exhentai.org/uconfig.php"
         frameBorder="0"

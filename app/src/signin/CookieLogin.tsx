@@ -71,7 +71,7 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
         inputRef={register}
       />
       <Typography align="right">
-        <Link href="/signin">{t('Sign In.Email')}</Link>
+        <Link href="/signin">{t('SignIn.Email')}</Link>
       </Typography>
 
       <Button
@@ -81,7 +81,7 @@ const CookieLogin: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({
         color="primary"
         className={classes.submit}
       >
-        {t('Sign In')}
+        {t('SignIn')}
       </Button>
     </form>
   )

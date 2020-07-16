@@ -15,7 +15,7 @@ const EHTag: NextPage = () => {
     }
   }, [])
   return (
-    <Layout title={t('EH.Ehentai Tags')} showBack noContainer fullScreen>
+    <Layout title={t('EH.EhentaiTags')} showBack noContainer fullScreen>
       <iframe
         src="https://exhentai.org/mytags"
         frameBorder="0"

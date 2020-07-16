@@ -99,22 +99,22 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
                 <ArrowBackIcon />
               </IconButton>
               <Typography style={{ marginLeft: theme.spacing(2) }} variant="h6">
-                {t('G.Gallery Info')}
+                {t('G.GalleryInfo')}
               </Typography>
             </Toolbar>
           </AppBar>
         )}
         {!matches && (
           <DialogTitle style={{ padding: theme.spacing(2, 2) }}>
-            {t('G.Gallery Info')}
+            {t('G.GalleryInfo')}
           </DialogTitle>
         )}
         <TableContainer component="div">
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>{t('G.Gallery Info.Key')}</TableCell>
-                <TableCell>{t('G.Gallery Info.Value')}</TableCell>
+                <TableCell>{t('G.GalleryInfo.Key')}</TableCell>
+                <TableCell>{t('G.GalleryInfo.Value')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -133,7 +133,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
                   <TableRow key={key}>
                     <TableCell>
                       <Typography variant="inherit" noWrap>
-                        {t('G.Gallery Info.' + key)}
+                        {t('G.GalleryInfo.' + key)}
                       </Typography>
                     </TableCell>
                     <TableCell className={classes.tableCell}>
@@ -217,19 +217,19 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
       <table>
         <tbody>
           <tr>
-            <td>{t('G.Gallery Info.posted')}:</td>
+            <td>{t('G.GalleryInfo.posted')}:</td>
             <td>{record.time}</td>
           </tr>
           <tr>
-            <td>{t('G.Gallery Info.filesize')}:</td>
+            <td>{t('G.GalleryInfo.filesize')}:</td>
             <td>{record.filesize}</td>
           </tr>
           <tr>
-            <td>{t('G.Gallery Info.filecount')}:</td>
+            <td>{t('G.GalleryInfo.filecount')}:</td>
             <td>{record.filecount}P</td>
           </tr>
           <tr>
-            <td>{t('G.Gallery Info.rating')}:</td>
+            <td>{t('G.GalleryInfo.rating')}:</td>
             <td>
               <Grid container alignItems="center">
                 <Rating
@@ -245,11 +245,11 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
             </td>
           </tr>
           <tr>
-            <td>{t('G.Gallery Info.rating_count')}:</td>
+            <td>{t('G.GalleryInfo.rating_count')}:</td>
             <td>{record.rating_count}</td>
           </tr>
           <tr>
-            <td>{t('G.Gallery Info.favcount')}:</td>
+            <td>{t('G.GalleryInfo.favcount')}:</td>
             <td>{record.favcount}</td>
           </tr>
         </tbody>

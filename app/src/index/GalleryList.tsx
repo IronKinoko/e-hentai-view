@@ -86,7 +86,7 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
     return (
       <Box>
         <Typography variant="subtitle2" align="center" gutterBottom>
-          {t('Search.No this found')}
+          {t('Search.NoThisFound')}
         </Typography>
       </Box>
     )
@@ -109,7 +109,7 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
           className={classes.btn}
         >
           {isReachingEnd
-            ? t('Reach End')
+            ? t('ReachEnd')
             : isLoadingMore
             ? t('Loading') + '...'
             : t('More')}

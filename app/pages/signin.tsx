@@ -17,12 +17,18 @@ import {
   AppBar,
   Button,
   Box,
+  Stepper,
+  MobileStepper,
+  Paper,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
 import CookieLogin from '@/signin/CookieLogin'
 import { cache } from 'swr'
 import { useTranslation, Trans } from 'i18n'
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -58,6 +64,7 @@ const SignIn: NextPage = () => {
   const classes = useStyles()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [activeStep, setActiveStep] = useState(0)
   const [t] = useTranslation()
   let index = router.query.mode === 'cookie' ? 1 : 0
   useEffect(() => {
@@ -83,18 +90,25 @@ const SignIn: NextPage = () => {
     }
   }
 
+  const handleNext = () => {
+    setActiveStep(activeStep + 1)
+  }
+  const handleBack = () => {
+    setActiveStep(activeStep - 1)
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography variant="h5" component="h6" gutterBottom>
+        <Typography variant="h4" component="h6" gutterBottom>
           EHentaiView
         </Typography>
         <Typography component="h1" variant="h5" gutterBottom>
-          {t('Sign In')}
+          {t('SignIn')}
         </Typography>
         <Box m="16px 0">
           <Alert severity="warning">
-            <Trans i18nKey="Sign In.info">
+            <Trans i18nKey="SignIn.info">
               Due to browser security restrictions, you must log in to the
               <Link
                 prefetch={false}
@@ -108,12 +122,64 @@ const SignIn: NextPage = () => {
           </Alert>
         </Box>
 
-        <TabPanel index={0} value={index}>
-          <Login onSubmit={onSubmit} />
-        </TabPanel>
-        <TabPanel index={1} value={index}>
-          <CookieLogin onSubmit={onSubmit} />
-        </TabPanel>
+        <MobileStepper
+          position="static"
+          style={{ margin: '0 -16px' }}
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+              startIcon={<KeyboardArrowLeftIcon />}
+            >
+              {t('Back')}
+            </Button>
+          }
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === 2}
+              endIcon={<KeyboardArrowRightIcon />}
+            >
+              {t('Next')}
+            </Button>
+          }
+          steps={3}
+          activeStep={activeStep}
+        />
+
+        {activeStep === 0 ? (
+          <Typography variant="subtitle1" gutterBottom>
+            {`1. ${t('SignIn')}`}
+            <Link
+              prefetch={false}
+              href="https://forums.e-hentai.org/index.php"
+              target="_blank"
+            >
+              {' e-hentai.org '}
+              <OpenInNewIcon fontSize="inherit" />
+            </Link>
+          </Typography>
+        ) : activeStep === 1 ? (
+          <Typography variant="subtitle1" gutterBottom>
+            {`2. ${t('SignIn')}`}
+            <Link prefetch={false} href="https://exhentai.org" target="_blank">
+              {' exhentai.org '}
+              <OpenInNewIcon fontSize="inherit" />
+            </Link>
+          </Typography>
+        ) : activeStep === 2 ? (
+          <>
+            <TabPanel index={0} value={index}>
+              <Login onSubmit={onSubmit} />
+            </TabPanel>
+            <TabPanel index={1} value={index}>
+              <CookieLogin onSubmit={onSubmit} />
+            </TabPanel>
+          </>
+        ) : null}
+
         <Backdrop open={loading} className={classes.backdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>

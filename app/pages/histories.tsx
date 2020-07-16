@@ -19,7 +19,7 @@ const Histories = () => {
       <Box mt={2}>
         {data.length === 0 && (
           <Typography variant="subtitle2" align="center" gutterBottom>
-            {t('Search.No this found')}
+            {t('Search.NoThisFound')}
           </Typography>
         )}
         <Grid

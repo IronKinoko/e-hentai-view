@@ -80,7 +80,7 @@ const WatchedGalleryList: React.FC<{ f_search?: string }> = ({}) => {
     return (
       <Box>
         <Typography variant="subtitle2" align="center" gutterBottom>
-          {t('Search.No this found')}
+          {t('Search.NoThisFound')}
         </Typography>
       </Box>
     )
@@ -103,7 +103,7 @@ const WatchedGalleryList: React.FC<{ f_search?: string }> = ({}) => {
           className={classes.btn}
         >
           {isReachingEnd
-            ? t('Reach End')
+            ? t('ReachEnd')
             : isLoadingMore
             ? t('Loading') + '...'
             : t('More')}

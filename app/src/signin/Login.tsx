@@ -31,7 +31,7 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         required
         fullWidth
         id="UserName"
-        label={t('Sign In.Email Address')}
+        label={t('SignIn.EmailAddress')}
         name="UserName"
         autoComplete="UserName"
         autoFocus
@@ -42,14 +42,14 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         required
         fullWidth
         name="PassWord"
-        label={t('Sign In.Password')}
+        label={t('SignIn.Password')}
         type="Password"
         id="PassWord"
         autoComplete="current-password"
         inputRef={register}
       />
       <Typography align="right">
-        <Link href="/signin?mode=cookie">{t('Sign In.Cookie')}</Link>
+        <Link href="/signin?mode=cookie">{t('SignIn.Cookie')}</Link>
       </Typography>
 
       <Button
@@ -59,7 +59,7 @@ const Login: React.FC<{ onSubmit: OnSubmit<UserPayload> }> = ({ onSubmit }) => {
         color="primary"
         className={classes.submit}
       >
-        {t('Sign In')}
+        {t('SignIn')}
       </Button>
     </form>
   )

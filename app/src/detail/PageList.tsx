@@ -129,7 +129,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         className={classes.btn}
       >
         {isReachingEnd
-          ? t('Reach End')
+          ? t('ReachEnd')
           : isLoadingMore
           ? t('Loading') + '...'
           : t('More')}

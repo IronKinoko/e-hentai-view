@@ -61,7 +61,7 @@ const Download: NextPage = () => {
           {saveLoading ? (
             <CircularProgress color="inherit" size={24} />
           ) : (
-            t('Download.Save Local')
+            t('Download.SaveLocal')
           )}
         </Button>
       </Collapse>
@@ -81,7 +81,7 @@ const Download: NextPage = () => {
         valueBuffer={Math.round((progess.buffer / progess.total) * 100)}
       />
       <Typography component="h6" variant="h6">
-        {t('Download.Error Info')}
+        {t('Download.ErrorInfo')}
       </Typography>
       <Typography component="pre">
         {JSON.stringify(progess.error, null, 2)}

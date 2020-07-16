@@ -58,7 +58,7 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
             variant="subtitle1"
             component="p"
           >
-            {t('G.no comments')}
+            {t('G.noComments')}
           </Typography>
         ) : (
           commentList.map((o, k) => (

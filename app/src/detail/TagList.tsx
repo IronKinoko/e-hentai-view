@@ -18,7 +18,7 @@ const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
   return (
     <>
       {tagList.length === 0 && (
-        <Typography align="center">{t('G.no tags')}</Typography>
+        <Typography align="center">{t('G.noTags')}</Typography>
       )}
       <table>
         <tbody>

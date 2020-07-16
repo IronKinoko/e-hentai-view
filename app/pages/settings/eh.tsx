@@ -40,7 +40,7 @@ const EHSetting = () => {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={t('EH.Ehentai Setting')} />
+          <ListItemText primary={t('EH.EhentaiSetting')} />
           <ListItemSecondaryAction>
             <IconButton onClick={goEhConfig}>
               <ArrowRightIcon />
@@ -51,7 +51,7 @@ const EHSetting = () => {
           <ListItemIcon>
             <LabelIcon />
           </ListItemIcon>
-          <ListItemText primary={t('EH.Ehentai Tags')} />
+          <ListItemText primary={t('EH.EhentaiTags')} />
           <ListItemSecondaryAction>
             <IconButton onClick={goEhTags}>
               <ArrowRightIcon />
