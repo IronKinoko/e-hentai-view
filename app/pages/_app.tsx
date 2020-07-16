@@ -9,6 +9,7 @@ import Router from 'next/router'
 import moment from 'moment'
 import { SWRConfig } from 'swr'
 import { i18n, appWithTranslation } from 'i18n'
+import useIsIosStandalone from 'hooks/useIsIosStandalone'
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
@@ -36,7 +37,7 @@ function init() {
 
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props
-
+  const matches = useIsIosStandalone()
   React.useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
@@ -62,13 +63,9 @@ function MyApp(props: AppProps) {
                 color: unset;
               }
               body {
-                padding-bottom: env(safe-area-inset-bottom);
-              }
-              @media all and (display-mode: standalone) and ((-webkit-device-pixel-ratio: 3)  or  (-webkit-device-pixel-ratio:2)) {
-                /* Here goes the CSS rules that will only apply if app is running standalone */
-                body {
-                  padding-bottom: 30px;
-                }
+                padding-bottom: ${matches
+                  ? '30px'
+                  : 'env(safe-area-inset-bottom)'};
               }
             `}
           </style>

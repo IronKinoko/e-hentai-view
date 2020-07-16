@@ -15,7 +15,7 @@ import HistoryIcon from '@material-ui/icons/History'
 import HomeIcon from '@material-ui/icons/Home'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { callbackify } from 'util'
+import useIsIosStandalone from 'hooks/useIsIosStandalone'
 
 const MENU = [
   { title: 'FrontPage', icon: <HomeIcon />, link: '/' },
@@ -38,10 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 'calc(56px + env(safe-area-inset-bottom))',
       paddingBottom: 'env(safe-area-inset-bottom)',
       transition: theme.transitions.create('all'),
-      '@media all and (display-mode: standalone) and ((-webkit-device-pixel-ratio:3) or (-webkit-device-pixel-ratio:2))': {
-        height: 86,
-        paddingBottom: 30,
-      },
+    },
+    rootIosStandalone: {
+      height: 86,
+      paddingBottom: 30,
     },
   })
 )
@@ -50,7 +50,7 @@ const EHBottomNavigartor: React.FC = () => {
   const [t] = useTranslation()
   const router = useRouter()
   const classes = useStyles()
-
+  const matches = useIsIosStandalone()
   const index = MENU.findIndex((v, k) => {
     let pathname = router.pathname
     if (v.link === '/') {
@@ -70,10 +70,13 @@ const EHBottomNavigartor: React.FC = () => {
   if (index === -1) {
     return null
   }
+
   return (
     <>
       <BottomNavigation
-        className={clsx(classes.root, 'fix-iphone-bottom')}
+        className={clsx(classes.root, {
+          [classes.rootIosStandalone]: matches,
+        })}
         showLabels
         value={index}
         onChange={(_, index) => {
