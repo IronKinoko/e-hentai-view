@@ -1,15 +1,16 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const useIsIosStandalone = () => {
-  const ref = useRef(false)
+  const [matches, setMatches] = useState(false)
   useEffect(() => {
-    ref.current =
+    let bool =
       typeof window === 'undefined'
         ? false
         : matchMedia('(display-mode: standalone)').matches &&
           /((iphone)|(ipad))/.test(navigator.userAgent.toLowerCase())
+    setMatches(bool)
   }, [])
-  return ref.current
+  return matches
 }
 
 export default useIsIosStandalone
