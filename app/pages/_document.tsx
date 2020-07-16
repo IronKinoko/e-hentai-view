@@ -16,6 +16,8 @@ class MyDocument extends Document {
             href="/static/favicon.ico"
           />
           <meta name="theme-color" content="#fff" />
+          <link rel="apple-touch-icon" href="/static/favicon.ico" />
+          <link rel="manifest" href="/static/manifest.json" />
         </Head>
         <body>
           <Main />
