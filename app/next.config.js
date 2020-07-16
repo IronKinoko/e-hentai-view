@@ -22,6 +22,12 @@ const nextConfig = {
   },
   workboxOpts: {
     swDest: 'static/service-worker.js',
+    runtimeCaching: [
+      {
+        urlPattern: /\.((jpg)|(png)|(jpeg))/,
+        handler: 'CacheFirst',
+      },
+    ],
   },
   env: {
     VERSION: package.version,
