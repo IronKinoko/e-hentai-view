@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 'calc(56px + env(safe-area-inset-bottom))',
       paddingBottom: 'env(safe-area-inset-bottom)',
       transition: theme.transitions.create('all'),
-      '@media all and (display-mode: standalone)': {
-        height: 90,
-        paddingBottom: 34,
+      '@media all and (display-mode: standalone) and ((-webkit-device-pixel-ratio:3) or (-webkit-device-pixel-ratio:2))': {
+        height: 86,
+        paddingBottom: 30,
       },
     },
   })
