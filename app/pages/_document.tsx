@@ -19,10 +19,13 @@ class MyDocument extends Document {
             type="image/x-icon"
             href="/static/favicon.ico"
           />
-          <meta name="theme-color" content="#000" />
+          <meta name="theme-color" content="#fff" />
           <link rel="apple-touch-icon" href="/static/icon.png" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
           <link rel="manifest" href="/static/manifest.json" />
         </Head>
         <body>

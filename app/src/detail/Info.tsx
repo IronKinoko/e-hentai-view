@@ -88,6 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 103,
       height: 150,
       marginRight: theme.spacing(2),
+      flexShrink: 0,
     },
     actions: {
       [theme.breakpoints.up('sm')]: {

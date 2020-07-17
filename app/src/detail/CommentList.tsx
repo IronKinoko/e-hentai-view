@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef } from 'react'
+import React, { useState, useRef, forwardRef, useEffect } from 'react'
 import { commentListItemProps } from 'interface/gallery'
 import {
   Button,
@@ -48,7 +48,23 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
   ({ commentList, hidden }, ref) => {
     const classes = useStyles()
     const [t] = useTranslation()
-
+    const router = useRouter()
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        // 监听链接，跳转到自己的详情页
+        document
+          .querySelectorAll<HTMLAnchorElement>(
+            '.MuiDialog-root a[href^="https://exhentai.org/g"]'
+          )
+          .forEach((a) => {
+            a.onclick = (e) => {
+              e.preventDefault()
+              let path = a.href.replace('https://exhentai.org/g', '')
+              router.push('/[gid]/[token]', path)
+            }
+          })
+      }
+    }, [router])
     return (
       <List ref={ref}>
         {commentList.length === 0 ? (

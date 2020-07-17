@@ -2,26 +2,27 @@
 
 english | [中文说明](./README_CHS.md)
 
+welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
+
 ## Screenshot
 
-<div style="display: flex; justify-content: space-between;">
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/home.png" width="24.5%" title="home"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/menu.png" width="24.5%" title="menu" />
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/home_dark.png" width="24.5%" title="home"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/menu_dark.png" width="24.5%" title="menu" />
+<div style="display: flex;">
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/dark-zh.png" width="25%" title="home"/>
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/light-en.png" width="25%" title="home" />
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/detail.png" width="25%" title="detail"/>
 </div>
 
-> **My english is poor, this article is provided by Google translation**
-
-A mobile website for exhentai, build with Next.js(PWA), also can in PC
+## Usage
 
 **Because webSecurity in browser (cors), we can't direct access the exhentai image, you should sign in e-hentai before use this website**
-
-## How to use
 
 1. Login [here](https://exhentai.appspot.com/signin)
 2. If you haven't signed in to [e-hentai](https://forums.e-hentai.org/index.php), also you need sign in e-hentai
 3. Now you can browse the website
+
+## PWA install
+
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/pwa_install.gif" width="25%" title="pwa install"/>
 
 ## development
 

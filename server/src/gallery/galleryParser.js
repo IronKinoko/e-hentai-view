@@ -39,6 +39,7 @@ function parseDetailPageCommentList(document) {
     res.time = moment(new Date(time)).format('YYYY-MM-DD HH:mm')
     res.userName = name
     res.score = c5 ? c5.textContent : ''
+
     res.comment = c6.innerHTML
     return res
   })

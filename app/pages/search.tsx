@@ -21,6 +21,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import HistoryIcon from '@material-ui/icons/History'
 import { useLocalStorageState } from '@umijs/hooks'
 import { LOCAL_SEARCH_HISTORY } from 'constant'
+import useEnhanceLocalStorageState from 'hooks/useEnhanceLocalStorageState'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -49,19 +50,23 @@ const Search = () => {
   const router = useRouter()
   const ref = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
-  const [searchHistories, setSearchHistories] = useLocalStorageState<string[]>(
-    LOCAL_SEARCH_HISTORY,
-    []
-  )
+  const [searchHistories, setSearchHistories] = useEnhanceLocalStorageState<
+    string[]
+  >(LOCAL_SEARCH_HISTORY, [])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    if (query.length === 0) {
-      return e.preventDefault()
-    }
+    e.preventDefault()
+    if (query.length === 0) return
 
     setSearchHistories(
       [query, ...searchHistories.filter((v) => v != query)].slice(0, 20)
     )
+
+    handleGoResult(query)
+  }
+
+  const handleGoResult = (f_search: string) => {
+    router.replace('/result?f_search=' + encodeURIComponent(f_search))
   }
 
   return (
@@ -81,13 +86,13 @@ const Search = () => {
               placeholder={t('Search')}
               value={query}
               name="f_search"
+              autoFocus
               inputProps={{
                 maxLength: 2000,
                 minLength: 3,
                 autoCorrect: 'off',
                 autoCapitalize: 'off',
                 spellCheck: false,
-                role: 'combobox',
               }}
               inputRef={ref}
               onChange={(e) => setQuery(e.target.value)}
@@ -112,13 +117,7 @@ const Search = () => {
       <Toolbar />
       <List>
         {searchHistories.map((o, k) => (
-          <ListItem
-            button
-            key={k}
-            onClick={() => {
-              router.push('/?f_search=' + o)
-            }}
-          >
+          <ListItem button key={k} onClick={() => handleGoResult(o)}>
             <ListItemIcon>
               <HistoryIcon />
             </ListItemIcon>
@@ -141,10 +140,4 @@ const Search = () => {
   )
 }
 
-export default () => (
-  <NoSsr>
-    <Search />
-  </NoSsr>
-)
-
-// export default Search
+export default Search

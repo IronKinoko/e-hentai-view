@@ -76,7 +76,9 @@ const ThemeProvider: FC<{}> = ({ children }) => {
     )
   }, [i18n.language, paletteType])
 
-  const matches = useMediaQuery(theme.breakpoints.down('xs'))
+  const matches = useMediaQuery(theme.breakpoints.down('xs'), {
+    defaultMatches: true,
+  })
   const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)', {
     noSsr: true,
   })

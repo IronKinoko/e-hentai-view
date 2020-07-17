@@ -7,7 +7,7 @@ import { useTranslation } from 'i18n'
 const Watched: NextPage = () => {
   const [t] = useTranslation()
   return (
-    <Layout title={t('Watched')} gutterBottom>
+    <Layout title={t('Watched')} gutterBottom showAvatar showSearch>
       <WatchedGalleryList />
     </Layout>
   )
