@@ -7,6 +7,10 @@ import { useTranslation } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     label: {},
+    key: {
+      lineHeight: '26px',
+      whiteSpace: 'nowrap',
+    },
   })
 )
 const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
@@ -24,11 +28,7 @@ const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
         <tbody>
           {tagList.map((o) => (
             <tr key={o.namespace}>
-              <td
-                align="right"
-                valign="top"
-                style={{ lineHeight: '26px', whiteSpace: 'nowrap' }}
-              >
+              <td align="right" valign="top" className={classes.key}>
                 <Tooltip title={o.description} arrow>
                   <span>{trans(o, 'namespace')}</span>
                 </Tooltip>

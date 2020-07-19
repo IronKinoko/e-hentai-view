@@ -59,6 +59,14 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
     setStore({ open: true, index: k })
   }
 
+  useEffect(() => {
+    const fn = () => setStore((t) => ({ ...t, open: true }))
+    document.addEventListener('openComic', fn)
+    return () => {
+      document.removeEventListener('openComic', fn)
+    }
+  }, [])
+
   const {
     pages,
     isEmpty,

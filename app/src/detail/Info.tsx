@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IndexListItemPorps, tagListItemProps } from 'interface/gallery'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles'
 import {
   Card,
   Hidden,
@@ -12,6 +12,9 @@ import {
   Grid,
   IconButton,
   Tooltip,
+  Slide,
+  ClickAwayListener,
+  Fade,
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import LoadMedia from 'components/LoadMedia'
@@ -29,6 +32,8 @@ import TorrentIconButton from './TorrentIconButton'
 import ColorChip from 'components/ColorChip'
 import { useTranslation } from 'i18n'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import { useIsmobile } from '@/theme'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -99,10 +104,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const Info: React.FC<{
+interface InfoProps {
   info: IndexListItemPorps
   tagList: tagListItemProps[]
-}> = ({ info, tagList }) => {
+}
+
+const Info: React.FC<InfoProps> = ({ info, tagList }) => {
   const classes = useStyles()
   const router = useRouter()
   const [t] = useTranslation()
@@ -131,7 +138,13 @@ const Info: React.FC<{
                 color="inherit"
                 href={`/?f_search=uploader:${info.uploader}`}
               >
-                <Typography gutterBottom>{info.uploader}</Typography>
+                <Typography
+                  gutterBottom
+                  variant="subtitle2"
+                  color="textSecondary"
+                >
+                  {info.uploader}
+                </Typography>
               </Link>
               <ColorChip label={info.category} />
             </Hidden>
@@ -186,4 +199,143 @@ const Info: React.FC<{
   )
 }
 
-export default Info
+const useStylesMobile = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      paddingBottom: 6,
+    },
+    smallCover: {
+      width: 120,
+      height: 120 * 1.4,
+      marginRight: theme.spacing(2),
+      flexShrink: 0,
+    },
+    title: {
+      display: '-webkit-box',
+      lineClamp: 2,
+      WebkitLineClamp: 2,
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      WebkitBoxOrient: 'vertical',
+    },
+    btn: {
+      borderRadius: 18,
+      padding: theme.spacing(0.75, 4),
+      backgroundColor: fade(theme.palette.primary.main, 0.8),
+    },
+    oneline: {
+      position: 'relative',
+      height: 48,
+      marginBottom: -6,
+    },
+    more: {
+      position: 'absolute',
+      right: 0,
+      top: 0,
+    },
+    divider: {
+      margin: theme.spacing(1, 0),
+    },
+  })
+)
+
+const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
+  const classes = useStylesMobile()
+  const router = useRouter()
+  const [t] = useTranslation()
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Card className={classes.root} elevation={0}>
+        <LoadMedia src={info.thumb} className={classes.smallCover} />
+        <Grid container direction="column">
+          <SelectTypography
+            variant="subtitle1"
+            align="left"
+            className={classes.title}
+          >
+            {info.title_jpn}
+          </SelectTypography>
+          <Link color="inherit" href={`/?f_search=uploader:${info.uploader}`}>
+            <Typography gutterBottom variant="subtitle2" color="textSecondary">
+              {info.uploader}
+            </Typography>
+          </Link>
+          <Grid item>
+            <ColorChip label={info.category} />
+          </Grid>
+          <Grid item xs />
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            className={classes.oneline}
+          >
+            <Grid item>
+              <Fade in={!open}>
+                <Button
+                  disableElevation
+                  color="primary"
+                  variant="contained"
+                  className={classes.btn}
+                  onClick={() => {
+                    document.dispatchEvent(new CustomEvent('openComic'))
+                  }}
+                >
+                  {t('Read')}
+                </Button>
+              </Fade>
+            </Grid>
+            <ClickAwayListener onClickAway={() => setOpen(false)}>
+              <Grid item>
+                <Slide in={!open} direction="left" mountOnEnter>
+                  <IconButton
+                    onClick={() => setOpen(!open)}
+                    className={classes.more}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                </Slide>
+                <Slide in={open} direction="left">
+                  <div className={classes.more}>
+                    <TorrentIconButton info={info} />
+                    <FavIconButton info={info} />
+                    <Tooltip title={t('OpenEH') as string}>
+                      <Link
+                        underline="none"
+                        href={info.url}
+                        prefetch={false}
+                        target="_blank"
+                      >
+                        <IconButton color="primary">
+                          <OpenInNewIcon />
+                        </IconButton>
+                      </Link>
+                    </Tooltip>
+                  </div>
+                </Slide>
+              </Grid>
+            </ClickAwayListener>
+          </Grid>
+        </Grid>
+      </Card>
+      {/* <Divider className={classes.divider} /> */}
+      <InfoCard record={info} />
+      <Divider className={classes.divider} />
+      <div style={{ overflow: 'auto' }}>
+        <TagList tagList={tagList} />
+      </div>
+      <Divider className={classes.divider} />
+    </>
+  )
+}
+
+export default (props: InfoProps) => {
+  const matches = useIsmobile()
+  if (matches) {
+    return <MobileInfo {...props} />
+  } else {
+    return <Info {...props} />
+  }
+}

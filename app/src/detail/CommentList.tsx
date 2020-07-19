@@ -15,6 +15,7 @@ import {
   Toolbar,
   IconButton,
   DialogTitle,
+  ListSubheader,
 } from '@material-ui/core'
 import SlideUpDialog from 'components/SlideUpDialog'
 import {
@@ -26,9 +27,9 @@ import {
 import clsx from 'clsx'
 import { useIsmobile } from '@/theme'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import HideOnScroll from 'components/HideOnScroll'
 import { useTranslation } from 'i18n'
 import { useRouter } from 'next/router'
+import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,7 +79,11 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
           </Typography>
         ) : (
           commentList.map((o, k) => (
-            <ListItem key={k} divider={k !== commentList.length - 1}>
+            <ListItem
+              key={k}
+              divider={k !== commentList.length - 1}
+              disableGutters={hidden}
+            >
               <ListItemText
                 primary={
                   <Grid container justify="space-between">
@@ -113,22 +118,27 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
   const [t] = useTranslation()
   return (
     <>
-      <CommentListContent hidden commentList={commentList.slice(0, 2)} />
       {commentList.length > 0 && (
-        <CardActions>
-          <Button
-            fullWidth
-            onClick={() =>
-              router.push(
-                router.pathname + '?showPage=comments',
-                router.asPath + '?showPage=comments'
-              )
-            }
-          >
-            {t('More')}
-          </Button>
-        </CardActions>
+        <Grid container alignItems="center" style={{ marginBlock: -10 }}>
+          <Grid item xs>
+            <Typography variant="subtitle1">{t('G.Comments')}</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton
+              onClick={() =>
+                router.push(
+                  router.pathname + '?showPage=comments',
+                  router.asPath + '?showPage=comments'
+                )
+              }
+            >
+              <ArrowRightIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
       )}
+      <CommentListContent hidden commentList={commentList.slice(0, 2)} />
+
       <SlideUpDialog
         fullScreen={Boolean(matches)}
         fullWidth={!Boolean(matches)}

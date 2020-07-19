@@ -31,7 +31,6 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
   const [t] = useTranslation()
   const router = useRouter()
   const showPage = router.query.showPage as string
-  console.log(info)
   return (
     <>
       <Tooltip title={`Torrent(${info.torrentcount})`}>

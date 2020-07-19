@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 2,
       border: 0,
       color: '#fff',
+      height: 28,
+    },
+    label: {
+      padding: theme.spacing(0, 1),
     },
     [Category['Doujinshi']]: { backgroundColor: '#9E2720' },
     [Category['Manga']]: { backgroundColor: '#DB6C24' },
@@ -32,6 +36,7 @@ const ColorChip: React.FC<ChipProps> = ({ label, className, ...rest }) => {
         classes[(label as string).replace(' ', '_') as Category],
         className
       )}
+      classes={{ label: classes.label }}
       label={(label as string) || ''}
       {...rest}
     />

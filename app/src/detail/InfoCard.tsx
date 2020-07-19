@@ -35,9 +35,11 @@ import { omit } from 'lodash'
 import { useIsmobile } from '@/theme'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import Link from 'components/Link'
 import { useTranslation } from 'i18n'
 import { useRouter } from 'next/router'
+import moment from 'moment'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chip: {
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       padding: theme.spacing(1, 0),
+      color: `${theme.palette.text.secondary} !important`,
     },
     tableCell: {
       wordBreak: 'break-word',
@@ -66,21 +69,25 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   const [t] = useTranslation()
   const router = useRouter()
   const showPage = router.query.showPage as string
+
+  const open = () =>
+    router.push(
+      router.pathname + '?showPage=info',
+      router.asPath + '?showPage=info'
+    )
   return (
     <>
-      <CardActions>
-        <Button
-          fullWidth
-          onClick={() =>
-            router.push(
-              router.pathname + '?showPage=info',
-              router.asPath + '?showPage=info'
-            )
-          }
-        >
-          {t('More')}
-        </Button>
-      </CardActions>
+      {matches ? (
+        <IconButton onClick={open}>
+          <KeyboardArrowRight />
+        </IconButton>
+      ) : (
+        <CardActions>
+          <Button fullWidth onClick={open}>
+            {t('More')}
+          </Button>
+        </CardActions>
+      )}
       <SlideUpDialog
         fullScreen={Boolean(matches)}
         fullWidth={!Boolean(matches)}
@@ -163,34 +170,49 @@ const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
         className={classes.root}
         justify="space-between"
       >
-        <Grid item>{record.language}</Grid>
-        <Grid item>{record.filecount ? `${record.filecount}P` : ''}</Grid>
-        <Grid item>{record.filesize}</Grid>
+        <Grid item container alignItems="center" xs>
+          <Typography variant="h5" color="textSecondary">
+            {record.rating}
+          </Typography>
+          <Rating
+            value={+(record.rating || 0)}
+            readOnly
+            precision={0.2}
+            max={5}
+            style={{ color: 'inherit' }}
+            size="small"
+          />
+        </Grid>
+        <Grid item container alignItems="center" justify="center" xs={3}>
+          <Typography align="center">{record.language}</Typography>
+        </Grid>
+        <Grid item xs={4} container justify="flex-end">
+          <MoreInfo record={record} />
+        </Grid>
       </Grid>
-      <Grid container justify="space-between" alignItems="center">
+      <Grid
+        container
+        justify="space-between"
+        alignItems="center"
+        className={classes.root}
+      >
         <Grid item xs container alignItems="center">
           <FavoriteIcon color="secondary" fontSize="inherit" />
           {record.favcount}
         </Grid>
-        <Grid item xs container justify="center">
-          <Rating
-            value={+(record.rating || 0)}
-            readOnly
-            precision={0.1}
-            max={5}
-          />
+        <Grid item xs={3} container justify="center">
+          {record.filecount}P
         </Grid>
         <Grid
           item
-          xs
+          xs={4}
           container
           justify="flex-end"
           style={{ textAlign: 'right' }}
         >
-          {record.time}
+          {moment.utc(record.posted).format('YYYY-MM-DD HH:mm')}
         </Grid>
       </Grid>
-      <MoreInfo record={record} />
     </>
   )
 }

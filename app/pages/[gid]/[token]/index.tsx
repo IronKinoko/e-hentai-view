@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
     },
-    divider: { margin: theme.spacing(1, 0) },
+    divider: { margin: theme.spacing(0, 0, 1) },
 
     border: {
       borderStyle: 'solid',

@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "debug: server",
-      "runtimeExecutable": "nodemon",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
       "env": {
         "NODE_ENV": "development",
         "PORT": "8080"
