@@ -1,12 +1,13 @@
 const axios = require('../axios')
 const { favoritesURL, favoritesApiURL } = require('../config/api')
 const JSDOM = require('jsdom').JSDOM
-const { parseHTMLAnchorElement } = require('../gallery/galleryParser')
+const { parseGalleryList } = require('../gallery/galleryParser')
 const { parseFavoritesSettingInfo } = require('./favoritesPaeser')
-const { gdata } = require('../gallery/galleryApi')
 const qs = require('qs')
+const { GalleryMode } = require('../constant')
 async function getFavorites({ page, favcat }, cookies) {
-  const res = await axios.get(`${favoritesURL}?page=${page}&favcat=${favcat}`, {
+  const res = await axios.get(`${favoritesURL}`, {
+    params: { page, favcat, inline_set: 'dm_l' },
     headers: { Cookie: cookies },
   })
 
@@ -16,11 +17,7 @@ async function getFavorites({ page, favcat }, cookies) {
     return { list: [], total: 0 }
   }
 
-  const gidlist = await parseHTMLAnchorElement(document)
-  const list = await gdata(gidlist, cookies)
-  const total = +document.querySelector('p.ip').innerHTML.replace(/[^0-9]/g, '')
-
-  return { list, total }
+  return parseGalleryList(document, GalleryMode.Favorites)
 }
 
 async function getFavoritesInfo(cookies) {

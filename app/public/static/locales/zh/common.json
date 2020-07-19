@@ -47,6 +47,7 @@
   "G.GalleryInfo.rating_count": "评价次数",
   "G.GalleryInfo.favcount": "收藏次数",
   "G.GalleryInfo.favoritelink": "收藏夹",
+  "G.GalleryInfo.language": "语言",
   "G.noTags": "暂无标签",
   "G.Torrent.Added": "上传时间",
   "G.Torrent.Size": "大小",

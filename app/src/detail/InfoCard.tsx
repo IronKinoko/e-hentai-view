@@ -163,9 +163,7 @@ const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
         className={classes.root}
         justify="space-between"
       >
-        <Grid item>
-          {record.tags.includes('chinese') ? 'Chinese' : 'Japanese'}
-        </Grid>
+        <Grid item>{record.language}</Grid>
         <Grid item>{record.filecount ? `${record.filecount}P` : ''}</Grid>
         <Grid item>{record.filesize}</Grid>
       </Grid>

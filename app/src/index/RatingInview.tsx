@@ -12,7 +12,7 @@ const RatingInview: React.FC<RatingProps> = (props) => {
           size="small"
           readOnly
           max={5}
-          precision={0.2}
+          precision={0.5}
           {...props}
         />
       )}

@@ -4,6 +4,8 @@ english | [中文说明](./README_CHS.md)
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
+**If google chrome version >= 84, you need change exhentai.org cookies with `Secure` and `SameSite=None`**
+
 ## Screenshot
 
 <div style="display: flex;">

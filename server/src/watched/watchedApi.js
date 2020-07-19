@@ -1,10 +1,11 @@
 const axios = require('../axios')
 const { watchedURL } = require('../config/api')
 const JSDOM = require('jsdom').JSDOM
-const { parseHTMLAnchorElement } = require('../gallery/galleryParser')
-const { gdata } = require('../gallery/galleryApi')
+const { parseGalleryList } = require('../gallery/galleryParser')
+const { GalleryMode } = require('../constant')
 async function getWatched(page, cookies) {
-  const res = await axios.get(`${watchedURL}?page=${page}`, {
+  const res = await axios.get(`${watchedURL}`, {
+    params: { page, inline_set: 'dm_l' },
     headers: { Cookie: cookies },
   })
 
@@ -14,13 +15,7 @@ async function getWatched(page, cookies) {
     return { list: [], total: 0 }
   }
 
-  const gidlist = await parseHTMLAnchorElement(document)
-
-  const list = await gdata(gidlist, cookies)
-  const total = +document
-    .querySelectorAll('p.ip')[1]
-    .innerHTML.replace(/[^0-9]/g, '')
-  return { list, total }
+  return parseGalleryList(document, GalleryMode.Watched)
 }
 
 module.exports = { getWatched }

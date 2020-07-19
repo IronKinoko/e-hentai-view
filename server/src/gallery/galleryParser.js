@@ -1,5 +1,97 @@
 const { uniq } = require('lodash')
 const moment = require('moment')
+const { GalleryMode } = require('../constant')
+
+/**
+ * @param {Document} document
+ * @param {int} mode
+ */
+function parseGalleryList(document, mode) {
+  const res = []
+  let total = 0
+
+  if (mode === GalleryMode.FrontPage || mode === GalleryMode.Favorites)
+    total = parseInt(
+      document.querySelector('p.ip').textContent.replace(/[^0-9]/g, '')
+    )
+  if (mode === GalleryMode.Watched)
+    total = parseInt(
+      document.querySelectorAll('p.ip')[1].textContent.replace(/[^0-9]/g, '')
+    )
+  Array.from(document.querySelectorAll('.itg > tbody > tr'))
+    .slice(1)
+    .forEach((tr) => {
+      try {
+        const title = tr.querySelector('.glink').textContent
+        const category = tr.querySelector('.cn').textContent
+        const posted =
+          moment.utc(tr.querySelector('[id^=posted_]').textContent).unix() *
+          1000
+
+        const rating = _parseRating(
+          tr.querySelector('.ir').getAttribute('style')
+        )
+
+        const url = tr
+          .querySelector('.glink')
+          .parentElement.getAttribute('href')
+        const uploader =
+          mode === GalleryMode.Favorites
+            ? ''
+            : tr.querySelector('.gl4c a').textContent
+        const filecount = parseInt(
+          tr.querySelector('.glthumb').textContent.match(/:\d\d(\d+) pages/)[1]
+        )
+        const gid = _parseUrl(url)[0]
+        const token = _parseUrl(url)[1]
+        const thumb =
+          tr.querySelector('.glthumb img').getAttribute('data-src') ||
+          tr.querySelector('.glthumb img').getAttribute('src')
+        res.push({
+          gid,
+          token,
+          posted,
+          title,
+          category,
+          rating,
+          uploader,
+          filecount,
+          thumb,
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    })
+  if (mode === GalleryMode.Popular) total = res.length
+  return { list: res, total }
+}
+
+/**
+ * @param {string} style
+ * @return {number}
+ */
+function _parseRating(style) {
+  let rating = 5.0
+  const re = RegExp(/(-?\d+)px (-?\d+)px/)
+  const res = style.match(re)
+  const left = parseFloat(res[1])
+  const top = parseFloat(res[2])
+  rating += left / 16
+  rating += top === -21 ? -0.5 : 0
+
+  return rating
+}
+
+/**
+ * @param { string } url
+ * @returns {[string, string]}
+ */
+function _parseUrl(url) {
+  const res = url.split('/').filter((element) => element !== '')
+  const gid = res[res.length - 2]
+  const token = res[res.length - 1]
+  return [gid, token]
+}
 /**
  * 解析并去重url
  */
@@ -66,8 +158,9 @@ function parseDetailPageTagList(document) {
 
 /**
  * @param { Document } document
+ * @param { string } html
  */
-function parseDetailPageOtherInfo(document) {
+function parseDetailPageInfo(document, html) {
   const rating_count = document.getElementById('rating_count').textContent
 
   let favoritelink = document.getElementById('favoritelink').textContent
@@ -77,7 +170,50 @@ function parseDetailPageOtherInfo(document) {
     .getElementById('favcount')
     .textContent.replace(/[^0-9]/g, '')
 
-  return { rating_count, favcount, favoritelink }
+  const gid = html.match(/var gid = (\d+);/)[1]
+  const token = html.match(/var token = "(.*)";/)[1]
+  const rating = html.match(/var average_rating = ([0-9.]+)?;/)[1]
+  const thumb = html.match(/background:transparent url\((.*?)\)/)[1]
+  const category = document.querySelector('#gdc div').textContent
+  const title = document.querySelector('#gn').textContent
+  const title_jpn = document.querySelector('#gj').textContent || title
+  const uploader = document.querySelector('#gdn a').textContent
+  const posted =
+    moment
+      .utc(
+        document.querySelector('#gdd table tr:nth-of-type(1) .gdt2').textContent
+      )
+      .unix() * 1000
+  const language = document
+    .querySelector('#gdd table tr:nth-of-type(4) .gdt2')
+    .textContent.trim()
+  const filesize = document.querySelector('#gdd table tr:nth-of-type(5) .gdt2')
+    .textContent
+  const filecount = document
+    .querySelector('#gdd table tr:nth-of-type(6) .gdt2')
+    .textContent.replace(/[^0-9]/g, '')
+  const torrentcount = document
+    .querySelector('#gd5 p:nth-of-type(3) a')
+    .textContent.replace(/[^0-9]/g, '')
+  return {
+    gid,
+    token,
+    title,
+    title_jpn,
+    thumb,
+    posted,
+    category,
+    uploader,
+    url: `https://exhentai.org/g/${gid}/${token}`,
+    language,
+    filesize,
+    filecount,
+    torrentcount,
+    rating,
+    rating_count,
+    favcount,
+    favoritelink,
+  }
 }
 function parseBigImg(document) {
   return document.getElementById('img').src
@@ -129,11 +265,12 @@ function getKV(str) {
 }
 
 module.exports = {
+  parseGalleryList,
   parseHTMLAnchorElement,
   parseDetailPageList,
   parseDetailPageCommentList,
   parseDetailPageTagList,
-  parseDetailPageOtherInfo,
+  parseDetailPageInfo,
   parseBigImg,
   parseTorrentList,
 }

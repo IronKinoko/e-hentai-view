@@ -39,7 +39,9 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
-  console.log(`app listening on http://localhost:${PORT}`)
+  console.log(
+    `app listening on http://localhost:${PORT}, env: ${process.env.NODE_ENV}`
+  )
 })
 
 module.exports = app

@@ -24,8 +24,9 @@ export interface IndexListItemPorps {
   filesize: string
   expunged: boolean
   rating: string
+  language: string
   torrentcount: string
-  torrents: {
+  torrents?: {
     added: string
     fsize: string
     hash: string

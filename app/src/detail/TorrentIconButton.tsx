@@ -21,6 +21,7 @@ import { useIsmobile } from '@/theme'
 import { useTranslation } from 'i18n'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useRouter } from 'next/router'
+import LoadingIconButton from 'components/LoadingButton'
 
 const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
   info,
@@ -30,12 +31,14 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
   const [t] = useTranslation()
   const router = useRouter()
   const showPage = router.query.showPage as string
+  console.log(info)
   return (
     <>
       <Tooltip title={`Torrent(${info.torrentcount})`}>
         <span>
-          <IconButton
-            disabled={+info.torrentcount === 0}
+          <LoadingIconButton
+            loading={!info.torrents}
+            disabled={!info.torrents || +info.torrentcount === 0}
             color="primary"
             onClick={() =>
               router.push(
@@ -45,7 +48,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
             }
           >
             <TorrentIcon />
-          </IconButton>
+          </LoadingIconButton>
         </span>
       </Tooltip>
       <SlideUpDialog
@@ -77,12 +80,12 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
           </DialogTitle>
         )}
         <List dense={Boolean(matches)}>
-          {info.torrents.map((o, k) => (
+          {info.torrents?.map((o, k) => (
             <Link href={o.url} target="_blank" key={k} underline="none">
               <ListItem
                 onClick={() => router.back()}
                 button
-                divider={k !== info.torrents.length - 1}
+                divider={k !== +info.torrentcount - 1}
               >
                 <ListItemIcon>
                   <TorrentIcon color="primary" />

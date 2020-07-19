@@ -26,6 +26,7 @@ import { useInViewport } from '@umijs/hooks'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 import { LOCAL_HISTORY } from 'constant'
 import { uniqBy } from 'lodash'
+import moment from 'moment'
 function storageHistory(record: IndexListItemPorps) {
   const his = JSON.parse(
     localStorage.getItem(LOCAL_HISTORY) || '[]'
@@ -58,7 +59,7 @@ const useMobileStyles = makeStyles((theme: Theme) =>
       height: '100%',
       width: '100%',
     },
-    gutterBottom: { marginBottom: theme.spacing(1) },
+    gutterBottom: { marginBottom: theme.spacing(0.5) },
     content: { padding: theme.spacing(1) },
   })
 )
@@ -110,9 +111,9 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
             <Grid container wrap={'nowrap'}>
               <Grid item>
                 <LoadMedia
-                  alt={record.title_jpn}
+                  alt={record.title}
                   src={record.thumb}
-                  title={record.title_jpn}
+                  title={record.title}
                   className={classes.img}
                   lazy
                 />
@@ -124,9 +125,9 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                       <Typography
                         gutterBottom
                         className={classes.title}
-                        title={record.title_jpn}
+                        title={record.title}
                       >
-                        {record.title_jpn}
+                        {record.title}
                       </Typography>
                     </Grid>
                     <Grid
@@ -135,6 +136,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                       wrap="nowrap"
                       className={classes.gutterBottom}
                       spacing={1}
+                      alignItems="center"
                     >
                       <Grid item xs>
                         <RatingInview
@@ -147,7 +149,8 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                           color="textPrimary"
                           component="span"
                         >
-                          {record.tags?.includes('chinese') && 'ZH'}
+                          {/((chinese)|(中国翻訳)|(汉化))/.test(record.title) &&
+                            'ZH'}
                         </Typography>
                       </Grid>
                       <Grid item>
@@ -160,7 +163,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                         </Typography>
                       </Grid>
                     </Grid>
-                    <Grid item container wrap="nowrap">
+                    <Grid item container wrap="nowrap" alignItems="center">
                       <Grid item xs>
                         <ColorChip
                           variant="outlined"
@@ -174,7 +177,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                           color="textPrimary"
                           component="span"
                         >
-                          {record.time}
+                          {moment(record.posted).format('YYYY-MM-DD HH:mm')}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -227,9 +230,9 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
       <Link naked href="/[gid]/[token]" as={`/${record.gid}/${record.token}`}>
         <CardActionArea onClick={() => storageHistory(record)}>
           <LoadMedia
-            alt={record.title_jpn}
+            alt={record.title}
             src={record.thumb}
-            title={record.title_jpn}
+            title={record.title}
             height={350}
             lazy
           />
@@ -240,7 +243,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
               className={classes.title}
               component="h2"
             >
-              {record.title_jpn}
+              {record.title}
             </Typography>
             <Grid container alignItems="center" justify="space-between">
               <ColorChip
@@ -257,7 +260,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
                   color="textPrimary"
                   component="span"
                 >
-                  {record.time}
+                  {moment(record.posted).format('YYYY-MM-DD HH:mm')}
                 </Typography>
               </Grid>
               <Grid item>
@@ -266,7 +269,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
                   color="textPrimary"
                   component="span"
                 >
-                  {record.tags?.includes('chinese') && 'ZH'}
+                  {/((chinese)|(中国翻訳)|(汉化))/.test(record.title) && 'ZH'}
                 </Typography>
               </Grid>
               <Grid item>

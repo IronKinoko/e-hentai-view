@@ -5,10 +5,10 @@ const jsdom = require('jsdom')
 function parseLogin(html) {
   const re = /You are now logged in as: (.*?)<br \/>/
   const arr = html.match(re)
-  const re2 = /The captcha was not entered correctly. Please try again./
+  const re2 = /The captcha was not entered correctly\. Please try again\./
   if (re2.test(html)) {
     throw new Error(
-      'The captcha was not entered correctly. Please use cookie login'
+      '[cookie]The captcha was not entered correctly. Please use cookie login'
     )
   }
 

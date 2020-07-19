@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
     loadingBox: {
       position: 'absolute',
       zIndex: 1,
-      top: '50%',
+      top: 'calc(50% + 3px)',
       left: '50%',
       transform: 'translate(-50%,-50%)',
     },

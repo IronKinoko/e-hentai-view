@@ -1,12 +1,13 @@
 const axios = require('../axios')
 const { baseApiURL, baseURL, gallerytorrentsURL } = require('../config/api')
 const {
-  parseHTMLAnchorElement,
+  parseGalleryList,
+  // parseHTMLAnchorElement,
   parseDetailPageCommentList,
   parseDetailPageList,
   parseDetailPageTagList,
   parseBigImg,
-  parseDetailPageOtherInfo,
+  parseDetailPageInfo,
   parseTorrentList,
 } = require('./galleryParser')
 const JSDOM = require('jsdom').JSDOM
@@ -14,6 +15,7 @@ const moment = require('moment')
 const filesize = require('filesize')
 const translated = require('../utils/translated')
 const { chunk } = require('lodash')
+const { GalleryMode } = require('../constant')
 async function gdata(gidlist, cookies) {
   if (gidlist.length === 0) return []
   const taskList = []
@@ -63,7 +65,8 @@ async function galleryList({ page, f_search }, cookies) {
     headers: {
       Cookie: cookies,
     },
-    params: { page, f_search },
+    params: { page, f_search, inline_set: 'dm_l' },
+    maxRedirects: 2,
   })
   const document = new JSDOM(res.data).window.document
   let list = []
@@ -79,9 +82,9 @@ async function galleryList({ page, f_search }, cookies) {
   }
 
   try {
-    const gidlist = await parseHTMLAnchorElement(document)
-    list = await gdata(gidlist, cookies)
-    total = +document.querySelector('p.ip').innerHTML.replace(/[^0-9]/g, '')
+    const res = parseGalleryList(document, GalleryMode.FrontPage)
+    total = res.total
+    list = res.list
     if (list.length === 0) throw new Error('parse faild')
   } catch (error) {
     console.error(error)
@@ -94,7 +97,7 @@ async function galleryDetail({ gid, token }, cookies) {
   let list = []
   let commentList = []
   let tagList = []
-  let otherInfo = {}
+  let info = {}
 
   const res = await axios.get(`${baseURL}/g/${gid}/${token}?inline_set=ts_l`, {
     headers: { Cookie: cookies },
@@ -106,10 +109,10 @@ async function galleryDetail({ gid, token }, cookies) {
   list = parseDetailPageList(document)
   commentList = parseDetailPageCommentList(document)
   tagList = parseDetailPageTagList(document)
-  otherInfo = parseDetailPageOtherInfo(document)
+  info = parseDetailPageInfo(document, res.data)
   tagList = translated(tagList)
 
-  return { list, commentList, tagList, otherInfo }
+  return { list, commentList, tagList, info }
 }
 async function galleryDetailPage({ gid, token, p }, cookies) {
   const res = await axios.get(`${baseURL}/g/${gid}/${token}?p=${p}`, {

@@ -1,14 +1,12 @@
 const express = require('express')
 const axios = require('../axios')
 const {
-  gdata,
   galleryList,
   galleryDetail,
   loadImg,
   galleryDetailPage,
   gallerytorrentsList,
 } = require('./galleryApi')
-const { mergerTorrents } = require('./galleryUtils')
 const { getCookieString } = require('../utils/cookies')
 const cache = require('../cache')
 const router = express.Router()
@@ -41,19 +39,23 @@ router.get('/', async (req, res) => {
 router.get('/:gid/:token', async (req, res) => {
   const { gid, token } = req.params
 
-  const content = await Promise.all([
-    gdata([[gid, token]], getCookieString(req.cookies)),
-    galleryDetail({ gid, token }, getCookieString(req.cookies)),
-    gallerytorrentsList({ gid, token }, getCookieString(req.cookies)),
-  ])
+  const content = await galleryDetail(
+    { gid, token },
+    getCookieString(req.cookies)
+  )
 
-  const [[info], { list, commentList, tagList, otherInfo }, torrents] = content
-
-  mergerTorrents(info, torrents)
-
-  res.json({ info: { ...info, ...otherInfo }, list, commentList, tagList })
+  res.json(content)
 })
+router.get('/:gid/:token/torrent', async (req, res) => {
+  const { gid, token } = req.params
 
+  const content = await gallerytorrentsList(
+    { gid, token },
+    getCookieString(req.cookies)
+  )
+
+  res.json({ error: false, list: content })
+})
 router.get('/:gid/:token/:p', async (req, res) => {
   const { gid, token, p } = req.params
   const cacheKey = req.path

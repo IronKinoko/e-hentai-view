@@ -49,7 +49,7 @@ const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
                         classes={{ label: classes.label }}
                         clickable
                         onClick={() => {
-                          router.push(`/index?page=0&f_search=${v.keyword}`)
+                          router.push(`/result?f_search=${v.keyword}`)
                         }}
                       />
                     </Tooltip>

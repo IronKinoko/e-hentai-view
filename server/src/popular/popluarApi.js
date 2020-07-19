@@ -1,15 +1,17 @@
 const axios = require('../axios')
 const { popularURL } = require('../config/api')
 const JSDOM = require('jsdom').JSDOM
-const { parseHTMLAnchorElement } = require('../gallery/galleryParser')
-const { gdata } = require('../gallery/galleryApi')
+const { parseGalleryList } = require('../gallery/galleryParser')
+const { GalleryMode } = require('../constant')
 async function getPopular(cookies) {
-  const res = await axios.get(popularURL, { headers: { Cookie: cookies } })
+  const res = await axios.get(popularURL, {
+    params: { inline_set: 'dm_l' },
+    headers: { Cookie: cookies },
+  })
 
   const document = new JSDOM(res.data).window.document
-  const gidlist = await parseHTMLAnchorElement(document)
 
-  return await gdata(gidlist, cookies)
+  return parseGalleryList(document, GalleryMode.Popular).list
 }
 
 module.exports = { getPopular }
