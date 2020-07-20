@@ -247,7 +247,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <Card className={classes.root} elevation={0}>
+      <div className={classes.root}>
         <LoadMedia src={info.thumb} className={classes.smallCover} />
         <Grid container direction="column">
           <SelectTypography
@@ -319,7 +319,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
             </ClickAwayListener>
           </Grid>
         </Grid>
-      </Card>
+      </div>
       {/* <Divider className={classes.divider} /> */}
       <InfoCard record={info} />
       <Divider className={classes.divider} />
