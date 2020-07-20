@@ -289,15 +289,15 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
             </Grid>
             <ClickAwayListener onClickAway={() => setOpen(false)}>
               <Grid item>
-                <Slide in={!open} direction="left" mountOnEnter>
+                <Fade in={!open} mountOnEnter>
                   <IconButton
                     onClick={() => setOpen(!open)}
                     className={classes.more}
                   >
                     <MoreVertIcon />
                   </IconButton>
-                </Slide>
-                <Slide in={open} direction="left">
+                </Fade>
+                <Fade in={open}>
                   <div className={classes.more}>
                     {/* <TorrentIconButton info={info} /> */}
                     <FavIconButton info={info} />
@@ -314,7 +314,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                       </Link>
                     </Tooltip>
                   </div>
-                </Slide>
+                </Fade>
               </Grid>
             </ClickAwayListener>
           </Grid>
