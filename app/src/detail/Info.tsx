@@ -299,7 +299,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                 </Slide>
                 <Slide in={open} direction="left">
                   <div className={classes.more}>
-                    <TorrentIconButton info={info} />
+                    {/* <TorrentIconButton info={info} /> */}
                     <FavIconButton info={info} />
                     <Tooltip title={t('OpenEH') as string}>
                       <Link
