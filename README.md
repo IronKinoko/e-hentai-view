@@ -22,6 +22,8 @@ welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.
 2. If you haven't signed in to [e-hentai](https://forums.e-hentai.org/index.php), also you need sign in e-hentai
 3. Now you can browse the website
 
+<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/login.gif" width="25%" title="login"/>
+
 ## PWA install
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/pwa_install.gif" width="25%" title="pwa install"/>
