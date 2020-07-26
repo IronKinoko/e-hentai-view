@@ -129,7 +129,7 @@ async function loadImg(url, cookies) {
       const document = new JSDOM(res.data).window.document
       return parseBigImg(document)
     } catch (error) {
-      if (count++ > 3) return ''
+      if (count++ > 3) throw new Error('')
       return await load()
     }
   }

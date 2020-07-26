@@ -215,8 +215,15 @@ function parseDetailPageInfo(document, html) {
     favoritelink,
   }
 }
+/**
+ * @param {Document} document
+ */
 function parseBigImg(document) {
-  return document.getElementById('img').src
+  const retryURL = document
+    .getElementById('loadfail')
+    .getAttribute('onclick')
+    .match(/'(.*)'/)[1]
+  return { url: document.getElementById('img').src, retryURL }
 }
 
 /**

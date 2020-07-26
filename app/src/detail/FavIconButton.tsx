@@ -38,9 +38,11 @@ const FavIconButton: React.FC<{ info: IndexListItemPorps }> = ({ info }) => {
 
   const update = async (favcat: string | number, favoritelink: string) => {
     setLoading(true)
-    await axios.put(`/api/favorites/add${info.path}?favcat=${favcat}`)
+    await axios.put(
+      `/api/favorites/add/${info.gid}/${info.token}?favcat=${favcat}`
+    )
     setLoading(false)
-    mutate('/api/gallery' + info.path, (v: Detailpage) => {
+    mutate(`/api/gallery/${info.gid}/${info.token}`, (v: Detailpage) => {
       const a = cloneDeep(v)
       a.info.favoritelink = favoritelink
       return a

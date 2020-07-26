@@ -171,7 +171,7 @@ const Info: React.FC<InfoProps> = ({ info, tagList }) => {
                 onClick={() =>
                   router.push(
                     '/[gid]/[token]/download',
-                    `${info.path}/download`
+                    `/${info.gid}/${info.token}/download`
                   )
                 }
               >

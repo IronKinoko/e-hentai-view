@@ -57,7 +57,7 @@ export default function useDownload(
         try {
           if (doneRef.current[k]) return
           doneRef.current[k] = true
-          const src = await loadImg(url)
+          const src = (await loadImg(url)).url
           setProgess((t) => ({ ...t, buffer: t.buffer + 1 }))
           const [dataURL, ext] = (
             await axios.get('/api/gallery/img?url=' + src)

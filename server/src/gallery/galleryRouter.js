@@ -76,11 +76,15 @@ router.get('/loadImg', async (req, res) => {
   const { url } = req.query
   let content = cache.get(url)
   if (!content) {
-    content = await loadImg(url, getCookieString(req.cookies))
-    if (content !== '') cache.set(url, content, 120)
+    try {
+      content = await loadImg(url, getCookieString(req.cookies))
+      cache.set(url, content, 120)
+    } catch (error) {
+      return res.json({ error: true })
+    }
   }
 
-  res.json({ url: content })
+  res.json({ error: false, url: content.url, retryURL: content.retryURL })
 })
 
 router.get('/img', async (req, res) => {

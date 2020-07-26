@@ -53,7 +53,7 @@ const Download: NextPage = () => {
     )
   }
   return (
-    <Layout title={t('Download')} gutterBottom>
+    <Layout title={t('Download')} gutterBottom showBack>
       <Info info={data.info} tagList={data.tagList} />
       <Divider variant="fullWidth" className={classes.divider} />
       <Collapse in={progess.done === progess.total && progess.total !== 0}>

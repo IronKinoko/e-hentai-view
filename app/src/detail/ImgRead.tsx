@@ -20,6 +20,7 @@ const useStyle = makeStyles((theme: Theme) =>
     },
     container: {
       position: 'relative',
+      minHeight: 100,
     },
     fabContainer: {
       position: 'absolute',
@@ -141,13 +142,14 @@ const ImgRead: React.FC<ImgReadProps> = ({
         cacheId[i] = true
 
         let res = await loadImg(url)
-        if (res === '') {
+        if (res.error) {
           cacheId[i] = false
           setFreshKey(Math.random())
           continue
         }
+        dataSource[i].url = dataSource[i].url + '?nl=' + res.retryURL
         setCacheImg((t) => {
-          t[i] = res + '?t=' + freshKey
+          t[i] = res.url + '?t=' + freshKey
           return [...t]
         })
       }
@@ -164,11 +166,11 @@ const ImgRead: React.FC<ImgReadProps> = ({
     >
       <Container maxWidth="lg" disableGutters className={classes.container}>
         <Grid container spacing={1} direction="column" wrap="nowrap">
-          {cacheImg.map((i, k) => (
+          {cacheImg.map((url, k) => (
             <Grid item key={k} id={`img${k}`}>
               <div className={classes.container}>
                 <LoadMedia
-                  src={i}
+                  src={url}
                   fullWidth
                   onError={(e) => {
                     setErrorMap((t) => ({ ...t, [k]: true }))
