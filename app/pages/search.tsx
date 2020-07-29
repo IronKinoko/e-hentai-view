@@ -66,6 +66,15 @@ const Search = () => {
   }
 
   const handleGoResult = (f_search: string) => {
+    try {
+      if (f_search.includes('exhentai.org/g/')) {
+        let res = f_search.split('/')
+        let gIndex = res.findIndex((v) => v === 'g')
+        let gid = res[gIndex + 1]
+        let token = res[gIndex + 2]
+        return router.replace('/[gid]/[token]', `/${gid}/${token}`)
+      }
+    } catch (error) {}
     router.replace('/result?f_search=' + encodeURIComponent(f_search))
   }
 
