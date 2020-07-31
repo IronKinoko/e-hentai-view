@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'app/**'
+      - 'server/**'
 
 jobs:
   setup-build-deploy:
