@@ -16,6 +16,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import useIsIosStandalone from 'hooks/useIsIosStandalone'
+import SafeArea from './SafeArea'
 
 const MENU = [
   { title: 'FrontPage', icon: <HomeIcon />, link: '/' },
@@ -35,13 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 0,
       boxShadow: theme.shadows[2],
       zIndex: theme.zIndex.snackbar - 1,
-      height: 'calc(56px + env(safe-area-inset-bottom))',
-      paddingBottom: 'env(safe-area-inset-bottom)',
-      transition: theme.transitions.create('all'),
-    },
-    rootIosStandalone: {
-      height: 86,
-      paddingBottom: 30,
     },
   })
 )
@@ -73,20 +67,19 @@ const EHBottomNavigartor: React.FC = () => {
 
   return (
     <>
-      <BottomNavigation
-        className={clsx(classes.root, {
-          [classes.rootIosStandalone]: matches,
-        })}
-        showLabels
-        value={index}
-        onChange={(_, index) => {
-          router.replace(MENU[index].link)
-        }}
-      >
-        {MENU.map((o, k) => (
-          <BottomNavigationAction key={k} label={t(o.title)} icon={o.icon} />
-        ))}
-      </BottomNavigation>
+      <SafeArea className={classes.root}>
+        <BottomNavigation
+          showLabels
+          value={index}
+          onChange={(_, index) => {
+            router.replace(MENU[index].link)
+          }}
+        >
+          {MENU.map((o, k) => (
+            <BottomNavigationAction key={k} label={t(o.title)} icon={o.icon} />
+          ))}
+        </BottomNavigation>
+      </SafeArea>
       <Toolbar />
     </>
   )

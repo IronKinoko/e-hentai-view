@@ -26,6 +26,7 @@ class MyDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
+          <link rel="apple-touch-startup-image" href="/static/startup.png" />
           <link rel="manifest" href="/static/manifest.json" />
         </Head>
         <body>
