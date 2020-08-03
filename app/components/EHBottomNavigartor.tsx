@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       right: 0,
       boxShadow: theme.shadows[2],
       zIndex: theme.zIndex.snackbar - 1,
+      background: theme.palette.background.paper,
     },
   })
 )

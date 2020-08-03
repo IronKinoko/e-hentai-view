@@ -107,12 +107,20 @@ function parseDetailPageList(document) {
   const gdts = document
     .getElementById('gdt')
     .querySelectorAll('div[class^="gdt"')
-  return Array.from(gdts).map((gdt) => {
-    const aEl = gdt.querySelector('a')
-    const imgEl = gdt.querySelector('img')
+  const filecount = parseInt(
+    document
+      .querySelector('#gdd table tr:nth-of-type(6) .gdt2')
+      .textContent.replace(/[^0-9]/g, '')
+  )
+  return {
+    list: Array.from(gdts).map((gdt) => {
+      const aEl = gdt.querySelector('a')
+      const imgEl = gdt.querySelector('img')
 
-    return { thumb: imgEl.src, url: aEl.href }
-  })
+      return { thumb: imgEl.src, url: aEl.href }
+    }),
+    total: filecount,
+  }
 }
 
 function parseDetailPageCommentList(document) {

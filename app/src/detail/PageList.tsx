@@ -18,6 +18,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import { flatten } from 'lodash'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 import { useTranslation } from 'i18n'
+import { useRouter } from 'next/router'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cover: {
@@ -50,22 +51,18 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
   const [inView, ref] = useInViewportWithDistance(600)
   const [t] = useTranslation()
   const classes = useStyles()
+  const router = useRouter()
   const [store, setStore] = useState({
     open: false,
     index: 0,
   })
 
   const handleOpen = (k: number) => {
-    setStore({ open: true, index: k })
+    router.push(
+      router.pathname + '/read?current=' + k,
+      router.asPath + '/read?current=' + k
+    )
   }
-
-  useEffect(() => {
-    const fn = () => setStore((t) => ({ ...t, open: true }))
-    document.addEventListener('openComic', fn)
-    return () => {
-      document.removeEventListener('openComic', fn)
-    }
-  }, [])
 
   const {
     pages,
@@ -142,14 +139,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
           ? t('Loading') + '...'
           : t('More')}
       </Button>
-      <ImgRead
-        dataSource={dataSource || []}
-        total={filecount}
-        open={store.open}
-        loadMore={loadMore}
-        defaultValue={store.index}
-        onClose={(index) => setStore({ open: false, index })}
-      />
+
       <SpeedDial
         ariaLabel="continue"
         open
