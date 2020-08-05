@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       transition: theme.transitions.create('height'),
-      marginBottom: theme.spacing(1),
     },
     img: { width: '100%' },
     placeholder: {

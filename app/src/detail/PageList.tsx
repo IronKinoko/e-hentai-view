@@ -144,7 +144,9 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         ariaLabel="continue"
         open
         className={classes.speedDial}
-        onClick={() => setStore((t) => ({ ...t, open: true }))}
+        onClick={() =>
+          router.push(router.pathname + '/read', router.asPath + '/read')
+        }
         icon={<PlayArrowIcon style={{ color: '#fff' }} />}
       />
     </>

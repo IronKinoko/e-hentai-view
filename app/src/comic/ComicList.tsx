@@ -9,6 +9,7 @@ import { axios } from 'apis'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Loading from 'components/Loading'
 import ComicStatus from './ComicStatus'
+import ComicControls from './ComicControls'
 
 const pageSize = 20
 
@@ -49,7 +50,7 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
     }
     document.querySelector(`[data-index="${defaultCurrent}"]`)?.scrollIntoView()
     mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
-      ...data,
+      ...(data ? data : { current: 0, list: [], total: 0 }),
       current: defaultCurrent,
     }))
 
@@ -136,7 +137,12 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
 
   return (
     <>
-      <div className={classes.root}>
+      <div
+        className={classes.root}
+        onClick={() =>
+          document.dispatchEvent(new CustomEvent('toggleControls'))
+        }
+      >
         {data.list.map((o, k) => (
           <ComicItem
             key={o?.url || k}
@@ -147,6 +153,7 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
         ))}
       </div>
       <ComicStatus total={data.total} current={data.current} />
+      <ComicControls total={data.total} current={data.current} />
     </>
   )
 }
