@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { AppBar, Toolbar, IconButton, Slider } from '@material-ui/core'
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Slider,
+  Typography,
+} from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useRouter } from 'next/router'
@@ -86,6 +92,9 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
             run()
           }}
         />
+        <Typography align="center">
+          {currentPage + 1}/{total}
+        </Typography>
       </div>
     </>
   )

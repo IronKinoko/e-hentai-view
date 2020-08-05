@@ -127,7 +127,6 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
     }
   }, [comicPagesKey, data?.list])
 
-  console.log(data)
   if (!data || data.total === 0)
     return (
       <div className={classes.root}>
