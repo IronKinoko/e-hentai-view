@@ -62,6 +62,7 @@ export async function loadMorePage(url: string) {
   const res = await axios.get<{
     error: boolean
     list: DetailPageListItemProps[]
+    total: number
   }>(url)
   if (res.data.error) throw new Error('')
   return res.data.list

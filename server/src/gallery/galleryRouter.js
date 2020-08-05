@@ -44,6 +44,11 @@ router.get('/:gid/:token', async (req, res) => {
     getCookieString(req.cookies)
   )
 
+  // 为read页面缓存下数据
+  const cacheKey = `/${gid}/${token}/0`
+  cache.set(cacheKey, content.list)
+  content.list = content.list.list
+
   res.json(content)
 })
 router.get('/:gid/:token/torrent', async (req, res) => {
@@ -58,18 +63,19 @@ router.get('/:gid/:token/torrent', async (req, res) => {
 })
 router.get('/:gid/:token/:p', async (req, res) => {
   const { gid, token, p } = req.params
-  const cacheKey = req.path
-  let list = cache.get(cacheKey)
+  const cacheKey = `/${gid}/${token}/${p}`
 
-  if (!list) {
-    list = await galleryDetailPage(
+  let content = cache.get(cacheKey)
+
+  if (!content) {
+    content = await galleryDetailPage(
       { gid, token, p },
       getCookieString(req.cookies)
     )
-    cache.set(cacheKey, list)
+    cache.set(cacheKey, content)
   }
 
-  res.json({ error: false, list })
+  res.json({ error: false, list: content.list, total: content.total })
 })
 
 router.get('/loadImg', async (req, res) => {

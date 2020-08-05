@@ -94,7 +94,7 @@ async function galleryList({ page, f_search }, cookies) {
 }
 
 async function galleryDetail({ gid, token }, cookies) {
-  let list = []
+  let list = { list: [], total: 0 }
   let commentList = []
   let tagList = []
   let info = {}

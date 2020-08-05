@@ -280,7 +280,10 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                   variant="contained"
                   className={classes.btn}
                   onClick={() => {
-                    document.dispatchEvent(new CustomEvent('openComic'))
+                    router.push(
+                      router.pathname + '/read',
+                      router.asPath + '/read'
+                    )
                   }}
                 >
                   {t('Read')}

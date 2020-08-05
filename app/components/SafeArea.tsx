@@ -8,7 +8,6 @@ const useStyles = makeStyles<Theme, { matches: boolean }>((theme: Theme) =>
     safearea: (props) => ({
       paddingBottom: props.matches ? '30px' : 'env(safe-area-inset-bottom)',
       transition: theme.transitions.create('padding-bottom'),
-      background: theme.palette.background.paper,
     }),
   })
 )
