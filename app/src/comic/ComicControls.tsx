@@ -11,7 +11,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useRouter } from 'next/router'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useDebounceFn } from '@umijs/hooks'
-import message from 'components/message'
+import SafeArea from 'components/SafeArea'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: { flex: 1 },
@@ -35,7 +35,7 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
   const router = useRouter()
   const classes = useStyles()
   const [currentPage, setCurrentPage] = useState(current)
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   useEffect(() => {
     setCurrentPage(current)
   }, [current])
@@ -83,18 +83,20 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
       {/* footer */}
 
       <div className={classes.footer}>
-        <Slider
-          max={total}
-          value={currentPage}
-          valueLabelDisplay="auto"
-          onChange={(e, v) => {
-            setCurrentPage(v as number)
-            run()
-          }}
-        />
-        <Typography align="center">
-          {currentPage + 1}/{total}
-        </Typography>
+        <SafeArea>
+          <Slider
+            max={total}
+            value={currentPage}
+            valueLabelDisplay="auto"
+            onChange={(e, v) => {
+              setCurrentPage(v as number)
+              run()
+            }}
+          />
+          <Typography align="center">
+            {currentPage + 1}/{total}
+          </Typography>
+        </SafeArea>
       </div>
     </>
   )
