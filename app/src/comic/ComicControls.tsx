@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useDebounceFn } from '@umijs/hooks'
 import SafeArea from 'components/SafeArea'
+import { EVENT_TOGGLE_CONTROLS } from 'constant'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: { flex: 1 },
@@ -54,9 +55,9 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
     const fn = () => {
       setOpen((t) => !t)
     }
-    document.addEventListener('toggleControls', fn)
+    document.addEventListener(EVENT_TOGGLE_CONTROLS, fn)
     return () => {
-      document.removeEventListener('toggleControls', fn)
+      document.removeEventListener(EVENT_TOGGLE_CONTROLS, fn)
     }
   }, [])
 

@@ -10,6 +10,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import Loading from 'components/Loading'
 import ComicStatus from './ComicStatus'
 import ComicControls from './ComicControls'
+import { EVENT_TOGGLE_CONTROLS, EVENT_LOAD_MORE_PAGE } from 'constant'
 
 const pageSize = 20
 
@@ -95,10 +96,10 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
         false
       )
     }) as unknown) as EventListener
-    document.addEventListener('loadMorePage', fn)
+    document.addEventListener(EVENT_LOAD_MORE_PAGE, fn)
 
     return () => {
-      document.removeEventListener('loadMorePage', fn)
+      document.removeEventListener(EVENT_LOAD_MORE_PAGE, fn)
     }
   }, [comicPagesKey, comicUrl, data])
 
@@ -139,7 +140,7 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
       <div
         className={classes.root}
         onClick={() =>
-          document.dispatchEvent(new CustomEvent('toggleControls'))
+          document.dispatchEvent(new CustomEvent(EVENT_TOGGLE_CONTROLS))
         }
       >
         {data.list.map((o, k) => (

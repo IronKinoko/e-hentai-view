@@ -3,6 +3,7 @@ import 'intersection-observer'
 import { DetailPageListItemProps } from 'interface/gallery'
 import useComicItemImage from 'hooks/useComicItem'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { EVENT_LOAD_MORE_PAGE } from 'constant'
 
 const pageSize = 20
 
@@ -41,7 +42,7 @@ const ComicItem: React.FC<
             setLoaded((t) => {
               if (t) return t
               document.dispatchEvent(
-                new CustomEvent('loadMorePage', {
+                new CustomEvent(EVENT_LOAD_MORE_PAGE, {
                   detail: Math.floor(index / pageSize),
                 })
               )
