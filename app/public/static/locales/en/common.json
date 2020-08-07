@@ -75,5 +75,9 @@
   "OpenEH": "Open in EHentai",
   "Back": "Back",
   "Next": "Next",
-  "Read": "Read"
+  "Read": "Read",
+  "Direction": "Direction",
+  "Vertical": "vertical",
+  "LTR": "LTR",
+  "RTL": "RTL"
 }

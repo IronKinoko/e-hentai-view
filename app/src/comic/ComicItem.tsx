@@ -4,13 +4,16 @@ import { DetailPageListItemProps } from 'interface/gallery'
 import useComicItemImage from 'hooks/useComicItem'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import { EVENT_LOAD_MORE_PAGE } from 'constant'
-
-const pageSize = 20
+import { useComicConfigState, ComicConfigProps } from './ComicConfig'
+import { pageSize } from './utils'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       transition: theme.transitions.create('height'),
+      maxWidth: 1280,
+      margin: theme.spacing(0, 'auto'),
+      width: '100%',
     },
     img: { width: '100%' },
     placeholder: {
@@ -23,6 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+const rootMargin = {
+  ltf: '',
+  rtl: '',
+  vertical: '',
+}
+
 const ComicItem: React.FC<
   { index: number } & Partial<DetailPageListItemProps>
 > = ({ index, thumb, url }) => {
@@ -33,11 +42,12 @@ const ComicItem: React.FC<
   const [loaded, setLoaded] = useState(false)
   const [aspectratio, setAspectratio] = useState<number>(210 / 297)
   const { data } = useComicItemImage(loaded && pageUrl ? pageUrl : null)
+  const [config, setConfig] = useComicConfigState()
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting || config.direction !== 'vertical') {
             setInViewport(true)
             setLoaded((t) => {
               if (t) return t
@@ -53,7 +63,10 @@ const ComicItem: React.FC<
           }
         }
       },
-      { rootMargin: `400px 0px 1800px 0px` }
+
+      {
+        rootMargin: '100% 0px 250% 0px',
+      }
     )
     if (ref.current) {
       observer.observe(ref.current)
@@ -62,7 +75,7 @@ const ComicItem: React.FC<
     return () => {
       observer.disconnect()
     }
-  }, [index])
+  }, [index, config.direction])
 
   const minHeight = Math.min(window.innerWidth, 1280) / aspectratio
   return (

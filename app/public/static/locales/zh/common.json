@@ -75,5 +75,9 @@
   "OpenEH": "在 Ehentai 中打开",
   "Back": "上一步",
   "Next": "下一步",
-  "Read": "阅读"
+  "Read": "阅读",
+  "Direction": "阅读方向",
+  "Vertical": "从上至下",
+  "LTR": "从左至右",
+  "RTL": "从右至左"
 }

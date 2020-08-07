@@ -42,12 +42,13 @@ export async function login(payload: UserPayload) {
   ).data
 }
 
+export interface loadImgRes {
+  error: boolean
+  url: string
+  retryURL: string
+}
 export async function loadImg(url: string) {
-  const res = await axios.get<{
-    error: boolean
-    url: string
-    retryURL: string
-  }>('/api/gallery/loadImg', {
+  const res = await axios.get<loadImgRes>('/api/gallery/loadImg', {
     params: { url },
   })
   return res.data

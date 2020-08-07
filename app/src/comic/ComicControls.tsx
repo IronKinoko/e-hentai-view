@@ -5,6 +5,8 @@ import {
   IconButton,
   Slider,
   Typography,
+  Dialog,
+  DialogTitle,
 } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -12,7 +14,10 @@ import { useRouter } from 'next/router'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { useDebounceFn } from '@umijs/hooks'
 import SafeArea from 'components/SafeArea'
-import { EVENT_TOGGLE_CONTROLS } from 'constant'
+import { EVENT_TOGGLE_CONTROLS, EVENT_JUMP_PAGE } from 'constant'
+import { useComicConfigState } from './ComicConfig'
+import SlideUpDialog from 'components/SlideUpDialog'
+import ComicSettings from './ComicSettings'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: { flex: 1 },
@@ -20,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 0,
     },
     footer: {
+      zIndex: theme.zIndex.appBar,
       bottom: 0,
       position: 'fixed',
       left: 0,
@@ -37,11 +43,13 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
   const classes = useStyles()
   const [currentPage, setCurrentPage] = useState(current)
   const [open, setOpen] = useState(false)
+  const [openConfig, setOpenConfig] = useState(false)
+
   useEffect(() => {
     setCurrentPage(current)
   }, [current])
 
-  const { run } = useDebounceFn(() => {
+  const fn = () => {
     const gid = router.query.gid as string
     const token = router.query.token as string
 
@@ -49,7 +57,11 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
       `/[gid]/[token]/read?current=${currentPage}`,
       `/${gid}/${token}/read?current=${currentPage}`
     )
-  }, 500)
+    document.dispatchEvent(
+      new CustomEvent(EVENT_JUMP_PAGE, { detail: currentPage })
+    )
+  }
+  const { run } = useDebounceFn(fn, 500)
 
   useEffect(() => {
     const fn = () => {
@@ -75,18 +87,18 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
 
           <div className={classes.title}></div>
 
-          {/* <IconButton edge="end">
+          <IconButton edge="end" onClick={(e) => setOpenConfig(true)}>
             <SettingsIcon />
-          </IconButton> */}
+          </IconButton>
         </Toolbar>
       </AppBar>
 
       {/* footer */}
 
-      <div className={classes.footer}>
+      <footer className={classes.footer}>
         <SafeArea>
           <Slider
-            max={total}
+            max={total - 1}
             value={currentPage}
             valueLabelDisplay="auto"
             onChange={(e, v) => {
@@ -98,7 +110,11 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
             {currentPage + 1}/{total}
           </Typography>
         </SafeArea>
-      </div>
+      </footer>
+
+      <SlideUpDialog open={openConfig} onClose={() => setOpenConfig(false)}>
+        <ComicSettings onChange={fn} />
+      </SlideUpDialog>
     </>
   )
 }

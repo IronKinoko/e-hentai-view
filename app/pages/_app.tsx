@@ -10,6 +10,9 @@ import moment from 'moment'
 import { SWRConfig } from 'swr'
 import { i18n, appWithTranslation } from 'i18n'
 import useIsIosStandalone from 'hooks/useIsIosStandalone'
+import 'swiper/swiper-bundle.min.css'
+import ComicConfig from '@/comic/ComicConfig'
+
 moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
@@ -54,23 +57,25 @@ function MyApp(props: AppProps) {
       </Head>
 
       <SWRConfig value={{ errorRetryInterval: 100 }}>
-        <ThemeProvider>
-          <CssBaseline />
-          <Component {...pageProps} />
-          <style jsx global>
-            {`
-              a {
-                text-decoration: none;
-                color: unset;
-              }
-              body {
-                padding-bottom: ${matches
-                  ? '30px'
-                  : 'env(safe-area-inset-bottom)'};
-              }
-            `}
-          </style>
-        </ThemeProvider>
+        <ComicConfig>
+          <ThemeProvider>
+            <CssBaseline />
+            <Component {...pageProps} />
+            <style jsx global>
+              {`
+                a {
+                  text-decoration: none;
+                  color: unset;
+                }
+                body {
+                  padding-bottom: ${matches
+                    ? '30px'
+                    : 'env(safe-area-inset-bottom)'};
+                }
+              `}
+            </style>
+          </ThemeProvider>
+        </ComicConfig>
       </SWRConfig>
     </React.Fragment>
   )

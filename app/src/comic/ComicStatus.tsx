@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'fixed',
       bottom: 10,
       right: 0,
+      zIndex: 2,
       [theme.breakpoints.up('lg')]: {
         right: 'calc((100vw - 1280px) / 2)',
       },
