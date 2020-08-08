@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Controller, Virtual, Lazy } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper-rtl/react'
+import SwiperCore, { Controller, Virtual } from 'swiper-rtl'
 import { ComicListDataSourceProps } from './utils'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import useSWR, { cache, mutate } from 'swr'
@@ -11,6 +11,7 @@ import ComicStatus from './ComicStatus'
 import ComicControls from './ComicControls'
 import useComicData from 'hooks/useComicData'
 import { useComicConfigState } from './ComicConfig'
+import clsx from 'clsx'
 
 SwiperCore.use([Controller, Virtual])
 
@@ -41,6 +42,7 @@ const ComicHorizontalList: React.FC<{
   const [swiperController, setSwiperController] = useState<SwiperCore | null>(
     null
   )
+
   const [config, setConfig] = useComicConfigState()
 
   useEffect(() => {
@@ -62,6 +64,7 @@ const ComicHorizontalList: React.FC<{
         document.removeEventListener(EVENT_JUMP_PAGE, fn)
       }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comicPagesKey, swiperController, defaultCurrent])
 
@@ -72,13 +75,13 @@ const ComicHorizontalList: React.FC<{
     }))
   }
 
+  console.log(swiperController)
   if (!data || data.total === 0)
     return (
       <div className={classes.root}>
         <Loading />
       </div>
     )
-
   return (
     <div className={classes.root}>
       <div
@@ -93,20 +96,18 @@ const ComicHorizontalList: React.FC<{
           onSwiper={setSwiperController}
           virtual={{ addSlidesAfter: 3 }}
         >
-          {data.list.map((o, k) => {
-            return (
-              <SwiperSlide key={o?.url ?? k}>
-                <div className={classes.imgContainer}>
-                  <ComicItem
-                    key={o?.url || k}
-                    index={k}
-                    thumb={o?.thumb}
-                    url={o?.url}
-                  />
-                </div>
-              </SwiperSlide>
-            )
-          })}
+          {data.list.map((o, k) => (
+            <SwiperSlide key={o?.url ?? k} data-hovindex={k}>
+              <div className={classes.imgContainer}>
+                <ComicItem
+                  key={o?.url || k}
+                  index={k}
+                  thumb={o?.thumb}
+                  url={o?.url}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 

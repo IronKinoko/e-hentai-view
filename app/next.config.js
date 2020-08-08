@@ -14,6 +14,7 @@ const nextConfig = {
     config.plugins.push(
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
     )
+
     return config
   },
   // generateInDevMode: true,

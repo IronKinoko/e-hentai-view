@@ -35,7 +35,7 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
               exclusive
             >
               <ToggleButton value="ltr">{t('LTR')}</ToggleButton>
-              {/* <ToggleButton value="rtl">{t('RTL')}</ToggleButton> */}
+              <ToggleButton value="rtl">{t('RTL')}</ToggleButton>
               <ToggleButton value="vertical">{t('Vertical')}</ToggleButton>
             </ToggleButtonGroup>
           </ListItemSecondaryAction>

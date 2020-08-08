@@ -10,7 +10,7 @@ import moment from 'moment'
 import { SWRConfig } from 'swr'
 import { i18n, appWithTranslation } from 'i18n'
 import useIsIosStandalone from 'hooks/useIsIosStandalone'
-import 'swiper/swiper-bundle.min.css'
+import 'swiper-rtl/swiper-bundle.min.css'
 import ComicConfig from '@/comic/ComicConfig'
 
 moment.locale('zh-cn')
