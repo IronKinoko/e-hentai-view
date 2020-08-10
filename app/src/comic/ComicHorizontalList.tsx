@@ -19,13 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       maxWidth: 1280,
-      backgroundColor: 'black',
-      minHeight: '100vh',
-      position: 'relative',
+      backgroundColor: theme.palette.background.default,
       margin: theme.spacing(0, 'auto'),
+      position: 'relative',
     },
     imgContainer: {
-      minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
     },
@@ -75,10 +73,14 @@ const ComicHorizontalList: React.FC<{
     }))
   }
 
-  console.log(swiperController)
   if (!data || data.total === 0)
     return (
-      <div className={classes.root}>
+      <div
+        className={classes.root}
+        style={{
+          minHeight: typeof window === 'undefined' ? 0 : window.innerHeight,
+        }}
+      >
         <Loading />
       </div>
     )
@@ -98,7 +100,13 @@ const ComicHorizontalList: React.FC<{
         >
           {data.list.map((o, k) => (
             <SwiperSlide key={o?.url ?? k} data-hovindex={k}>
-              <div className={classes.imgContainer}>
+              <div
+                className={classes.imgContainer}
+                style={{
+                  minHeight:
+                    typeof window === 'undefined' ? 0 : window.innerHeight,
+                }}
+              >
                 <ComicItem
                   key={o?.url || k}
                   index={k}
