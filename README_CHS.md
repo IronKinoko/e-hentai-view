@@ -2,9 +2,19 @@
 
 [english](./README.md) | 中文说明
 
-## 声明
+## 项目定位
 
-这是一个关于 exhentai 的 H5 项目，用于优化 exhentai 在手机浏览器中的体验， 不过也适配了 PC 端
+由于IOS的开发者资格需要99美元一年, 而免费面向个人开发者的证书必须7天更新一次, 不利于分发应用.
+
+所以项目采用PWA技术, 用浏览器页面模拟原生APP, 便于分发维护
+
+项目部署在谷歌云上, 需要翻墙访问. **网页中ex的图源并不需要翻墙**
+
+## 同类推荐
+
+- PC端 建议直接使用 exhentai 官网浏览
+- 安卓端 推荐使用[seven332/EhViewer](https://github.com/seven332/EhViewer)原生APP访问
+- IOS端 欢迎使用本网站, [点此登录](https://exhentai.appspot.com/signin)
 
 ## 截图
 
