@@ -41,6 +41,9 @@ const FavoritesGalleryList: React.FC<{ favcat?: string }> = ({
   const router = useRouter()
   const [inview, inviewRef] = useInViewportWithDistance(600)
   const [t] = useTranslation()
+
+  const pageSize = 50
+
   const {
     pages,
     isLoadingMore,
@@ -59,17 +62,19 @@ const FavoritesGalleryList: React.FC<{ favcat?: string }> = ({
         })
       )
       if (!data)
-        return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
+        return new Array(pageSize)
+          .fill(0)
+          .map((_, k) => <LoadingCard key={k} />)
       if (data.total === 0) return []
       return data.list!.map((o, k) => (
-        <Grid item xs key={o.gid} data-index={(offset || 0) * 25 + k}>
+        <Grid item xs key={o.gid} data-index={(offset || 0) * pageSize + k}>
           <GalleryCard record={o} />
         </Grid>
       ))
     },
     ({ data }, index) => {
       if (data?.error) return null
-      if (data!.total! <= (index + 1) * 25) return null
+      if (data!.total! <= (index + 1) * pageSize) return null
       return index + 1
     },
     [favcat]
