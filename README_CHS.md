@@ -1,20 +1,25 @@
-# e-hentai-view
+<center>
+<img width="144px" height="144px" src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/icon.png"/>
+<h1>EHentaiView</h1>
+</center>
+
+---
 
 [english](./README.md) | 中文说明
 
 ## 项目定位
 
-由于IOS的开发者资格需要99美元一年, 而免费面向个人开发者的证书必须7天更新一次, 不利于分发应用.
+由于 IOS 的开发者资格需要 99 美元一年, 而免费面向个人开发者的证书必须 7 天更新一次, 不利于分发应用.
 
-所以项目采用PWA技术, 用浏览器页面模拟原生APP, 便于分发维护
+所以项目采用 PWA 技术, 用浏览器页面模拟原生 APP, 便于分发维护
 
-项目部署在谷歌云上, 需要翻墙访问. **网页中ex的图源并不需要翻墙**
+项目部署在谷歌云上, 需要翻墙访问. **网页中 ex 的图源并不需要翻墙**
 
 ## 同类推荐
 
-- PC端 建议直接使用 exhentai 官网浏览
-- 安卓端 推荐使用[seven332/EhViewer](https://github.com/seven332/EhViewer)原生APP访问
-- IOS端 欢迎使用本网站, [点此登录](https://exhentai.appspot.com/signin)
+- PC 端 建议直接使用 exhentai 官网浏览
+- 安卓端 推荐使用[seven332/EhViewer](https://github.com/seven332/EhViewer)原生 APP 访问
+- IOS 端 欢迎使用本网站, [点此登录](https://exhentai.appspot.com/signin)
 
 ## 截图
 
@@ -26,7 +31,7 @@
 
 ## 特色
 
-1. 该项目添加了PWA功能，可以在 ios/android 安装到桌面使用
+1. 该项目添加了 PWA 功能，可以在 ios/android 安装到桌面使用
 2. 该项目适配了手机/PC 端，让手机看 exhentai 更方便
 3. 所有页面 gallery 都支持打包下载(PC)功能
 
@@ -40,7 +45,7 @@
 
 ## IOS 特殊说明
 
-**需要关闭Safari的`阻止跨网站跟踪`才能正常查看预览图**
+**需要关闭 Safari 的`阻止跨网站跟踪`才能正常查看预览图**
 
 `设置 -> Safari浏览器 -> 阻止跨网站跟踪`
 
