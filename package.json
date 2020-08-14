@@ -1,7 +1,7 @@
 {
   "name": "e-hentai-view",
   "productName": "EhentaiView",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "main": "server/src/app.js",
   "license": "MIT",
   "homepage": "https://exhentai.appspot.com",
