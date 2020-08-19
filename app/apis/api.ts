@@ -2,28 +2,28 @@ import Axios from 'axios'
 import Router from 'next/router'
 import { DetailPageListItemProps } from 'interface/gallery'
 export const axios = Axios.create({})
-const maxQueueLength = 8
-let count = 0
-axios.interceptors.request.use((req) => {
-  return new Promise((resolve, reject) => {
-    const fn = () => {
-      if (count < maxQueueLength) {
-        count++
-        return resolve(req)
-      }
-      requestAnimationFrame(fn)
-    }
-    fn()
-  })
-})
+// const maxQueueLength = 8
+// let count = 0
+// axios.interceptors.request.use((req) => {
+//   return new Promise((resolve, reject) => {
+//     const fn = () => {
+//       if (count < maxQueueLength) {
+//         count++
+//         return resolve(req)
+//       }
+//       requestAnimationFrame(fn)
+//     }
+//     fn()
+//   })
+// })
 
-axios.interceptors.response.use((res) => {
-  count--
-  if (res.data.error && res.data.message?.includes('[404]')) {
-    Router.replace('/404')
-  }
-  return res
-})
+// axios.interceptors.response.use((res) => {
+//   count--
+//   if (res.data.error && res.data.message?.includes('[404]')) {
+//     Router.replace('/404')
+//   }
+//   return res
+// })
 
 export type UserPayload = {
   UserName?: string
