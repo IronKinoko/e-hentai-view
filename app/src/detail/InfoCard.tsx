@@ -72,8 +72,8 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
 
   const open = () =>
     router.push(
-      router.pathname + '?showPage=info',
-      router.asPath + '?showPage=info'
+      '/[gid]/[token]?showPage=info',
+      `/${record!.gid}/${record!.token}?showPage=info`
     )
   return (
     <>

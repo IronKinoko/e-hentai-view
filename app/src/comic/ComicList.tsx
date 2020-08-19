@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-let loadedPageKeys: boolean[] = []
 
 const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
   comicUrl,

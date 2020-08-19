@@ -41,8 +41,8 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
             color="primary"
             onClick={() =>
               router.push(
-                router.pathname + '?showPage=torrent',
-                router.asPath + '?showPage=torrent'
+                '/[gid]/[token]?showPage=torrent',
+                `/${info.gid}/${info.token}?showPage=torrent`
               )
             }
           >

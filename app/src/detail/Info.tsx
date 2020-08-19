@@ -281,8 +281,8 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                   className={classes.btn}
                   onClick={() => {
                     router.push(
-                      router.pathname + '/read',
-                      router.asPath + '/read'
+                      '/[gid]/[token]/read',
+                      `/${info.gid}/${info.token}/read`
                     )
                   }}
                 >

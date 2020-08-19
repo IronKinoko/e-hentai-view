@@ -57,11 +57,13 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
     index: 0,
   })
 
-  const handleOpen = (k: number) => {
-    router.push(
-      router.pathname + '/read?current=' + k,
-      router.asPath + '/read?current=' + k
-    )
+  const handleOpen = (k?: number) => {
+    if (k)
+      router.push(
+        '/[gid]/[token]/read?current=' + k,
+        url + '/read?current=' + k
+      )
+    else router.push('/[gid]/[token]/read', url + '/read')
   }
 
   const {
@@ -144,9 +146,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
         ariaLabel="continue"
         open
         className={classes.speedDial}
-        onClick={() =>
-          router.push(router.pathname + '/read', router.asPath + '/read')
-        }
+        onClick={() => handleOpen()}
         icon={<PlayArrowIcon style={{ color: '#fff' }} />}
       />
     </>

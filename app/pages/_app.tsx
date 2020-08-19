@@ -54,6 +54,10 @@ function MyApp(props: AppProps) {
     <React.Fragment>
       <Head>
         <title>EhentaiView</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, viewport-fit=cover"
+        />
       </Head>
 
       <SWRConfig value={{ errorRetryInterval: 100 }}>
