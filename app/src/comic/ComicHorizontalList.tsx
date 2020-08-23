@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { Swiper, SwiperSlide } from 'swiper-rtl/react'
-import SwiperCore, { Controller, Virtual } from 'swiper-rtl'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Controller, Virtual } from 'swiper'
 import { ComicListDataSourceProps } from './utils'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import useSWR, { cache, mutate } from 'swr'
