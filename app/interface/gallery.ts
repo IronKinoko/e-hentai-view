@@ -26,22 +26,24 @@ export interface IndexListItemPorps {
   rating: string
   language: string
   torrentcount: string
-  torrents?: {
-    added: string
-    fsize: string
-    hash: string
-    name: string
-    tsize: string
-    url: string
-    Downloads: string
-  }[]
   tags: string[]
   url: string
-  time: string
   path: string
   rating_count: string
   favcount: string
   favoritelink: string
+}
+
+export interface Torrent {
+  downloads: string
+  peers: string
+  posted: number
+  seeds: string
+  size: string
+  uploader: string
+  hash: string
+  name: string
+  url: string
 }
 
 export interface DetailPageListItemProps {

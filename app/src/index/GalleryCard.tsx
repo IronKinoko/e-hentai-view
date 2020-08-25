@@ -242,6 +242,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
               align="center"
               className={classes.title}
               component="h2"
+              title={record.title}
             >
               {record.title}
             </Typography>

@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 1280,
       margin: theme.spacing(0, 'auto'),
       width: '100%',
+      userSelect: 'none',
     },
     img: { width: '100%' },
     placeholder: {
@@ -25,12 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
-const rootMargin = {
-  ltf: '',
-  rtl: '',
-  vertical: '',
-}
 
 const ComicItem: React.FC<
   { index: number } & Partial<DetailPageListItemProps>

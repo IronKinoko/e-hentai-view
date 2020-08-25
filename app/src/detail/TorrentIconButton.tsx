@@ -22,6 +22,8 @@ import { useTranslation } from 'i18n'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useRouter } from 'next/router'
 import LoadingIconButton from 'components/LoadingButton'
+import useTorrent from 'hooks/useTorrent'
+import moment from 'moment'
 
 const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
   info,
@@ -31,18 +33,21 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
   const [t] = useTranslation()
   const router = useRouter()
   const showPage = router.query.showPage as string
+
+  const { data } = useTorrent(`${info.gid}/${info.token}`)
+
   return (
     <>
       <Tooltip title={`Torrent(${info.torrentcount})`}>
         <span>
           <LoadingIconButton
-            loading={!info.torrents}
-            disabled={!info.torrents || +info.torrentcount === 0}
+            loading={!data}
+            disabled={!data || +info.torrentcount === 0}
             color="primary"
             onClick={() =>
               router.push(
-                router.pathname + '?showPage=torrent',
-                router.asPath + '?showPage=torrent'
+                '/[gid]/[token]?showPage=torrent',
+                `/${info.gid}/${info.token}?showPage=torrent`
               )
             }
           >
@@ -79,7 +84,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
           </DialogTitle>
         )}
         <List dense={Boolean(matches)}>
-          {info.torrents?.map((o, k) => (
+          {data?.map((o, k) => (
             <Link href={o.url} target="_blank" key={k} underline="none">
               <ListItem
                 onClick={() => router.back()}
@@ -98,16 +103,14 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
                       direction={matches ? 'column' : 'row'}
                     >
                       <Grid item>
-                        {t('G.Torrent.Added')}: {o.added}
+                        {t('G.Torrent.Added')}:{' '}
+                        {moment(o.posted).format('YYYY-MM-DD HH:mm')}
                       </Grid>
                       <Grid item>
-                        {t('G.Torrent.Size')}: {o.fsize}
+                        {t('G.Torrent.Size')}: {o.size}
                       </Grid>
                       <Grid item>
-                        {t('G.Torrent.Tsize')}: {o.tsize}
-                      </Grid>
-                      <Grid item>
-                        {t('Download')}: {o.Downloads}
+                        {t('Download')}: {o.downloads}
                       </Grid>
                     </Grid>
                   }

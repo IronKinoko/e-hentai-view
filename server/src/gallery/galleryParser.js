@@ -236,6 +236,7 @@ function parseBigImg(document) {
 
 /**
  * @param { Document } document
+ * @returns {{url:string, name:string, hash:string}[]}
  */
 function parseTorrentList(document) {
   const tables = document.querySelectorAll('table')
@@ -250,12 +251,15 @@ function parseTorrentList(document) {
           const str = td.textContent
           if (str !== '') {
             const [key, value] = getKV(str)
-            if (key.toLowerCase() === 'downloads') info[key] = value
+
+            if (key.toLowerCase() === 'posted') {
+              info[key.toLowerCase()] = moment.utc(value).unix() * 1000
+            } else info[key.toLowerCase()] = value
           }
         })
         const tr1td0 = trs[1].querySelector('td')
         const [key, value] = getKV(tr1td0.textContent)
-        info[key] = value
+        info[key.toLowerCase()] = value
         const a = trs[2].querySelector('a')
         info.url = a.href
         info.name = a.textContent

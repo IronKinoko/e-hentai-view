@@ -238,7 +238,7 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
         <tbody>
           <tr>
             <td>{t('G.GalleryInfo.posted')}:</td>
-            <td>{record.time}</td>
+            <td>{moment(record.posted).format('YYYY-MM-DD HH:mm')}</td>
           </tr>
           <tr>
             <td>{t('G.GalleryInfo.filesize')}:</td>

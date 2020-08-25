@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: '100vh',
       position: 'relative',
       margin: theme.spacing(0, 'auto'),
+      userSelect: 'none',
     },
   })
 )

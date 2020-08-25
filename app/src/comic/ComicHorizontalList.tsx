@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
       margin: theme.spacing(0, 'auto'),
       position: 'relative',
+      userSelect: 'none',
     },
     imgContainer: {
       display: 'flex',
