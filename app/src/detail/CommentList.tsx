@@ -115,6 +115,8 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
   const matches = useIsmobile()
   const router = useRouter()
   const showPage = router.query.showPage as string
+  const gid = router.query.gid as string
+  const token = router.query.token as string
   const [t] = useTranslation()
   return (
     <>
@@ -127,8 +129,8 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
             <IconButton
               onClick={() =>
                 router.push(
-                  router.pathname + '?showPage=comments',
-                  router.asPath + '?showPage=comments'
+                  '/[gid]/[token]?showPage=comments',
+                  `/${gid}/${token}?showPage=comments`
                 )
               }
             >

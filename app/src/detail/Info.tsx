@@ -281,8 +281,8 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                   className={classes.btn}
                   onClick={() => {
                     router.push(
-                      router.pathname + '/read',
-                      router.asPath + '/read'
+                      '/[gid]/[token]/read',
+                      `/${info.gid}/${info.token}/read`
                     )
                   }}
                 >
@@ -334,7 +334,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
   )
 }
 
-export default (props: InfoProps) => {
+const InfoWrap = (props: InfoProps) => {
   const matches = useIsmobile()
   if (matches) {
     return <MobileInfo {...props} />
@@ -342,3 +342,4 @@ export default (props: InfoProps) => {
     return <Info {...props} />
   }
 }
+export default InfoWrap

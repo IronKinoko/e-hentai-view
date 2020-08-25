@@ -10,7 +10,7 @@ import moment from 'moment'
 import { SWRConfig } from 'swr'
 import { i18n, appWithTranslation } from 'i18n'
 import useIsIosStandalone from 'hooks/useIsIosStandalone'
-import 'swiper-rtl/swiper-bundle.min.css'
+import 'swiper/swiper-bundle.min.css'
 import ComicConfig from '@/comic/ComicConfig'
 
 moment.locale('zh-cn')
@@ -54,6 +54,10 @@ function MyApp(props: AppProps) {
     <React.Fragment>
       <Head>
         <title>EhentaiView</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, viewport-fit=cover"
+        />
       </Head>
 
       <SWRConfig value={{ errorRetryInterval: 100 }}>
