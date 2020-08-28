@@ -35,7 +35,6 @@ function init() {
         i18n.changeLanguage('en')
       }
     }
-    document.querySelector('html')?.setAttribute('lang', navigator.language)
   }
 }
 

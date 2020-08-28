@@ -1,10 +1,12 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets, withTheme } from '@material-ui/core/styles'
-class MyDocument extends Document {
+
+class MyDocument extends Document<{ lang: string }> {
   render() {
+    const { lang } = this.props
     return (
-      <Html>
+      <Html lang={lang}>
         <Head>
           <link
             rel="stylesheet"
@@ -72,6 +74,8 @@ MyDocument.getInitialProps = async (ctx) => {
 
   const initialProps = await Document.getInitialProps(ctx)
 
+  const lang = ctx.req?.headers['accept-language']?.split(',')[0]
+
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
@@ -79,5 +83,6 @@ MyDocument.getInitialProps = async (ctx) => {
       ...React.Children.toArray(initialProps.styles),
       sheets.getStyleElement(),
     ],
+    lang,
   }
 }
