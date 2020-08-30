@@ -49,6 +49,7 @@ export interface Torrent {
 export interface DetailPageListItemProps {
   thumb: string
   url: string
+  aspectratio: number
 }
 export interface commentListItemProps {
   time: string

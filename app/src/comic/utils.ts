@@ -36,3 +36,25 @@ export function mergeData(
   }
   return res
 }
+
+export function computedAspectratioHeight(aspectratio: number) {
+  return Math.min(window.innerWidth, 1280) / aspectratio
+}
+
+export function computedTargetHeight(
+  index: number,
+  data: ComicListDataSourceProps['list']
+) {
+  return data
+    .slice(0, index)
+    .map((o) => o?.aspectratio || 210 / 297)
+    .reduce((sum, next) => {
+      return sum + computedAspectratioHeight(next)
+    }, 0)
+}
+
+export function computedFullHeight(data: ComicListDataSourceProps['list']) {
+  return data
+    .map((o) => o?.aspectratio || 210 / 297)
+    .reduce((sum, next) => sum + computedAspectratioHeight(next), 0)
+}

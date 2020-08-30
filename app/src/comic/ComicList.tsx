@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ComicItem from './ComicItem'
 import useSWR, { mutate, cache } from 'swr'
 import { DetailPageListItemProps } from 'interface/gallery'
@@ -17,6 +17,8 @@ import {
   getPageWithRetry,
   mergeData,
   pageSize,
+  computedTargetHeight,
+  computedFullHeight,
 } from './utils'
 import useComicData from 'hooks/useComicData'
 import { useRouter } from 'next/router'
@@ -31,6 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0, 'auto'),
       userSelect: 'none',
     },
+    virtualItem: {
+      position: 'absolute',
+      transition: 'transform 0.3s ease',
+      width: '100%',
+      maxWidth: 1280,
+    },
   })
 )
 
@@ -40,30 +48,29 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
 }) => {
   const comicPagesKey = `${comicUrl}/read`
   const classes = useStyles()
+  const [loaded, setLoaded] = useState(false)
   const { data } = useComicData(comicUrl)
   const router = useRouter()
   useEffect(() => {
-    if (defaultCurrent === -1) {
-      return document
-        .querySelector(`[data-index="${data?.current}"]`)
-        ?.scrollIntoView()
+    if (data && !loaded) {
+      setLoaded(true)
+      if (defaultCurrent === -1) {
+        document.scrollingElement!.scrollTop = computedTargetHeight(
+          data.current,
+          data.list
+        )
+      } else {
+        document.scrollingElement!.scrollTop = computedTargetHeight(
+          defaultCurrent,
+          data.list
+        )
+        mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
+          ...(data ? data : { current: 0, list: [], total: 0 }),
+          current: defaultCurrent,
+        }))
+      }
     }
-    document.querySelector(`[data-index="${defaultCurrent}"]`)?.scrollIntoView()
-    mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
-      ...(data ? data : { current: 0, list: [], total: 0 }),
-      current: defaultCurrent,
-    }))
-
-    const fn = (((e: CustomEvent<number>) => {
-      document.querySelector(`[data-index="${e.detail}"]`)?.scrollIntoView()
-    }) as unknown) as EventListener
-    document.addEventListener(EVENT_JUMP_PAGE, fn)
-    return () => {
-      document.removeEventListener(EVENT_JUMP_PAGE, fn)
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comicPagesKey, defaultCurrent])
+  }, [comicPagesKey, defaultCurrent, data, loaded])
 
   useEffect(() => {
     if (data?.list) {
@@ -72,10 +79,11 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
           for (const entry of entries) {
             if (entry.isIntersecting) {
               let currentpage = +(entry.target.getAttribute('data-index') || 0)
-              mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
-                ...data,
-                current: currentpage,
-              }))
+              if (data.current !== currentpage)
+                mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
+                  ...data,
+                  current: currentpage,
+                }))
             }
           }
         },
@@ -89,7 +97,28 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
         observer.disconnect()
       }
     }
-  }, [comicPagesKey, comicUrl, data?.list, router])
+  }, [comicPagesKey, comicUrl, data?.list, router, data])
+
+  useEffect(() => {
+    if (data?.list) {
+      const fn = (((e: CustomEvent<number>) => {
+        if (data.current !== e.detail) {
+          document.scrollingElement!.scrollTop = computedTargetHeight(
+            e.detail,
+            data.list
+          )
+          mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
+            ...data,
+            current: e.detail,
+          }))
+        }
+      }) as unknown) as EventListener
+      document.addEventListener(EVENT_JUMP_PAGE, fn)
+      return () => {
+        document.removeEventListener(EVENT_JUMP_PAGE, fn)
+      }
+    }
+  }, [comicPagesKey, data])
 
   if (!data || data.total === 0)
     return (
@@ -98,6 +127,9 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
       </div>
     )
 
+  const start = Math.max(data.current - 2, 0)
+  const end = Math.min(data.current + 5, data.total)
+  console.log(data)
   return (
     <>
       <div
@@ -105,15 +137,34 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
         onClick={() =>
           document.dispatchEvent(new CustomEvent(EVENT_TOGGLE_CONTROLS))
         }
+        style={{
+          minHeight: computedFullHeight(data.list),
+          position: 'relative',
+        }}
       >
-        {data.list.map((o, k) => (
-          <ComicItem
-            key={o?.url || k}
-            index={k}
-            thumb={o?.thumb}
-            url={o?.url}
-          />
-        ))}
+        {data.list.slice(start, end).map((o, v) => {
+          const k = v + start
+          return (
+            <div
+              key={o?.url || k}
+              className={classes.virtualItem}
+              style={{
+                transform: `translateY(${computedTargetHeight(
+                  k,
+                  data.list
+                )}px)`,
+              }}
+            >
+              <ComicItem
+                index={k}
+                thumb={o?.thumb}
+                url={o?.url}
+                aspectratio={o?.aspectratio}
+                comicPagesKey={comicPagesKey}
+              />
+            </div>
+          )
+        })}
       </div>
       <ComicStatus total={data.total} current={data.current} />
       <ComicControls total={data.total} current={data.current} />
