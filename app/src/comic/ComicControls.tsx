@@ -101,6 +101,7 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
             max={total - 1}
             value={currentPage}
             valueLabelDisplay="auto"
+            valueLabelFormat={(v) => v + 1}
             onChange={(e, v) => {
               setCurrentPage(v as number)
               run()

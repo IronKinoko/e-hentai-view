@@ -85,8 +85,10 @@ function useInViewportWithDistance<T extends HTMLElement = HTMLElement>(
     return () => {
       observer.disconnect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     element.current,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     typeof arg.current === 'function' ? undefined : arg.current,
   ])
 
