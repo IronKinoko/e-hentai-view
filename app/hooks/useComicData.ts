@@ -22,6 +22,7 @@ export default function useComicData(comicUrl: string) {
   useEffect(() => {
     const fn = async () => {
       let res = await getPageWithRetry(`/api/gallery${comicUrl}/0`)
+      res.list.forEach((o) => (o!.aspectratio = 210 / 297))
       mutate(
         comicPagesKey,
         (data: ComicListDataSourceProps) => ({
@@ -41,6 +42,8 @@ export default function useComicData(comicUrl: string) {
       setLoadedPageKeys((t) => ((t[e.detail] = true), t))
 
       let res = await getPageWithRetry(`/api/gallery${comicUrl}/${e.detail}`)
+      res.list.forEach((o) => (o!.aspectratio = 210 / 297))
+
       mutate(
         comicPagesKey,
         (data: ComicListDataSourceProps) => ({

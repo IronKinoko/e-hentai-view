@@ -113,6 +113,7 @@ const ComicHorizontalList: React.FC<{
                   index={k}
                   thumb={o?.thumb}
                   url={o?.url}
+                  comicPagesKey={comicPagesKey}
                 />
               </div>
             </SwiperSlide>
