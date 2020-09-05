@@ -21,16 +21,23 @@ const Read: NextPage = () => {
 
   if (current === -2) return null
 
-  if (config.direction === 'vertical') {
-    return <ComicList comicUrl={`/${gid}/${token}`} defaultCurrent={current} />
-  } else {
-    return (
-      <ComicHorizontalList
-        comicUrl={`/${gid}/${token}`}
-        defaultCurrent={current}
-      />
-    )
-  }
+  return (
+    <>
+      <style jsx global>{`
+        * {
+          user-select: none;
+        }
+      `}</style>
+      {config.direction === 'vertical' ? (
+        <ComicList comicUrl={`/${gid}/${token}`} defaultCurrent={current} />
+      ) : (
+        <ComicHorizontalList
+          comicUrl={`/${gid}/${token}`}
+          defaultCurrent={current}
+        />
+      )}
+    </>
+  )
 }
 Read.getInitialProps = () => ({})
 

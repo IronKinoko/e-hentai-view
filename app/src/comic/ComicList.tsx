@@ -19,6 +19,7 @@ import {
   pageSize,
   computedTargetHeight,
   computedFullHeight,
+  computedCurrentTarget,
 } from './utils'
 import useComicData from 'hooks/useComicData'
 import { useRouter } from 'next/router'
@@ -73,31 +74,20 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
   }, [comicPagesKey, defaultCurrent, data, loaded])
 
   useEffect(() => {
-    if (data?.list) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              let currentpage = +(entry.target.getAttribute('data-index') || 0)
-              if (data.current !== currentpage)
-                mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
-                  ...data,
-                  current: currentpage,
-                }))
-            }
+    const fn = () => {
+      if (document.scrollingElement) {
+        const top = document.scrollingElement.scrollTop
+        mutate(comicPagesKey, (data: ComicListDataSourceProps) => {
+          const current = computedCurrentTarget(data.list, top)
+          if (current !== data.current) {
+            return { ...data, current }
           }
-        },
-        { rootMargin: `-40% 0px -59.9% 0px` }
-      )
-      document.querySelectorAll('[role="comic-item"]').forEach((e) => {
-        observer.observe(e)
-      })
-
-      return () => {
-        observer.disconnect()
+        })
       }
     }
-  }, [comicPagesKey, comicUrl, data?.list, router, data])
+    document.addEventListener('scroll', fn)
+    return () => document.removeEventListener('scroll', fn)
+  }, [comicPagesKey])
 
   useEffect(() => {
     if (data?.list) {

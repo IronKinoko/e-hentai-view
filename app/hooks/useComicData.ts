@@ -18,7 +18,7 @@ export default function useComicData(comicUrl: string) {
     },
   })
   const { data } = res
-
+  if (!cache.has(comicPagesKey)) cache.set(comicPagesKey, data)
   useEffect(() => {
     const fn = async () => {
       let res = await getPageWithRetry(`/api/gallery${comicUrl}/0`)

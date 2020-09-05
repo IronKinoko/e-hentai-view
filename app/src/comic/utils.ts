@@ -58,3 +58,21 @@ export function computedFullHeight(data: ComicListDataSourceProps['list']) {
     .map((o) => o?.aspectratio || 210 / 297)
     .reduce((sum, next) => sum + computedAspectratioHeight(next), 0)
 }
+
+export function computedCurrentTarget(
+  data: ComicListDataSourceProps['list'],
+  height: number
+) {
+  let current = 0
+  let sum = 0
+  for (const item of data) {
+    const itemHeight = computedAspectratioHeight(item?.aspectratio || 210 / 297)
+    if (sum >= height - window.innerHeight * 0.4) {
+      return current
+    } else {
+      current++
+      sum += itemHeight
+    }
+  }
+  return current
+}
