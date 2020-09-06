@@ -26,6 +26,11 @@ class MyDocument extends Document<{ lang: string }> {
           />
           <link rel="apple-touch-startup-image" href="/static/startup.png" />
           <link rel="manifest" href="/static/manifest.json" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `<script async src="https://www.googletagmanager.com/gtag/js?id=UA-177345758-1"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','UA-177345758-1');</script>`,
+            }}
+          />
         </Head>
         <body>
           <Main />
