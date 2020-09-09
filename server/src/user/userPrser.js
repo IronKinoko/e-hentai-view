@@ -8,23 +8,32 @@ function parseLogin(html) {
   const re2 = /The captcha was not entered correctly\. Please try again\./
   if (re2.test(html)) {
     throw new Error(
-      '[cookie]The captcha was not entered correctly. Please use cookie login'
+      'The captcha was not entered correctly. Please use cookie login'
     )
   }
 
   if (arr !== null && arr.length > 1) {
     return `You are now logged in as: ${arr[1]}`
   }
-  throw new Error('login faild')
+  throw new Error(
+    'The account password may be wrong, please try again or use cookie login'
+  )
 }
 
 function parseCookieLogin(html) {
-  const document = new jsdom.JSDOM(html, {
-    virtualConsole: new jsdom.VirtualConsole(),
-  }).window.document
-  return `You are now logged in as: ${
-    document.querySelector('.home a').innerHTML
-  }`
+  try {
+    const document = new jsdom.JSDOM(html, {
+      virtualConsole: new jsdom.VirtualConsole(),
+    }).window.document
+    return `You are now logged in as: ${
+      document.querySelector('.home a').innerHTML
+    }`
+  } catch (error) {
+    // cookie error
+    throw new Error(
+      'Login faild. The cookies may be de wrong, please try again'
+    )
+  }
 }
 
 module.exports = { parseLogin, parseCookieLogin }

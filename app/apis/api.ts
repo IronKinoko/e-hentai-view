@@ -17,13 +17,13 @@ export const axios = Axios.create({})
 //   })
 // })
 
-// axios.interceptors.response.use((res) => {
-//   count--
-//   if (res.data.error && res.data.message?.includes('[404]')) {
-//     Router.replace('/404')
-//   }
-//   return res
-// })
+axios.interceptors.response.use((res) => {
+  // count--
+  if (res.data.error && res.data.message?.includes('No login')) {
+    Router.replace('/signin')
+  }
+  return res
+})
 
 export type UserPayload = {
   UserName?: string

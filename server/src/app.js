@@ -18,6 +18,13 @@ app.use(cookieParser())
 
 app.use((req, res, next) => {
   if (req.url.startsWith('/api')) console.log('%s -> %s', req.method, req.url)
+
+  // if no login, api will return error
+  if (req.url.startsWith('/api/') && !req.url.startsWith('/api/user')) {
+    if (req.cookies && !req.cookies.ipb_member_id) {
+      return res.json({ error: true, message: 'No login' })
+    }
+  }
   next()
 })
 app.get('/api', async (req, res) => {

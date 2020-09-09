@@ -72,9 +72,7 @@ async function galleryList({ page, f_search }, cookies) {
   let list = []
   let total = 0
   if (document.body.innerHTML === '') {
-    throw new Error(
-      '[sad panda] login cookie incorrect, try to sign in with cookie'
-    )
+    throw new Error('[sad panda] no login!')
   }
 
   if (document.body.innerHTML.includes('No hits found')) {
