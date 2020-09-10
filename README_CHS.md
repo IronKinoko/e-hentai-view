@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[english](./README.md) | 中文说明
+[english](./README.md) | 中文说明 | [ภาษาไทย](./README_THA.md)
 
 ## 项目定位
 
