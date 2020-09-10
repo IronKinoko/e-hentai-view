@@ -13,6 +13,7 @@ import SlideUpDialog from 'components/SlideUpDialog'
 const languageMap: { [k: string]: string } = {
   en: 'English',
   zh: '简体中文',
+  th: 'ภาษาไทย',
 }
 const Language = () => {
   const [t, i18n] = useTranslation()
