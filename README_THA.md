@@ -6,9 +6,9 @@
 
 [English](./README.md) | [中文说明](./README_CHS.md) | ภาษาไทย
 
-ยินดีต้อนรับสู่ EhentaiView, ซึ่งเป็นเว็บไซต์สำหรับมือถือ(PWA) สำหรับ exhentai.org, สร้างด้วย Next.js
+ยินดีต้อนรับสู่ EhentaiView ซึ่งเป็นเว็บไซต์สำหรับมือถือ(PWA) สำหรับ exhentai.org ที่สร้างด้วย Next.js
 
-**ถ้า Google Chrome เวอร์ชั่น >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org เป็น `Secure` และ `SameSite=None`**
+**ถ้าเวอร์ชั่นของ Google Chrome  >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`**
 
 ## ภาพหน้าจอ
 
@@ -23,7 +23,7 @@
 **เนื่องจาก ความปลอดภัยเว็บไซต์ในเบราว์เซอร์ (cors) เราไม่สามารถเข้าถึงภาพ exhentai ได้โดยตรง คุณควรลงชื่อเข้าใช้ e-hentai ก่อนใช้เว็บไซต์นี้**
 
 1. เข้าสู่ระบบ [ที่นี่](https://exhentai.appspot.com/signin)
-2. หากคุณยังไม่ได้ลงชื่อเข้าใช้ใน [e-hentai](https://forums.e-hentai.org/index.php), คุณต้องลงชื่อเข้าใช้ใน e-hentai ด้วย
+2. หากคุณยังไม่ได้ลงชื่อเข้าใช้ใน [e-hentai](https://forums.e-hentai.org/index.php) คุณต้องลงชื่อเข้าใช้ใน e-hentai ด้วย
 3. ตอนนี้คุณสามารถใช้งานเว็บไซต์ได้แล้ว
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/login.gif" width="25%" title="เข้าสู่ระบบ"/>
