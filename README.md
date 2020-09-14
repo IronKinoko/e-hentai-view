@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-english | [中文说明](./README_CHS.md) | [ภาษาไทย](./README_THA.md)
+english | [中文说明](./translations/README_CHS.md) | [ภาษาไทย](./translations/README_THA.md)
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
@@ -66,3 +66,4 @@ yarn run dev:app
 ## Thanks
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
+- [Nicezki](https://github.com/Nicezki) Thai translation

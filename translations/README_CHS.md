@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[english](./README.md) | 中文说明 | [ภาษาไทย](./README_THA.md)
+[english](../README.md) | 中文说明 | [ภาษาไทย](./README_THA.md)
 
 ## 项目定位
 
@@ -76,3 +76,7 @@ yarn run dev:app
 - [ ] 优化手机端体验
 - [x] 下载进度条
 - [ ] 下载错误处理
+
+## 特别感谢
+
+- [seven332/EhViewer](https://github.com/seven332/EhViewer)

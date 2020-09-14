@@ -4,11 +4,11 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](./README.md) | [中文说明](./README_CHS.md) | ภาษาไทย
+[English](../README.md) | [中文说明](./README_CHS.md) | ภาษาไทย
 
 ยินดีต้อนรับสู่ EhentaiView ซึ่งเป็นเว็บไซต์สำหรับมือถือ(PWA) สำหรับ exhentai.org ที่สร้างด้วย Next.js
 
-**ถ้าเวอร์ชั่นของ Google Chrome  >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`**
+**ถ้าเวอร์ชั่นของ Google Chrome >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`**
 
 ## ภาพหน้าจอ
 
