@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-english | [中文说明](./README_CHS.md)
+english | [中文说明](./README_CHS.md) | [ภาษาไทย](./README_THA.md)
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
