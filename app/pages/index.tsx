@@ -21,7 +21,7 @@ const IndexPage = () => {
   )
 }
 
-export default () => {
+const Index = () => {
   if (typeof window !== 'undefined') {
     if (!document.cookie.includes('ipb_member_id')) {
       Router.push('/signin')
@@ -30,3 +30,5 @@ export default () => {
   }
   return <IndexPage />
 }
+
+export default Index

@@ -23,19 +23,27 @@ Router.events.on('routeChangeComplete', () => {
 })
 Router.events.on('routeChangeError', () => NProgress.done())
 
-init()
-function init() {
-  if (typeof window !== 'undefined') {
-    if (localStorage.getItem('i18n') !== null) {
-      i18n.changeLanguage(localStorage.getItem('i18n')!)
-    } else {
-      if (navigator.language.startsWith('zh')) {
-        i18n.changeLanguage('zh')
-      } else {
-        i18n.changeLanguage('en')
-      }
-    }
-  }
+// init()
+// function init() {
+//   if (typeof window !== 'undefined') {
+//     if (localStorage.getItem('i18n') !== null) {
+//       i18n.changeLanguage(localStorage.getItem('i18n')!)
+//     } else {
+//       if (navigator.language.startsWith('zh')) {
+//         i18n.changeLanguage('zh')
+//       } else {
+//         i18n.changeLanguage('en')
+//       }
+//     }
+//   }
+// }
+
+if (typeof window !== undefined) {
+  i18n.on('languageChanged', function (lang) {
+    const html = document.querySelector('html')
+
+    if (html) html.setAttribute('lang', lang)
+  })
 }
 
 function MyApp(props: AppProps) {
