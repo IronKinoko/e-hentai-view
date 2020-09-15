@@ -1,7 +1,7 @@
 const pkg = require('../package.json')
 const fs = require('fs')
 const path = require('path')
-const exec = require('exec-sh')
+const cp = require('child_process')
 const inquirer = require('inquirer')
 
 const rPath = (filePath) => path.resolve(__dirname, filePath)
@@ -37,11 +37,11 @@ async function release() {
 
   fs.writeFileSync(rPath('../package.json'), JSON.stringify(pkg, null, 2))
 
-  await exec.promise('git add .')
-  await exec.promise(`git commit -m "${options.message}"`)
-  await exec.promise(`git tag v${pkg.version}`)
-  await exec.promise('git push')
-  await exec.promise('git push origin --tags')
+  cp.execSync('git add .')
+  cp.execSync(`git commit -m "${options.message}"`)
+  cp.execSync(`git tag v${pkg.version}`)
+  cp.execSync('git push')
+  cp.execSync('git push origin --tags')
 
   console.log(`build success, version: ${pkg.name}@${pkg.version}`)
 }
