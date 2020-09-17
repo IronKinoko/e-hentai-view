@@ -6,7 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-const localeSubpaths = { en: '.', zh: 'zh-cn', th: 'th' }
+const localeSubpaths = { zh: 'zh-cn', th: 'th' }
 const nextConfig = {
   // target: 'serverless',
   // assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
