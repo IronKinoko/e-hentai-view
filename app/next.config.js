@@ -5,8 +5,7 @@ const { nextI18NextRewrites } = require('next-i18next/rewrites')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
-
-const localeSubpaths = { zh: 'zh-cn', th: 'th' }
+const localeSubpaths = require('./localeSubpaths')
 const nextConfig = {
   // target: 'serverless',
   // assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
