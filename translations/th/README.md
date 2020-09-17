@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](../README.md) | [中文说明](./README_CHS.md) | ภาษาไทย
+[English](/README.md) | [中文说明](/translations/zh_CN/README.md) | ภาษาไทย
 
 ยินดีต้อนรับสู่ EhentaiView ซึ่งเป็นเว็บไซต์สำหรับมือถือ(PWA) สำหรับ exhentai.org ที่สร้างด้วย Next.js
 
@@ -66,3 +66,4 @@ yarn run dev:app
 ## ขอขอบคุณ
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
+- [Nicezki](https://github.com/Nicezki) แปลภาษาไทย

@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-english | [中文说明](./translations/README_CHS.md) | [ภาษาไทย](./translations/README_THA.md)
+english | [中文说明](/translations/zh_CN/README.md) | [ภาษาไทย](./translations/th/README.md)
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
@@ -28,16 +28,9 @@ welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/login.gif" width="25%" title="login"/>
 
-## Additional description of IOS
+## FAQ
 
-**Prevent Cross-Site Tracking needs to be turned off**
-
-`Settings -> Safari -> Prevent Cross-Site Tracking`
-
-<div style="display: flex;">
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/setting.PNG" width="25%" title="settings"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/safari.PNG" width="25%" title="safari"/>
-</div>
+If you can't see the picture, please see [here](/translations/en/FAQ.md)
 
 ## PWA install
 
