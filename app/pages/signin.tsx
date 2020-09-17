@@ -4,7 +4,6 @@ import message from 'components/message'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
 import Layout from 'components/Layout'
-import Link from 'components/Link'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import {
   Tabs,
@@ -20,6 +19,7 @@ import {
   Stepper,
   MobileStepper,
   Paper,
+  Link,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
@@ -111,7 +111,6 @@ const SignIn: NextPage = () => {
             <Trans i18nKey="SignIn.info">
               Due to browser security restrictions, you must log in to the
               <Link
-                prefetch={false}
                 href="https://forums.e-hentai.org/index.php"
                 target="_blank"
               >
@@ -152,11 +151,7 @@ const SignIn: NextPage = () => {
         {activeStep === 0 ? (
           <Typography variant="subtitle1" gutterBottom>
             {`1. ${t('SignIn')}`}
-            <Link
-              prefetch={false}
-              href="https://forums.e-hentai.org/index.php"
-              target="_blank"
-            >
+            <Link href="https://forums.e-hentai.org/index.php" target="_blank">
               {' e-hentai.org '}
               <OpenInNewIcon fontSize="inherit" />
             </Link>
@@ -164,7 +159,7 @@ const SignIn: NextPage = () => {
         ) : activeStep === 1 ? (
           <Typography variant="subtitle1" gutterBottom>
             {`2. ${t('SignIn')}`}
-            <Link prefetch={false} href="https://exhentai.org" target="_blank">
+            <Link href="https://exhentai.org" target="_blank">
               {' exhentai.org '}
               <OpenInNewIcon fontSize="inherit" />
             </Link>
