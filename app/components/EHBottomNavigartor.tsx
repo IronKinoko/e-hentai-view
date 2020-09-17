@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import useIsIosStandalone from 'hooks/useIsIosStandalone'
 import SafeArea from './SafeArea'
-
+import { Router } from 'i18n'
 const MENU = [
   { title: 'FrontPage', icon: <HomeIcon />, link: '/' },
   { title: 'Watched', icon: <SubscriptionsIcon />, link: '/watched' },
@@ -73,7 +73,7 @@ const EHBottomNavigartor: React.FC = () => {
           showLabels
           value={index}
           onChange={(_, index) => {
-            router.replace(MENU[index].link)
+            Router.replace(MENU[index].link)
           }}
         >
           {MENU.map((o, k) => (

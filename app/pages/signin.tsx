@@ -25,7 +25,7 @@ import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
 import CookieLogin from '@/signin/CookieLogin'
 import { cache } from 'swr'
-import { useTranslation, Trans } from 'i18n'
+import { useTranslation, Trans, Router } from 'i18n'
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
@@ -81,7 +81,7 @@ const SignIn: NextPage = () => {
       setLoading(false)
       if (!res.error) {
         message.success(res.message)
-        router.replace('/')
+        Router.replace('/')
       } else {
         message.error(res.message)
       }

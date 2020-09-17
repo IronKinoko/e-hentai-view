@@ -17,7 +17,7 @@ import ImgRead from './ImgRead'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import { flatten } from 'lodash'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,11 +59,11 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
 
   const handleOpen = (k?: number) => {
     if (k)
-      router.push(
+      Router.push(
         '/[gid]/[token]/read?current=' + k,
         url + '/read?current=' + k
       )
-    else router.push('/[gid]/[token]/read', url + '/read')
+    else Router.push('/[gid]/[token]/read', url + '/read')
   }
 
   const {

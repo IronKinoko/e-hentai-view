@@ -3,7 +3,7 @@ const path = require('path')
 const next = require('next')
 const createProxyMiddleware = require('http-proxy-middleware')
   .createProxyMiddleware
-const nextI18next = require('../../app/i18n')
+// const nextI18next = require('../../app/i18n')
 const devProxy = {
   '/api': {
     target: 'http://localhost:8080/', // 端口自己配置合适的
@@ -27,7 +27,7 @@ const handle = app.getRequestHandler()
     })
   }
 
-  await nextI18next.initPromise
+  // await nextI18next.initPromise
 
   server.get('/service-worker.js', (req, res) => {
     const filePath = path.resolve(

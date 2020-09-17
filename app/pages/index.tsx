@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import { useRouter } from 'next/router'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import GalleryList from '@/index/GalleryList'
-import Router from 'next/router'
+import { Router } from 'i18n'
 const useStyles = makeStyles((theme) =>
   createStyles({
     search: { margin: theme.spacing(2, 'auto') },

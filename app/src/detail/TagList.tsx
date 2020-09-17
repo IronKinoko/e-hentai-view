@@ -3,7 +3,7 @@ import { Detailpage } from 'interface/gallery'
 import { Typography, Tooltip, Chip } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     label: {},
@@ -49,7 +49,7 @@ const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
                         classes={{ label: classes.label }}
                         clickable
                         onClick={() => {
-                          router.push(`/result?f_search=${v.keyword}`)
+                          Router.push(`/result?f_search=${v.keyword}`)
                         }}
                       />
                     </Tooltip>

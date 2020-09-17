@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import Router from 'next/router'
+import { Router } from 'i18n'
 import { DetailPageListItemProps } from 'interface/gallery'
 export const axios = Axios.create({})
 // const maxQueueLength = 8

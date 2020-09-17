@@ -1,6 +1,9 @@
 const NextI18Next = require('next-i18next').default
 const path = require('path')
+const { localeSubpaths } = require('next/config').default().publicRuntimeConfig
+
 module.exports = new NextI18Next({
+  localeSubpaths,
   otherLanguages: ['zh', 'th'],
   strictMode: false,
   localePath:

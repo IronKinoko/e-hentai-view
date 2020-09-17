@@ -18,7 +18,7 @@ import TorrentIcon from 'components/TorrentIcon'
 import { IndexListItemPorps } from 'interface/gallery'
 import SlideUpDialog from 'components/SlideUpDialog'
 import { useIsmobile } from '@/theme'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useRouter } from 'next/router'
 import LoadingIconButton from 'components/LoadingButton'
@@ -45,7 +45,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
             disabled={!data || +info.torrentcount === 0}
             color="primary"
             onClick={() =>
-              router.push(
+              Router.push(
                 '/[gid]/[token]?showPage=torrent',
                 `/${info.gid}/${info.token}?showPage=torrent`
               )
@@ -59,7 +59,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
         fullScreen={Boolean(matches)}
         fullWidth={!Boolean(matches)}
         open={showPage === 'torrent'}
-        onClose={() => router.back()}
+        onClose={() => Router.back()}
         scroll="paper"
       >
         {matches && (
@@ -68,7 +68,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
               <IconButton
                 edge="start"
                 color="inherit"
-                onClick={() => router.back()}
+                onClick={() => Router.back()}
               >
                 <ArrowBackIcon />
               </IconButton>
@@ -87,7 +87,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
           {data?.map((o, k) => (
             <Link href={o.url} target="_blank" key={k} underline="none">
               <ListItem
-                onClick={() => router.back()}
+                onClick={() => Router.back()}
                 button
                 divider={k !== +info.torrentcount - 1}
               >

@@ -1,12 +1,12 @@
 const webpack = require('webpack')
 const package = require('../package.json')
 const nextOffline = require('next-offline')
+const { nextI18NextRewrites } = require('next-i18next/rewrites')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-// const isProd = process.env.NODE_ENV === 'production'
-// const isVercel = process.env.VERCEL_GITHUB_DEPLOYMENT === '1'
+const localeSubpaths = { en: '.', zh: 'zh-cn', th: 'th' }
 const nextConfig = {
   // target: 'serverless',
   // assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
@@ -17,6 +17,11 @@ const nextConfig = {
 
     return config
   },
+  rewrites: async () => nextI18NextRewrites(localeSubpaths),
+  publicRuntimeConfig: {
+    localeSubpaths,
+  },
+
   // generateInDevMode: true,
   devIndicators: {
     autoPrerender: false,

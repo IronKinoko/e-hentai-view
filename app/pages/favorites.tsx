@@ -19,7 +19,7 @@ import ListIcon from '@material-ui/icons/List'
 import { useRouter } from 'next/router'
 import FolderIcon from '@material-ui/icons/Folder'
 import { divide } from 'lodash'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 const Favorites: NextPage = () => {
   const { data } = useFavoritesInfo()
   const [open, setOpen] = useState(false)
@@ -58,7 +58,7 @@ const Favorites: NextPage = () => {
               <ListItem
                 key={o.index}
                 button
-                onClick={() => router.push('/favorites?favcat=' + o.index)}
+                onClick={() => Router.push('/favorites?favcat=' + o.index)}
               >
                 <ListItemIcon>
                   <FolderIcon />
