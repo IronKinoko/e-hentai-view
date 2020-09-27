@@ -8,7 +8,7 @@ english | [中文说明](/translations/zh_CN/README.md) | [ภาษาไทย
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
-**If google chrome version >= 84, you need change exhentai.org cookies with `Secure` and `SameSite=None`**
+**If google chrome version >= 84, you need change exhentai.org cookies with `Secure` and `SameSite=None`** [see here](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/en/FAQ.md#4-windows-browser-cant-see-pictures)
 
 ## Screenshot
 
@@ -50,13 +50,8 @@ yarn run dev:server
 yarn run dev:app
 ```
 
-## TODO
-
-- [ ] Optimize mobile experience
-- [x] download progress
-- [ ] download error handing
-
 ## Thanks
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
 - [Nicezki](https://github.com/Nicezki) Thai translation
+- [KeepSOBP](https://github.com/KeepSOBP) Kr translation

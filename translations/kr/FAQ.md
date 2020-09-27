@@ -38,7 +38,7 @@
 
 다음과 같이 따라 해주세요:
 
-- JavaScript 코드 일부를 복사해주세요.
+- [JavaScript](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js) 코드 일부를 복사해주세요.
 - [exhentai.org](https://exhentai.org)에 접속해주세요.
 - `F12`를 누르고 `console` 탭을 눌러주세요.
 - 코드를 눌러주시고 `엔터`를 눌러주세요.

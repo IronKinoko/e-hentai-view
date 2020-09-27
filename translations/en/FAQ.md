@@ -38,7 +38,7 @@ If you are using the following browsers:
 
 Do the following:
 
-- Copy a piece of JavaScript code
+- Copy a piece of [JavaScript code](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js)
 - Visit [exhentai.org](https://exhentai.org)
 - Press `F12` and click the `console` tab
 - Paste the code and `Enter` to execute
