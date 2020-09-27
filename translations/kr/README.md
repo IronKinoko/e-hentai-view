@@ -30,7 +30,7 @@ EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PW
 
 ## FAQ
 
-혹시 사진들이 안보인다면, [여길](/translations/en/FAQ.md) 봐주세요.
+혹시 사진들이 안보인다면, [여길](/translations/kr/FAQ.md) 봐주세요.
 
 ## PWA 설치
 
