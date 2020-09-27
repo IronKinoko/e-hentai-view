@@ -4,7 +4,7 @@ const { localeSubpaths } = require('next/config').default().publicRuntimeConfig
 
 module.exports = new NextI18Next({
   localeSubpaths,
-  otherLanguages: ['zh', 'th'],
+  otherLanguages: ['zh', 'th', 'kr'],
   strictMode: false,
   localePath:
     typeof window === 'undefined'
