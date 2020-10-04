@@ -8,7 +8,7 @@
 
 Selamat datang ke EhentaiView, sebuah laman web mudah alih (PWA) untuk exhentai.org yang dibina dengan Next.js.
 
-**Sekiranya versi google chrome >= 84, anda perlu menukar cookies exhentai.org dengan `Secure` dan `SameSite=None`** [lihat sini](https://github.com/TeeVenDick/e-hentai-view/blob/master/translations/ml/FAQ.md#4-Pelayar-web-Windows-tidak-dapat-melihat-gambar)
+**Sekiranya versi google chrome >= 84, anda perlu menukar cookies exhentai.org dengan `Secure` dan `SameSite=None`** [lihat sini](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/ml/FAQ.md#4-Pelayar-web-Windows-tidak-dapat-melihat-gambar)
 
 ## Tangkapan Skrin
 
