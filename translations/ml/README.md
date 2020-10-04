@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](/README.md) | [中文说明](/translations/zh_CN/README.md) | [ภาษาไทย](./translations/th/README.md) | [한국어](./translations/kr/README.md) | Malay
+[English](/README.md) | [中文说明](/translations/zh_CN/README.md) | [ภาษาไทย](/translations/th/README.md) | [한국어](/translations/kr/README.md) | Malay
 
 Selamat datang ke EhentaiView, sebuah laman web mudah alih (PWA) untuk exhentai.org yang dibina dengan Next.js.
 
