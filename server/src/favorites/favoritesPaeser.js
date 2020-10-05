@@ -4,10 +4,12 @@
 function parseFavoritesSettingInfo(document) {
   const lists = document.querySelectorAll('.nosel [class=fp]')
 
-  const total = +document
-    .querySelector('p.ip')
-    .innerHTML.match(/[0-9,]+/)[0]
-    .replace(',', '')
+  const total = document.querySelector('p.ip')
+    ? +document
+        .querySelector('p.ip')
+        .innerHTML.match(/[0-9,]+/)[0]
+        .replace(',', '')
+    : 0
 
   const res = Array.from(lists).map((favNode, index) => {
     const count = favNode.children[0].textContent
