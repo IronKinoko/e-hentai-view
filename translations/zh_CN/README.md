@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[english](/README.md) | 中文说明 | [ภาษาไทย](/translations/th/README.md) | [한국어](/translations/kr/README.md) | [Malay](/translations/ml/README.md)
+[English](/README.md) | 中文说明
 
 **如果Chrome浏览器版本>=84，则会造成的无法查看图片** [点此修复](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/kr/FAQ.md#4-%EC%9C%88%EB%8F%84%EC%9A%B0-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EC%82%AC%EC%A7%84%EC%9D%B4-%EB%B3%B4%EC%9D%B4%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
 

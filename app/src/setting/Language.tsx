@@ -15,6 +15,7 @@ const languageMap: { [k: string]: string } = {
   zh: '简体中文',
   th: 'ภาษาไทย',
   kr: '한국어',
+  ms: 'Bahasa Melayu',
 }
 const Language = () => {
   const [t, i18n] = useTranslation()
