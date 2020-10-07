@@ -36,7 +36,7 @@ If you can't see the picture, please see [here](/translations/en/FAQ.md)
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/pwa_install.gif" width="25%" title="pwa install"/>
 
-## development
+## Development
 
 ```shell
 # The first time
