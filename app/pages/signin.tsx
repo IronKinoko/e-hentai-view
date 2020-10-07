@@ -29,6 +29,10 @@ import { useTranslation, Trans, Router } from 'i18n'
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import TranslateIcon from '@material-ui/icons/Translate'
+import { languageMap } from 'constant'
+import { LanguageSlideUpDialog } from '@/setting/Language'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -65,7 +69,8 @@ const SignIn: NextPage = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
-  const [t] = useTranslation()
+  const [open, setOpen] = useState(false)
+  const [t, i18n] = useTranslation()
   let index = router.query.mode === 'cookie' ? 1 : 0
   useEffect(() => {
     cache.clear()
@@ -101,8 +106,18 @@ const SignIn: NextPage = () => {
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Typography variant="h4" component="h6" gutterBottom>
-          EHentaiView
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            EHentaiView
+            <Button startIcon={<TranslateIcon />} onClick={() => setOpen(true)}>
+              {languageMap[i18n.language]}
+            </Button>
+          </Box>
         </Typography>
+
         <Typography component="h1" variant="h5" gutterBottom>
           {t('SignIn')}
         </Typography>
@@ -179,6 +194,7 @@ const SignIn: NextPage = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       </div>
+      <LanguageSlideUpDialog open={open} setOpen={setOpen} />
     </Container>
   )
 }
