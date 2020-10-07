@@ -4,7 +4,7 @@
 
 <h1 align="center">EHentaiView</h1>
 
-english | [中文说明](/translations/zh_CN/README.md) | [ภาษาไทย](./translations/th/README.md) | [한국어](./translations/kr/README.md)
+english | [中文说明](/translations/zh_CN/README.md) | [ภาษาไทย](/translations/th/README.md) | [한국어](/translations/kr/README.md) | [Malay](/translations/ml/README.md)
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
@@ -55,3 +55,4 @@ yarn run dev:app
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
 - [Nicezki](https://github.com/Nicezki) Thai translation
 - [KeepSOBP](https://github.com/KeepSOBP) Kr translation
+- [TeeVenDick](https://github.com/TeeVenDick) Malay translation
