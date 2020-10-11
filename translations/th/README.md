@@ -8,7 +8,7 @@
 
 ยินดีต้อนรับสู่ EhentaiView ซึ่งเป็นเว็บไซต์สำหรับมือถือ(PWA) สำหรับ exhentai.org ที่สร้างด้วย Next.js
 
-**ถ้าเวอร์ชั่นของ Google Chrome >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`** [ดูนี่](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/en/FAQ.md#4-windows-browser-cant-see-pictures)
+**ถ้าเวอร์ชั่นของ Google Chrome >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`** [ดูที่นี่](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/th/FAQ.md#4-เบราว์เซอร์-windows-ไม่สามารถมองเห็นรูปภาพได้)
 
 ## ภาพหน้าจอ
 
@@ -28,16 +28,8 @@
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/login.gif" width="25%" title="เข้าสู่ระบบ"/>
 
-## คำอธิบายเพิ่มเติมสำหรับ IOS
-
-**จำเป็นต้องปิดการป้องกันการติดตามข้ามไซต์**
-
-`การตั้งค่า -> Safari -> ป้องกันการติดตามข้ามไซต์`
-
-<div style="display: flex;">
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/setting.PNG" width="25%" title="การตั้งค่า"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/safari.PNG" width="25%" title="safari"/>
-</div>
+## FAQ
+หากคุณไม่เห็นภาพ โปรดดู [ที่นี่](/translations/th/FAQ.md)
 
 ## การติดตั้ง PWA
 
