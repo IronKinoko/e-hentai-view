@@ -6,7 +6,7 @@
 
 ## 1. IOS ไม่สามารถมองเห็นรูปภาพได้
 
-**จำเป็นต้องปิด `การป้องกันการติดตามข้ามไซต์`**
+**จำเป็นต้องปิด `การป้องกันการติดตามข้ามไซต์` ก่อน**
 
 `การตั้งค่า -> Safari -> ป้องกันการติดตามข้ามไซต์`
 
@@ -15,7 +15,7 @@
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/safari.PNG" width="25%" title="safari"/>
 </div>
 
-## 2. IOS โหมด PWA เมื่อสลับไปหน้าแอปพลิเคชั่นอื่น หลังจากนั้นหน้าเพจก็ค้างไปเลย
+## 2. IOS ในโหมด PWA เมื่อสลับไปหน้าแอปพลิเคชั่นอื่น หลังจากนั้นหน้าเพจก็ค้างไปเลย
 
 นี่เป็นบั๊กที่เกิดขึ้นใน `IOS 13.x` คุณสามารถอัปเกรดเป็น `IOS14` เพื่อแก้ปัญหานี้อย่างสมบูรณ์
 `การตั้งค่า -> ทั่วไป -> การอัปเดตซอฟต์แวร์`
@@ -33,12 +33,12 @@
 หากคุณกำลังใช้เบราว์เซอร์ต่อไปนี้:
 
 - เบราว์เซอร์ Chrome และเป็นเวอร์ชั่น > = 80
-- เบราว์เซอร์ edge แบบใหม่ (เคอร์เนล chrome)
+- เบราว์เซอร์ Edge แบบใหม่ (เคอร์เนล Chrome)
 
 ดำเนินการดังต่อไปนี้:
 
-- คัดลอก [โค้ด JavaScript](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js)
+- คัดลอก [โค้ด JavaScript](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js) นี้
 - ไปที่ [exhentai.org](https://exhentai.org)
 - กดปุ่ม `F12` แล้วคลิกแท็บ `console`
 - วางโค้ดและกด `Enter` เพื่อรันโค้ด
-- กลับไปที่ EhentaiView เพื่อรีเฟรชหน้า และดูรูปภาพได้ตามปกติ
+- กลับไปที่ EhentaiView เพื่อรีเฟรชหน้า ก็จะสามารถดูรูปภาพได้ตามปกติแล้ว
