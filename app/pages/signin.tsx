@@ -4,7 +4,6 @@ import message from 'components/message'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
 import Layout from 'components/Layout'
-import Link from 'components/Link'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import {
   Tabs,
@@ -20,15 +19,20 @@ import {
   Stepper,
   MobileStepper,
   Paper,
+  Link,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import Login from '@/signin/Login'
 import CookieLogin from '@/signin/CookieLogin'
 import { cache } from 'swr'
-import { useTranslation, Trans } from 'i18n'
+import { useTranslation, Trans, Router } from 'i18n'
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import TranslateIcon from '@material-ui/icons/Translate'
+import { languageMap } from 'constant'
+import { LanguageSlideUpDialog } from '@/setting/Language'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -65,7 +69,8 @@ const SignIn: NextPage = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
-  const [t] = useTranslation()
+  const [open, setOpen] = useState(false)
+  const [t, i18n] = useTranslation()
   let index = router.query.mode === 'cookie' ? 1 : 0
   useEffect(() => {
     cache.clear()
@@ -81,7 +86,7 @@ const SignIn: NextPage = () => {
       setLoading(false)
       if (!res.error) {
         message.success(res.message)
-        router.replace('/')
+        Router.replace('/')
       } else {
         message.error(res.message)
       }
@@ -101,8 +106,18 @@ const SignIn: NextPage = () => {
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Typography variant="h4" component="h6" gutterBottom>
-          EHentaiView
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            EHentaiView
+            <Button startIcon={<TranslateIcon />} onClick={() => setOpen(true)}>
+              {languageMap[i18n.language]}
+            </Button>
+          </Box>
         </Typography>
+
         <Typography component="h1" variant="h5" gutterBottom>
           {t('SignIn')}
         </Typography>
@@ -111,7 +126,6 @@ const SignIn: NextPage = () => {
             <Trans i18nKey="SignIn.info">
               Due to browser security restrictions, you must log in to the
               <Link
-                prefetch={false}
                 href="https://forums.e-hentai.org/index.php"
                 target="_blank"
               >
@@ -152,11 +166,7 @@ const SignIn: NextPage = () => {
         {activeStep === 0 ? (
           <Typography variant="subtitle1" gutterBottom>
             {`1. ${t('SignIn')}`}
-            <Link
-              prefetch={false}
-              href="https://forums.e-hentai.org/index.php"
-              target="_blank"
-            >
+            <Link href="https://forums.e-hentai.org/index.php" target="_blank">
               {' e-hentai.org '}
               <OpenInNewIcon fontSize="inherit" />
             </Link>
@@ -164,7 +174,7 @@ const SignIn: NextPage = () => {
         ) : activeStep === 1 ? (
           <Typography variant="subtitle1" gutterBottom>
             {`2. ${t('SignIn')}`}
-            <Link prefetch={false} href="https://exhentai.org" target="_blank">
+            <Link href="https://exhentai.org" target="_blank">
               {' exhentai.org '}
               <OpenInNewIcon fontSize="inherit" />
             </Link>
@@ -184,6 +194,7 @@ const SignIn: NextPage = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       </div>
+      <LanguageSlideUpDialog open={open} setOpen={setOpen} />
     </Container>
   )
 }

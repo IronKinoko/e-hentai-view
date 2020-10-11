@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
 import SearchIcon from '@material-ui/icons/Search'
 import CloseIcon from '@material-ui/icons/Close'
@@ -72,17 +72,17 @@ const Search = () => {
         let gIndex = res.findIndex((v) => v === 'g')
         let gid = res[gIndex + 1]
         let token = res[gIndex + 2]
-        return router.replace('/[gid]/[token]', `/${gid}/${token}`)
+        return Router.replace('/[gid]/[token]', `/${gid}/${token}`)
       }
     } catch (error) {}
-    router.replace('/result?f_search=' + encodeURIComponent(f_search))
+    Router.replace('/result?f_search=' + encodeURIComponent(f_search))
   }
 
   return (
     <>
       <AppBar position="fixed" elevation={1}>
         <Toolbar>
-          <IconButton onClick={() => router.back()} edge="start">
+          <IconButton onClick={() => Router.back()} edge="start">
             <ArrowBackIcon />
           </IconButton>
           <form

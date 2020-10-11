@@ -27,7 +27,7 @@ import {
 import clsx from 'clsx'
 import { useIsmobile } from '@/theme'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
 import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
 
@@ -61,11 +61,11 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
             a.onclick = (e) => {
               e.preventDefault()
               let path = a.href.replace('https://exhentai.org/g', '')
-              router.push('/[gid]/[token]', path)
+              Router.push('/[gid]/[token]', path)
             }
           })
       }
-    }, [router])
+    }, [])
     return (
       <List ref={ref}>
         {commentList.length === 0 ? (
@@ -128,7 +128,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
           <Grid item>
             <IconButton
               onClick={() =>
-                router.push(
+                Router.push(
                   '/[gid]/[token]?showPage=comments',
                   `/${gid}/${token}?showPage=comments`
                 )
@@ -145,7 +145,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
         fullScreen={Boolean(matches)}
         fullWidth={!Boolean(matches)}
         open={showPage === 'comments'}
-        onClose={() => router.back()}
+        onClose={() => Router.back()}
         scroll="paper"
       >
         {matches && (
@@ -154,7 +154,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
               <IconButton
                 edge="start"
                 color="inherit"
-                onClick={() => router.back()}
+                onClick={() => Router.back()}
               >
                 <ArrowBackIcon />
               </IconButton>

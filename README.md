@@ -4,11 +4,11 @@
 
 <h1 align="center">EHentaiView</h1>
 
-english | [中文说明](./README_CHS.md) | [ภาษาไทย](./README_THA.md)
+English | [简体中文](/translations/zh_CN/README.md) | [ภาษาไทย](/translations/th/README.md) | [한국어](/translations/kr/README.md) | [Bahasa Melayu](/translations/ms/README.md)
 
 welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.js.
 
-**If google chrome version >= 84, you need change exhentai.org cookies with `Secure` and `SameSite=None`**
+**If google chrome version >= 84, you need change exhentai.org cookies with `Secure` and `SameSite=None`** [see here](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/en/FAQ.md#4-windows-browser-cant-see-pictures)
 
 ## Screenshot
 
@@ -28,22 +28,15 @@ welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/login.gif" width="25%" title="login"/>
 
-## Additional description of IOS
+## FAQ
 
-**Prevent Cross-Site Tracking needs to be turned off**
-
-`Settings -> Safari -> Prevent Cross-Site Tracking`
-
-<div style="display: flex;">
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/setting.PNG" width="25%" title="settings"/>
-<img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/safari.PNG" width="25%" title="safari"/>
-</div>
+If you can't see the picture, please see [here](/translations/en/FAQ.md)
 
 ## PWA install
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/pwa_install.gif" width="25%" title="pwa install"/>
 
-## development
+## Development
 
 ```shell
 # The first time
@@ -57,12 +50,9 @@ yarn run dev:server
 yarn run dev:app
 ```
 
-## TODO
-
-- [ ] Optimize mobile experience
-- [x] download progress
-- [ ] download error handing
-
 ## Thanks
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
+- [Nicezki](https://github.com/Nicezki) Thai translation
+- [KeepSOBP](https://github.com/KeepSOBP) Kr translation
+- [TeeVenDick](https://github.com/TeeVenDick) Malay translation

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import message from 'components/message'
 import useFocus from 'hooks/useFocus'
 import clsx from 'clsx'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { position: 'relative', overflow: 'hidden' },
@@ -87,7 +87,7 @@ const SearchBar: React.FC<HtmlHTMLAttributes<HTMLDivElement>> = (props) => {
   const onSearch = () => {
     if (search.length < 3 && search.length > 0)
       return message.error(t('Search.Short'), 1500)
-    router.push(`/?f_search=${search}`, undefined, {
+    Router.push(`/?f_search=${search}`, undefined, {
       shallow: true,
     })
   }

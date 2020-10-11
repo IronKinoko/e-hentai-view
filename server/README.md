@@ -1,3 +1,3 @@
-# e-hentai-node
+# EHentaiView Server
 
 This is a server

@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from 'components/Layout'
 import GalleryList from '@/index/GalleryList'
 import { useRouter } from 'next/router'
+import { Router } from 'i18n'
 import { IconButton } from '@material-ui/core'
 import TuneIcon from '@material-ui/icons/Tune'
 import CloseIcon from '@material-ui/icons/Close'
@@ -17,7 +18,7 @@ const Result = () => {
       showBack
       tool={
         <>
-          <IconButton onClick={() => router.push('/search')}>
+          <IconButton onClick={() => Router.push('/search')}>
             <CloseIcon />
           </IconButton>
           <IconButton edge="end">

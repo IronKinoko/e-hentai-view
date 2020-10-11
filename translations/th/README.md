@@ -4,11 +4,11 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](./README.md) | [中文说明](./README_CHS.md) | ภาษาไทย
+[English](/README.md) | ภาษาไทย
 
 ยินดีต้อนรับสู่ EhentaiView ซึ่งเป็นเว็บไซต์สำหรับมือถือ(PWA) สำหรับ exhentai.org ที่สร้างด้วย Next.js
 
-**ถ้าเวอร์ชั่นของ Google Chrome  >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`**
+**ถ้าเวอร์ชั่นของ Google Chrome >= 84, คุณต้องเปลี่ยนแปลงคุกกี้ exhentai.org ให้เป็น `Secure` และ `SameSite=None`** [ดูนี่](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/en/FAQ.md#4-windows-browser-cant-see-pictures)
 
 ## ภาพหน้าจอ
 
@@ -57,12 +57,7 @@ yarn run dev:server
 yarn run dev:app
 ```
 
-## สิ่งที่ต้องทำ
-
-- [ ] เพิ่มประสิทธิภาพประสบการณ์ใช้งานในมือถือ
-- [x] แถบความคืบหน้าการดาวน์โหลด
-- [ ] การจัดการข้อผิดพลาดของการดาวน์โหลด
-
 ## ขอขอบคุณ
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
+- [Nicezki](https://github.com/Nicezki) แปลภาษาไทย

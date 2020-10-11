@@ -21,14 +21,14 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import Logout from '@/setting/Logout'
 import UserCookie from '@/setting/UserCookie'
 import { useIsmobile } from '@/theme'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 
 const EHSetting = () => {
   const router = useRouter()
   const matches = useIsmobile()
   const [t] = useTranslation()
-  const goEhConfig = () => router.push('/settings/ehconfig')
-  const goEhTags = () => router.push('/settings/ehtags')
+  const goEhConfig = () => Router.push('/settings/ehconfig')
+  const goEhTags = () => Router.push('/settings/ehtags')
   return (
     <Layout title="EH" showBack noContainer={Boolean(matches)}>
       <List>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from 'next/router'
+import { Router } from 'i18n'
 import Head from 'next/head'
 import {
   Divider,

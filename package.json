@@ -1,7 +1,7 @@
 {
   "name": "e-hentai-view",
   "productName": "EhentaiView",
-  "version": "3.7.2",
+  "version": "3.9.5",
   "main": "server/src/app.js",
   "license": "MIT",
   "homepage": "https://exhentai.appspot.com",
@@ -87,7 +87,7 @@
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "next": "^9.5.2",
-    "next-i18next": "^4.5.0",
+    "next-i18next": "^6.0.2",
     "next-offline": "^5.0.2",
     "node-cache": "^5.1.2",
     "nprogress": "^0.2.0",

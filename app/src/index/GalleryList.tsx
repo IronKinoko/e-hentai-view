@@ -9,7 +9,7 @@ import useSWR, { useSWRPages, cache } from 'swr'
 import { axios } from 'apis'
 import { GalleriesPage } from 'interface/gallery'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 export const useStyles = makeStyles((theme) =>
   createStyles({
     searchButton: { marginLeft: theme.spacing(1) },
@@ -61,7 +61,7 @@ const GalleryList: React.FC<{ f_search?: string }> = ({ f_search = '' }) => {
         return new Array(25).fill(0).map((_, k) => <LoadingCard key={k} />)
       if (data && data.error) {
         message.error(data.message!)
-        router.replace('/signin')
+        Router.replace('/signin')
         return []
       }
       if (data.total === 0) return []

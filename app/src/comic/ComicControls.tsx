@@ -18,6 +18,7 @@ import { EVENT_TOGGLE_CONTROLS, EVENT_JUMP_PAGE } from 'constant'
 import { useComicConfigState } from './ComicConfig'
 import SlideUpDialog from 'components/SlideUpDialog'
 import ComicSettings from './ComicSettings'
+import { Router } from 'i18n'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: { flex: 1 },
@@ -53,7 +54,7 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
     const gid = router.query.gid as string
     const token = router.query.token as string
 
-    router.replace(
+    Router.replace(
       `/[gid]/[token]/read?current=${currentPage}`,
       `/${gid}/${token}/read?current=${currentPage}`
     )
@@ -81,7 +82,7 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
 
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton edge="start" onClick={() => router.back()}>
+          <IconButton edge="start" onClick={() => Router.back()}>
             <ArrowBackIcon />
           </IconButton>
 

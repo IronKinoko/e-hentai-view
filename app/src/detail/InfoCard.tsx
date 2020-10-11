@@ -37,7 +37,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import Link from 'components/Link'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
 import moment from 'moment'
 const useStyles = makeStyles((theme: Theme) =>
@@ -71,7 +71,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   const showPage = router.query.showPage as string
 
   const open = () =>
-    router.push(
+    Router.push(
       '/[gid]/[token]?showPage=info',
       `/${record!.gid}/${record!.token}?showPage=info`
     )
@@ -92,7 +92,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
         fullScreen={Boolean(matches)}
         fullWidth={!Boolean(matches)}
         open={showPage === 'info'}
-        onClose={() => router.back()}
+        onClose={() => Router.back()}
         scroll="paper"
       >
         {matches && (
@@ -101,7 +101,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
               <IconButton
                 edge="start"
                 color="inherit"
-                onClick={() => router.back()}
+                onClick={() => Router.back()}
               >
                 <ArrowBackIcon />
               </IconButton>

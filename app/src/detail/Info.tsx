@@ -30,7 +30,7 @@ import { axios } from 'apis'
 import FavIconButton from './FavIconButton'
 import TorrentIconButton from './TorrentIconButton'
 import ColorChip from 'components/ColorChip'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import { useIsmobile } from '@/theme'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
@@ -169,7 +169,7 @@ const Info: React.FC<InfoProps> = ({ info, tagList }) => {
               <IconButton
                 color="primary"
                 onClick={() =>
-                  router.push(
+                  Router.push(
                     '/[gid]/[token]/download',
                     `/${info.gid}/${info.token}/download`
                   )
@@ -280,7 +280,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                   variant="contained"
                   className={classes.btn}
                   onClick={() => {
-                    router.push(
+                    Router.push(
                       '/[gid]/[token]/read',
                       `/${info.gid}/${info.token}/read`
                     )

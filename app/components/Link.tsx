@@ -1,10 +1,7 @@
 import * as React from 'react'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import NextLink, { LinkProps as NextLinkProps } from 'next/link'
+import { LinkProps as NextLinkProps } from 'next/link'
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-
+import { Link as NextLink } from 'i18n'
 type NextComposedProps = Omit<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
   'href'

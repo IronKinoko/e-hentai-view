@@ -15,7 +15,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import SettingsIcon from '@material-ui/icons/Settings'
 import InfoIcon from '@material-ui/icons/Info'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'i18n'
+import { useTranslation, Router } from 'i18n'
 import { useIsmobile } from '@/theme'
 
 const menu = [
@@ -32,11 +32,11 @@ const Setting = () => {
     <Layout title={t('Settings')} showBack noContainer={Boolean(matches)}>
       <List>
         {menu.map((o) => (
-          <ListItem button key={o.path} onClick={() => router.push(o.path)}>
+          <ListItem button key={o.path} onClick={() => Router.push(o.path)}>
             <ListItemIcon>{o.icon}</ListItemIcon>
             <ListItemText primary={t(o.name)} />
             <ListItemSecondaryAction>
-              <IconButton onClick={() => router.push(o.path)}>
+              <IconButton onClick={() => Router.push(o.path)}>
                 <ArrowRightIcon />
               </IconButton>
             </ListItemSecondaryAction>
