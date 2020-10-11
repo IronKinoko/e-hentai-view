@@ -4,7 +4,8 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](/README.md) | 한국어
+[English](/README.md) | [简体中文](/translations/zh_CN/README.md) | [ภาษาไทย](/translations/th/README.md) | 한국어 | [Bahasa Melayu](/translations/ms/README.md)
+
 
 EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PWA) 웹 사이트이며, Next.js로 빌드 하였습니다.
 
@@ -39,7 +40,7 @@ EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PW
 ## 개발
 
 ```shell
-# 첫 사용
+# The first time
 # npm
 npm install
 npm run dev:server
@@ -54,4 +55,6 @@ yarn run dev:app
 ## Thanks
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
+- [Nicezki](https://github.com/Nicezki) 태국어 번역 제공
 - [KeepSOBP](https://github.com/KeepSOBP) 한국어 번역 제공
+- [TeeVenDick](https://github.com/TeeVenDick) 말레이어 번역 제공
