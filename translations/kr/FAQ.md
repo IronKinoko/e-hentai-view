@@ -41,5 +41,5 @@
 - [JavaScript 코드](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js)를 복사해주세요.
 - [exhentai.org](https://exhentai.org)에 접속해주세요.
 - `F12`를 누르고 `console` 탭을 눌러주세요.
-- 코드를 눌러주시고 `엔터`를 눌러주세요.
+- 코드를 복사 해주시고 `엔터`를 눌러주세요.
 - EhentaiView로 돌아와주시고 새로고침을 하시면 정상적으로 됩니다.
