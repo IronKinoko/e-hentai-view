@@ -4,6 +4,8 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
+  Select,
+  MenuItem,
 } from '@material-ui/core'
 import { useTranslation } from 'i18n'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
@@ -15,10 +17,13 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
   const [t] = useTranslation()
   const [config, setConfig] = useComicConfigState()
 
-  const handleToggleButton = (_: any, v: ComicConfigProps['direction']) => {
+  const handleToggleButton = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
     setConfig((t) => {
-      if (!v) return t
-      t.direction = v
+      const direction = event.target.value as ComicConfigProps['direction']
+      console.log(direction)
+      t.direction = direction
       return { ...t }
     })
     onChange?.()
@@ -29,15 +34,15 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
         <ListItem>
           <ListItemText>{t('Direction')}</ListItemText>
           <ListItemSecondaryAction>
-            <ToggleButtonGroup
+            <Select
               value={config.direction}
               onChange={handleToggleButton}
-              exclusive
+              disableUnderline
             >
-              <ToggleButton value="ltr">{t('LTR')}</ToggleButton>
-              <ToggleButton value="rtl">{t('RTL')}</ToggleButton>
-              <ToggleButton value="vertical">{t('Vertical')}</ToggleButton>
-            </ToggleButtonGroup>
+              <MenuItem value="ltr">{t('LTR')}</MenuItem>
+              <MenuItem value="rtl">{t('RTL')}</MenuItem>
+              <MenuItem value="vertical">{t('Vertical')}</MenuItem>
+            </Select>
           </ListItemSecondaryAction>
         </ListItem>
       </List>

@@ -37,7 +37,11 @@ const TagList: React.FC<Pick<Detailpage, 'tagList'>> = ({ tagList }) => {
               <td>
                 <div>
                   {o.tags.map((v) => (
-                    <Tooltip key={v.name} title={v.intro} arrow>
+                    <Tooltip
+                      key={v.name}
+                      title={i18n.language === 'zh' ? v.intro : ''}
+                      arrow
+                    >
                       <Chip
                         label={trans(v, 'name')}
                         size="small"

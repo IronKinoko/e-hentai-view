@@ -47,7 +47,8 @@ const ComicHorizontalList: React.FC<{
   useEffect(() => {
     if (swiperController) {
       if (defaultCurrent === -1) {
-        return swiperController.slideTo(data?.current || 0, 0)
+        swiperController.slideTo(data?.current || 0, 0)
+        return () => {}
       }
       swiperController.slideTo(defaultCurrent, 0)
       mutate(comicPagesKey, (data: ComicListDataSourceProps) => ({
@@ -63,7 +64,6 @@ const ComicHorizontalList: React.FC<{
         document.removeEventListener(EVENT_JUMP_PAGE, fn)
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comicPagesKey, swiperController, defaultCurrent])
 
