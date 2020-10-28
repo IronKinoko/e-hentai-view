@@ -67,7 +67,7 @@ const useMobileStyles = makeStyles((theme: Theme) =>
       display: 'inline-block',
       fontWeight: 'bold',
       padding: '1px 4px',
-      margin: '0 2px 0 2px',
+      margin: '0 2px 5px 2px',
       borderRadius: 5,
       border:
         theme.palette.type === 'dark' ? '1px solid #989898' : '1px solid #ddd',
