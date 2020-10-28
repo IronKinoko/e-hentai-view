@@ -80,5 +80,9 @@
   "Direction": "방향",
   "Vertical": "상하",
   "LTR": "좌우",
-  "RTL": "우좌"
+  "RTL": "우좌",
+  "ShowTag": "Show Gallery Tag",
+  "ShowTag.Watched": "Only Watched",
+  "ShowTag.All": "All",
+  "ShowTag.Hidden": "Hidden"
 }

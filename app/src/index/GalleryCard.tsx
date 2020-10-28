@@ -5,14 +5,8 @@ import {
   CardContent,
   Grid,
   Typography,
-  useMediaQuery,
 } from '@material-ui/core'
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  useTheme,
-} from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'components/Link'
 import LoadMedia from 'components/LoadMedia'
@@ -27,6 +21,8 @@ import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 import { LOCAL_HISTORY } from 'constant'
 import { uniqBy } from 'lodash'
 import moment from 'moment'
+import useGalleryConfig from 'hooks/useGalleryConfig'
+import { Router } from 'i18n'
 function storageHistory(record: IndexListItemPorps) {
   const his = JSON.parse(
     localStorage.getItem(LOCAL_HISTORY) || '[]'
@@ -42,7 +38,7 @@ function storageHistory(record: IndexListItemPorps) {
 
 const useMobileStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: { height: 136 },
+    root: { minHeight: 136 },
     img: {
       width: 95,
       height: 136,
@@ -61,6 +57,28 @@ const useMobileStyles = makeStyles((theme: Theme) =>
     },
     gutterBottom: { marginBottom: theme.spacing(0.5) },
     content: { padding: theme.spacing(1) },
+    tagContent: {
+      margin: theme.spacing(1),
+      padding: 0,
+      overflow: 'hidden',
+      height: 19,
+    },
+    tag: {
+      display: 'inline-block',
+      fontWeight: 'bold',
+      padding: '1px 4px',
+      margin: '0 2px 0 2px',
+      borderRadius: 5,
+      border:
+        theme.palette.type === 'dark' ? '1px solid #989898' : '1px solid #ddd',
+      background: theme.palette.type === 'dark' ? '#4f535b' : '',
+      color: theme.palette.type === 'dark' ? '#ddd' : '#666',
+    },
+    watched: {
+      color: theme.palette.type === 'dark' ? '#f1f1f1' : '#fff',
+      borderColor: '#1357df',
+      background: 'radial-gradient(#1357df,#3377FF)',
+    },
   })
 )
 export const MobileLoadingCard = () => {
@@ -100,9 +118,12 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
   const classes = useMobileStyles()
-
+  const [config] = useGalleryConfig()
   const [inview, ref] = useInViewportWithDistance(600)
-
+  const showTag =
+    config.showTag === 'watched'
+      ? /\/?watched/.test(Router.pathname)
+      : config.showTag
   return (
     <Card className={classes.root} ref={ref}>
       {inview && (
@@ -185,6 +206,19 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                 </div>
               </Grid>
             </Grid>
+            {showTag && record.tags?.length && (
+              <ul className={classes.tagContent}>
+                {record.tags.map((o) => (
+                  <li
+                    className={clsx(classes.tag, {
+                      [classes.watched]: o.watched,
+                    })}
+                  >
+                    {o.tagName}
+                  </li>
+                ))}
+              </ul>
+            )}
           </CardActionArea>
         </Link>
       )}

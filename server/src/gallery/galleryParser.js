@@ -47,6 +47,16 @@ function parseGalleryList(document, mode) {
         const thumb =
           tr.querySelector('.glthumb img').getAttribute('data-src') ||
           tr.querySelector('.glthumb img').getAttribute('src')
+
+        const tags = Array.from(tr.querySelectorAll('.gl3c a div div')).map(
+          (tagRow) => {
+            const watched = tagRow.hasAttribute('style')
+            const title = tagRow.textContent
+            const [namespace, tagName] = tagRow.getAttribute('title').split(':')
+            return { watched, title, namespace, tagName }
+          }
+        )
+
         res.push({
           gid,
           token,
@@ -57,6 +67,7 @@ function parseGalleryList(document, mode) {
           uploader,
           filecount,
           thumb,
+          tags,
         })
       } catch (e) {
         console.error(e)

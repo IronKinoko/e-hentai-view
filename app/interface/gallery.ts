@@ -10,6 +10,13 @@ export enum Category {
   'Asian_Porn' = 'Asian_Porn',
   'Misc' = 'Misc',
 }
+
+interface IndexListTagProps {
+  watched: boolean
+  title: string
+  namespace: string
+  tagName: string
+}
 export interface IndexListItemPorps {
   gid: string
   token: string
@@ -26,7 +33,7 @@ export interface IndexListItemPorps {
   rating: string
   language: string
   torrentcount: string
-  tags: string[]
+  tags: IndexListTagProps[]
   url: string
   path: string
   rating_count: string

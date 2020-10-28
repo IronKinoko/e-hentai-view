@@ -6,6 +6,8 @@ export const EVENT_TOGGLE_CONTROLS = 'toggle_controls'
 export const EVENT_LOAD_MORE_PAGE = 'load_more_page'
 export const EVENT_JUMP_PAGE = 'jump_page'
 
+export const GALLERY_CONFIG = 'gallery_config'
+
 export const languageMap: { [k: string]: string } = {
   en: 'English',
   zh: '简体中文',

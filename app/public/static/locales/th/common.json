@@ -80,5 +80,9 @@
   "Direction": "ทิศทาง",
   "Vertical": "แนวตั้ง",
   "LTR": "LTR",
-  "RTL": "RTL"
+  "RTL": "RTL",
+  "ShowTag": "Show Gallery Tag",
+  "ShowTag.Watched": "Only Watched",
+  "ShowTag.All": "All",
+  "ShowTag.Hidden": "Hidden"
 }
