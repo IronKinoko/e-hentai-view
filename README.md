@@ -54,5 +54,5 @@ yarn run dev:app
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
 - [Nicezki](https://github.com/Nicezki) Thai translation
-- [KeepSOBP](https://github.com/KeepSOBP) Kr translation
+- [KeepSOBP](https://github.com/KeepSOBP) Korean translation
 - [TeeVenDick](https://github.com/TeeVenDick) Malay translation
