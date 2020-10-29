@@ -34,6 +34,8 @@ import { useTranslation, Router } from 'i18n'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import { useIsmobile } from '@/theme'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import useComicReadPageHistory from 'hooks/useComicReadPageHistory'
+import { isNil } from 'lodash'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -245,6 +247,8 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
   const router = useRouter()
   const [t] = useTranslation()
   const [open, setOpen] = useState(false)
+  const [comicReadPageHistory] = useComicReadPageHistory()
+  const latestReadPage = comicReadPageHistory[`/${info.gid}/${info.token}/read`]
   return (
     <>
       <div className={classes.root}>
@@ -281,12 +285,18 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                   className={classes.btn}
                   onClick={() => {
                     Router.push(
-                      '/[gid]/[token]/read',
-                      `/${info.gid}/${info.token}/read`
+                      latestReadPage
+                        ? `/[gid]/[token]/read?current=${latestReadPage}`
+                        : '/[gid]/[token]/read',
+                      latestReadPage
+                        ? `/${info.gid}/${info.token}/read?current=${latestReadPage}`
+                        : `/${info.gid}/${info.token}/read`
                     )
                   }}
                 >
-                  {t('Read')}
+                  {`${t('Read')}${
+                    isNil(latestReadPage) ? '' : ` ${latestReadPage}p`
+                  }`}
                 </Button>
               </Fade>
             </Grid>

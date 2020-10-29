@@ -69,7 +69,6 @@ const Detail: NextPage = () => {
   const router = useRouter()
   const gid = router.query.gid as string
   const token = router.query.token as string
-
   const [t] = useTranslation()
 
   const { data } = useGallery({ url: `/${gid}/${token}` })

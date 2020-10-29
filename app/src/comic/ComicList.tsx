@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
 const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
   comicUrl,
   defaultCurrent,
