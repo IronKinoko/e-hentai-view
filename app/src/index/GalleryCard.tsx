@@ -76,8 +76,8 @@ const useMobileStyles = makeStyles((theme: Theme) =>
     },
     watched: {
       color: theme.palette.type === 'dark' ? '#f1f1f1' : '#fff',
-      borderColor: '#1357df',
-      background: 'radial-gradient(#1357df,#3377FF)',
+      borderColor: fade('#1357df', 0.9),
+      background: fade('#1357df', 0.9),
     },
   })
 )
@@ -206,7 +206,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                 </div>
               </Grid>
             </Grid>
-            {showTag && record.tags?.length && (
+            {showTag && record.tags?.length > 0 && (
               <ul className={classes.tagContent}>
                 {record.tags.map((o) => (
                   <li
