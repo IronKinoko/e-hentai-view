@@ -23,7 +23,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useRouter } from 'next/router'
 import LoadingIconButton from 'components/LoadingButton'
 import useTorrent from 'hooks/useTorrent'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
   info,
@@ -104,7 +104,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
                     >
                       <Grid item>
                         {t('G.Torrent.Added')}:{' '}
-                        {moment(o.posted).format('YYYY-MM-DD HH:mm')}
+                        {dayjs(o.posted).format('YYYY-MM-DD HH:mm')}
                       </Grid>
                       <Grid item>
                         {t('G.Torrent.Size')}: {o.size}

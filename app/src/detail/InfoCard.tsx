@@ -39,7 +39,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import Link from 'components/Link'
 import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
-import moment from 'moment'
+import dayjs from 'dayjs'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     chip: {
@@ -210,7 +210,7 @@ const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
           justify="flex-end"
           style={{ textAlign: 'right' }}
         >
-          {moment.utc(record.posted).format('YYYY-MM-DD HH:mm')}
+          {dayjs(record.posted).format('YYYY-MM-DD HH:mm')}
         </Grid>
       </Grid>
     </>
@@ -238,7 +238,7 @@ const DesktopInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
         <tbody>
           <tr>
             <td>{t('G.GalleryInfo.posted')}:</td>
-            <td>{moment(record.posted).format('YYYY-MM-DD HH:mm')}</td>
+            <td>{dayjs(record.posted).format('YYYY-MM-DD HH:mm')}</td>
           </tr>
           <tr>
             <td>{t('G.GalleryInfo.filesize')}:</td>

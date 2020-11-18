@@ -30,6 +30,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
 import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+import dayjs from 'dayjs'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -88,7 +89,9 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
                 primary={
                   <Grid container justify="space-between">
                     <Typography component="span">{o.userName}</Typography>
-                    <Typography component="span">{o.time}</Typography>
+                    <Typography component="span">
+                      {dayjs(o.time).format('YYYY-MM-DD HH:mm')}
+                    </Typography>
                   </Grid>
                 }
                 secondary={

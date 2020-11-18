@@ -6,14 +6,11 @@ import { AppProps } from 'next/app'
 import ThemeProvider from 'src/theme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { Router } from 'i18n'
-import moment from 'moment'
 import { SWRConfig } from 'swr'
 import { i18n, appWithTranslation } from 'i18n'
 import useIsIosStandalone from 'hooks/useIsIosStandalone'
-import 'swiper/swiper-bundle.min.css'
 import ComicConfig from '@/comic/ComicConfig'
 
-moment.locale('zh-cn')
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
   console.log(url)

@@ -12,6 +12,7 @@ import ComicControls from './ComicControls'
 import useComicData from 'hooks/useComicData'
 import { useComicConfigState } from './ComicConfig'
 import clsx from 'clsx'
+import 'swiper/swiper-bundle.min.css'
 
 SwiperCore.use([Controller, Virtual])
 
