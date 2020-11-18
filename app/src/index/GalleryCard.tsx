@@ -20,7 +20,7 @@ import { useInViewport } from '@umijs/hooks'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 import { LOCAL_HISTORY } from 'constant'
 import { uniqBy } from 'lodash'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import useGalleryConfig from 'hooks/useGalleryConfig'
 import { Router } from 'i18n'
 function storageHistory(record: IndexListItemPorps) {
@@ -201,7 +201,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                           color="textPrimary"
                           component="span"
                         >
-                          {moment(record.posted).format('YYYY-MM-DD HH:mm')}
+                          {dayjs(record.posted).format('YYYY-MM-DD HH:mm')}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -298,7 +298,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
                   color="textPrimary"
                   component="span"
                 >
-                  {moment(record.posted).format('YYYY-MM-DD HH:mm')}
+                  {dayjs(record.posted).format('YYYY-MM-DD HH:mm')}
                 </Typography>
               </Grid>
               <Grid item>

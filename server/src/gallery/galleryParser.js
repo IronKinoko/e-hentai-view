@@ -1,5 +1,5 @@
 const { uniq } = require('lodash')
-const moment = require('moment')
+const dayjs = require('dayjs')
 const { GalleryMode } = require('../constant')
 
 /**
@@ -24,9 +24,9 @@ function parseGalleryList(document, mode) {
       try {
         const title = tr.querySelector('.glink').textContent
         const category = tr.querySelector('.cn').textContent
-        const posted =
-          moment.utc(tr.querySelector('[id^=posted_]').textContent).unix() *
-          1000
+        const posted = dayjs(tr.querySelector('[id^=posted_]').textContent, {
+          utc: true,
+        }).valueOf()
 
         const rating = _parseRating(
           tr.querySelector('.ir').getAttribute('style')
@@ -147,7 +147,7 @@ function parseDetailPageCommentList(document) {
     const [, time, name] = c3.textContent
       ? c3.textContent.match(/Posted on (.*?)by:(.*)/).map((v) => v.trim())
       : []
-    res.time = moment(new Date(time)).format('YYYY-MM-DD HH:mm')
+    res.time = dayjs(time + 'Z', { utc: true }).valueOf()
     res.userName = name
     res.score = c5 ? c5.textContent : ''
 
@@ -197,12 +197,10 @@ function parseDetailPageInfo(document, html) {
   const title = document.querySelector('#gn').textContent
   const title_jpn = document.querySelector('#gj').textContent || title
   const uploader = document.querySelector('#gdn a').textContent
-  const posted =
-    moment
-      .utc(
-        document.querySelector('#gdd table tr:nth-of-type(1) .gdt2').textContent
-      )
-      .unix() * 1000
+  const posted = dayjs(
+    document.querySelector('#gdd table tr:nth-of-type(1) .gdt2').textContent,
+    { utc: true }
+  ).valueOf()
   const language = document
     .querySelector('#gdd table tr:nth-of-type(4) .gdt2')
     .textContent.trim()
@@ -264,7 +262,7 @@ function parseTorrentList(document) {
             const [key, value] = getKV(str)
 
             if (key.toLowerCase() === 'posted') {
-              info[key.toLowerCase()] = moment.utc(value).unix() * 1000
+              info[key.toLowerCase()] = dayjs(value, { utc: true }).valueOf()
             } else info[key.toLowerCase()] = value
           }
         })

@@ -11,7 +11,7 @@ const {
   parseTorrentList,
 } = require('./galleryParser')
 const JSDOM = require('jsdom').JSDOM
-const moment = require('moment')
+const dayjs = require('dayjs')
 const filesize = require('filesize')
 const translated = require('../utils/translated')
 const { chunk } = require('lodash')
@@ -41,7 +41,7 @@ async function gdata(gidlist, cookies) {
       res.data.gmetadata.forEach((o) => {
         if (o.error)
           throw new Error('[404]Key missing, or incorrect key provided.')
-        o.time = moment(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
+        o.time = dayjs(+o.posted * 1000).format('YYYY-MM-DD HH:mm')
         o.title_jpn = o.title_jpn || o.title
         o.category = o.category.replace(/\s/, '_')
         o.filesize = filesize(+o.filesize)
@@ -50,7 +50,7 @@ async function gdata(gidlist, cookies) {
         o.torrents.forEach((v) => {
           v.fsize = filesize(v.fsize)
           v.tsize = filesize(v.tsize)
-          v.added = moment(+v.added * 1000).format('YYYY-MM-DD HH:mm')
+          v.added = dayjs(+v.added * 1000).format('YYYY-MM-DD HH:mm')
         })
       })
       return res.data.gmetadata

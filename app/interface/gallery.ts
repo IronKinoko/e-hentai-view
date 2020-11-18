@@ -26,7 +26,7 @@ export interface IndexListItemPorps {
   category: Category
   thumb: string
   uploader: string
-  posted: string
+  posted: number
   filecount: string
   filesize: string
   expunged: boolean
@@ -59,7 +59,7 @@ export interface DetailPageListItemProps {
   aspectratio: number
 }
 export interface commentListItemProps {
-  time: string
+  time: number
   userName: string
   comment: string
   score: string
