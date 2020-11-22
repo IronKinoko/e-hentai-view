@@ -12,9 +12,10 @@ import {
   Grid,
   IconButton,
   Tooltip,
-  Slide,
-  ClickAwayListener,
-  Fade,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
 } from '@material-ui/core'
 import { Skeleton } from '@material-ui/lab'
 import LoadMedia from 'components/LoadMedia'
@@ -246,9 +247,18 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
   const classes = useStylesMobile()
   const router = useRouter()
   const [t] = useTranslation()
-  const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [comicReadPageHistory] = useComicReadPageHistory()
   const latestReadPage = comicReadPageHistory[`/${info.gid}/${info.token}/read`]
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
   return (
     <>
       <div className={classes.root}>
@@ -277,59 +287,53 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
             className={classes.oneline}
           >
             <Grid item>
-              <Fade in={!open}>
-                <Button
-                  disableElevation
-                  color="primary"
-                  variant="contained"
-                  className={classes.btn}
-                  onClick={() => {
-                    Router.push(
-                      latestReadPage
-                        ? `/[gid]/[token]/read?current=${latestReadPage}`
-                        : '/[gid]/[token]/read',
-                      latestReadPage
-                        ? `/${info.gid}/${info.token}/read?current=${latestReadPage}`
-                        : `/${info.gid}/${info.token}/read`
-                    )
-                  }}
-                >
-                  {`${t('Read')}${
-                    isNil(latestReadPage) ? '' : ` ${latestReadPage}p`
-                  }`}
-                </Button>
-              </Fade>
+              <Button
+                disableElevation
+                color="primary"
+                variant="contained"
+                className={classes.btn}
+                onClick={() => {
+                  Router.push(
+                    latestReadPage
+                      ? `/[gid]/[token]/read?current=${latestReadPage}`
+                      : '/[gid]/[token]/read',
+                    latestReadPage
+                      ? `/${info.gid}/${info.token}/read?current=${latestReadPage}`
+                      : `/${info.gid}/${info.token}/read`
+                  )
+                }}
+              >
+                {`${t('Read')}${
+                  isNil(latestReadPage) ? '' : ` ${latestReadPage}p`
+                }`}
+              </Button>
             </Grid>
-            <ClickAwayListener onClickAway={() => setOpen(false)}>
-              <Grid item>
-                <Fade in={!open} mountOnEnter>
-                  <IconButton
-                    onClick={() => setOpen(!open)}
-                    className={classes.more}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                </Fade>
-                <Fade in={open}>
-                  <div className={classes.more}>
-                    {/* <TorrentIconButton info={info} /> */}
-                    <FavIconButton info={info} />
-                    <Tooltip title={t('OpenEH') as string}>
-                      <Link
-                        underline="none"
-                        href={info.url}
-                        prefetch={false}
-                        target="_blank"
-                      >
-                        <IconButton color="primary">
-                          <OpenInNewIcon />
-                        </IconButton>
-                      </Link>
-                    </Tooltip>
-                  </div>
-                </Fade>
-              </Grid>
-            </ClickAwayListener>
+            <Grid item>
+              <IconButton
+                onClick={handleClick}
+                aria-controls="action-menu"
+                aria-haspopup="true"
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                id="action-menu"
+                open={Boolean(anchorEl)}
+                keepMounted
+                onClose={handleClose}
+              >
+                <FavIconButton info={info} inMenu onClick={handleClose} />
+                <a href={info.url} target="_blank">
+                  <MenuItem onClick={handleClose}>
+                    <ListItemIcon color="primary">
+                      <OpenInNewIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t('OpenEH') as string} />
+                  </MenuItem>
+                </a>
+              </Menu>
+            </Grid>
           </Grid>
         </Grid>
       </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { useInViewport } from '@umijs/hooks'
 import {
   Button,
   Grid,
@@ -13,12 +12,8 @@ import { PageListProps, DetailPageListItemProps } from 'interface/gallery'
 import { axios, loadMorePage } from 'apis'
 import LoadMedia from 'components/LoadMedia'
 import { Skeleton, SpeedDial } from '@material-ui/lab'
-import ImgRead from './ImgRead'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import { flatten } from 'lodash'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 import { useTranslation, Router } from 'i18n'
-import { useRouter } from 'next/router'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cover: {
@@ -51,12 +46,6 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
   const [inView, ref] = useInViewportWithDistance(600)
   const [t] = useTranslation()
   const classes = useStyles()
-  const router = useRouter()
-  const [store, setStore] = useState({
-    open: false,
-    index: 0,
-  })
-
   const handleOpen = (k?: number) => {
     if (k)
       Router.push(
@@ -66,14 +55,10 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
     else Router.push('/[gid]/[token]/read', url + '/read')
   }
 
-  const {
-    pages,
-    isEmpty,
-    isLoadingMore,
-    isReachingEnd,
-    pageSWRs,
-    loadMore,
-  } = useSWRPages<number | null, DetailPageListItemProps[]>(
+  const { pages, isLoadingMore, isReachingEnd, loadMore } = useSWRPages<
+    number | null,
+    DetailPageListItemProps[]
+  >(
     url,
     ({ offset, withSWR }) => {
       const page = offset || 0
@@ -121,9 +106,7 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
   useEffect(() => {
     if (inView && !isLoadingMore && !isReachingEnd) loadMore()
   }, [inView, isLoadingMore, isReachingEnd, loadMore])
-  const dataSource = useMemo(() => flatten(pageSWRs.map((o) => o.data || [])), [
-    pageSWRs,
-  ])
+
   return (
     <>
       <Grid container className={classes.container} spacing={2}>
@@ -141,14 +124,6 @@ const PageList: React.FC<PageListProps> = ({ url, initialData, filecount }) => {
           ? t('Loading') + '...'
           : t('More')}
       </Button>
-
-      <SpeedDial
-        ariaLabel="continue"
-        open
-        className={classes.speedDial}
-        onClick={() => handleOpen()}
-        icon={<PlayArrowIcon style={{ color: '#fff' }} />}
-      />
     </>
   )
 }

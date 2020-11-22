@@ -56,19 +56,19 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
         // 监听链接，跳转到自己的详情页
         document
           .querySelectorAll<HTMLAnchorElement>(
-            '.MuiDialog-root a[href^="https://exhentai.org/g"]'
+            '.commnets-list a[href^="https://exhentai.org/g"]'
           )
           .forEach((a) => {
             a.onclick = (e) => {
               e.preventDefault()
-              let path = a.href.replace('https://exhentai.org/g', '')
+              const path = a.href.replace('https://exhentai.org/g', '')
               Router.push('/[gid]/[token]', path)
             }
           })
       }
     }, [])
     return (
-      <List ref={ref}>
+      <List ref={ref} className="commnets-list">
         {commentList.length === 0 ? (
           <Typography
             gutterBottom
