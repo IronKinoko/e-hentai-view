@@ -43,6 +43,10 @@ jobs:
         run: |
           npm install 
           
+      - name: write build time
+        run: |
+          node ./scripts/buildTime.js
+          
       - name: build
         run: |
           npm run build
