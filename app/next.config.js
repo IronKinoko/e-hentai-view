@@ -32,6 +32,7 @@ const nextConfig = {
   },
   env: {
     VERSION: package.version,
+    BUILDTIME: package.buildTime,
   },
 }
 

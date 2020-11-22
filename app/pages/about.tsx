@@ -11,6 +11,7 @@ import {
 import Layout from 'components/Layout'
 import { useIsmobile } from '@/theme'
 import { useTranslation } from 'i18n'
+import dayjs from 'dayjs'
 
 const About = () => {
   const matches = useIsmobile()
@@ -61,7 +62,9 @@ const About = () => {
         <ListItem>
           <ListItemText
             primary={t('About.Version')}
-            secondary={process.env.VERSION}
+            secondary={`${process.env.VERSION}(${dayjs(
+              process.env.BUILDTIME
+            ).format()})`}
             secondaryTypographyProps={{
               component: Link,
               href: 'https://github.com/IronKinoko/e-hentai-view/releases',
