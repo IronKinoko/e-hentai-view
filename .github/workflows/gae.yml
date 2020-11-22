@@ -7,7 +7,7 @@ on:
     paths:
       - 'app/**'
       - 'server/**'
-
+      - '.github/workflows/**'
 jobs:
   setup-build-deploy:
     name: Deploy
