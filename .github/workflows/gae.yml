@@ -19,9 +19,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - name: Set up gcloud Cloud SDK environment
+        uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          version: '290.0.1'
           project_id: ${{ secrets.PROJECT_ID }}
           service_account_key: ${{ secrets.GAE_SA }}
 
@@ -38,10 +38,11 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+
       - name: install
         run: |
-          npm install
-
+          npm install 
+          
       - name: build
         run: |
           npm run build
