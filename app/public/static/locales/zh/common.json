@@ -84,5 +84,6 @@
   "ShowTag": "显示画廊标签",
   "ShowTag.Watched": "仅在订阅中显示",
   "ShowTag.All": "全部显示",
-  "ShowTag.Hidden": "不显示"
+  "ShowTag.Hidden": "不显示",
+  "Similar": "相关画廊"
 }

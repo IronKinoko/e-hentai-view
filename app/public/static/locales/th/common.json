@@ -84,5 +84,6 @@
   "ShowTag": "แสดงแท็กแกลเลอรี",
   "ShowTag.Watched": "เฉพาะที่ติดตาม",
   "ShowTag.All": "ทั้งหมด",
-  "ShowTag.Hidden": "ซ่อน"
+  "ShowTag.Hidden": "ซ่อน",
+  "Similar": "Similar"
 }

@@ -1,42 +1,40 @@
 import React, { useState } from 'react'
-import { IndexListItemPorps, tagListItemProps } from 'interface/gallery'
-import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles'
+import { useIsmobile } from '@/theme'
 import {
-  Card,
-  Hidden,
-  CardContent,
-  Typography,
-  Divider,
-  Box,
   Button,
+  Card,
+  CardContent,
+  Divider,
   Grid,
+  Hidden,
   IconButton,
-  Tooltip,
-  Menu,
-  MenuItem,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
 } from '@material-ui/core'
+import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import PageviewIcon from '@material-ui/icons/PageviewOutlined'
 import { Skeleton } from '@material-ui/lab'
+import clsx from 'clsx'
+import ColorChip from 'components/ColorChip'
+import Link from 'components/Link'
 import LoadMedia from 'components/LoadMedia'
+import SelectTypography from 'components/SelectTypography'
+import useComicReadPageHistory from 'hooks/useComicReadPageHistory'
+import { Router, useTranslation } from 'i18n'
+import { IndexListItemPorps, tagListItemProps } from 'interface/gallery'
+import { isNil } from 'lodash'
+import { useRouter } from 'next/router'
+import FavIconButton from './FavIconButton'
 import InfoCard from './InfoCard'
 import TagList from './TagList'
-import clsx from 'clsx'
-import Link from 'components/Link'
-import SelectTypography from 'components/SelectTypography'
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
-import TorrentIcon from 'components/TorrentIcon'
-import { useRouter } from 'next/router'
-import { axios } from 'apis'
-import FavIconButton from './FavIconButton'
 import TorrentIconButton from './TorrentIconButton'
-import ColorChip from 'components/ColorChip'
-import { useTranslation, Router } from 'i18n'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import { useIsmobile } from '@/theme'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import useComicReadPageHistory from 'hooks/useComicReadPageHistory'
-import { isNil } from 'lodash'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -259,6 +257,13 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
     setAnchorEl(null)
   }
 
+  const handleSimilar = () => {
+    // filter [] () 【】 info
+    const re = /(\([^()]*\))|(\[[^\[\]]*\])|(【[^【】]*】)/g
+    const f_search = info.title.replace(re, '').trim()
+    Router.push('/result?f_search=' + encodeURIComponent(f_search))
+  }
+
   return (
     <>
       <div className={classes.root}>
@@ -324,6 +329,12 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                 onClose={handleClose}
               >
                 <FavIconButton info={info} inMenu onClick={handleClose} />
+                <MenuItem onClick={handleSimilar}>
+                  <ListItemIcon color="primary">
+                    <PageviewIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t('Similar') as string} />
+                </MenuItem>
                 <a href={info.url} target="_blank">
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon color="primary">
