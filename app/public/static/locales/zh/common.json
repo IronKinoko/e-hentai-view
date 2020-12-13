@@ -80,5 +80,10 @@
   "Direction": "阅读方向",
   "Vertical": "从上至下",
   "LTR": "从左至右",
-  "RTL": "从右至左"
+  "RTL": "从右至左",
+  "ShowTag": "显示画廊标签",
+  "ShowTag.Watched": "仅在订阅中显示",
+  "ShowTag.All": "全部显示",
+  "ShowTag.Hidden": "不显示",
+  "Similar": "相关画廊"
 }

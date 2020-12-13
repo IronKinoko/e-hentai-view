@@ -21,9 +21,9 @@ const Result = () => {
           <IconButton onClick={() => Router.push('/search')}>
             <CloseIcon />
           </IconButton>
-          <IconButton edge="end">
+          {/* <IconButton edge="end">
             <TuneIcon />
-          </IconButton>
+          </IconButton> */}
         </>
       }
     >

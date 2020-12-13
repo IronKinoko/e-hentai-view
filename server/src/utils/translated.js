@@ -1,6 +1,12 @@
 const { find } = require('lodash')
 const db = require('./db.text.json')
 
+/**
+ * translate Tag to Chinese
+ *
+ * @param {{namespace: string, tags: {name:string}[]}[]} tagList
+ * @return {{namespace: string, namespace_CHS: string, description: string, tags: {name:string,name_CHS:string, intro:string}[]}[]}
+ */
 function translated(tagList) {
   tagList.forEach((row) => {
     const namespace = find(db.data, { namespace: row.namespace })

@@ -1,39 +1,40 @@
 import React, { useState } from 'react'
-import { IndexListItemPorps, tagListItemProps } from 'interface/gallery'
-import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles'
+import { useIsmobile } from '@/theme'
 import {
-  Card,
-  Hidden,
-  CardContent,
-  Typography,
-  Divider,
-  Box,
   Button,
+  Card,
+  CardContent,
+  Divider,
   Grid,
+  Hidden,
   IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
   Tooltip,
-  Slide,
-  ClickAwayListener,
-  Fade,
+  Typography,
 } from '@material-ui/core'
+import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import PageviewIcon from '@material-ui/icons/PageviewOutlined'
 import { Skeleton } from '@material-ui/lab'
+import clsx from 'clsx'
+import ColorChip from 'components/ColorChip'
+import Link from 'components/Link'
 import LoadMedia from 'components/LoadMedia'
+import SelectTypography from 'components/SelectTypography'
+import useComicReadPageHistory from 'hooks/useComicReadPageHistory'
+import { Router, useTranslation } from 'i18n'
+import { IndexListItemPorps, tagListItemProps } from 'interface/gallery'
+import { isNil } from 'lodash'
+import { useRouter } from 'next/router'
+import FavIconButton from './FavIconButton'
 import InfoCard from './InfoCard'
 import TagList from './TagList'
-import clsx from 'clsx'
-import Link from 'components/Link'
-import SelectTypography from 'components/SelectTypography'
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
-import TorrentIcon from 'components/TorrentIcon'
-import { useRouter } from 'next/router'
-import { axios } from 'apis'
-import FavIconButton from './FavIconButton'
 import TorrentIconButton from './TorrentIconButton'
-import ColorChip from 'components/ColorChip'
-import { useTranslation, Router } from 'i18n'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import { useIsmobile } from '@/theme'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -244,7 +245,25 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
   const classes = useStylesMobile()
   const router = useRouter()
   const [t] = useTranslation()
-  const [open, setOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [comicReadPageHistory] = useComicReadPageHistory()
+  const latestReadPage = comicReadPageHistory[`/${info.gid}/${info.token}/read`]
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleSimilar = () => {
+    // filter [] () 【】 info
+    const re = /(\([^()]*\))|(\[[^\[\]]*\])|(【[^【】]*】)/g
+    const f_search = info.title.replace(re, '').trim()
+    Router.push('/result?f_search=' + encodeURIComponent(f_search))
+  }
+
   return (
     <>
       <div className={classes.root}>
@@ -273,53 +292,59 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
             className={classes.oneline}
           >
             <Grid item>
-              <Fade in={!open}>
-                <Button
-                  disableElevation
-                  color="primary"
-                  variant="contained"
-                  className={classes.btn}
-                  onClick={() => {
-                    Router.push(
-                      '/[gid]/[token]/read',
-                      `/${info.gid}/${info.token}/read`
-                    )
-                  }}
-                >
-                  {t('Read')}
-                </Button>
-              </Fade>
+              <Button
+                disableElevation
+                color="primary"
+                variant="contained"
+                className={classes.btn}
+                onClick={() => {
+                  Router.push(
+                    latestReadPage
+                      ? `/[gid]/[token]/read?current=${latestReadPage}`
+                      : '/[gid]/[token]/read',
+                    latestReadPage
+                      ? `/${info.gid}/${info.token}/read?current=${latestReadPage}`
+                      : `/${info.gid}/${info.token}/read`
+                  )
+                }}
+              >
+                {`${t('Read')}${
+                  isNil(latestReadPage) ? '' : ` ${latestReadPage}p`
+                }`}
+              </Button>
             </Grid>
-            <ClickAwayListener onClickAway={() => setOpen(false)}>
-              <Grid item>
-                <Fade in={!open} mountOnEnter>
-                  <IconButton
-                    onClick={() => setOpen(!open)}
-                    className={classes.more}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                </Fade>
-                <Fade in={open}>
-                  <div className={classes.more}>
-                    {/* <TorrentIconButton info={info} /> */}
-                    <FavIconButton info={info} />
-                    <Tooltip title={t('OpenEH') as string}>
-                      <Link
-                        underline="none"
-                        href={info.url}
-                        prefetch={false}
-                        target="_blank"
-                      >
-                        <IconButton color="primary">
-                          <OpenInNewIcon />
-                        </IconButton>
-                      </Link>
-                    </Tooltip>
-                  </div>
-                </Fade>
-              </Grid>
-            </ClickAwayListener>
+            <Grid item>
+              <IconButton
+                onClick={handleClick}
+                aria-controls="action-menu"
+                aria-haspopup="true"
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                id="action-menu"
+                open={Boolean(anchorEl)}
+                keepMounted
+                onClose={handleClose}
+              >
+                <FavIconButton info={info} inMenu onClick={handleClose} />
+                <MenuItem onClick={handleSimilar}>
+                  <ListItemIcon color="primary">
+                    <PageviewIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={t('Similar') as string} />
+                </MenuItem>
+                <a href={info.url} target="_blank">
+                  <MenuItem onClick={handleClose}>
+                    <ListItemIcon color="primary">
+                      <OpenInNewIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={t('OpenEH') as string} />
+                  </MenuItem>
+                </a>
+              </Menu>
+            </Grid>
           </Grid>
         </Grid>
       </div>

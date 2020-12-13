@@ -30,6 +30,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { useTranslation, Router } from 'i18n'
 import { useRouter } from 'next/router'
 import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+import dayjs from 'dayjs'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,19 +56,19 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
         // 监听链接，跳转到自己的详情页
         document
           .querySelectorAll<HTMLAnchorElement>(
-            '.MuiDialog-root a[href^="https://exhentai.org/g"]'
+            '.commnets-list a[href^="https://exhentai.org/g"]'
           )
           .forEach((a) => {
             a.onclick = (e) => {
               e.preventDefault()
-              let path = a.href.replace('https://exhentai.org/g', '')
+              const path = a.href.replace('https://exhentai.org/g', '')
               Router.push('/[gid]/[token]', path)
             }
           })
       }
     }, [])
     return (
-      <List ref={ref}>
+      <List ref={ref} className="commnets-list">
         {commentList.length === 0 ? (
           <Typography
             gutterBottom
@@ -88,7 +89,9 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
                 primary={
                   <Grid container justify="space-between">
                     <Typography component="span">{o.userName}</Typography>
-                    <Typography component="span">{o.time}</Typography>
+                    <Typography component="span">
+                      {dayjs(o.time).format('YYYY-MM-DD HH:mm')}
+                    </Typography>
                   </Grid>
                 }
                 secondary={

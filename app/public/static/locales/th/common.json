@@ -2,7 +2,7 @@
   "FrontPage": "หน้าหลัก",
   "Watched": "ติดตาม",
   "Popular": "เป็นที่นิยม",
-  "Favorites": "รายการโปรด",
+  "Favorites": "ชื่นชอบ",
   "Histories": "ประวัติ",
   "Setting": "การตั้งค่า",
   "About": "เกี่ยวกับ",
@@ -53,7 +53,7 @@
   "G.Torrent.Added": "เพิ่มเมื่อ",
   "G.Torrent.Size": "ขนาด",
   "G.Torrent.Tsize": "ขนาด Torrent",
-  "G.Favorite.Add": "เพิ่มในรายการโปรด",
+  "G.Favorite.Add": "เพิ่มในรายการที่ชื่นชอบ",
   "EH.User": "ผู้ใช้",
   "EH.Logout": "ออกจากระบบ",
   "EH.Logout.Content": "แน่ใจแล้วใช่ไหม?",
@@ -80,5 +80,10 @@
   "Direction": "ทิศทาง",
   "Vertical": "แนวตั้ง",
   "LTR": "LTR",
-  "RTL": "RTL"
+  "RTL": "RTL",
+  "ShowTag": "แสดงแท็กแกลเลอรี",
+  "ShowTag.Watched": "เฉพาะที่ติดตาม",
+  "ShowTag.All": "ทั้งหมด",
+  "ShowTag.Hidden": "ซ่อน",
+  "Similar": "Similar"
 }

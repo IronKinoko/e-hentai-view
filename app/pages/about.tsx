@@ -11,6 +11,7 @@ import {
 import Layout from 'components/Layout'
 import { useIsmobile } from '@/theme'
 import { useTranslation } from 'i18n'
+import dayjs from 'dayjs'
 
 const About = () => {
   const matches = useIsmobile()
@@ -41,18 +42,34 @@ const About = () => {
             secondary="https://github.com/IronKinoko/e-hentai-view"
             secondaryTypographyProps={{
               component: Link,
-              href: 'https://github.com/IronKinoko/e-hentai-view.git',
+              href: 'https://github.com/IronKinoko/e-hentai-view',
               target: '_blank',
             }}
           />
         </ListItem>
         <ListItem divider>
-          <ListItemText primary={t('About.License')} secondary="MIT" />
+          <ListItemText
+            primary={t('About.License')}
+            secondary="MIT"
+            secondaryTypographyProps={{
+              component: Link,
+              href:
+                'https://github.com/IronKinoko/e-hentai-view/blob/master/LICENSE',
+              target: '_blank',
+            }}
+          />
         </ListItem>
         <ListItem>
           <ListItemText
             primary={t('About.Version')}
-            secondary={process.env.VERSION}
+            secondary={`${process.env.VERSION}(${dayjs(
+              process.env.BUILDTIME
+            ).format()})`}
+            secondaryTypographyProps={{
+              component: Link,
+              href: 'https://github.com/IronKinoko/e-hentai-view/releases',
+              target: '_blank',
+            }}
           />
         </ListItem>
       </List>

@@ -20,6 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(0, 'auto'),
       width: '100%',
       userSelect: 'none',
+      display: 'flex',
+      alignItems: 'center',
     },
     img: { width: '100%' },
     placeholder: {

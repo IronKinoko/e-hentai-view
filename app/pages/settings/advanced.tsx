@@ -7,6 +7,7 @@ import TranslateIcon from '@material-ui/icons/Translate'
 import Language from '@/setting/Language'
 import { NextPage } from 'next'
 import ThemeMode from '@/setting/ThemeMode'
+import TagShow from '@/setting/TagShow'
 const Advanced: NextPage = () => {
   const [t] = useTranslation()
   const matches = useIsmobile()
@@ -15,6 +16,7 @@ const Advanced: NextPage = () => {
       <List>
         <Language />
         <ThemeMode />
+        <TagShow />
       </List>
     </Layout>
   )

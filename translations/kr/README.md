@@ -4,11 +4,12 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](/README.md) | 한국어
+[English](/README.md) | [简体中文](/translations/zh_CN/README.md) | [ภาษาไทย](/translations/th/README.md) | 한국어 | [Bahasa Melayu](/translations/ms/README.md)
 
-EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PWA) 웹 사이트이며, Next.js로 빌드 하였습니다.
 
-**만약 크롬 버전이 84 이상이라면, [스크립트를 이용하여](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/kr/FAQ.md#4-%EC%9C%88%EB%8F%84%EC%9A%B0-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EC%82%AC%EC%A7%84%EC%9D%B4-%EB%B3%B4%EC%9D%B4%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4) exhentai.org의 `Secure`, `SameSite=None` 쿠키를 변경해야 합니다.** 
+EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PWA) 웹 사이트이며, Next.js로 빌드 되었습니다.
+
+**만약 크롬 버전이 84 이상이라면, [스크립트를 이용하여](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/kr/FAQ.md#4-윈도우-브라우저에서-사진이-보이지-않습니다) exhentai.org의 `Secure`, `SameSite=None` 쿠키를 변경해야 합니다.** 
 
 ## 스크린샷
 
@@ -20,7 +21,7 @@ EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PW
 
 ## 사용법
 
-**브라우저에 있는 웹 보안(cors)으로 인하여 exhentai 이미지들을 바로 엑세스할 수 없으므로, 무조건 e-hentai에 로그인을 하셔야 합니다.**
+**브라우저에 있는 웹 보안(cors)으로 인하여 exhentai 이미지들을 바로 엑세스할 수 없으므로, 반드시 e-hentai에 로그인을 하셔야 합니다.**
 
 1. [로그인](https://exhentai.appspot.com/signin)
 2. [e-hentai](https://forums.e-hentai.org/index.php)에 로그인을 안하셨다면, 먼저 [e-hentai](https://forums.e-hentai.org/index.php)에 로그인을 하셔야 합니다.
@@ -39,7 +40,7 @@ EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PW
 ## 개발
 
 ```shell
-# 첫 사용
+# The first time
 # npm
 npm install
 npm run dev:server
@@ -54,4 +55,6 @@ yarn run dev:app
 ## Thanks
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
+- [Nicezki](https://github.com/Nicezki) 태국어 번역 제공
 - [KeepSOBP](https://github.com/KeepSOBP) 한국어 번역 제공
+- [TeeVenDick](https://github.com/TeeVenDick) 말레이어 번역 제공

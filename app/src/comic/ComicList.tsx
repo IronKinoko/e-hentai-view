@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 )
-
 const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
   comicUrl,
   defaultCurrent,
@@ -86,7 +85,9 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
       }
     }
     document.addEventListener('scroll', fn)
-    return () => document.removeEventListener('scroll', fn)
+    return () => {
+      document.removeEventListener('scroll', fn)
+    }
   }, [comicPagesKey])
 
   useEffect(() => {

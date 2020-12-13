@@ -5,14 +5,8 @@ import {
   CardContent,
   Grid,
   Typography,
-  useMediaQuery,
 } from '@material-ui/core'
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  useTheme,
-} from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'components/Link'
 import LoadMedia from 'components/LoadMedia'
@@ -26,7 +20,9 @@ import { useInViewport } from '@umijs/hooks'
 import useInViewportWithDistance from 'hooks/useInViewportWithDistance'
 import { LOCAL_HISTORY } from 'constant'
 import { uniqBy } from 'lodash'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import useGalleryConfig from 'hooks/useGalleryConfig'
+import { Router } from 'i18n'
 function storageHistory(record: IndexListItemPorps) {
   const his = JSON.parse(
     localStorage.getItem(LOCAL_HISTORY) || '[]'
@@ -40,31 +36,56 @@ function storageHistory(record: IndexListItemPorps) {
   )
 }
 
-const useMobileStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: { height: 136 },
-    img: {
-      width: 95,
-      height: 136,
-    },
-    title: {
-      fontSize: '10pt',
-      overflow: 'hidden',
-      WebkitLineClamp: 3,
-      WebkitBoxOrient: 'vertical',
-      textOverflow: 'ellipsis',
-      display: '-webkit-box',
-    },
-    full: {
-      height: '100%',
-      width: '100%',
-    },
-    gutterBottom: { marginBottom: theme.spacing(0.5) },
-    content: { padding: theme.spacing(1) },
-  })
+const useMobileStyles = makeStyles<Theme, { showTag: boolean }>(
+  (theme: Theme) =>
+    createStyles({
+      root: { minHeight: (props) => (props.showTag ? 171 : 136) },
+      img: {
+        width: 95,
+        height: 136,
+      },
+      title: {
+        fontSize: '10pt',
+        overflow: 'hidden',
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
+        textOverflow: 'ellipsis',
+        display: '-webkit-box',
+      },
+      full: {
+        height: '100%',
+        width: '100%',
+      },
+      gutterBottom: { marginBottom: theme.spacing(0.5) },
+      content: { padding: theme.spacing(1) },
+      tagContent: {
+        margin: theme.spacing(1),
+        padding: 0,
+        overflow: 'hidden',
+        height: 19,
+      },
+      tag: {
+        display: 'inline-block',
+        fontWeight: 'bold',
+        padding: '1px 4px',
+        margin: '0 2px 5px 2px',
+        borderRadius: 5,
+        border:
+          theme.palette.type === 'dark'
+            ? '1px solid #989898'
+            : '1px solid #ddd',
+        background: theme.palette.type === 'dark' ? '#4f535b' : '',
+        color: theme.palette.type === 'dark' ? '#ddd' : '#666',
+      },
+      watched: {
+        color: theme.palette.type === 'dark' ? '#f1f1f1' : '#fff',
+        borderColor: fade('#1357df', 0.9),
+        background: fade('#1357df', 0.9),
+      },
+    })
 )
 export const MobileLoadingCard = () => {
-  const classes = useMobileStyles()
+  const classes = useMobileStyles({ showTag: false })
 
   return (
     <Card className={classes.root}>
@@ -99,10 +120,13 @@ export const MobileLoadingCard = () => {
 export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
   record,
 }) => {
-  const classes = useMobileStyles()
-
+  const [config] = useGalleryConfig()
   const [inview, ref] = useInViewportWithDistance(600)
-
+  const showTag =
+    (config.showTag === 'watched'
+      ? /\/?watched/.test(Router.pathname)
+      : config.showTag) && record.tags?.length > 0
+  const classes = useMobileStyles({ showTag })
   return (
     <Card className={classes.root} ref={ref}>
       {inview && (
@@ -177,7 +201,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                           color="textPrimary"
                           component="span"
                         >
-                          {moment(record.posted).format('YYYY-MM-DD HH:mm')}
+                          {dayjs(record.posted).format('YYYY-MM-DD HH:mm')}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -185,6 +209,19 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
                 </div>
               </Grid>
             </Grid>
+            {showTag && (
+              <ul className={classes.tagContent}>
+                {record.tags.map((o) => (
+                  <li
+                    className={clsx(classes.tag, {
+                      [classes.watched]: o.watched,
+                    })}
+                  >
+                    {o.tagName}
+                  </li>
+                ))}
+              </ul>
+            )}
           </CardActionArea>
         </Link>
       )}
@@ -261,7 +298,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
                   color="textPrimary"
                   component="span"
                 >
-                  {moment(record.posted).format('YYYY-MM-DD HH:mm')}
+                  {dayjs(record.posted).format('YYYY-MM-DD HH:mm')}
                 </Typography>
               </Grid>
               <Grid item>

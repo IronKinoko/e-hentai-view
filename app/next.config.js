@@ -10,10 +10,6 @@ const nextConfig = {
   // target: 'serverless',
   // assetPrefix: isProd ? (isVercel ? '' : '/e-hentai-view') : '',
   webpack(config) {
-    config.plugins.push(
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
-    )
-
     return config
   },
   rewrites: async () => nextI18NextRewrites(localeSubpaths),
@@ -36,6 +32,7 @@ const nextConfig = {
   },
   env: {
     VERSION: package.version,
+    BUILDTIME: package.buildTime,
   },
 }
 

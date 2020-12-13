@@ -15,19 +15,28 @@
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/safari.PNG" width="25%" title="safari"/>
 </div>
 
-## 2. IOS에서 PWA 모드가 다른 어플로 변경된 다음, 그대로 멈춰버립니다.
+## 2. Android 크롬에서 사진이 보이지 않습니다.
+**크롬 쿠키 정책으로 인한 SameSite 쿠키 문제이므로 꺼두어야 합니다.**
+
+- [chrome://flags/](chrome://flags/)를 크롬으로 통해 접속합니다.
+- `SameSite`를 검색합니다.
+- `SameSite by default cookies`와 `Cookies without SameSite must be secure` 옵션을 비활성화 합니다.
+- 크롬을 재시작 합니다.
+- EhentaiView로 돌아와주시고 새로고침을 하시면 정상적으로 됩니다.
+
+## 3. IOS에서 PWA 모드가 다른 어플로 변경된 다음, 그대로 멈춰버립니다.
 
 `IOS 13.x` 버전에서 발생하는 버그입니다. `IOS 14.x` 버전으로 업그레이드 하셔서 해결하실 수 있습니다.
 
 `설정 -> 일반 -> 소프트웨어 업데이트`
 
-## 3. MAC을 통하여 Safari 브라우저로 보려고 하면 사진이 보이지 않습니다.
+## 4. MAC을 통하여 Safari 브라우저로 보려고 하면 사진이 보이지 않습니다.
 
 **`크로스 사이트 추적 방지`를 끄셔야 합니다.**
 
 `설정 -> Safari -> 크로스 사이트 추적 방지`
 
-## 4. 윈도우 브라우저에서 사진이 보이지 않습니다.
+## 5. 윈도우 브라우저에서 사진이 보이지 않습니다.
 
 **이 문제는 보통 브라우저 버전이 높을때 발생하며, 쿠키 보안 정책으로 인하여 사진이 안 보여지는 겁니다.**
 
@@ -41,5 +50,5 @@
 - [JavaScript 코드](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js)를 복사해주세요.
 - [exhentai.org](https://exhentai.org)에 접속해주세요.
 - `F12`를 누르고 `console` 탭을 눌러주세요.
-- 코드를 눌러주시고 `엔터`를 눌러주세요.
+- 붙여넣기를 해주신뒤, `엔터`를 눌러주세요.
 - EhentaiView로 돌아와주시고 새로고침을 하시면 정상적으로 됩니다.
