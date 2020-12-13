@@ -43,7 +43,7 @@
 npm install
 npm run dev:server
 npm run dev:app
-#yarn
+# yarn
 yarn
 yarn run dev:server
 yarn run dev:app
@@ -53,3 +53,5 @@ yarn run dev:app
 
 - [seven332/EhViewer](https://github.com/seven332/EhViewer)
 - [Nicezki](https://github.com/Nicezki) แปลภาษาไทย
+- [KeepSOBP](https://github.com/KeepSOBP) แปลภาษาเกาหลี
+- [TeeVenDick](https://github.com/TeeVenDick) แปลภาษามาเลย์

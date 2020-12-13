@@ -1,7 +1,7 @@
 {
   "FrontPage": "หน้าหลัก",
   "Watched": "ติดตาม",
-  "Popular": "เป็นที่นิยม",
+  "Popular": "นิยม",
   "Favorites": "ชื่นชอบ",
   "Histories": "ประวัติ",
   "Setting": "การตั้งค่า",
@@ -85,5 +85,5 @@
   "ShowTag.Watched": "เฉพาะที่ติดตาม",
   "ShowTag.All": "ทั้งหมด",
   "ShowTag.Hidden": "ซ่อน",
-  "Similar": "Similar"
+  "Similar": "คล้ายกัน"
 }
