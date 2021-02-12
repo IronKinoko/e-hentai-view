@@ -182,16 +182,11 @@ const Info: React.FC<InfoProps> = ({ info, tagList }) => {
             <TorrentIconButton info={info} />
             <FavIconButton info={info} />
             <Tooltip title={t('OpenEH') as string}>
-              <Link
-                underline="none"
-                href={info.url}
-                prefetch={false}
-                target="_blank"
-              >
+              <a href={info.url} target="_blank">
                 <IconButton color="primary">
                   <OpenInNewIcon />
                 </IconButton>
-              </Link>
+              </a>
             </Tooltip>
           </Grid>
         </Grid>
