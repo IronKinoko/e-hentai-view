@@ -8,6 +8,8 @@ on:
       - 'app/**'
       - 'server/**'
       - '.github/workflows/**'
+  workflow_dispatch: 
+
 jobs:
   setup-build-deploy:
     name: Deploy
