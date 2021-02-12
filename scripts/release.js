@@ -3,27 +3,23 @@ const fs = require('fs')
 const path = require('path')
 const cp = require('child_process')
 const inquirer = require('inquirer')
+const semver = require('semver')
 
 const rPath = (filePath) => path.resolve(__dirname, filePath)
 
 async function release() {
-  const versionSplite = pkg.version.split('.').map((v) => +v)
-  const patchVersion = [
-    versionSplite[0],
-    versionSplite[1],
-    versionSplite[2] + 1,
-  ].join('.')
-  const minorVersion = [versionSplite[0], versionSplite[1] + 1, 0].join('.')
-  const majorVersion = [versionSplite[0] + 1, 0, 0].join('.')
+  const patchVersion = semver.inc(pkg.version, 'patch')
+  const minorVersion = semver.inc(pkg.version, 'minor')
+  const majorVersion = semver.inc(pkg.version, 'major')
   const options = await inquirer.prompt([
     {
       type: 'list',
       name: 'version',
       message: 'Version:',
       choices: [
-        { name: 'patch', checked: true, value: patchVersion },
-        { name: 'minor', value: minorVersion },
-        { name: 'major', value: majorVersion },
+        { name: `patch`, checked: true, value: patchVersion },
+        { name: `minor`, value: minorVersion },
+        { name: `major`, value: majorVersion },
       ],
     },
     {
