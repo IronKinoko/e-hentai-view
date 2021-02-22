@@ -6,7 +6,7 @@
 
 [English](/README.md) | 简体中文
 
-**如果Chrome浏览器版本>=84，则会造成的无法查看图片** [点此修复](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/zh_CN/FAQ.md#4-%EC%9C%88%EB%8F%84%EC%9A%B0-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%EC%84%9C-%EC%82%AC%EC%A7%84%EC%9D%B4-%EB%B3%B4%EC%9D%B4%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4)
+**如果Chrome浏览器版本>=84，则会造成的无法查看图片** [点此修复](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/zh_CN/FAQ.md#4-windows-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9C%8B%E4%B8%8D%E5%88%B0%E7%94%BB%E5%BB%8A%E5%9B%BE%E7%89%87)
 
 ## 截图
 
