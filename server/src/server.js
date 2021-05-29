@@ -1,19 +1,16 @@
 // server.js
-const path = require('path')
 const next = require('next')
-const createProxyMiddleware = require('http-proxy-middleware')
-  .createProxyMiddleware
-const localeSubpaths = require('../../app/localeSubpaths')
+const createProxyMiddleware =
+  require('http-proxy-middleware').createProxyMiddleware
 const devProxy = {
   '/api': {
-    // target: 'http://localhost:8080/', // 端口自己配置合适的
-    target: 'https://exhentai.appspot.com/', // 端口自己配置合适的
+    target: process.env.PROXY_URL || 'https://exhentai.appspot.com/', // 端口自己配置合适的
     changeOrigin: true,
   },
 }
 
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev, dir: path.resolve(__dirname, '../../app') })
+const app = next({ dev })
 const handle = app.getRequestHandler()
 
 ;(async () => {
@@ -28,38 +25,30 @@ const handle = app.getRequestHandler()
     })
   }
 
-  server.get('/', (req, res) => {
-    if (!req.cookies['next-i18next']) {
-      const lang = req.headers['accept-language'].slice(0, 2)
-      if (localeSubpaths[lang]) {
-        res.redirect('/' + localeSubpaths[lang])
-      } else {
-        res.cookie('next-i18next', 'en', {
-          maxAge: 6 * 31 * 24 * 60 * 60 * 1000,
-          path: '/',
-        })
-        res.redirect('/')
-      }
-    } else {
-      /** @type {string} */
-      const lang = req.cookies['next-i18next']
-      if (lang !== 'en') {
-        res.redirect('/' + localeSubpaths[lang])
-      } else {
-        handle(req, res)
-      }
-    }
-  })
+  // server.get('/', (req, res) => {
+  //   if (!req.cookies['next-i18next']) {
+  //     const lang = req.headers['accept-language'].slice(0, 2)
+  //     if (localeSubpaths[lang]) {
+  //       res.redirect('/' + localeSubpaths[lang])
+  //     } else {
+  //       res.cookie('next-i18next', 'en', {
+  //         maxAge: 6 * 31 * 24 * 60 * 60 * 1000,
+  //         path: '/',
+  //       })
+  //       res.redirect('/')
+  //     }
+  //   } else {
+  //     /** @type {string} */
+  //     const lang = req.cookies['next-i18next']
+  //     if (lang !== 'en') {
+  //       res.redirect('/' + localeSubpaths[lang])
+  //     } else {
+  //       handle(req, res)
+  //     }
+  //   }
+  // })
 
   // await nextI18next.initPromise
-
-  server.get('/service-worker.js', (req, res) => {
-    const filePath = path.resolve(
-      __dirname,
-      '../../app/.next/static/service-worker.js'
-    )
-    app.serveStatic(req, res, filePath)
-  })
   server.all('*', (req, res) => {
     handle(req, res)
   })

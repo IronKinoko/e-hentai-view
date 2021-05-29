@@ -10,14 +10,8 @@ const cookieOption = (req) => ({
 })
 
 router.post('/login', async (req, res) => {
-  const {
-    UserName,
-    PassWord,
-    method,
-    ipb_member_id,
-    ipb_pass_hash,
-    igneous,
-  } = req.body
+  const { UserName, PassWord, method, ipb_member_id, ipb_pass_hash, igneous } =
+    req.body
 
   let content = ''
   let userCookie = {}

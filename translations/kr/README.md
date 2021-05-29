@@ -4,12 +4,12 @@
 
 <h1 align="center">EHentaiView</h1>
 
-[English](/README.md) | [简体中文](/translations/zh_CN/README.md) | [ภาษาไทย](/translations/th/README.md) | 한국어 | [Bahasa Melayu](/translations/ms/README.md)
+[English](/README.md) | [简体中文](/translations/zh-CN/README.md) | [ภาษาไทย](/translations/th/README.md) | 한국어 | [Bahasa Melayu](/translations/ms/README.md)
 
 
 EhentaiView에 오신것을 환영합니다, exhentai.org를 위한 모바일(PWA) 웹 사이트이며, Next.js로 빌드 되었습니다.
 
-**만약 크롬 버전이 84 이상이라면, [스크립트를 이용하여](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/kr/FAQ.md#5-윈도우-브라우저에서-사진이-보이지-않습니다) exhentai.org의 `Secure`, `SameSite=None` 쿠키를 변경해야 합니다.** 
+**만약 크롬 버전이 84 이상이라면, [스크립트를 이용하여](https://github.com/IronKinoko/e-hentai-view/blob/master/translations/kr/FAQ.md#5-윈도우-브라우저에서-사진이-보이지-않습니다) exhentai.org의 `Secure`, `SameSite=None` 쿠키를 변경해야 합니다.**
 
 ## 스크린샷
 
