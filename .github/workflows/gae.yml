@@ -1,13 +1,9 @@
 name: Deploy to Google App Engine
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'app/**'
-      - 'server/**'
-      - '.github/workflows/**'
+  release:
+    types: [ created ]
+    branches: [ master ]
   workflow_dispatch: 
 
 jobs:
@@ -27,23 +23,22 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
           service_account_key: ${{ secrets.GAE_SA }}
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-yarn-
 
 
       - name: install
         run: |
-          npm install 
+          yarn
           
       - name: write build time
         run: |
@@ -51,7 +46,7 @@ jobs:
           
       - name: build
         run: |
-          npm run build
+          yarn build
 
       # Deploy App to App Engine
       - name: Deploy
