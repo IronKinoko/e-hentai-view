@@ -4999,7 +4999,7 @@ next-offline@^5.0.5:
     fs-extra "~8.1.0"
     workbox-webpack-plugin "^5.0.0"
 
-next@^11.0.0:
+next@^11.0.1:
   version "11.0.1"
   resolved "https://registry.nlark.com/next/download/next-11.0.1.tgz#b8e3914d153aaf7143cb98c09bcd3c8230eeb17a"
   integrity sha1-uOORTRU6r3FDy5jAm808gjDusXo=

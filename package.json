@@ -93,7 +93,7 @@
     "jsdom": "^16.6.0",
     "jszip": "^3.6.0",
     "lodash": "^4.17.21",
-    "next": "^11.0.0",
+    "next": "^11.0.1",
     "next-i18next": "^8.5.0",
     "next-offline": "^5.0.5",
     "node-cache": "^5.1.2",
