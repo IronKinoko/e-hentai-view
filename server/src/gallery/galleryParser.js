@@ -204,8 +204,9 @@ function parseDetailPageInfo(document, html) {
   const language = document
     .querySelector('#gdd table tr:nth-of-type(4) .gdt2')
     .textContent.trim()
-  const filesize = document.querySelector('#gdd table tr:nth-of-type(5) .gdt2')
-    .textContent
+  const filesize = document.querySelector(
+    '#gdd table tr:nth-of-type(5) .gdt2'
+  ).textContent
   const filecount = document
     .querySelector('#gdd table tr:nth-of-type(6) .gdt2')
     .textContent.replace(/[^0-9]/g, '')
