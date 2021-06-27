@@ -1073,6 +1073,11 @@
   resolved "https://registry.nlark.com/@next/env/download/@next/env-11.0.1.tgz#6dc96ac76f1663ab747340e907e8933f190cc8fd"
   integrity sha1-bclqx28WY6t0c0DpB+iTPxkMyP0=
 
+"@next/eslint-plugin-next@11.0.1":
+  version "11.0.1"
+  resolved "https://registry.nlark.com/@next/eslint-plugin-next/download/@next/eslint-plugin-next-11.0.1.tgz#5dd3264a40fadcf28eba00d914d69103422bb7e6"
+  integrity sha1-XdMmSkD63PKOugDZFNaRA0Irt+Y=
+
 "@next/polyfill-module@11.0.1":
   version "11.0.1"
   resolved "https://registry.nlark.com/@next/polyfill-module/download/@next/polyfill-module-11.0.1.tgz#ca2a110c1c44672cbcff6c2b983f0c0549d87291"
@@ -1153,6 +1158,11 @@
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
+
+"@rushstack/eslint-patch@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.npm.taobao.org/@rushstack/eslint-patch/download/@rushstack/eslint-patch-1.0.6.tgz#023d72a5c4531b4ce204528971700a78a85a0c50"
+  integrity sha1-Aj1ypcRTG0ziBFKJcXAKeKhaDFA=
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -1321,7 +1331,7 @@
     eslint-scope "^5.1.1"
     eslint-utils "^3.0.0"
 
-"@typescript-eslint/parser@^4.0.0":
+"@typescript-eslint/parser@^4.0.0", "@typescript-eslint/parser@^4.20.0":
   version "4.28.0"
   resolved "https://registry.nlark.com/@typescript-eslint/parser/download/@typescript-eslint/parser-4.28.0.tgz?cache=0&sync_timestamp=1624295997650&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40typescript-eslint%2Fparser%2Fdownload%2F%40typescript-eslint%2Fparser-4.28.0.tgz#2404c16751a28616ef3abab77c8e51d680a12caa"
   integrity sha1-JATBZ1GihhbvOrq3fI5R1oChLKo=
@@ -2928,6 +2938,21 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
+eslint-config-next@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.nlark.com/eslint-config-next/download/eslint-config-next-11.0.1.tgz#abdd2565a6fa5841556a89ba935f044bec173d0b"
+  integrity sha1-q90lZab6WEFVaom6k18ES+wXPQs=
+  dependencies:
+    "@next/eslint-plugin-next" "11.0.1"
+    "@rushstack/eslint-patch" "^1.0.6"
+    "@typescript-eslint/parser" "^4.20.0"
+    eslint-import-resolver-node "^0.3.4"
+    eslint-import-resolver-typescript "^2.4.0"
+    eslint-plugin-import "^2.22.1"
+    eslint-plugin-jsx-a11y "^6.4.1"
+    eslint-plugin-react "^7.23.1"
+    eslint-plugin-react-hooks "^4.2.0"
+
 eslint-config-react-app@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npm.taobao.org/eslint-config-react-app/download/eslint-config-react-app-6.0.0.tgz?cache=0&sync_timestamp=1603462529367&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-config-react-app%2Fdownload%2Feslint-config-react-app-6.0.0.tgz#ccff9fc8e36b322902844cbd79197982be355a0e"
@@ -2947,6 +2972,17 @@ eslint-import-resolver-node@^0.3.4:
   dependencies:
     debug "^2.6.9"
     resolve "^1.13.1"
+
+eslint-import-resolver-typescript@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npm.taobao.org/eslint-import-resolver-typescript/download/eslint-import-resolver-typescript-2.4.0.tgz#ec1e7063ebe807f0362a7320543aaed6fe1100e1"
+  integrity sha1-7B5wY+voB/A2KnMgVDqu1v4RAOE=
+  dependencies:
+    debug "^4.1.1"
+    glob "^7.1.6"
+    is-glob "^4.0.1"
+    resolve "^1.17.0"
+    tsconfig-paths "^3.9.0"
 
 eslint-module-utils@^2.6.1:
   version "2.6.1"
@@ -2972,7 +3008,7 @@ eslint-plugin-flowtype@^5.2.0:
     lodash "^4.17.15"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-import@^2.22.0:
+eslint-plugin-import@^2.22.0, eslint-plugin-import@^2.22.1:
   version "2.23.4"
   resolved "https://registry.nlark.com/eslint-plugin-import/download/eslint-plugin-import-2.23.4.tgz#8dceb1ed6b73e46e50ec9a5bb2411b645e7d3d97"
   integrity sha1-jc6x7Wtz5G5Q7JpbskEbZF59PZc=
@@ -2993,7 +3029,7 @@ eslint-plugin-import@^2.22.0:
     resolve "^1.20.0"
     tsconfig-paths "^3.9.0"
 
-eslint-plugin-jsx-a11y@^6.3.1:
+eslint-plugin-jsx-a11y@^6.3.1, eslint-plugin-jsx-a11y@^6.4.1:
   version "6.4.1"
   resolved "https://registry.npm.taobao.org/eslint-plugin-jsx-a11y/download/eslint-plugin-jsx-a11y-6.4.1.tgz?cache=0&sync_timestamp=1603729445122&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-plugin-jsx-a11y%2Fdownload%2Feslint-plugin-jsx-a11y-6.4.1.tgz#a2d84caa49756942f42f1ffab9002436391718fd"
   integrity sha1-othMqkl1aUL0Lx/6uQAkNjkXGP0=
@@ -3027,12 +3063,12 @@ eslint-plugin-promise@^5.1.0:
   resolved "https://registry.nlark.com/eslint-plugin-promise/download/eslint-plugin-promise-5.1.0.tgz?cache=0&sync_timestamp=1618847137300&other_urls=https%3A%2F%2Fregistry.nlark.com%2Feslint-plugin-promise%2Fdownload%2Feslint-plugin-promise-5.1.0.tgz#fb2188fb734e4557993733b41aa1a688f46c6f24"
   integrity sha1-+yGI+3NORVeZNzO0GqGmiPRsbyQ=
 
-eslint-plugin-react-hooks@^4.0.8:
+eslint-plugin-react-hooks@^4.0.8, eslint-plugin-react-hooks@^4.2.0:
   version "4.2.0"
   resolved "https://registry.nlark.com/eslint-plugin-react-hooks/download/eslint-plugin-react-hooks-4.2.0.tgz#8c229c268d468956334c943bb45fc860280f5556"
   integrity sha1-jCKcJo1GiVYzTJQ7tF/IYCgPVVY=
 
-eslint-plugin-react@^7.20.3:
+eslint-plugin-react@^7.20.3, eslint-plugin-react@^7.23.1:
   version "7.24.0"
   resolved "https://registry.nlark.com/eslint-plugin-react/download/eslint-plugin-react-7.24.0.tgz#eadedfa351a6f36b490aa17f4fa9b14e842b9eb4"
   integrity sha1-6t7fo1Gm82tJCqF/T6mxToQrnrQ=
@@ -5993,7 +6029,7 @@ resolve-from@^4.0.0:
   resolved "https://registry.npm.taobao.org/resolve-from/download/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha1-SrzYUq0y3Xuqv+m0DgCjbbXzkuY=
 
-resolve@^1.10.0, resolve@^1.10.1, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.20.0:
+resolve@^1.10.0, resolve@^1.10.1, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.20.0:
   version "1.20.0"
   resolved "https://registry.npm.taobao.org/resolve/download/resolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
   integrity sha1-YpoBP7P3B1XW8LeTXMHCxTeLGXU=

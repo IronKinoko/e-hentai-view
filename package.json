@@ -24,14 +24,14 @@
     "dev:server": "cross-env NODE_ENV=development nodemon server/src/app.js -w server",
     "dev:app": "node -r dotenv/config server/src/server.js dotenv_config_path=.env.local",
     "build": "next build",
-    "analyze": "cross-env ANALYZE=true next build app",
+    "analyze": "cross-env ANALYZE=true next build",
     "type:check": "tsc --noEmit",
     "start": "cross-env PORT=8080 NODE_ENV=production node server/src/server.js",
     "release": "node scripts/release.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn type:check && lint-staged"
     }
   },
   "lint-staged": {
@@ -51,6 +51,7 @@
     "@typescript-eslint/parser": "^4.0.0",
     "babel-eslint": "^10.0.0",
     "eslint": "^7.5.0",
+    "eslint-config-next": "^11.0.1",
     "eslint-config-react-app": "^6.0.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-flowtype": "^5.2.0",

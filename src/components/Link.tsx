@@ -32,6 +32,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
         passHref={passHref}
         locale={locale}
       >
+        {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a ref={ref} {...other} />
       </NextLink>
     )

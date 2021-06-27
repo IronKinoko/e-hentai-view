@@ -59,7 +59,7 @@ const Search = () => {
     if (query.length === 0) return
 
     setSearchHistories(
-      [query, ...searchHistories.filter((v) => v != query)].slice(0, 50)
+      [query, ...searchHistories.filter((v) => v !== query)].slice(0, 50)
     )
 
     handleGoResult(query)
