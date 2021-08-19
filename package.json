@@ -91,7 +91,7 @@
     "filesize": "^6.3.0",
     "http-proxy-middleware": "^2.0.0",
     "jsdom": "^16.6.0",
-    "jszip": "^3.6.0",
+    "jszip": "^3.7.0",
     "lodash": "^4.17.21",
     "next": "^11.1.0",
     "next-i18next": "^8.5.0",
