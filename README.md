@@ -22,9 +22,13 @@ welcome to EhentaiView, a mobile(PWA) website for exhentai.org, build with Next.
 
 **Because webSecurity in browser (cors), we can't direct access the exhentai image, you should sign in e-hentai before use this website**
 
-1. Login [here](https://exhentai.appspot.com/signin)
-2. If you haven't signed in to [e-hentai](https://forums.e-hentai.org/index.php), also you need sign in e-hentai
-3. Now you can browse the website
+```
+docker run -d -p 80:8080 --restart always ironkinoko/e-hentai-view
+```
+
+open in browser http://localhost
+
+see more detail https://hub.docker.com/r/ironkinoko/e-hentai-view
 
 <img src="https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/login.gif" width="25%" title="login"/>
 
