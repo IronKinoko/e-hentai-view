@@ -25,4 +25,7 @@ jobs:
         if: ${{ github.event.release.tag_name != '' }}
         with:
           push: true
-          tags: ironkinoko/e-hentai-view:${{ github.event.release.tag_name }}
+          tags: |
+            ironkinoko/e-hentai-view:${{ github.event.release.tag_name }}
+            ironkinoko/e-hentai-view:latest
+          
