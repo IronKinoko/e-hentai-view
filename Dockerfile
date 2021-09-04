@@ -2,8 +2,8 @@ FROM node:14-alpine as build
 
 WORKDIR /app
 COPY . .
-RUN yarn config set registry https://registry.npm.taobao.org/
 RUN yarn install
+RUN node scripts/buildTime.js
 RUN yarn build
 RUN rm -rf node_modules
 RUN yarn install --production

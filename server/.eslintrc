@@ -15,6 +15,7 @@
   },
   "rules": {
     "camelcase": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "quotes":"off"
   }
 }

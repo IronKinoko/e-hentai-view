@@ -4,7 +4,7 @@ const createProxyMiddleware =
   require('http-proxy-middleware').createProxyMiddleware
 const devProxy = {
   '/api': {
-    target: process.env.PROXY_URL || 'https://exhentai.appspot.com/', // 端口自己配置合适的
+    target: 'http://localhost:8080', // 端口自己配置合适的
     changeOrigin: true,
   },
 }
