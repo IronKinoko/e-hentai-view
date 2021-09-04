@@ -23,8 +23,6 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         if: ${{ github.event.release.tag_name != '' }}
-        env:
-          tag: ${{ github.event.release.tag_name }}
         with:
           push: true
-          tags: com.ironkinoko/e-hentai-view:$tag
+          tags: ironkinoko/e-hentai-view:${{ github.event.release.tag_name }}
