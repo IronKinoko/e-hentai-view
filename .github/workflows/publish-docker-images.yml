@@ -1,0 +1,29 @@
+name: Publish Docker image
+on:
+  release:
+    types: [ created ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v2
+        if: ${{ github.event.release.tag_name != '' }}
+        env:
+          tag: ${{ github.event.release.tag_name }}
+        with:
+          push: true
+          tags: com.ironkinoko/e-hentai-view:$tag
