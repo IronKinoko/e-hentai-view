@@ -43,7 +43,7 @@ const ComicItem: React.FC<
   const { data } = useComicItemImage(pageUrl ? pageUrl : null)
   const loadMorePage$ = useEventManager(EVENT_LOAD_MORE_PAGE)
   useEffect(() => {
-    loadMorePage$.emit(Math.floor(index / pageSize))
+    loadMorePage$.emit(Math.floor((index + 7) / pageSize))
   }, [index, loadMorePage$])
 
   const minHeight = computedAspectratioHeight(aspectratio)
