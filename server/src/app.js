@@ -39,8 +39,9 @@ app.use('/api/user', require('./user/userRouter'))
 
 app.use((err, req, res, next) => {
   console.error(err)
-  if (err.message === 'Request failed with status code 302')
+  if (err.message === 'Request failed with status code 302') {
     err.message = 'no login'
+  }
   res.status(200).send({ error: true, message: err.message })
 })
 

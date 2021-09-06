@@ -91,8 +91,13 @@ const ThemeProvider: FC<{}> = ({ children }) => {
       : isDarkMode
       ? 'dark'
       : 'light'
+
+    const themeColorMeta = document.querySelector('meta[name=theme-color]')
+    const color = newPaletteType === 'dark' ? '#121212' : '#fff'
+    themeColorMeta?.setAttribute('content', color)
     dispatch({ type: 'CHANGE', payload: { paletteType: newPaletteType } })
   }, [isDarkMode])
+
   return (
     <MuiThemeProvider theme={theme}>
       <DispatchContext.Provider value={dispatch}>
