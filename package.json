@@ -26,7 +26,7 @@
     "build": "next build",
     "analyze": "cross-env ANALYZE=true next build",
     "type:check": "tsc --noEmit",
-    "start": "cross-env PORT=8080 NODE_ENV=production node server/src/server.js",
+    "start": "NODE_ENV=production node server/src/server.js",
     "release": "node scripts/release.js"
   },
   "husky": {

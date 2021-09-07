@@ -1,16 +1,9 @@
-FROM node:14-alpine as build
-
-WORKDIR /app
-COPY . .
-RUN yarn install
-RUN node scripts/buildTime.js
-RUN yarn build
-RUN rm -rf node_modules
-RUN yarn install --production
-
-FROM node:14-alpine as production
+FROM --platform=$BUILDPLATFORM node:14-alpine
 WORKDIR /app
 EXPOSE 8080
-COPY --from=build /app .
+COPY . .
+
+RUN chmod +x scripts/build-in-docker.sh
+RUN scripts/build-in-docker.sh
 
 CMD ["yarn", "start"]
