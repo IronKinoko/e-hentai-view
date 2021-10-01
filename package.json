@@ -22,7 +22,7 @@
   },
   "scripts": {
     "dev:server": "cross-env NODE_ENV=development nodemon server/src/app.js -w server",
-    "dev:app": "node -r dotenv/config server/src/server.js dotenv_config_path=.env.local",
+    "dev:app": "cross-env NODE_ENV=development node server/src/server.js",
     "build": "next build",
     "analyze": "cross-env ANALYZE=true next build",
     "type:check": "tsc --noEmit",

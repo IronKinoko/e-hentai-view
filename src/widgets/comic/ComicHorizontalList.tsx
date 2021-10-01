@@ -28,6 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
     imgContainer: {
       display: 'flex',
       alignItems: 'center',
+      height: '100vh',
+      '& img': {
+        width: 'auto',
+        maxWidth: '100%',
+        minHeight: 'unset !important',
+        maxHeight: '100vh',
+        display: 'block',
+        margin: '0 auto',
+      },
     },
   })
 )
@@ -81,7 +90,7 @@ const ComicHorizontalList: React.FC<{
       <div
         className={classes.root}
         style={{
-          minHeight: typeof window === 'undefined' ? 0 : window.innerHeight,
+          height: '100vh',
         }}
       >
         <Loading />
@@ -99,13 +108,7 @@ const ComicHorizontalList: React.FC<{
         >
           {data.list.map((o, k) => (
             <SwiperSlide key={o?.url ?? k} data-hovindex={k}>
-              <div
-                className={classes.imgContainer}
-                style={{
-                  minHeight:
-                    typeof window === 'undefined' ? 0 : window.innerHeight,
-                }}
-              >
+              <div className={classes.imgContainer}>
                 <ComicItem
                   key={o?.url || k}
                   index={k}
