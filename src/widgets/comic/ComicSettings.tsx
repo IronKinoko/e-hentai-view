@@ -5,10 +5,12 @@ import {
   ListItemText,
   MenuItem,
   Select,
+  Switch,
 } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { ComicConfigProps, useComicConfigState } from './ComicConfig'
+
 /**
  * comic setting ui
  */
@@ -26,6 +28,9 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
     })
     onChange?.()
   }
+
+  const isVertical = config.direction === 'vertical'
+
   return (
     <div>
       <List>
@@ -43,6 +48,19 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
             </Select>
           </ListItemSecondaryAction>
         </ListItem>
+        {!isVertical && (
+          <ListItem>
+            <ListItemText>{t('imgFit')}</ListItemText>
+            <ListItemSecondaryAction>
+              <Switch
+                checked={config.imgFit}
+                onChange={(e) =>
+                  setConfig((t) => ({ ...t, imgFit: e.target.checked }))
+                }
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+        )}
       </List>
     </div>
   )

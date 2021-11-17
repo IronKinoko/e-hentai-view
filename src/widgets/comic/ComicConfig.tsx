@@ -3,11 +3,19 @@ import useEnhanceLocalStorageState from '@/hooks/useEnhanceLocalStorageState'
 import { LOCAL_COMIC_CONFIG } from '@/constant'
 
 export interface ComicConfigProps {
+  /**
+   * comic direction
+   */
   direction?: 'ltr' | 'rtl' | 'vertical'
+  /**
+   * horizontal mode image fit width/height
+   */
+  imgFit?: boolean
 }
 
 const defualtComicConfig: ComicConfigProps = {
   direction: 'vertical',
+  imgFit: true,
 }
 
 const ComicConfigContext = createContext<

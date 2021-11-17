@@ -35,8 +35,19 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const ComicItem: React.FC<
-  Partial<DetailPageListItemProps> & { index: number; comicPagesKey: string }
-> = ({ index, thumb, url, aspectratio = 210 / 297, comicPagesKey }) => {
+  Partial<DetailPageListItemProps> & {
+    index: number
+    comicPagesKey: string
+    noMinHeight?: boolean
+  }
+> = ({
+  index,
+  thumb,
+  url,
+  aspectratio = 210 / 297,
+  comicPagesKey,
+  noMinHeight,
+}) => {
   const classes = useStyles()
   const ref = useRef<HTMLDivElement>(null)
   const [pageUrl, setPageUrl] = useState(url)
@@ -51,7 +62,7 @@ const ComicItem: React.FC<
   return (
     <div
       ref={ref}
-      style={{ minHeight }}
+      style={{ minHeight: noMinHeight ? '' : minHeight }}
       className={classes.root}
       data-index={index}
       // eslint-disable-next-line jsx-a11y/aria-role

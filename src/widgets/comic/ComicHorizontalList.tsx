@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
     imgContainer: {
       display: 'flex',
       alignItems: 'center',
+      minHeight: '100vh',
+    },
+    imgFitContainer: {
+      display: 'flex',
+      alignItems: 'center',
       height: '100vh',
       '& img': {
         width: 'auto',
@@ -108,13 +113,18 @@ const ComicHorizontalList: React.FC<{
         >
           {data.list.map((o, k) => (
             <SwiperSlide key={o?.url ?? k} data-hovindex={k}>
-              <div className={classes.imgContainer}>
+              <div
+                className={
+                  config.imgFit ? classes.imgFitContainer : classes.imgContainer
+                }
+              >
                 <ComicItem
                   key={o?.url || k}
                   index={k}
                   thumb={o?.thumb}
                   url={o?.url}
                   comicPagesKey={comicPagesKey}
+                  noMinHeight
                 />
               </div>
             </SwiperSlide>
