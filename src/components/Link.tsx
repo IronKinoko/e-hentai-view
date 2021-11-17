@@ -38,6 +38,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
     )
   }
 )
+NextComposed.displayName = 'NextComposed'
 
 interface LinkPropsBase {
   innerRef?: React.Ref<HTMLAnchorElement>
@@ -48,7 +49,7 @@ export type LinkProps = LinkPropsBase &
   NextComposedProps &
   Omit<MuiLinkProps, 'href'>
 
-function Link(props: LinkProps) {
+function InnerLink(props: LinkProps) {
   const { href, innerRef, naked, ...other } = props
   if (naked) {
     return <NextComposed ref={innerRef} href={href} {...other} />
@@ -64,6 +65,9 @@ function Link(props: LinkProps) {
   )
 }
 
-export default React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
-  <Link {...props} innerRef={ref} />
+const Link = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
+  <InnerLink {...props} innerRef={ref} />
 ))
+
+Link.displayName = 'Link'
+export default Link

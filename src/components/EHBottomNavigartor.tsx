@@ -89,4 +89,5 @@ const EHBottomNavigartor = forwardRef<HTMLDivElement>((_, ref) => {
   )
 })
 
+EHBottomNavigartor.displayName = 'EHBottomNavigartor'
 export default EHBottomNavigartor

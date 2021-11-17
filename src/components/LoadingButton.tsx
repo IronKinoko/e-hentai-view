@@ -25,4 +25,5 @@ const LoadingIconButton = forwardRef<
     </IconButton>
   )
 })
+LoadingIconButton.displayName = 'LoadingIconButton'
 export default LoadingIconButton

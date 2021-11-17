@@ -39,4 +39,5 @@ const SlideUpDialog = forwardRef<
   )
 })
 
+SlideUpDialog.displayName = 'SlideUpDialog'
 export default SlideUpDialog

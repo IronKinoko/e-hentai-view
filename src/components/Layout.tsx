@@ -192,7 +192,7 @@ const Layout: React.FunctionComponent<Props> = ({
   )
 }
 // @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line
 function Copyright() {
   return (
     <List dense>

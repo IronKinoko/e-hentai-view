@@ -212,6 +212,7 @@ export const MobileCard: React.FC<{ record: IndexListItemPorps }> = ({
               <ul className={classes.tagContent}>
                 {record.tags.map((o) => (
                   <li
+                    key={o.tagName}
                     className={clsx(classes.tag, {
                       [classes.watched]: o.watched,
                     })}

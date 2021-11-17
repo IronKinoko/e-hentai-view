@@ -1,3 +1,6 @@
 module.exports = {
-  extends: ['react-app'],
+  extends: ['next'],
+  rules: {
+    '@next/next/no-img-element': 0,
+  },
 }
