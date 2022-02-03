@@ -33,3 +33,4 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+tsconfig.tsbuildinfo
