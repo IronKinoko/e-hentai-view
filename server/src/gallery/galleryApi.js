@@ -108,7 +108,7 @@ async function galleryDetail({ gid, token }, cookies) {
   commentList = parseDetailPageCommentList(document)
   tagList = parseDetailPageTagList(document)
   info = parseDetailPageInfo(document, res.data)
-  tagList = translated(tagList)
+  // tagList = translated(tagList)
 
   return { list, commentList, tagList, info }
 }
