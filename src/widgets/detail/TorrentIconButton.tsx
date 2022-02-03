@@ -17,9 +17,9 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from '@material-ui/core'
-import { useTheme } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+} from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import dayjs from 'dayjs'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -69,6 +69,7 @@ const TorrentIconButton: React.FC<{ info: IndexListItemPorps }> = ({
                 edge="start"
                 color="inherit"
                 onClick={() => router.back()}
+                size="large"
               >
                 <ArrowBackIcon />
               </IconButton>

@@ -1,9 +1,11 @@
 import message from '@/components/message'
 import useFocus from '@/hooks/useFocus'
-import { Button, Container, Grid } from '@material-ui/core'
-import InputBase from '@material-ui/core/InputBase'
-import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
-import SearchIcon from '@material-ui/icons/Search'
+import { Button, Container, Grid } from '@mui/material'
+import InputBase from '@mui/material/InputBase'
+import { alpha, Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import SearchIcon from '@mui/icons-material/Search'
 import clsx from 'clsx'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -15,15 +17,15 @@ const useStyles = makeStyles((theme: Theme) =>
     searchRoot: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(
-        theme.palette.type === 'light'
+      backgroundColor: alpha(
+        theme.palette.mode === 'light'
           ? theme.palette.grey['700']
           : theme.palette.common.white,
         0.15
       ),
       '&:hover': {
-        backgroundColor: fade(
-          theme.palette.type === 'light'
+        backgroundColor: alpha(
+          theme.palette.mode === 'light'
             ? theme.palette.grey['700']
             : theme.palette.common.white,
           0.25
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     },
 
     searchButton: {

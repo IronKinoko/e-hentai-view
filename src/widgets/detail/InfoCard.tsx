@@ -18,20 +18,17 @@ import {
   TableRow,
   Toolbar,
   Typography,
-} from '@material-ui/core'
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-} from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
-import { Rating } from '@material-ui/lab'
+} from '@mui/material'
+import { Theme, useTheme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
+import { Rating } from '@mui/material'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import { omit } from 'lodash'
+import { omit } from 'lodash-es'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -73,7 +70,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
   return (
     <>
       {matches ? (
-        <IconButton onClick={open}>
+        <IconButton onClick={open} size="large">
           <KeyboardArrowRight />
         </IconButton>
       ) : (
@@ -97,6 +94,7 @@ const MoreInfo: React.FC<{ record?: IndexListItemPorps }> = ({ record }) => {
                 edge="start"
                 color="inherit"
                 onClick={() => router.back()}
+                size="large"
               >
                 <ArrowBackIcon />
               </IconButton>
@@ -163,7 +161,7 @@ const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
         container
         wrap="nowrap"
         className={classes.root}
-        justify="space-between"
+        justifyContent="space-between"
       >
         <Grid item container alignItems="center" xs>
           <Typography variant="h5" color="textSecondary">
@@ -178,16 +176,16 @@ const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
             size="small"
           />
         </Grid>
-        <Grid item container alignItems="center" justify="center" xs={3}>
+        <Grid item container alignItems="center" justifyContent="center" xs={3}>
           <Typography align="center">{record.language}</Typography>
         </Grid>
-        <Grid item xs={4} container justify="flex-end">
+        <Grid item xs={4} container justifyContent="flex-end">
           <MoreInfo record={record} />
         </Grid>
       </Grid>
       <Grid
         container
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="center"
         className={classes.root}
       >
@@ -195,14 +193,14 @@ const MobileInfoCard: React.FC<{ record: IndexListItemPorps }> = ({
           <FavoriteIcon color="secondary" fontSize="inherit" />
           {record.favcount}
         </Grid>
-        <Grid item xs={3} container justify="center">
+        <Grid item xs={3} container justifyContent="center">
           {record.filecount}P
         </Grid>
         <Grid
           item
           xs={4}
           container
-          justify="flex-end"
+          justifyContent="flex-end"
           style={{ textAlign: 'right' }}
         >
           {dayjs(record.posted).format('YYYY-MM-DD HH:mm')}

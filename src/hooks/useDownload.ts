@@ -67,7 +67,7 @@ export default function useDownload(
             success[k] = [dataURL, ext]
             return { ...t, success, done: t.done + 1 }
           })
-        } catch (e) {
+        } catch (e: any) {
           doneRef.current[k] = false
           setProgess((t) => ({ ...t, error: [...t.error, e.message] }))
         }

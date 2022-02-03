@@ -1,5 +1,6 @@
-import { IconButton, IconButtonProps } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { IconButton, IconButtonProps } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
 import React, { forwardRef } from 'react'
 import Loading from './Loading'
@@ -8,7 +9,6 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       position: 'relative',
-      display: 'inline-block',
     },
   })
 )
@@ -19,7 +19,12 @@ const LoadingIconButton = forwardRef<
   const classes = useStyles()
 
   return (
-    <IconButton ref={ref} className={clsx(classes.root, className)} {...rest}>
+    <IconButton
+      ref={ref}
+      className={clsx(classes.root, className)}
+      {...rest}
+      size="large"
+    >
       {children}
       {loading && <Loading size={48} />}
     </IconButton>

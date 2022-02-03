@@ -6,7 +6,10 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -19,9 +22,19 @@
     "target": "esnext",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["pages/**/*", "src/**/*", "next-env.d.ts"],
-  "exclude": ["**/node_modules/*", "out"]
+  "include": [
+    "pages/**/*",
+    "src/**/*",
+    "next-env.d.ts"
+  ],
+  "exclude": [
+    "**/node_modules/*",
+    "out"
+  ]
 }

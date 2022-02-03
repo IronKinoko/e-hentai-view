@@ -9,8 +9,8 @@ import {
   DialogActions,
   Button,
   DialogContentText,
-} from '@material-ui/core'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+} from '@mui/material'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import { useRouter } from 'next/router'
 import { axios } from '@/apis'
 import message from '@/components/message'

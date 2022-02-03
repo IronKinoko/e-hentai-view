@@ -82,7 +82,7 @@ export default function useComicData(
       setComicReadPageHistory((t) => {
         if (data.current === 0) delete t[comicPagesKey]
         else t[comicPagesKey] = data.current
-        return t
+        return { ...t }
       })
     }
   }, [comicPagesKey, data, setComicReadPageHistory, onlyInitData])

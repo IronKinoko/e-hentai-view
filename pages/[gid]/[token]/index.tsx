@@ -4,8 +4,10 @@ import useGallery from '@/hooks/useGallery'
 import CommentList from '@/widgets/detail/CommentList'
 import Info from '@/widgets/detail/Info'
 import PageList from '@/widgets/detail/PageList'
-import { Divider } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Divider } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import { NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       padding: theme.spacing(0, 1),
       margin: theme.spacing(0, 1),
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         borderWidth: '1px 0',
         padding: theme.spacing(1, 0),
         margin: theme.spacing(1, 0),
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     infoContainer: {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         display: 'flex',
         flexDirection: 'column',
       },

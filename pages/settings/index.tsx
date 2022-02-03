@@ -7,11 +7,11 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-} from '@material-ui/core'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight'
-import InfoIcon from '@material-ui/icons/Info'
-import SettingsIcon from '@material-ui/icons/Settings'
+} from '@mui/material'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import InfoIcon from '@mui/icons-material/Info'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
@@ -43,7 +43,7 @@ const Setting = () => {
             <ListItemIcon>{o.icon}</ListItemIcon>
             <ListItemText primary={t(o.name)} />
             <ListItemSecondaryAction>
-              <IconButton onClick={() => handleNextPage(o.path)}>
+              <IconButton onClick={() => handleNextPage(o.path)} size="large">
                 <ArrowRightIcon />
               </IconButton>
             </ListItemSecondaryAction>

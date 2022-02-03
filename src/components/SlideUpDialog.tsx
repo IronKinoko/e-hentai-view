@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
-import { DialogProps, Dialog, Slide } from '@material-ui/core'
-import { TransitionProps } from '@material-ui/core/transitions'
+import { DialogProps, Dialog, Slide } from '@mui/material'
+import { TransitionProps } from '@mui/material/transitions'
 import { useIsmobile } from '@/theme'
 
 function iOS() {
@@ -21,7 +21,7 @@ function iOS() {
 
 const Transition = React.forwardRef<
   unknown,
-  TransitionProps & { children?: React.ReactElement }
+  TransitionProps & { children: React.ReactElement }
 >(function Transition(props, ref) {
   const isMobile = useIsmobile()
   const isIOS = iOS()
@@ -31,7 +31,7 @@ const Transition = React.forwardRef<
 })
 
 const SlideUpDialog = forwardRef<
-  unknown,
+  HTMLDivElement,
   Omit<DialogProps, 'TransitionComponent'>
 >((props, ref) => {
   return (

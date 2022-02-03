@@ -19,14 +19,16 @@ import {
   MenuItem,
   Tooltip,
   Typography,
-} from '@material-ui/core'
-import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import PageviewIcon from '@material-ui/icons/PageviewOutlined'
-import { Skeleton } from '@material-ui/lab'
+} from '@mui/material'
+import { alpha, Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import PageviewIcon from '@mui/icons-material/PageviewOutlined'
+import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
-import { isNil } from 'lodash'
+import { isNil } from 'lodash-es'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -61,13 +63,13 @@ const useStyles = makeStyles((theme: Theme) =>
       borderStyle: 'solid',
       borderColor: theme.palette.divider,
       borderWidth: '0 1px',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         borderWidth: '1px 0',
       },
     },
 
     infoContainer: {
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         display: 'block',
       },
     },
@@ -82,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     smTitle: {
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         display: 'flex',
         '& *': {
           textAlign: 'left !important',
@@ -114,13 +116,18 @@ const Info: React.FC<InfoProps> = ({ info, tagList }) => {
   const [t] = useTranslation()
   return (
     <Card className={classes.root}>
-      <Hidden smDown>
+      <Hidden mdDown>
         {info.thumb ? (
           <div className={classes.center}>
             <LoadMedia className={clsx(classes.cover)} src={info.thumb} />
           </div>
         ) : (
-          <Skeleton variant="rect" animation="wave" width={240} height={320} />
+          <Skeleton
+            variant="rectangular"
+            animation="wave"
+            width={240}
+            height={320}
+          />
         )}
       </Hidden>
       <CardContent className={classes.details}>
@@ -149,7 +156,7 @@ const Info: React.FC<InfoProps> = ({ info, tagList }) => {
             </Hidden>
           </div>
 
-          <Hidden xsDown>
+          <Hidden smDown>
             <SelectTypography variant="subtitle2" gutterBottom align="center">
               {info.title}
             </SelectTypography>
@@ -168,7 +175,7 @@ const Info: React.FC<InfoProps> = ({ info, tagList }) => {
             <FavIconButton info={info} />
             <Tooltip title={t('OpenEH') as string}>
               <a href={info.url} target="_blank" rel="noreferrer">
-                <IconButton color="primary">
+                <IconButton color="primary" size="large">
                   <OpenInNewIcon />
                 </IconButton>
               </a>
@@ -203,7 +210,7 @@ const useStylesMobile = makeStyles((theme: Theme) =>
     btn: {
       borderRadius: 18,
       padding: theme.spacing(0.75, 4),
-      backgroundColor: fade(theme.palette.primary.main, 0.8),
+      backgroundColor: alpha(theme.palette.primary.main, 0.8),
     },
     oneline: {
       position: 'relative',
@@ -267,7 +274,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
           <Grid item xs />
           <Grid
             container
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             className={classes.oneline}
           >
@@ -298,6 +305,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                 onClick={handleClick}
                 aria-controls="action-menu"
                 aria-haspopup="true"
+                size="large"
               >
                 <MoreVertIcon />
               </IconButton>
@@ -315,7 +323,7 @@ const MobileInfo: React.FC<InfoProps> = ({ info, tagList }) => {
                   </ListItemIcon>
                   <ListItemText primary={t('Similar') as string} />
                 </MenuItem>
-                <a href={info.url} target="_blank">
+                <a href={info.url} target="_blank" rel="noreferrer">
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon color="primary">
                       <OpenInNewIcon />

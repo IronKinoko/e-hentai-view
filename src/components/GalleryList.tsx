@@ -1,7 +1,8 @@
 import useGalleryList, { UseGalleryListOptions } from '@/hooks/useGalleryList'
 import GalleryCard, { LoadingCard } from '@/components/GalleryCard'
-import { Box, Button, Grid, Typography } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Grid, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 export const useStyles = makeStyles((theme) =>
@@ -14,7 +15,7 @@ export const useStyles = makeStyles((theme) =>
       display: 'grid',
       paddingTop: 16,
       gridTemplateColumns: 'repeat(5, 1fr)',
-      [theme.breakpoints.between(1000, 1250)]: {
+      [theme.breakpoints.up(1000)]: {
         gridTemplateColumns: 'repeat(4, 1fr)',
       },
       [theme.breakpoints.between(750, 1000)]: {
@@ -23,7 +24,7 @@ export const useStyles = makeStyles((theme) =>
       [theme.breakpoints.between('xs', 750)]: {
         gridTemplateColumns: 'repeat(2, 1fr)',
       },
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: 'repeat(1, 1fr)',
       },
     },
@@ -36,7 +37,7 @@ const GalleryList: React.FC<GalleryListProps> = (props) => {
   const [t] = useTranslation()
 
   const { dataSource, inviewRef, isEmpty, isLoadingMore, isReachingEnd } =
-    useGalleryList(props)
+    useGalleryList<HTMLButtonElement>(props)
 
   if (isEmpty)
     return (
@@ -52,7 +53,7 @@ const GalleryList: React.FC<GalleryListProps> = (props) => {
       <Grid
         container
         wrap="wrap"
-        justify="flex-start"
+        justifyContent="flex-start"
         className={classes.container}
         spacing={2}
       >
@@ -67,7 +68,7 @@ const GalleryList: React.FC<GalleryListProps> = (props) => {
             .map((_, k) => <LoadingCard key={k} />)}
       </Grid>
       {!isEmpty && (
-        <Button buttonRef={inviewRef} fullWidth className={classes.btn}>
+        <Button ref={inviewRef} fullWidth className={classes.btn}>
           {isReachingEnd
             ? t('ReachEnd')
             : isLoadingMore

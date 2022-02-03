@@ -13,13 +13,13 @@ import {
   Link,
   MobileStepper,
   Typography,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft'
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import TranslateIcon from '@material-ui/icons/Translate'
-import { Alert } from '@material-ui/lab'
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import TranslateIcon from '@mui/icons-material/Translate'
+import { Alert } from '@mui/material'
 import { NextPage } from 'next'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -122,6 +122,7 @@ const SignIn: NextPage = () => {
               <Link
                 href="https://forums.e-hentai.org/index.php"
                 target="_blank"
+                underline="hover"
               >
                 {' exhentai '}
               </Link>
@@ -160,7 +161,11 @@ const SignIn: NextPage = () => {
         {activeStep === 0 ? (
           <Typography variant="subtitle1" gutterBottom>
             {`1. ${t('SignIn')}`}
-            <Link href="https://forums.e-hentai.org/index.php" target="_blank">
+            <Link
+              href="https://forums.e-hentai.org/index.php"
+              target="_blank"
+              underline="hover"
+            >
               {' e-hentai.org '}
               <OpenInNewIcon fontSize="inherit" />
             </Link>
@@ -168,7 +173,7 @@ const SignIn: NextPage = () => {
         ) : activeStep === 1 ? (
           <Typography variant="subtitle1" gutterBottom>
             {`2. ${t('SignIn')}`}
-            <Link href="https://exhentai.org" target="_blank">
+            <Link href="https://exhentai.org" target="_blank" underline="hover">
               {' exhentai.org '}
               <OpenInNewIcon fontSize="inherit" />
             </Link>

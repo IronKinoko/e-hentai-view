@@ -1,5 +1,5 @@
 import React from 'react'
-import { Rating, RatingProps } from '@material-ui/lab'
+import { Rating, RatingProps } from '@mui/material'
 import useInViewportWithDistance from '@/hooks/useInViewportWithDistance'
 const RatingInview: React.FC<RatingProps> = (props) => {
   const [inview, ref] = useInViewportWithDistance<HTMLDivElement>(60)

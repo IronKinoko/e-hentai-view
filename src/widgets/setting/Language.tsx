@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TranslateIcon from '@material-ui/icons/Translate'
+import TranslateIcon from '@mui/icons-material/Translate'
 import { useTranslation } from 'next-i18next'
 import {
   ListItem,
@@ -7,7 +7,7 @@ import {
   ListItemText,
   List,
   Radio,
-} from '@material-ui/core'
+} from '@mui/material'
 import SlideUpDialog from '@/components/SlideUpDialog'
 import { languageMap } from '@/constant'
 import { useRouter } from 'next/router'

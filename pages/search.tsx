@@ -2,7 +2,6 @@ import { LOCAL_SEARCH_HISTORY } from '@/constant'
 import useEnhanceLocalStorageState from '@/hooks/useEnhanceLocalStorageState'
 import {
   AppBar,
-  createStyles,
   IconButton,
   InputBase,
   List,
@@ -10,13 +9,14 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
-  makeStyles,
   Toolbar,
   Zoom,
-} from '@material-ui/core'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import CloseIcon from '@material-ui/icons/Close'
-import HistoryIcon from '@material-ui/icons/History'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import CloseIcon from '@mui/icons-material/Close'
+import HistoryIcon from '@mui/icons-material/History'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
@@ -82,7 +82,7 @@ const Search = () => {
     <>
       <AppBar position="fixed" elevation={1}>
         <Toolbar>
-          <IconButton onClick={() => router.back()} edge="start">
+          <IconButton onClick={() => router.back()} edge="start" size="large">
             <ArrowBackIcon />
           </IconButton>
           <form
@@ -117,6 +117,7 @@ const Search = () => {
                 ref.current?.focus()
               }}
               className={classes.inputEndIcon}
+              size="large"
             >
               <CloseIcon />
             </IconButton>
@@ -138,6 +139,7 @@ const Search = () => {
                   searchHistories.splice(k, 1)
                   setSearchHistories([...searchHistories])
                 }}
+                size="large"
               >
                 <CloseIcon />
               </IconButton>

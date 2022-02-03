@@ -12,16 +12,18 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import HistoryIcon from '@material-ui/icons/History'
-import HomeIcon from '@material-ui/icons/Home'
-import SearchIcon from '@material-ui/icons/Search'
-import SettingsIcon from '@material-ui/icons/Settings'
-import SubscriptionsIcon from '@material-ui/icons/Subscriptions'
-import WhatshotIcon from '@material-ui/icons/Whatshot'
+} from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import HistoryIcon from '@mui/icons-material/History'
+import HomeIcon from '@mui/icons-material/Home'
+import SearchIcon from '@mui/icons-material/Search'
+import SettingsIcon from '@mui/icons-material/Settings'
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
 import clsx from 'clsx'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
@@ -125,6 +127,7 @@ const Layout: React.FunctionComponent<Props> = ({
                         locale: router.locale,
                       })
                 }
+                size="large"
               >
                 <ArrowBackIcon />
               </IconButton>
@@ -132,11 +135,13 @@ const Layout: React.FunctionComponent<Props> = ({
             <Typography variant="h6" className={classes.title} noWrap>
               {title || 'EhentaiView'}
             </Typography>
-            <Hidden xsDown>
+            <Hidden smDown>
               {MENU.map((o) => (
                 <Tooltip key={o.title} title={t(o.title) as string}>
                   <Link href={o.link} naked>
-                    <IconButton color="inherit">{o.icon}</IconButton>
+                    <IconButton color="inherit" size="large">
+                      {o.icon}
+                    </IconButton>
                   </Link>
                 </Tooltip>
               ))}
@@ -145,7 +150,7 @@ const Layout: React.FunctionComponent<Props> = ({
             {showSearch && (
               <Tooltip title={t('Search') as string}>
                 <Link href={'/search'} naked>
-                  <IconButton>
+                  <IconButton size="large">
                     <SearchIcon />
                   </IconButton>
                 </Link>
@@ -160,7 +165,7 @@ const Layout: React.FunctionComponent<Props> = ({
                   }}
                   naked
                 >
-                  <IconButton edge={tool ? undefined : 'end'}>
+                  <IconButton edge={tool ? undefined : 'end'} size="large">
                     <Avatar
                       src="/static/panda.png"
                       classes={{ root: classes.avatarSize }}

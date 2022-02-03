@@ -1,31 +1,20 @@
-import { useLocalStorageState } from 'ahooks'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-const noop = () => {}
-const useEnhanceLocalStorageStateBase =
-  typeof window === 'undefined'
-    ? function fn<T>(
-        _key: string,
-        defaultValue: T
-      ): [T, (value: T | ((previousState: T) => T)) => void] {
-        return [defaultValue, noop]
-      }
-    : useLocalStorageState
-
-function useEnhanceLocalStorageState<T>(
-  key: string,
-  defaultValue: T
-): [T, (value: T | ((previousState: T) => T)) => void] {
-  const [state, setState] = useEnhanceLocalStorageStateBase(key, defaultValue)
+const isBrowser = typeof window !== 'undefined'
+function useEnhanceLocalStorageState<T>(key: string, defaultValue: T) {
+  const [state, setState] = useState<T>(() => {
+    if (isBrowser) {
+      const local = localStorage.getItem(key)
+      return local ? JSON.parse(local) : defaultValue
+    } else return defaultValue
+  })
 
   useEffect(() => {
-    if (
-      JSON.stringify(state) !== localStorage.getItem(key) &&
-      localStorage.getItem(key) !== null
-    ) {
-      setState(JSON.parse(localStorage.getItem(key)!))
+    if (state) {
+      window.localStorage.setItem(key, JSON.stringify(state))
     }
-  })
-  return [state!, setState]
+  }, [state, key])
+
+  return [state, setState] as const
 }
 export default useEnhanceLocalStorageState

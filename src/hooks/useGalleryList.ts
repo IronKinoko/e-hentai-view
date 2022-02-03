@@ -9,9 +9,11 @@ export interface UseGalleryListOptions {
   mode: 'index' | 'popular' | 'favorites' | 'watched'
   favcat?: string
 }
-export default function useGalleryList(options: UseGalleryListOptions) {
+export default function useGalleryList<T extends HTMLElement = HTMLDivElement>(
+  options: UseGalleryListOptions
+) {
   const { mode, f_search, favcat } = options
-  const [inview, inviewRef] = useInViewportWithDistance(600)
+  const [inview, inviewRef] = useInViewportWithDistance<T>(600)
   const { data, error, size, setSize } = useSWRInfinite<GalleriesPage['list']>(
     (offset) => {
       switch (mode) {
@@ -25,7 +27,7 @@ export default function useGalleryList(options: UseGalleryListOptions) {
           return `/api/watched?page=${offset || 0}`
       }
     },
-    async (url) => {
+    async (url: string) => {
       const res = await axios.get<GalleriesPage>(url)
       if (res.data.error) throw res.data.message
       return res.data.list

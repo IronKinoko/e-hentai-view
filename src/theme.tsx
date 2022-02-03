@@ -1,12 +1,12 @@
-import { useMediaQuery } from '@material-ui/core'
-import { blue, pink } from '@material-ui/core/colors'
-import { enUS, zhCN } from '@material-ui/core/locale'
+import { useMediaQuery } from '@mui/material'
+import { blue, pink } from '@mui/material/colors'
 import {
-  createMuiTheme,
+  createTheme,
   darken,
+  StyledEngineProvider,
+  Theme,
   ThemeProvider as MuiThemeProvider,
-} from '@material-ui/core/styles'
-import { useTranslation } from 'next-i18next'
+} from '@mui/material/styles'
 import React, {
   createContext,
   FC,
@@ -16,6 +16,9 @@ import React, {
   useMemo,
   useReducer,
 } from 'react'
+declare module '@mui/styles/defaultTheme' {
+  interface DefaultTheme extends Theme {}
+}
 
 export const DispatchContext = createContext<React.Dispatch<Action>>(() => {})
 export const IsMobile = createContext<boolean | null>(null)
@@ -26,6 +29,7 @@ export interface InitialThemeOptionsProps {
 const InitialThemeOptions: InitialThemeOptionsProps = {
   paletteType: 'light',
 }
+
 const ThemeProvider: FC<{}> = ({ children }) => {
   const [themeOptions, dispatch] = useReducer<
     Reducer<InitialThemeOptionsProps, Action>
@@ -42,24 +46,23 @@ const ThemeProvider: FC<{}> = ({ children }) => {
   }, InitialThemeOptions)
 
   const { paletteType } = themeOptions
-  const [, i18n] = useTranslation()
   const theme = useMemo(() => {
-    return createMuiTheme(
-      {
-        palette: {
-          type: paletteType,
-          primary: {
-            main: paletteType === 'light' ? blue[700] : blue[200],
-          },
-          secondary: {
-            main: paletteType === 'light' ? darken(pink.A400, 0.1) : pink[200],
-          },
-          background: {
-            default: paletteType === 'light' ? '#fff' : '#121212',
-          },
+    return createTheme({
+      palette: {
+        mode: paletteType,
+        primary: {
+          main: paletteType === 'light' ? blue[700] : blue[200],
         },
-        overrides: {
-          MuiAppBar:
+        secondary: {
+          main: paletteType === 'light' ? darken(pink.A400, 0.1) : pink[200],
+        },
+        background: {
+          default: paletteType === 'light' ? '#fff' : '#121212',
+        },
+      },
+      components: {
+        MuiAppBar: {
+          styleOverrides:
             paletteType === 'dark'
               ? { colorPrimary: { color: '#fff', backgroundColor: '#333' } }
               : {
@@ -68,14 +71,16 @@ const ThemeProvider: FC<{}> = ({ children }) => {
                     color: 'rgba(0,0,0,0.54)',
                   },
                 },
-          MuiButton: paletteType === 'light' ? { root: { color: '#555' } } : {},
+        },
+        MuiButton: {
+          styleOverrides:
+            paletteType === 'light' ? { root: { color: '#555' } } : {},
         },
       },
-      i18n.language === 'zh' ? zhCN : enUS
-    )
-  }, [i18n.language, paletteType])
+    })
+  }, [paletteType])
 
-  const matches = useMediaQuery(theme.breakpoints.down('xs'), {
+  const matches = useMediaQuery(theme.breakpoints.down('sm'), {
     defaultMatches: true,
   })
   const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)', {
@@ -99,11 +104,13 @@ const ThemeProvider: FC<{}> = ({ children }) => {
   }, [isDarkMode])
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <DispatchContext.Provider value={dispatch}>
-        <IsMobile.Provider value={matches}>{children}</IsMobile.Provider>
-      </DispatchContext.Provider>
-    </MuiThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={theme}>
+        <DispatchContext.Provider value={dispatch}>
+          <IsMobile.Provider value={matches}>{children}</IsMobile.Provider>
+        </DispatchContext.Provider>
+      </MuiThemeProvider>
+    </StyledEngineProvider>
   )
 }
 

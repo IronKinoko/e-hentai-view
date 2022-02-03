@@ -6,10 +6,10 @@ import {
   ListItemIcon,
   ListItemText,
   Radio,
-} from '@material-ui/core'
-import { useTheme } from '@material-ui/core/styles'
-import Brightness4Icon from '@material-ui/icons/Brightness4'
-import Brightness7Icon from '@material-ui/icons/Brightness7'
+} from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
@@ -31,7 +31,7 @@ const ThemeMode = () => {
         }}
       >
         <ListItemIcon>
-          {theme.palette.type === 'dark' ? (
+          {theme.palette.mode === 'dark' ? (
             <Brightness4Icon />
           ) : (
             <Brightness7Icon />
@@ -39,7 +39,7 @@ const ThemeMode = () => {
         </ListItemIcon>
         <ListItemText
           primary={t('Theme')}
-          secondary={t('Theme.' + theme.palette.type)}
+          secondary={t('Theme.' + theme.palette.mode)}
         />
       </ListItem>
       <SlideUpDialog open={open} onClose={() => setOpen(false)}>

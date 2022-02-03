@@ -5,8 +5,9 @@ import {
   ListItemText,
   MenuItem,
   Select,
+  SelectProps,
   Switch,
-} from '@material-ui/core'
+} from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import { ComicConfigProps, useComicConfigState } from './ComicConfig'
@@ -18,9 +19,7 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
   const [t] = useTranslation()
   const [config, setConfig] = useComicConfigState()
 
-  const handleToggleButton = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
+  const handleToggleButton: SelectProps['onChange'] = (event) => {
     setConfig((t) => {
       const direction = event.target.value as ComicConfigProps['direction']
       t.direction = direction
@@ -41,6 +40,7 @@ const ComicSettings: React.FC<{ onChange?: () => void }> = ({ onChange }) => {
               value={config.direction}
               onChange={handleToggleButton}
               disableUnderline
+              variant="standard"
             >
               <MenuItem value="ltr">{t('LTR')}</MenuItem>
               <MenuItem value="rtl">{t('RTL')}</MenuItem>

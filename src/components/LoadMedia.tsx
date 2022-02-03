@@ -1,5 +1,5 @@
 import useInViewportWithDistance from '@/hooks/useInViewportWithDistance'
-import { CardMedia, CardMediaProps } from '@material-ui/core'
+import { CardMedia, CardMediaProps } from '@mui/material'
 import React, { useCallback, useEffect, useState } from 'react'
 interface LoadMediaProps extends CardMediaProps<'img'> {
   fullWidth?: boolean

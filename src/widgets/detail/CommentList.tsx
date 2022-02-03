@@ -3,20 +3,20 @@ import { commentListItemProps } from '@/interface/gallery'
 import { useIsmobile } from '@/theme'
 import {
   AppBar,
-  createStyles,
   DialogTitle,
   Grid,
   IconButton,
   List,
   ListItem,
   ListItemText,
-  makeStyles,
   Toolbar,
   Typography,
   useTheme,
-} from '@material-ui/core'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight'
+} from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { useTranslation } from 'next-i18next'
@@ -78,7 +78,7 @@ const CommentListContent = forwardRef<HTMLUListElement, CommentListProps>(
             >
               <ListItemText
                 primary={
-                  <Grid container justify="space-between">
+                  <Grid container justifyContent="space-between">
                     <Typography component="span">{o.userName}</Typography>
                     <Typography component="span">
                       {dayjs(o.time).format('YYYY-MM-DD HH:mm')}
@@ -127,6 +127,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
                   `/${gid}/${token}?showPage=comments`
                 )
               }
+              size="large"
             >
               <ArrowRightIcon />
             </IconButton>
@@ -149,6 +150,7 @@ const CommentList: React.FC<CommentListProps> = ({ commentList }) => {
                 edge="start"
                 color="inherit"
                 onClick={() => router.back()}
+                size="large"
               >
                 <ArrowBackIcon />
               </IconButton>

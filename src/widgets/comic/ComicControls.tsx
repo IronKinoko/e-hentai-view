@@ -2,16 +2,12 @@ import SafeArea from '@/components/SafeArea'
 import SlideUpDialog from '@/components/SlideUpDialog'
 import { EVENT_JUMP_PAGE, EVENT_TOGGLE_CONTROLS } from '@/constant'
 import useEventManager from '@/hooks/useEventListenerEnhance'
-import {
-  AppBar,
-  IconButton,
-  Slider,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import SettingsIcon from '@material-ui/icons/Settings'
+import { AppBar, IconButton, Slider, Toolbar, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { useDebounceFn } from 'ahooks'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -74,13 +70,17 @@ const ComicControls: React.FC<{ total: number; current: number }> = ({
 
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton edge="start" onClick={() => router.back()}>
+          <IconButton edge="start" onClick={() => router.back()} size="large">
             <ArrowBackIcon />
           </IconButton>
 
           <div className={classes.title}></div>
 
-          <IconButton edge="end" onClick={() => setOpenConfig(true)}>
+          <IconButton
+            edge="end"
+            onClick={() => setOpenConfig(true)}
+            size="large"
+          >
             <SettingsIcon />
           </IconButton>
         </Toolbar>

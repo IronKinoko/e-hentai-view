@@ -1,15 +1,16 @@
-import React, { SyntheticEvent } from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import CloseIcon from '@mui/icons-material/Close'
+import ErrorIcon from '@mui/icons-material/Error'
+import InfoIcon from '@mui/icons-material/Info'
+import WarningIcon from '@mui/icons-material/Warning'
+import { amber, green } from '@mui/material/colors'
+import IconButton from '@mui/material/IconButton'
+import Snackbar from '@mui/material/Snackbar'
+import SnackbarContent from '@mui/material/SnackbarContent'
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import ErrorIcon from '@material-ui/icons/Error'
-import InfoIcon from '@material-ui/icons/Info'
-import CloseIcon from '@material-ui/icons/Close'
-import { amber, green } from '@material-ui/core/colors'
-import IconButton from '@material-ui/core/IconButton'
-import Snackbar from '@material-ui/core/Snackbar'
-import SnackbarContent from '@material-ui/core/SnackbarContent'
-import WarningIcon from '@material-ui/icons/Warning'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import React from 'react'
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -76,6 +77,7 @@ function MySnackbarContentWrapper(props: Props) {
           aria-label="close"
           color="inherit"
           onClick={onClose}
+          size="large"
         >
           <CloseIcon className={classes.icon} />
         </IconButton>,
@@ -93,10 +95,9 @@ interface SnackbarWrapProps {
 const MessageSnackbar: React.FC<SnackbarWrapProps> = (props) => {
   const [open, setOpen] = React.useState(true)
   const { variant, duration, message } = props
-  const handleClose = (_event?: SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return
-    }
+  const handleClose = (_?: any, reason?: string) => {
+    if (reason === 'clickaway') return
+
     setOpen(false)
   }
 

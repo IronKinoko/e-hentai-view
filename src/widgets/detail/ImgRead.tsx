@@ -1,11 +1,13 @@
 import { loadImg } from '@/apis'
 import LoadMedia from '@/components/LoadMedia'
 import { DetailPageListItemProps } from '@/interface/gallery'
-import { Backdrop, Container, Fab, Grid, Zoom } from '@material-ui/core'
-import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
-import RefreshIcon from '@material-ui/icons/Refresh'
+import { Backdrop, Container, Fab, Grid, Zoom } from '@mui/material'
+import { alpha, Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import { useUpdateEffect } from 'ahooks'
-import { range } from 'lodash'
+import { range } from 'lodash-es'
 import React, { useEffect, useRef, useState } from 'react'
 let cacheId: boolean[] = []
 const useStyle = makeStyles((theme: Theme) =>
@@ -36,7 +38,7 @@ const useStyle = makeStyles((theme: Theme) =>
     info: {
       position: 'fixed',
       bottom: 10,
-      background: fade(theme.palette.grey['800'], 0.5),
+      background: alpha(theme.palette.grey['800'], 0.5),
       padding: theme.spacing(0.5, 1),
       borderRadius: '16px 0 0 16px',
       right: 0,

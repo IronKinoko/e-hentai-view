@@ -12,12 +12,14 @@ import {
   CardContent,
   Grid,
   Typography,
-} from '@material-ui/core'
-import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
-import { Skeleton } from '@material-ui/lab'
+} from '@mui/material'
+import { alpha, Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import { Skeleton } from '@mui/material'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
-import { uniqBy } from 'lodash'
+import { uniqBy } from 'lodash-es'
 import { useRouter } from 'next/router'
 import React from 'react'
 import RatingInview from './RatingInview'
@@ -69,16 +71,16 @@ const useMobileStyles = makeStyles<Theme, { showTag: boolean }>(
         margin: '0 2px 5px 2px',
         borderRadius: 5,
         border:
-          theme.palette.type === 'dark'
+          theme.palette.mode === 'dark'
             ? '1px solid #989898'
             : '1px solid #ddd',
-        background: theme.palette.type === 'dark' ? '#4f535b' : '',
-        color: theme.palette.type === 'dark' ? '#ddd' : '#666',
+        background: theme.palette.mode === 'dark' ? '#4f535b' : '',
+        color: theme.palette.mode === 'dark' ? '#ddd' : '#666',
       },
       watched: {
-        color: theme.palette.type === 'dark' ? '#f1f1f1' : '#fff',
-        borderColor: fade('#1357df', 0.9),
-        background: fade('#1357df', 0.9),
+        color: theme.palette.mode === 'dark' ? '#f1f1f1' : '#fff',
+        borderColor: alpha('#1357df', 0.9),
+        background: alpha('#1357df', 0.9),
       },
     })
 )
@@ -89,7 +91,11 @@ export const MobileLoadingCard = () => {
     <Card className={classes.root}>
       <Grid container wrap={'nowrap'}>
         <Grid item>
-          <Skeleton animation="wave" className={classes.img} variant="rect" />
+          <Skeleton
+            animation="wave"
+            className={classes.img}
+            variant="rectangular"
+          />
         </Grid>
         <Grid item xs>
           <div className={clsx(classes.content, classes.full)}>
@@ -240,7 +246,7 @@ export const DesktopLoadingCard = () => {
   const classes = useStyles()
   return (
     <Card className={classes.card}>
-      <Skeleton variant="rect" animation="wave" height={350} />
+      <Skeleton variant="rectangular" animation="wave" height={350} />
       <Skeleton
         animation="wave"
         height={10}
@@ -283,7 +289,7 @@ export const DesktopCard: React.FC<{ record: IndexListItemPorps }> = ({
             >
               {record.title}
             </Typography>
-            <Grid container alignItems="center" justify="space-between">
+            <Grid container alignItems="center" justifyContent="space-between">
               <ColorChip
                 variant="outlined"
                 label={record.category}

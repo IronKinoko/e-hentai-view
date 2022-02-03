@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, TypographyProps } from '@material-ui/core'
+import { Typography, TypographyProps } from '@mui/material'
 import useSelection from '@/hooks/useSelection'
 
 const SelectTypography: React.FC<TypographyProps> = (props) => {

@@ -10,10 +10,10 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   ListSubheader,
-} from '@material-ui/core'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight'
-import LabelIcon from '@material-ui/icons/Label'
-import SettingsIcon from '@material-ui/icons/Settings'
+} from '@mui/material'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+import LabelIcon from '@mui/icons-material/Label'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
@@ -38,7 +38,7 @@ const EHSetting = () => {
           </ListItemIcon>
           <ListItemText primary={t('EH.EhentaiSetting')} />
           <ListItemSecondaryAction>
-            <IconButton onClick={goEhConfig}>
+            <IconButton onClick={goEhConfig} size="large">
               <ArrowRightIcon />
             </IconButton>
           </ListItemSecondaryAction>
@@ -49,7 +49,7 @@ const EHSetting = () => {
           </ListItemIcon>
           <ListItemText primary={t('EH.EhentaiTags')} />
           <ListItemSecondaryAction>
-            <IconButton onClick={goEhTags}>
+            <IconButton onClick={goEhTags} size="large">
               <ArrowRightIcon />
             </IconButton>
           </ListItemSecondaryAction>

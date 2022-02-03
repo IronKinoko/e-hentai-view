@@ -3,13 +3,15 @@ import {
   BottomNavigationAction,
   Toolbar,
   useScrollTrigger,
-} from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import HistoryIcon from '@material-ui/icons/History'
-import HomeIcon from '@material-ui/icons/Home'
-import SubscriptionsIcon from '@material-ui/icons/Subscriptions'
-import WhatshotIcon from '@material-ui/icons/Whatshot'
+} from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import HistoryIcon from '@mui/icons-material/History'
+import HomeIcon from '@mui/icons-material/Home'
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
 import clsx from 'clsx'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'

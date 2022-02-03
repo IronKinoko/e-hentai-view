@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import MessageSnackbar from './Snackebar'
 import ThemeProvider from 'src/theme'
+import { StyledEngineProvider } from '@mui/material'
 interface SnackbarWrapProps {
   duration: number
   variant: 'error' | 'success' | 'info' | 'warning'
@@ -21,9 +22,11 @@ class Message {
     this._processQueue(uid)
     document.body.appendChild(div)
     ReactDOM.render(
-      <ThemeProvider>
-        <MessageSnackbar {...props} />
-      </ThemeProvider>,
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider>
+          <MessageSnackbar {...props} />
+        </ThemeProvider>
+      </StyledEngineProvider>,
       div
     )
     setTimeout(() => {

@@ -10,8 +10,8 @@ import {
   DialogActions,
   Button,
   Typography,
-} from '@material-ui/core'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+} from '@mui/material'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useTranslation } from 'next-i18next'
 import message from '@/components/message'
 

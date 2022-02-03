@@ -1,7 +1,7 @@
 import Layout from '@/components/Layout'
 import GalleryList from '@/components/GalleryList'
-import { IconButton } from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import { IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -17,7 +17,7 @@ const Result = () => {
       showBack
       tool={
         <>
-          <IconButton onClick={() => router.push('/search')}>
+          <IconButton onClick={() => router.push('/search')} size="large">
             <CloseIcon />
           </IconButton>
           {/* <IconButton edge="end">

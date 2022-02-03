@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
 import { useIsmobile } from '@/theme'
-import { Link, List, ListItem, ListItemText } from '@material-ui/core'
+import { Link, List, ListItem, ListItemText } from '@mui/material'
 import dayjs from 'dayjs'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

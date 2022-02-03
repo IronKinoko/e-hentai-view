@@ -29,18 +29,18 @@ function isInViewPort(el: HTMLElement, distance = 0): boolean {
   return false
 }
 
-function useInViewportWithDistance<T extends HTMLElement = HTMLElement>(): [
+function useInViewportWithDistance<T extends HTMLElement = HTMLDivElement>(): [
   InViewport,
   MutableRefObject<T>
 ]
-function useInViewportWithDistance<T extends HTMLElement = HTMLElement>(
+function useInViewportWithDistance<T extends HTMLElement = HTMLDivElement>(
   distance: number
 ): [InViewport, MutableRefObject<T>]
-function useInViewportWithDistance<T extends HTMLElement = HTMLElement>(
+function useInViewportWithDistance<T extends HTMLElement = HTMLDivElement>(
   distance: number,
   arg: Arg
 ): [InViewport]
-function useInViewportWithDistance<T extends HTMLElement = HTMLElement>(
+function useInViewportWithDistance<T extends HTMLElement = HTMLDivElement>(
   ...args: [number, Arg] | [number] | []
 ): [InViewport, MutableRefObject<T>?] {
   const element = useRef<T>()

@@ -1,6 +1,8 @@
 import React from 'react'
-import { Chip, ChipProps } from '@material-ui/core'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Chip, ChipProps } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
 import { Category } from '@/interface/gallery'
 const useStyles = makeStyles((theme: Theme) =>

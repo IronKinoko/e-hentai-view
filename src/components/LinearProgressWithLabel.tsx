@@ -4,7 +4,7 @@ import {
   Box,
   LinearProgress,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 export default function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
 ) {

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import NextLink, { LinkProps as NextLinkProps } from 'next/link'
-import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link'
+import MuiLink, { LinkProps as MuiLinkProps } from '@mui/material/Link'
 type NextComposedProps = Omit<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
   'href'
@@ -61,6 +61,7 @@ function InnerLink(props: LinkProps) {
       ref={innerRef}
       href={href as string}
       {...other}
+      underline="hover"
     />
   )
 }

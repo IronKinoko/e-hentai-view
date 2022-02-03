@@ -1,6 +1,8 @@
 import React from 'react'
 import useIsIosStandalone from '@/hooks/useIsIosStandalone'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import clsx from 'clsx'
 
 const useStyles = makeStyles<Theme, { matches: boolean }>((theme: Theme) =>

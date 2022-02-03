@@ -4,7 +4,7 @@ import useEnhanceLocalStorageState from '@/hooks/useEnhanceLocalStorageState'
 import { IndexListItemPorps } from '@/interface/gallery'
 import GalleryCard from '@/components/GalleryCard'
 import { useStyles } from '@/components/GalleryList'
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Box, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
@@ -12,7 +12,7 @@ import React from 'react'
 const Histories = () => {
   const classes = useStyles()
   const [t] = useTranslation()
-  const [data = []] = useEnhanceLocalStorageState<IndexListItemPorps[]>(
+  const [data] = useEnhanceLocalStorageState<IndexListItemPorps[]>(
     LOCAL_HISTORY,
     []
   )
@@ -27,7 +27,7 @@ const Histories = () => {
         <Grid
           container
           wrap="wrap"
-          justify="flex-start"
+          justifyContent="flex-start"
           className={classes.container}
           spacing={2}
         >

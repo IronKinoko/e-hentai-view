@@ -1,7 +1,6 @@
-import { ServerStyleSheets } from '@material-ui/core/styles'
+import ServerStyleSheets from '@mui/styles/ServerStyleSheets'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-
 class MyDocument extends Document {
   render() {
     return (
@@ -22,20 +21,6 @@ class MyDocument extends Document {
           />
           <link rel="apple-touch-startup-image" href="/static/startup.png" />
           <link rel="manifest" href="/manifest.json" />
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-177345758-1"
-          ></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'UA-177345758-1');`,
-            }}
-          ></script>
         </Head>
         <body>
           <Main />

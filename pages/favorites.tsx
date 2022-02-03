@@ -12,9 +12,9 @@ import {
   SwipeableDrawer,
   Toolbar,
   Typography,
-} from '@material-ui/core'
-import FolderIcon from '@material-ui/icons/Folder'
-import ListIcon from '@material-ui/icons/List'
+} from '@mui/material'
+import FolderIcon from '@mui/icons-material/Folder'
+import ListIcon from '@mui/icons-material/List'
 import { NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -33,7 +33,12 @@ const Favorites: NextPage = () => {
       showSearch
       tool={
         <>
-          <IconButton edge="end" color="inherit" onClick={() => setOpen(true)}>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={() => setOpen(true)}
+            size="large"
+          >
             <ListIcon />
           </IconButton>
         </>

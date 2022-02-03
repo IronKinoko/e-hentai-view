@@ -1,6 +1,6 @@
 import Layout from '@/components/Layout'
 import Link from '@/components/Link'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'

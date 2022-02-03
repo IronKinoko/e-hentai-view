@@ -14,11 +14,11 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from '@material-ui/core'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import FolderIcon from '@material-ui/icons/Folder'
-import { cloneDeep } from 'lodash'
+} from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FolderIcon from '@mui/icons-material/Folder'
+import { cloneDeep } from 'lodash-es'
 import { useTranslation } from 'next-i18next'
 import React, { forwardRef, useState } from 'react'
 import { mutate } from 'swr'
@@ -30,7 +30,7 @@ interface FavIconButtonProps {
 }
 const FavIconButton = (
   { info, inMenu = false, onClick }: FavIconButtonProps,
-  ref: React.ForwardedRef<unknown>
+  ref: React.ForwardedRef<HTMLLIElement>
 ) => {
   const { data } = useFavoritesInfo()
   const [open, setOpen] = useState(false)
@@ -60,7 +60,7 @@ const FavIconButton = (
     <>
       {inMenu ? (
         <MenuItem
-          innerRef={ref}
+          ref={ref}
           onClick={() => {
             handleFavorite()
             onClick?.()

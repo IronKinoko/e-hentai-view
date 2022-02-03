@@ -2,15 +2,11 @@ import { loadMorePage } from '@/apis'
 import LoadMedia from '@/components/LoadMedia'
 import useInViewportWithDistance from '@/hooks/useInViewportWithDistance'
 import { PageListProps } from '@/interface/gallery'
-import {
-  Button,
-  Card,
-  CardActionArea,
-  Grid,
-  Typography,
-} from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Skeleton } from '@material-ui/lab'
+import { Button, Card, CardActionArea, Grid, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import { Skeleton } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -26,10 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       display: 'grid',
       gridTemplateColumns: 'repeat(5, 1fr)',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         gridTemplateColumns: 'repeat(4, 1fr)',
       },
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: 'repeat(3, 1fr)',
       },
     },
@@ -47,7 +43,7 @@ const PageList: React.FC<Omit<PageListProps, 'filecount'>> = ({
   url,
   initialData,
 }) => {
-  const [inView, ref] = useInViewportWithDistance(600)
+  const [inView, ref] = useInViewportWithDistance<HTMLButtonElement>(600)
   const [t] = useTranslation()
   const classes = useStyles()
   const router = useRouter()
@@ -100,7 +96,7 @@ const PageList: React.FC<Omit<PageListProps, 'filecount'>> = ({
             <Grid item key={k}>
               <Card>
                 <Skeleton
-                  variant="rect"
+                  variant="rectangular"
                   animation="wave"
                   className={classes.cover}
                   height={150}
@@ -110,7 +106,7 @@ const PageList: React.FC<Omit<PageListProps, 'filecount'>> = ({
           ))}
       </Grid>
       <Button
-        buttonRef={ref}
+        ref={ref}
         fullWidth
         disabled={isLoadingMore || isReachingEnd}
         className={classes.btn}
