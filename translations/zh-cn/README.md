@@ -6,7 +6,7 @@
 
 [English](/README.md) | 简体中文
 
-**如果 Chrome 浏览器版本>=84，则会造成的无法查看图片** [点此修复](./FAQ.md#4-windows-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9C%8B%E4%B8%8D%E5%88%B0%E7%94%BB%E5%BB%8A%E5%9B%BE%E7%89%87)
+**如果 Chrome 浏览器版本>=84，则会造成的无法查看图片** [点此修复](./FAQ.md#4-windows-浏览器看不到画廊图片)
 
 **_如果你习惯在 PC 端浏览 exhentai，可以使用[IronKinoko/e-hentai-infinite-scroll](https://github.com/IronKinoko/e-hentai-infinite-scroll)_**
 
@@ -33,7 +33,9 @@
 
 ## 使用
 
-**Because webSecurity in browser (cors), we can't direct access the exhentai image, you should sign in e-hentai before use this website**
+**由于存在跨域问题，无法直接使用 exhentai 的图片，你需要先登录过 e-hentai**
+
+项目目前只在 docker 中运行
 
 ```
 docker run -d -p 80:8080 --restart always ironkinoko/e-hentai-view
