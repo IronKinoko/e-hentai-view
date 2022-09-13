@@ -43,3 +43,18 @@ Do the following:
 - Press `F12` and click the `console` tab
 - Paste the code and `Enter` to execute
 - Return to EhentaiView to refresh the page and view the pictures normally
+
+## 5. Android browser can't see pictures
+
+Do the following:
+
+-Save any website into the bookmark
+-Go to bookmarks find the newly saved bookmark website.
+-Edit the bookmark, change the URL into the JavaScript code below. (The JavaScript code are converted into bookmarklet by using this [JavaScript code](https://raw.githubusercontent.com/IronKinoko/asset/master/e-hentai-view/fixChromeExhentaiCookie.js) as reference.)
+```
+javascript:(function()%7Bif (location.href.indexOf('exhentai.org') %3D%3D%3D -1) %7Balert('Please run in Exhentai.org')%3B%7Delse%7Bconst cookies %3D document.cookie.split('%3B').map((cookie) %3D> cookie.trim())%3Bcookies.forEach((cookie) %3D> %7Bdocument.cookie %3Dcookie %2B'%3B domain%3D.exhentai.org%3B path%3D%2F%3B max-age%3D31536000%3B secure%3BSameSite%3DNone%3B'%7D)%3B%7D%7D)()
+```
+-Change the name of the bookmark into fixChromeExhentaiCookie.js
+-Save the changes by going back (for chrome browser)
+-Now visit exhentai.org, click the address bar and type in the newly saved bookmark name fixChromeExhentaiCookie.js and click on it to execute the JavaScript.
+-Return to EhentaiView to refresh the page and view the pictures normally
