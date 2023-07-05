@@ -93,22 +93,23 @@ router.get('/loadImg', async (req, res) => {
   res.json({ error: false, url: content.url, retryURL: content.retryURL })
 })
 
-router.get('/img', async (req, res) => {
-  const { url } = req.query
-  let content = cache.get(url)
-  if (!content) {
-    const ext = url.split('.').pop() || 'jpg'
-    const base64 = await axios
-      .get(url, {
-        headers: { Cookie: getCookieString(req.cookies) },
-        responseType: 'arraybuffer',
+router.get('/proxy', async (req, res) => {
+  const url = req.query.url
+  axios
+    .get(url, {
+      headers: { Cookie: getCookieString(req.cookies) },
+      responseType: 'stream',
+    })
+    .then((response) => {
+      Object.entries(response.headers).forEach(([key, value]) => {
+        res.setHeader(key, value)
       })
-      .then((response) =>
-        Buffer.from(response.data, 'binary').toString('base64')
-      )
-    content = [base64, ext]
-    cache.set(url, content)
-  }
-  res.send(content)
+      res.setHeader('cache-control', 'max-age=31536000, public, immutable')
+      res.setHeader('max-age', '31536000')
+      response.data.pipe(res)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
 })
 module.exports = router

@@ -112,11 +112,13 @@ const MessageSnackbar: React.FC<SnackbarWrapProps> = (props) => {
         autoHideDuration={duration}
         onClose={handleClose}
       >
-        <MySnackbarContentWrapper
-          onClose={handleClose}
-          variant={variant}
-          message={message}
-        />
+        <div>
+          <MySnackbarContentWrapper
+            onClose={handleClose}
+            variant={variant}
+            message={message}
+          />
+        </div>
       </Snackbar>
     </div>
   )

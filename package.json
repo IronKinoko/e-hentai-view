@@ -27,12 +27,8 @@
     "analyze": "cross-env ANALYZE=true next build",
     "type:check": "tsc --noEmit",
     "start": "NODE_ENV=production node server/src/server.js",
-    "release": "node scripts/release.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn type:check && lint-staged"
-    }
+    "release": "node scripts/release.js",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "{pages,public,server,src,script}/**/*.{js,jsx,ts,tsx}": [
@@ -53,7 +49,9 @@
     "babel-eslint": "^10.0.0",
     "eslint": "^7.5.0",
     "eslint-config-next": "^12.0.10",
-    "husky": "^4.3.8",
+    "http-proxy-agent": "^7.0.0",
+    "https-proxy-agent": "^7.0.0",
+    "husky": "^8.0.0",
     "inquirer": "^8.1.0",
     "lint-staged": "^11.0.0",
     "nodemon": "^2.0.7",

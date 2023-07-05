@@ -1,6 +1,8 @@
 import useInViewportWithDistance from '@/hooks/useInViewportWithDistance'
 import { CardMedia, CardMediaProps } from '@mui/material'
 import React, { useCallback, useEffect, useState } from 'react'
+
+import ProxyImg from './ProxyImg'
 interface LoadMediaProps extends CardMediaProps<'img'> {
   fullWidth?: boolean
   lazy?: boolean
@@ -34,24 +36,25 @@ const LoadMedia: React.FC<LoadMediaProps> = ({
     }
   }, [inview, lazy, src])
   return (
-    <CardMedia
-      ref={ref}
-      component="img"
-      onError={() => {
-        setTimeout(() => reload(), 500)
-      }}
-      style={{
-        width: fullWidth ? '100%' : '',
-        objectFit: wide ? 'contain' : undefined,
-        userSelect: 'none',
-      }}
-      onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
-        onLoad?.(e)
-        setWide(e.currentTarget.naturalWidth > e.currentTarget.naturalHeight)
-      }}
-      {...rest}
-      src={href}
-    />
+    <CardMedia ref={ref} {...rest}>
+      <ProxyImg
+        onError={() => {
+          setTimeout(() => reload(), 500)
+        }}
+        style={{
+          display: 'block',
+          width: '100%',
+          objectFit: wide ? 'contain' : undefined,
+          userSelect: 'none',
+        }}
+        height={rest.height}
+        onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
+          onLoad?.(e)
+          setWide(e.currentTarget.naturalWidth > e.currentTarget.naturalHeight)
+        }}
+        src={href}
+      />
+    </CardMedia>
   )
 }
 export default LoadMedia

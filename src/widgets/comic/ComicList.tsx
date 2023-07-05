@@ -97,8 +97,6 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
 
   if (!data || data.total === 0) return null
 
-  const start = Math.max(data.current - 2, 0)
-  const end = Math.min(data.current + 5, data.total)
   return (
     <>
       <div
@@ -109,11 +107,10 @@ const ComicList: React.FC<{ comicUrl: string; defaultCurrent: number }> = ({
           position: 'relative',
         }}
       >
-        {data.list.slice(start, end).map((o, v) => {
-          const k = v + start
+        {data.list.map((o, k) => {
           return (
             <div
-              key={o?.url || k}
+              key={k}
               className={classes.virtualItem}
               style={{
                 transform: `translateY(${computedTargetHeight(

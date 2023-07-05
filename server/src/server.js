@@ -25,30 +25,6 @@ const handle = app.getRequestHandler()
     })
   }
 
-  // server.get('/', (req, res) => {
-  //   if (!req.cookies['next-i18next']) {
-  //     const lang = req.headers['accept-language'].slice(0, 2)
-  //     if (localeSubpaths[lang]) {
-  //       res.redirect('/' + localeSubpaths[lang])
-  //     } else {
-  //       res.cookie('next-i18next', 'en', {
-  //         maxAge: 6 * 31 * 24 * 60 * 60 * 1000,
-  //         path: '/',
-  //       })
-  //       res.redirect('/')
-  //     }
-  //   } else {
-  //     /** @type {string} */
-  //     const lang = req.cookies['next-i18next']
-  //     if (lang !== 'en') {
-  //       res.redirect('/' + localeSubpaths[lang])
-  //     } else {
-  //       handle(req, res)
-  //     }
-  //   }
-  // })
-
-  // await nextI18next.initPromise
   server.all('*', (req, res) => {
     handle(req, res)
   })

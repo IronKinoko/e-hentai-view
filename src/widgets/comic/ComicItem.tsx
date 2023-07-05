@@ -13,6 +13,7 @@ import {
   computedAspectratioHeight,
   pageSize,
 } from './utils'
+import ProxyImg from '@/components/ProxyImg'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,7 +72,7 @@ const ComicItem: React.FC<
       role="comic-item"
     >
       {data ? (
-        <img
+        <ProxyImg
           src={data.url}
           alt={index.toString()}
           className={classes.img}
@@ -89,7 +90,7 @@ const ComicItem: React.FC<
           }}
         />
       ) : (
-        <img
+        <ProxyImg
           src={thumb}
           alt={index.toString()}
           className={classes.img}

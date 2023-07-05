@@ -1,4 +1,6 @@
 const Axios = require('axios').default
+const { HttpProxyAgent } = require('http-proxy-agent')
+const { HttpsProxyAgent } = require('https-proxy-agent')
 
 const axios = Axios.create({
   headers: {
@@ -7,6 +9,8 @@ const axios = Axios.create({
     withCredentials: true,
   },
   maxRedirects: 2,
+  httpAgent: new HttpProxyAgent('http://192.168.31.38:10809'),
+  httpsAgent: new HttpsProxyAgent('http://192.168.31.38:10809'),
+  proxy: false,
 })
-
 module.exports = axios

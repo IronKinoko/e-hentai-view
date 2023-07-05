@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import MessageSnackbar from './Snackebar'
 import ThemeProvider from 'src/theme'
 import { StyledEngineProvider } from '@mui/material'
+
 interface SnackbarWrapProps {
   duration: number
   variant: 'error' | 'success' | 'info' | 'warning'
@@ -51,12 +52,14 @@ class Message {
   warning(message: string, duration = this.defaultConfig.duration) {
     this._appendMessageSnackbar({ message, duration, variant: 'warning' })
   }
-  success(message: string, duration = this.defaultConfig.duration) {
-    this._appendMessageSnackbar({ message, duration, variant: 'success' })
-  }
   error(message: string, duration = this.defaultConfig.duration) {
     this._appendMessageSnackbar({ message, duration, variant: 'error' })
   }
+  success(message: string, duration = this.defaultConfig.duration) {
+    this._appendMessageSnackbar({ message, duration, variant: 'success' })
+  }
 }
 
-export default new Message()
+const message = new Message()
+
+export default message
