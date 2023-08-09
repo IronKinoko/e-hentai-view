@@ -9,12 +9,12 @@ const cache = require('../cache')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const page = req.query.page || 0
+  const next = req.query.next
   const favcat = req.query.favcat || 'all'
-  const cacheKey = `[g${req.cookies.ipb_member_id}] favorites ${page} ${favcat}`
+  const cacheKey = `[g${req.cookies.ipb_member_id}] favorites ${next} ${favcat}`
   let content = cache.get(cacheKey)
   if (!content) {
-    content = await getFavorites({ page, favcat }, getCookieString(req.cookies))
+    content = await getFavorites({ next, favcat }, getCookieString(req.cookies))
     cache.set(cacheKey, content)
   }
   res.json({ error: false, ...content })

@@ -3,9 +3,9 @@ const { watchedURL } = require('../config/api')
 const JSDOM = require('jsdom').JSDOM
 const { parseGalleryList } = require('../gallery/galleryParser')
 const { GalleryMode } = require('../constant')
-async function getWatched(page, cookies) {
+async function getWatched(next, cookies) {
   const res = await axios.get(`${watchedURL}`, {
-    params: { page, inline_set: 'dm_l' },
+    params: { next, inline_set: 'dm_l' },
     headers: { Cookie: cookies },
   })
 

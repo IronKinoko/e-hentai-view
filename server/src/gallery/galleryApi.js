@@ -60,12 +60,12 @@ async function gdata(gidlist, cookies) {
   return res
 }
 
-async function galleryList({ page, f_search }, cookies) {
+async function galleryList({ next, f_search }, cookies) {
   const res = await axios.get(`${baseURL}`, {
     headers: {
       Cookie: cookies,
     },
-    params: { page, f_search, inline_set: 'dm_l' },
+    params: { next, f_search, inline_set: 'dm_l' },
     maxRedirects: 2,
   })
   const document = new JSDOM(res.data).window.document

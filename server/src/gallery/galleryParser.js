@@ -8,16 +8,9 @@ const { GalleryMode } = require('../constant')
  */
 function parseGalleryList(document, mode) {
   const res = []
+  // TODO Is this value useless?
   let total = 0
 
-  if (mode === GalleryMode.FrontPage || mode === GalleryMode.Favorites)
-    total = parseInt(
-      document.querySelector('p.ip').textContent.replace(/[^0-9]/g, '')
-    )
-  if (mode === GalleryMode.Watched)
-    total = parseInt(
-      document.querySelectorAll('p.ip')[1].textContent.replace(/[^0-9]/g, '')
-    )
   Array.from(document.querySelectorAll('.itg > tbody > tr'))
     .slice(1)
     .forEach((tr) => {
@@ -27,6 +20,15 @@ function parseGalleryList(document, mode) {
         const posted = dayjs(tr.querySelector('[id^=posted_]').textContent, {
           utc: true,
         }).valueOf()
+
+        // Favorite page pagination parameters: favorite date
+        let favorited = 0; // default 0
+        const glfavElement = tr.querySelector('td.glfc.glfav');
+        if (glfavElement && glfavElement.textContent.trim() !== '') {
+          favorited = dayjs(glfavElement.textContent, {
+            utc: true,
+          }).valueOf();
+        }
 
         const rating = _parseRating(
           tr.querySelector('.ir').getAttribute('style')
@@ -61,6 +63,7 @@ function parseGalleryList(document, mode) {
           gid,
           token,
           posted,
+          favorited,
           title,
           category,
           rating,
