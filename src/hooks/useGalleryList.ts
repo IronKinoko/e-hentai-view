@@ -15,16 +15,23 @@ export default function useGalleryList<T extends HTMLElement = HTMLDivElement>(
   const { mode, f_search, favcat } = options
   const [inview, inviewRef] = useInViewportWithDistance<T>(600)
   const { data, error, size, setSize } = useSWRInfinite<GalleriesPage['list']>(
-    (offset) => {
+    (_offset, previousPageData) => {
+      let next = null
+      let favorited = null
+      if (previousPageData&&previousPageData.length > 0){
+        // 获取最后一个gid
+        next = previousPageData[previousPageData.length - 1].gid
+        favorited = previousPageData[previousPageData.length - 1].favorited / 1000
+      }
       switch (mode) {
         case 'index':
-          return `/api/gallery?page=${offset}&f_search=${f_search}`
+          return `/api/gallery?${next !== null ? `next=${next}&` : ''}f_search=${f_search}`;
         case 'popular':
-          return '/api/popular'
+          return '/api/popular';
         case 'favorites':
-          return `/api/favorites?page=${offset || 0}&favcat=${favcat}`
+          return `/api/favorites?${next !== null ? `next=${next}-${favorited}&` : ''}favcat=${favcat}`;
         case 'watched':
-          return `/api/watched?page=${offset || 0}`
+          return `/api/watched?${next !== null ? `next=${next}&` : ''}`;
       }
     },
     async (url: string) => {

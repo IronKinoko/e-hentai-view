@@ -24,7 +24,7 @@ const Favorites: NextPage = () => {
   const { data } = useFavoritesInfo()
   const [open, setOpen] = useState(false)
   const router = useRouter()
-  const favcat = router.query.favcat as string
+  const favcat = router.query.favcat as string || ''
   const [t] = useTranslation()
   return (
     <Layout

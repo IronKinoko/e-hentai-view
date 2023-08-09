@@ -27,6 +27,7 @@ export interface IndexListItemPorps {
   thumb: string
   uploader: string
   posted: number
+  favorited: number
   filecount: string
   filesize: string
   expunged: boolean
